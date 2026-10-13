@@ -35,10 +35,10 @@ Keep changes focused and follow existing style and semantic ordering. Update exa
 ## 正式发布 / Releases
 
 1. 更新根目录 `CMakeLists.txt` 的版本、`CHANGELOG.md`、中英文下载链接和打包示例中的版本。用户文档只展示当前仓库所属平台的入口，不并列展示不同托管平台。
-2. 提交并同步源码，在 GitHub 上确认对应提交的 Windows 工作流通过；发布包只能来自已验证的干净源码快照。同步仓库可能采用不同历史，分别记录各自的提交号，不要求提交号相同。
+2. 提交并同步源码，确认 GitHub 的 Windows 工作流通过；发布包只能来自已验证的干净源码。
 3. 在要求发布的每个托管平台，为对应源码快照创建相同的 `vVERSION` 标签和发行版。各平台都上传同次构建生成的安装版 `.exe`、免安装 `.zip`、`SHA256SUMS.txt` 及其他发布附件，保持文件名和内容一致。
-4. 每个 Release 均记录所在仓库的完整源码提交号、Qt / MSVC / CMake / Inno Setup 版本、验证结果和已知限制。
+4. 每个 Release 均说明使用方式、兼容环境、验证结果和已知限制。
 5. 分别检查各平台的附件列表和下载链接，下载文件并核对 SHA-256。要求发布的所有平台全部附件发布并验证成功后，才算发布完成；任一平台失败时，明确说明失败的平台、原因和待补传文件，并继续补齐。
-6. 保留已发布的旧标签和资产；通过后续版本修正发布流程，并在旧 Release 中注明相关历史差异。
+6. 保留已有版本标签和发布文件，不覆盖已发布内容。
 
-User documentation links only to its own hosting platform. Synchronize the source and require a passing Windows workflow on the corresponding GitHub commit. Repositories with different histories may have different commit IDs; record each separately. Build from clean sources, use the same version tag on the corresponding source snapshots, and publish identical attachments to every required platform. Record source, toolchain, and verification details, and verify downloads and SHA-256 on each platform before declaring a release complete. Preserve existing releases and document historical differences.
+User documentation links only to its own hosting platform. Synchronize the source and require a passing Windows workflow on GitHub. Build from verified clean sources, use matching version tags, and publish identical attachments to every required platform. Describe usage, compatibility, verification results, and known limitations. Verify downloads and SHA-256 on each platform before declaring a release complete. Preserve existing version tags and published files.
