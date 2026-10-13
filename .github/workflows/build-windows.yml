@@ -73,7 +73,7 @@ jobs:
 
       - name: Verify runtime and portable ZIP
         env:
-          QT_OPENGL: software
+          QT_OPENGL_DLL: opengl32sw.dll
         run: python packaging/check_windows_package.py
 
       - name: Record build source and tools

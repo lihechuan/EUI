@@ -32,7 +32,7 @@ package = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else root / "dist" / 
 required = [
     "EUI-Gallery.exe", "EUI/qmldir", "EUI/euiplugin.dll",
     "Qt5Core.dll", "Qt5Quick.dll", "Qt5WebEngineCore.dll", "QtWebEngineProcess.exe",
-    "Qt5Multimedia.dll", "Qt5Svg.dll", "platforms/qwindows.dll",
+    "Qt5Multimedia.dll", "Qt5Svg.dll", "opengl32sw.dll", "platforms/qwindows.dll",
     "imageformats/qsvg.dll", "QtQuick.2/qmldir", "QtQuick/Controls.2/qmldir",
     "QtWebEngine/qmldir", "QtMultimedia/qmldir", "qt.conf", "README.txt",
     "resources/icudtl.dat", "resources/qtwebengine_resources.pak",
@@ -66,7 +66,7 @@ with zipfile.ZipFile(archive) as zipped:
 
 environment = dict(os.environ)
 for name in list(environment):
-    if name != "QT_OPENGL" and name.startswith(("QT_", "QML", "QTWEBENGINE_")):
+    if name != "QT_OPENGL_DLL" and name.startswith(("QT_", "QML", "QTWEBENGINE_")):
         del environment[name]
 environment.update(
     PATH=str(Path(environment["WINDIR"]) / "System32"),
