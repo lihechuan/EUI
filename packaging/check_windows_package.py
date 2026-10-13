@@ -66,7 +66,7 @@ with zipfile.ZipFile(archive) as zipped:
 
 environment = dict(os.environ)
 for name in list(environment):
-    if name.startswith(("QT_", "QML", "QTWEBENGINE_")):
+    if name != "QT_OPENGL" and name.startswith(("QT_", "QML", "QTWEBENGINE_")):
         del environment[name]
 environment.update(
     PATH=str(Path(environment["WINDIR"]) / "System32"),
