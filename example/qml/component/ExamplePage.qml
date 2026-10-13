@@ -65,11 +65,11 @@ Flickable {
     Column {
         id: pageColumn
 
+        x: 28
         y: 32
         spacing: 24
         objectName: "galleryPageColumn"
-        x: Math.max(28, (control.width - width) / 2)
-        width: Math.max(0, Math.min(control.width - 56, 1040))
+        width: Math.max(0, control.width - 56)
 
         Item {
             width: parent.width

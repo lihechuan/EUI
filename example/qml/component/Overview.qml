@@ -47,10 +47,10 @@ Flickable {
     Column {
         id: content
 
+        x: 24
         y: 24
         spacing: 24
-        x: Math.max(24, (control.width - width) / 2)
-        width: Math.max(0, Math.min(control.width - 48, 1120))
+        width: Math.max(0, control.width - 48)
 
         Column {
             spacing: 6
