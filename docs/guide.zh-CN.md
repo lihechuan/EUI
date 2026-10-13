@@ -608,7 +608,7 @@ Gallery 左侧提供分类导航和名称搜索；`Ctrl+K` 聚焦搜索框。右
 
 目标电脑不需要安装 Qt 或 Visual Studio。免安装版需要保留全部 DLL 和子目录；表格布局等设置仍使用应用原有的用户配置存储方式。脚本不执行代码签名。可运行 `python packaging/check_windows_package.py` 检查包内容，并在去除开发工具路径后以后台模式验证启动；交付前仍应在目标电脑检查图表、媒体、上传和打印等实际功能。
 
-GitHub 的 [Windows 工作流](https://github.com/lihechuan/EUI/actions/workflows/build-windows.yml) 在 Windows Server 2022 上使用 MSVC v142、Qt 5.15.2、CMake、Ninja 和 Inno Setup，执行相同的打包与验证命令。工作流生成的安装版、免安装 ZIP、校验文件和 `BUILD-INFO.txt` 保留 14 天；正式发布流程及标签要求见[贡献指南](../CONTRIBUTING.md#正式发布--releases)。
+GitHub 的 [Windows 工作流](https://github.com/lihechuan/EUI/actions/workflows/build-windows.yml) 在 Windows Server 2022 上使用 MSVC v142、Qt 5.15.2、CMake、Ninja 和 Inno Setup，执行相同的打包与验证命令。CI 启动检查通过 `QT_OPENGL_DLL=opengl32sw.dll` 使用包内的软件 OpenGL，不依赖运行机显卡。工作流生成的安装版、免安装 ZIP、校验文件和 `BUILD-INFO.txt` 保留 14 天；正式发布流程及标签要求见[贡献指南](../CONTRIBUTING.md#正式发布--releases)。
 
 ## 7. 常见问题
 

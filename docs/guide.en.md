@@ -608,7 +608,7 @@ The script rebuilds the Release Gallery and collects EUI, Qt QML modules, WebEng
 
 The target computer does not need Qt or Visual Studio. Keep all DLLs and subdirectories in the portable package; settings such as table layouts retain the application's existing per-user storage behavior. The script does not sign executables. Run `python packaging/check_windows_package.py` to check package contents and startup on an isolated desktop with development tools removed from PATH. Before delivery, test charts, media, uploads, and printing on the actual target computer.
 
-The [Windows workflow](https://github.com/lihechuan/EUI/actions/workflows/build-windows.yml) runs the same packaging and verification commands on Windows Server 2022 with MSVC v142, Qt 5.15.2, CMake, Ninja, and Inno Setup. It retains the installer, portable ZIP, checksums, and `BUILD-INFO.txt` for 14 days. See the [release process](../CONTRIBUTING.md#正式发布--releases) for source and tag requirements.
+The [Windows workflow](https://github.com/lihechuan/EUI/actions/workflows/build-windows.yml) runs the same packaging and verification commands on Windows Server 2022 with MSVC v142, Qt 5.15.2, CMake, Ninja, and Inno Setup. Its startup check sets `QT_OPENGL_DLL=opengl32sw.dll` to use the packaged software OpenGL library without a runner GPU. It retains the installer, portable ZIP, checksums, and `BUILD-INFO.txt` for 14 days. See the [release process](../CONTRIBUTING.md#正式发布--releases) for source and tag requirements.
 
 ## 7. Troubleshooting
 

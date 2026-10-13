@@ -69,7 +69,7 @@ jobs:
           }
 
       - name: Build and package Gallery
-        run: ./packaging/package-windows.ps1 -QtDir $env:QT_ROOT_DIR -OpenSslDir $env:EUI_OPENSSL_DIR
+        run: ./packaging/package-windows.ps1 -QtDir $env:QT_ROOT_DIR -OpenSslDir $env:EUI_OPENSSL_DIR | Tee-Object -FilePath windows-package.log
 
       - name: Verify runtime and portable ZIP
         env:
@@ -78,6 +78,7 @@ jobs:
 
       - name: Record build source and tools
         run: |
+          $innoVersion = (Select-String -LiteralPath windows-package.log -Pattern '^Compiler engine version: (.+)$' | Select-Object -Last 1).Matches[0].Groups[1].Value
           @(
               "Source: $env:GITHUB_SHA",
               "Ref: $env:GITHUB_REF",
@@ -85,7 +86,7 @@ jobs:
               "Qt: $(& qmake -query QT_VERSION)",
               "MSVC tools: $env:VCToolsVersion",
               "CMake: $(& cmake --version | Select-Object -First 1)",
-              "Inno Setup: $((Get-Item 'C:/Program Files (x86)/Inno Setup 6/ISCC.exe').VersionInfo.FileVersion)"
+              "Inno Setup: $innoVersion"
           ) | Set-Content dist/BUILD-INFO.txt -Encoding utf8
           Get-Content dist/BUILD-INFO.txt
 
