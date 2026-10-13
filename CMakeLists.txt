@@ -1,6 +1,6 @@
 ﻿cmake_minimum_required(VERSION 3.20)
 
-project(EUI VERSION 1.0.0)
+project(EUI VERSION 1.1.0)
 
 if(MSVC)
     # 使用 UTF-8 解析源文件，避免包含中文注释的文件触发 C4819

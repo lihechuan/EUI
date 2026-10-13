@@ -9,13 +9,13 @@ A UI component library for Qt Quick / QML desktop applications.
 
 ## Download and try
 
-Current version: **1.0.0**, for **Windows 10 / 11 x64**. Qt and Visual Studio are not required on the target computer.
+Current version: **1.1.0**, for **Windows 10 / 11 x64**. Qt and Visual Studio are not required on the target computer.
 
 | Download | Usage |
 | --- | --- |
-| [Installer `.exe`](https://github.com/lihechuan/EUI/releases/download/v1.0.0/EUI-Gallery-1.0.0-windows-x64-setup.exe) | Installs per user with a Start menu entry, optional desktop shortcut, and uninstall support |
-| [Portable `.zip`](https://github.com/lihechuan/EUI/releases/download/v1.0.0/EUI-Gallery-1.0.0-windows-x64-portable.zip) | Extract the complete archive and run `EUI-Gallery.exe`; keep all DLLs and subdirectories |
-| [SHA-256 checksums](https://github.com/lihechuan/EUI/releases/download/v1.0.0/SHA256SUMS.txt) | Run `Get-FileHash FILE -Algorithm SHA256` in PowerShell and compare the matching filename |
+| [Installer `.exe`](https://github.com/lihechuan/EUI/releases/download/v1.1.0/EUI-Gallery-1.1.0-windows-x64-setup.exe) | Installs per user with a Start menu entry, optional desktop shortcut, and uninstall support |
+| [Portable `.zip`](https://github.com/lihechuan/EUI/releases/download/v1.1.0/EUI-Gallery-1.1.0-windows-x64-portable.zip) | Extract the complete archive and run `EUI-Gallery.exe`; keep all DLLs and subdirectories |
+| [SHA-256 checksums](https://github.com/lihechuan/EUI/releases/download/v1.1.0/SHA256SUMS.txt) | Run `Get-FileHash FILE -Algorithm SHA256` in PowerShell and compare the matching filename |
 
 [All releases and release notes](https://github.com/lihechuan/EUI/releases) · [Changelog](CHANGELOG.md) · [Contributing](CONTRIBUTING.md)
 

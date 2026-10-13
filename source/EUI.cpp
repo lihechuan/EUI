@@ -9,6 +9,7 @@
 #include "Layout/ELayout.h"
 #include "Utils/ETableIO.h"
 #include "Enum/EPlacement.h"
+#include "Utils/EAnimation.h"
 #include "Utils/EDataUtils.h"
 #include "Enum/EOrientation.h"
 #include "Utils/RandomUtils.h"
@@ -202,6 +203,15 @@ void EUI::registerTypes(const char *uri) const
     qmlRegisterType<EWindowActions>("EUI.Private", major, minor, "WindowActions");
     qmlRegisterType<EEChartsBridge>("EUI.Private", major, minor, "EChartsBridge");
     qmlRegisterModule("EUI.Private", major, minor);
+
+    qmlRegisterSingletonType<EAnimation>(uri,
+                                        major,
+                                        minor,
+                                        "EAnimation",
+                                        [](QQmlEngine *engine, QJSEngine *) -> QObject *
+                                        {
+                                            return new EAnimation(engine);
+                                        });
 
     for (const auto &type : PublicTypes)
         qmlRegisterType(

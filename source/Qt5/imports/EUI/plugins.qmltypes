@@ -45,6 +45,33 @@ Module {
         Property { name: "dashPattern"; type: "QVector<qreal>" }
     }
     Component {
+        name: "EAnimation"
+        prototype: "QObject"
+        exports: ["EUI/EAnimation 1.0"]
+        isCreatable: false
+        isSingleton: true
+        exportMetaObjectRevisions: [0]
+        Property { name: "effects"; type: "QStringList"; isReadonly: true }
+        Method {
+            name: "stop"
+            type: "bool"
+            Parameter { name: "target"; type: "QQuickItem"; isPointer: true }
+        }
+        Method {
+            name: "play"
+            type: "bool"
+            Parameter { name: "target"; type: "QQuickItem"; isPointer: true }
+            Parameter { name: "effect"; type: "string" }
+            Parameter { name: "options"; type: "QVariantMap" }
+        }
+        Method {
+            name: "play"
+            type: "bool"
+            Parameter { name: "target"; type: "QQuickItem"; isPointer: true }
+            Parameter { name: "effect"; type: "string" }
+        }
+    }
+    Component {
         name: "EBackdropRenderer"
         defaultProperty: "data"
         prototype: "QQuickPaintedItem"

@@ -1144,6 +1144,27 @@
       }
     ]
   },
+  "EAnimation": {
+    "base": "QObject",
+    "properties": [
+      {
+        "name": "effects",
+        "type": "QStringList",
+        "readonly": true,
+        "binding": "constant",
+        "owner": "EAnimation",
+        "source": "source/Utils/EAnimation.h",
+        "description": {
+          "zh": "可传入 play(target, effect, options) 的效果名称；通过 stop(target) 停止并恢复。",
+          "en": "Effect names accepted by play(target, effect, options); stop(target) stops and restores the target."
+        },
+        "default": {
+          "zh": "83 个预设：淡入淡出、滑入滑出、缩放、旋转与滚动、弹跳、翻转、强调与反馈、快速倾斜滑动。完整名称通过 EAnimation.effects 获取。",
+          "en": "83 presets: fade, slide, scale and zoom, rotate and roll, bounce, flip, attention and feedback, and light speed. Read EAnimation.effects for all names."
+        }
+      }
+    ]
+  },
   "EApp": {
     "base": "Item",
     "properties": [

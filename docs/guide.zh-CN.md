@@ -542,6 +542,45 @@ Gallery 已实现宿主初始化，可参考 [example/src/main.cpp](../example/s
 
 悬浮按钮组的菜单可以超出组本身的边界，父项设置 `clip: true` 时会裁剪菜单。边框流光不捕获输入，内部内容仍可操作。完整交互与可复制的示例见 Gallery 中各组件页面。
 
+### 4.7 一行调用动画
+
+`EAnimation` 是 `import EUI 1.0` 提供的动画单例，不需要在页面中声明动画对象。
+
+```qml
+EAnimation.play(card, "fadeIn")
+EAnimation.play(input, "shake")
+EAnimation.play(card, "bounceIn")
+EAnimation.play(card, "flipInY")
+EAnimation.play(card, "slideInUp", { duration: 300, distance: 24 })
+```
+
+以上为独立的调用示例；`card`、`input` 是已有可视控件的 `id`。在事件中使用时，可写成 `onClicked: EAnimation.play(card, "fadeIn")`。
+
+| 分类 | 完整效果名称 | 行为 |
+| --- | --- | --- |
+| 淡入淡出（18） | `fadeIn`、`fadeOut`、`fadeInUp`、`fadeInDown`、`fadeInLeft`、`fadeInRight`、`fadeOutUp`、`fadeOutDown`、`fadeOutLeft`、`fadeOutRight`、`fadeInTopLeft`、`fadeInTopRight`、`fadeInBottomLeft`、`fadeInBottomRight`、`fadeOutTopLeft`、`fadeOutTopRight`、`fadeOutBottomLeft`、`fadeOutBottomRight` | 带方向的效果同时移动；含上下左右和四个对角方向。 |
+| 滑入滑出（8） | `slideInUp`、`slideInLeft`、`slideInDown`、`slideInRight`、`slideOutUp`、`slideOutDown`、`slideOutLeft`、`slideOutRight` | 上下左右滑动，同时淡入或淡出。 |
+| 缩放（12） | `scaleIn`、`scaleOut`、`zoomIn`、`zoomOut`、`zoomInUp`、`zoomInDown`、`zoomInLeft`、`zoomInRight`、`zoomOutUp`、`zoomOutDown`、`zoomOutLeft`、`zoomOutRight` | scale 从 85% 缩放进入或退出；zoom 从 30% 缩放进入或退出，可组合方向位移。 |
+| 旋转与滚动（13） | `rotateIn`、`rotateOut`、`rotateInUpLeft`、`rotateInUpRight`、`rotateInDownLeft`、`rotateInDownRight`、`rotateOutUpLeft`、`rotateOutUpRight`、`rotateOutDownLeft`、`rotateOutDownRight`、`spin`、`rollIn`、`rollOut` | rotate 绕中心或对应角旋转进入、退出；roll 组合位移与旋转；spin 旋转一周。 |
+| 弹跳（11） | `bounce`、`bounceIn`、`bounceOut`、`bounceInUp`、`bounceInDown`、`bounceInLeft`、`bounceInRight`、`bounceOutUp`、`bounceOutDown`、`bounceOutLeft`、`bounceOutRight` | 弹跳强调，或带回弹的进入、退出；支持上下左右。 |
+| 翻转（5） | `flip`、`flipInX`、`flipInY`、`flipOutX`、`flipOutY` | flip 绕 Y 轴翻转一周；X/Y 变体绕对应轴进入或退出。 |
+| 强调与反馈（12） | `shake`、`pulse`、`shakeX`、`shakeY`、`swing`、`tada`、`wobble`、`jello`、`rubberBand`、`flash`、`heartBeat`、`headShake` | 横向或纵向抖动、脉冲、摇摆、欢呼、晃动、弹性扭曲、拉伸、闪烁和心跳；shake 是 shakeX 的兼容名称。 |
+| 快速倾斜滑动（4） | `lightSpeedInLeft`、`lightSpeedInRight`、`lightSpeedOutLeft`、`lightSpeedOutRight` | 左右位移与倾斜，同时淡入或淡出。 |
+
+`EAnimation.effects` 返回全部 83 个效果名称。第三个参数可省略，支持以下选项：
+
+| 选项 | 默认值 | 取值 |
+| --- | --- | --- |
+| `duration` | `300` | 非负整数，单位毫秒；`0` 立即完成，最大值为 `2147483647` |
+| `distance` | `24` | 位移或抖动距离，单位像素；范围 `0`～`1000000`，影响方向位移、弹跳和抖动 |
+| `easing` | `Easing.OutCubic`；强调类和弹跳为 `Easing.Linear` | Qt 常规缓动枚举，例如 `Easing.InOutSine`；不支持需要额外控制点的曲线 |
+
+`play()` 成功返回 `true`。空目标、未知效果、未知选项或非法数值返回 `false`，不会中断当前动画。同一控件再次调用会替换当前动画，不会叠加视觉变换；不同控件可以同时播放。
+
+`EAnimation.stop(target)` 停止播放并清除动画位移、缩放、旋转、翻转和倾斜，恢复动画控制前的透明度；目标没有动画记录时返回 `false`。动画保留原有 anchors、位置、旋转、缩放及属性绑定。所有退出效果完成后透明度为 `0`；再次进入恢复原透明度，原本透明的控件进入至 `1`。强调效果结束后恢复原状态。
+
+动画只控制视觉效果，不改变 `visible`、`enabled` 或布局占位；透明控件仍可能接收输入，应由业务逻辑管理交互状态。Gallery 的“视觉效果 → 动画”页面提供 8 个分类及全部效果的筛选预览、参数调整、一行调用代码和完整示例源码。
+
 ## 5. 使用 Gallery 学习组件
 
 Gallery 左侧提供分类导航和名称搜索；`Ctrl+K` 聚焦搜索框。右上角切换语言和主题。每个组件页面包含可操作的示例卡片、源码按钮及页面下方的 API 文档。
@@ -597,12 +636,12 @@ Gallery 左侧提供分类导航和名称搜索；`Ctrl+K` 聚焦搜索框。右
 
 `QtDir` 默认从 PATH 中的 `qmake.exe` 推断；`IsccPath` 可从 PATH、常用安装位置或 `build/packaging-tools/inno/ISCC.exe` 自动查找；`OpenSslDir` 可从 Qt Kit 的 `bin/`、Qt 的 `Tools/OpenSSL/Win_x64/bin/` 或 `build/packaging-tools/openssl/openssl-1.1/x64/bin/` 自动查找。当前机器已准备好这些工具时，只需执行 `./packaging/package-windows.ps1`。
 
-脚本重新构建 Release Gallery，收集 EUI、Qt QML 模块、WebEngine 资源和子进程、Multimedia、SVG、MSVC DLL 与 OpenSSL DLL，并附带 EUI 和第三方许可声明。版本从根目录 `CMakeLists.txt` 读取；当前 `1.0.0` 对应以下产物：
+脚本重新构建 Release Gallery，收集 EUI、Qt QML 模块、WebEngine 资源和子进程、Multimedia、SVG、MSVC DLL 与 OpenSSL DLL，并附带 EUI 和第三方许可声明。版本从根目录 `CMakeLists.txt` 读取；当前 `1.1.0` 对应以下产物：
 
 | 产物 | 用法 |
 | --- | --- |
-| `dist/EUI-Gallery-1.0.0-windows-x64-setup.exe` | 安装到当前用户目录，无需管理员权限；提供开始菜单入口、可选桌面快捷方式和卸载支持 |
-| `dist/EUI-Gallery-1.0.0-windows-x64-portable.zip` | 解压完整目录，双击其中的 `EUI-Gallery.exe` |
+| `dist/EUI-Gallery-1.1.0-windows-x64-setup.exe` | 安装到当前用户目录，无需管理员权限；提供开始菜单入口、可选桌面快捷方式和卸载支持 |
+| `dist/EUI-Gallery-1.1.0-windows-x64-portable.zip` | 解压完整目录，双击其中的 `EUI-Gallery.exe` |
 | `dist/EUI-Gallery/` | 已部署的程序目录，可直接运行；再次打包会重新生成这个目录，请勿在此保存个人文件 |
 | `dist/SHA256SUMS.txt` | 安装包和免安装 ZIP 的 SHA-256 校验值 |
 

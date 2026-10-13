@@ -542,6 +542,45 @@ Ordinary `EFlex` children retain their existing sizes; `EFlexItem` enables growt
 
 Floating menus can extend beyond their group, and a parent with `clip: true` clips them. Border beams do not intercept input, so their content remains interactive. The Gallery's component pages contain complete interactions and copyable examples.
 
+### 4.7 Call animations in one line
+
+`EAnimation` is a singleton provided by `import EUI 1.0`; no animation object needs to be declared in the page.
+
+```qml
+EAnimation.play(card, "fadeIn")
+EAnimation.play(input, "shake")
+EAnimation.play(card, "bounceIn")
+EAnimation.play(card, "flipInY")
+EAnimation.play(card, "slideInUp", { duration: 300, distance: 24 })
+```
+
+These are separate examples; `card` and `input` are existing visual item IDs. An event handler can use `onClicked: EAnimation.play(card, "fadeIn")`.
+
+| Category | Complete effect names | Behavior |
+| --- | --- | --- |
+| Fade (18) | `fadeIn`, `fadeOut`, `fadeInUp`, `fadeInDown`, `fadeInLeft`, `fadeInRight`, `fadeOutUp`, `fadeOutDown`, `fadeOutLeft`, `fadeOutRight`, `fadeInTopLeft`, `fadeInTopRight`, `fadeInBottomLeft`, `fadeInBottomRight`, `fadeOutTopLeft`, `fadeOutTopRight`, `fadeOutBottomLeft`, `fadeOutBottomRight` | Directional variants combine opacity with movement, including four diagonal directions. |
+| Slide (8) | `slideInUp`, `slideInLeft`, `slideInDown`, `slideInRight`, `slideOutUp`, `slideOutDown`, `slideOutLeft`, `slideOutRight` | Slide from or toward each direction while fading in or out. |
+| Scale and zoom (12) | `scaleIn`, `scaleOut`, `zoomIn`, `zoomOut`, `zoomInUp`, `zoomInDown`, `zoomInLeft`, `zoomInRight`, `zoomOutUp`, `zoomOutDown`, `zoomOutLeft`, `zoomOutRight` | Scale enters from or exits toward 85%; zoom uses 30% and can include directional movement. |
+| Rotate and roll (13) | `rotateIn`, `rotateOut`, `rotateInUpLeft`, `rotateInUpRight`, `rotateInDownLeft`, `rotateInDownRight`, `rotateOutUpLeft`, `rotateOutUpRight`, `rotateOutDownLeft`, `rotateOutDownRight`, `spin`, `rollIn`, `rollOut` | Rotate around the center or a corresponding corner; roll combines movement and rotation; spin rotates once. |
+| Bounce (11) | `bounce`, `bounceIn`, `bounceOut`, `bounceInUp`, `bounceInDown`, `bounceInLeft`, `bounceInRight`, `bounceOutUp`, `bounceOutDown`, `bounceOutLeft`, `bounceOutRight` | Bounce for emphasis or enter/exit with rebound, including directional variants. |
+| Flip (5) | `flip`, `flipInX`, `flipInY`, `flipOutX`, `flipOutY` | Flip once around the Y axis, or enter/exit around the specified X/Y axis. |
+| Attention and feedback (12) | `shake`, `pulse`, `shakeX`, `shakeY`, `swing`, `tada`, `wobble`, `jello`, `rubberBand`, `flash`, `heartBeat`, `headShake` | Shake horizontally or vertically, pulse, swing, celebrate, wobble, skew elastically, stretch, flash, or beat; shake is the compatibility name for shakeX. |
+| Light speed (4) | `lightSpeedInLeft`, `lightSpeedInRight`, `lightSpeedOutLeft`, `lightSpeedOutRight` | Combine horizontal movement and skew with fading in or out. |
+
+`EAnimation.effects` returns all 83 effect names. The optional third argument accepts:
+
+| Option | Default | Values |
+| --- | --- | --- |
+| `duration` | `300` | A nonnegative integer in milliseconds; `0` completes immediately, maximum `2147483647`. |
+| `distance` | `24` | Movement or shake distance in pixels, from `0` to `1000000`; affects directional movement, bounce, and shake. |
+| `easing` | `Easing.OutCubic`; attention effects and bounce use `Easing.Linear` | A regular Qt easing enum, such as `Easing.InOutSine`; curves requiring additional control points are unsupported. |
+
+`play()` returns `true` on success. A null target, unknown effect/option, or invalid number returns `false` without interrupting the current animation. Playing again on the same item replaces its animation without accumulating visual transforms; different items can animate simultaneously.
+
+`EAnimation.stop(target)` stops playback, clears animation movement, scale, rotation, flip, and skew, and restores the opacity from before the animation took control. It returns `false` if the target has no animation record. Existing anchors, position, rotation, scale, and property bindings are preserved. Exit effects finish at opacity `0`; entering again restores the original opacity, or uses `1` for an initially transparent item. Attention effects restore the original state when finished.
+
+Animations control visual appearance; application logic manages `visible`, `enabled`, and layout occupancy. Transparent items can still receive input. The Gallery's Visual Effects → Animation page offers eight categories plus an all-effects filter, parameter controls, previews, invocation copying, and complete example source.
+
 ## 5. Learn components with the Gallery
 
 The Gallery offers category navigation and name search on the left; `Ctrl+K` focuses search. The upper-right controls change language and theme. Component pages contain interactive examples, source actions, and API documentation below the examples.
@@ -597,12 +636,12 @@ From the repository root, replace these tool paths with your local paths:
 
 `QtDir` is inferred from `qmake.exe` on PATH by default. `IsccPath` is discovered on PATH, in common installation directories, or at `build/packaging-tools/inno/ISCC.exe`. `OpenSslDir` is discovered in the Qt Kit's `bin/`, Qt's `Tools/OpenSSL/Win_x64/bin/`, or `build/packaging-tools/openssl/openssl-1.1/x64/bin/`. If these tools are already configured, run `./packaging/package-windows.ps1` directly.
 
-The script rebuilds the Release Gallery and collects EUI, Qt QML modules, WebEngine resources and subprocess, Multimedia, SVG, MSVC runtime DLLs, and OpenSSL DLLs, with EUI and third-party license notices. The version comes from the root `CMakeLists.txt`; version `1.0.0` produces:
+The script rebuilds the Release Gallery and collects EUI, Qt QML modules, WebEngine resources and subprocess, Multimedia, SVG, MSVC runtime DLLs, and OpenSSL DLLs, with EUI and third-party license notices. The version comes from the root `CMakeLists.txt`; version `1.1.0` produces:
 
 | Output | Usage |
 | --- | --- |
-| `dist/EUI-Gallery-1.0.0-windows-x64-setup.exe` | Installs per user without administrator privileges; includes a Start menu entry, optional desktop shortcut, and uninstall support |
-| `dist/EUI-Gallery-1.0.0-windows-x64-portable.zip` | Extract the complete directory and run `EUI-Gallery.exe` |
+| `dist/EUI-Gallery-1.1.0-windows-x64-setup.exe` | Installs per user without administrator privileges; includes a Start menu entry, optional desktop shortcut, and uninstall support |
+| `dist/EUI-Gallery-1.1.0-windows-x64-portable.zip` | Extract the complete directory and run `EUI-Gallery.exe` |
 | `dist/EUI-Gallery/` | Deployed application directory; regenerated by the next packaging run, so do not store personal files here |
 | `dist/SHA256SUMS.txt` | SHA-256 checksums for the installer and portable ZIP |
 
