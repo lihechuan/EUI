@@ -10,6 +10,8 @@
 | 创建自己的应用 | 第 1 节 → 第 2.2 节 → 第 3 节 | 点击按钮后计数增加，并出现消息 |
 | 接入已有 Qt Quick 项目 | 第 1 节 → 第 2.2 节 → 第 3.5 节 | 现有窗口中可以使用 `import EUI 1.0` |
 
+只想体验 Gallery 时，可直接使用[首页的安装版或免安装版](../README.md#下载并体验)，无需准备开发环境。自行生成发布包见[第 6.3 节](#63-生成-windows-安装包和免安装版)。
+
 ## 目录
 
 - [1. 环境准备](#1-环境准备)
@@ -595,7 +597,7 @@ Gallery 左侧提供分类导航和名称搜索；`Ctrl+K` 聚焦搜索框。右
 
 `QtDir` 默认从 PATH 中的 `qmake.exe` 推断；`IsccPath` 可从 PATH、常用安装位置或 `build/packaging-tools/inno/ISCC.exe` 自动查找；`OpenSslDir` 可从 Qt Kit 的 `bin/`、Qt 的 `Tools/OpenSSL/Win_x64/bin/` 或 `build/packaging-tools/openssl/openssl-1.1/x64/bin/` 自动查找。当前机器已准备好这些工具时，只需执行 `./packaging/package-windows.ps1`。
 
-脚本重新构建 Release Gallery，收集 EUI、Qt QML 模块、WebEngine 资源和子进程、Multimedia、SVG、MSVC DLL 与 OpenSSL DLL。版本从根目录 `CMakeLists.txt` 读取；当前 `1.0` 对应以下产物：
+脚本重新构建 Release Gallery，收集 EUI、Qt QML 模块、WebEngine 资源和子进程、Multimedia、SVG、MSVC DLL 与 OpenSSL DLL，并附带 EUI 和第三方许可声明。版本从根目录 `CMakeLists.txt` 读取；当前 `1.0.0` 对应以下产物：
 
 | 产物 | 用法 |
 | --- | --- |
@@ -605,6 +607,8 @@ Gallery 左侧提供分类导航和名称搜索；`Ctrl+K` 聚焦搜索框。右
 | `dist/SHA256SUMS.txt` | 安装包和免安装 ZIP 的 SHA-256 校验值 |
 
 目标电脑不需要安装 Qt 或 Visual Studio。免安装版需要保留全部 DLL 和子目录；表格布局等设置仍使用应用原有的用户配置存储方式。脚本不执行代码签名。可运行 `python packaging/check_windows_package.py` 检查包内容，并在去除开发工具路径后以后台模式验证启动；交付前仍应在目标电脑检查图表、媒体、上传和打印等实际功能。
+
+GitHub 的 [Windows 工作流](https://github.com/lihechuan/EUI/actions/workflows/build-windows.yml) 在 Windows Server 2022 上使用 MSVC v142、Qt 5.15.2、CMake、Ninja 和 Inno Setup，执行相同的打包与验证命令。工作流生成的安装版、免安装 ZIP、校验文件和 `BUILD-INFO.txt` 保留 14 天；正式发布流程及标签要求见[贡献指南](../CONTRIBUTING.md#正式发布--releases)。
 
 ## 7. 常见问题
 

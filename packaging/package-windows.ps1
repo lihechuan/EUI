@@ -132,7 +132,10 @@ try {
 
     $licensesDir = Join-Path $packageDir 'licenses'
     New-Item -ItemType Directory -Path $licensesDir | Out-Null
+    Copy-Item -LiteralPath (Join-Path $euiRoot 'LICENSE') -Destination (Join-Path $licensesDir 'EUI-LICENSE.txt')
+    Copy-Item -LiteralPath (Join-Path $euiRoot 'THIRD_PARTY_NOTICES.md') -Destination $licensesDir
     Copy-Item -Path (Join-Path $PSScriptRoot 'licenses\*') -Destination $licensesDir
+    Copy-Item -LiteralPath (Join-Path $euiRoot 'source\Qt5\imports\EUI\Font\Icons\LICENSE') -Destination (Join-Path $licensesDir 'Skill-Icons-LICENSE.txt')
     Copy-Item -LiteralPath (Join-Path $euiRoot 'source\ThirdParty\echarts\LICENSE') -Destination (Join-Path $licensesDir 'ECharts-LICENSE.txt')
     Copy-Item -LiteralPath (Join-Path $euiRoot 'source\ThirdParty\echarts\NOTICE') -Destination (Join-Path $licensesDir 'ECharts-NOTICE.txt')
     $qrSource = Get-Content (Join-Path $euiRoot 'source\ThirdParty\qrcodegen\qrcodegen.hpp') -Raw

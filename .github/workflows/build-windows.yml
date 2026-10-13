@@ -1,0 +1,101 @@
+name: Windows build and package
+
+on:
+  push:
+    branches: [master]
+    tags: ['v*']
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: windows-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  package:
+    runs-on: windows-2022
+    timeout-minutes: 45
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - name: Check out source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+
+      - name: Set up MSVC 2019 toolset
+        uses: ilammy/msvc-dev-cmd@0b201ec74fa43914dc39ae48a89fd1d8cb592756 # v1
+        with:
+          arch: x64
+          toolset: '14.29'
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@a9c63c7c123f3069cff414e7e482d95dfa9d8125 # v4
+        with:
+          version: '5.15.2'
+          arch: win64_msvc2019_64
+          modules: qtwebengine
+          cache: true
+          setup-python: false
+
+      - name: Prepare OpenSSL 1.1.1w runtime
+        run: |
+          $archive = Join-Path $env:RUNNER_TEMP 'openssl-1.1.1w.zip'
+          Invoke-WebRequest 'https://download.firedaemon.com/FireDaemon-OpenSSL/openssl-1.1.1w.zip' -OutFile $archive
+          $expected = '1870B15BF6749E65FFBBADF52CDFF3EE0E9F02943550BF4395574BB432AF3EB8'
+          if ((Get-FileHash -LiteralPath $archive -Algorithm SHA256).Hash -ne $expected) {
+              throw 'OpenSSL archive SHA-256 mismatch.'
+          }
+          $destination = Join-Path $env:RUNNER_TEMP 'eui-openssl'
+          Expand-Archive -LiteralPath $archive -DestinationPath $destination
+          "EUI_OPENSSL_DIR=$destination/openssl-1.1/x64/bin" >> $env:GITHUB_ENV
+
+      - name: Check release version
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          $version = [regex]::Match((Get-Content CMakeLists.txt -Raw), 'project\(EUI VERSION ([\d.]+)\)').Groups[1].Value
+          if ($env:GITHUB_REF_NAME -ne "v$version") {
+              throw 'The tag must match the version in CMakeLists.txt.'
+          }
+
+      - name: Build and package Gallery
+        run: ./packaging/package-windows.ps1 -QtDir $env:QT_ROOT_DIR -OpenSslDir $env:EUI_OPENSSL_DIR
+
+      - name: Verify runtime and portable ZIP
+        run: python packaging/check_windows_package.py
+
+      - name: Record build source and tools
+        run: |
+          @(
+              "Source: $env:GITHUB_SHA",
+              "Ref: $env:GITHUB_REF",
+              "Runner: $env:ImageOS $env:ImageVersion",
+              "Qt: $(& qmake -query QT_VERSION)",
+              "MSVC tools: $env:VCToolsVersion",
+              "CMake: $(& cmake --version | Select-Object -First 1)",
+              "Inno Setup: $((Get-Item 'C:/Program Files (x86)/Inno Setup 6/ISCC.exe').VersionInfo.FileVersion)"
+          ) | Set-Content dist/BUILD-INFO.txt -Encoding utf8
+          Get-Content dist/BUILD-INFO.txt
+
+      - name: Upload verified packages
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: EUI-Gallery-windows-x64-${{ github.sha }}
+          path: |
+            dist/EUI-Gallery-*-windows-x64-setup.exe
+            dist/EUI-Gallery-*-windows-x64-portable.zip
+            dist/SHA256SUMS.txt
+            dist/BUILD-INFO.txt
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
