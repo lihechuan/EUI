@@ -2,6 +2,7 @@ bin
 .vscode
 *.user
 build/
+dist/
 *.tmp
 *.idx
 __pycache__/

@@ -37,6 +37,7 @@ if (WIN32)
         "${CMAKE_CURRENT_BINARY_DIR}/app-icon.rc"
         ${EXAMPLE_VERSION_RC_PATH}
     )
+    set_target_properties(example PROPERTIES WIN32_EXECUTABLE TRUE)
 else ()
     add_executable(example
         ${sources_files}
