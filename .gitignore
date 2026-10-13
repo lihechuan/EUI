@@ -1,0 +1,11 @@
+bin
+.vscode
+*.user
+build/
+*.tmp
+*.idx
+__pycache__/
+
+/assets/images/1024/
+/tests/
+/AGENTS.md

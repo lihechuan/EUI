@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="/qt/qml/EUI/Charts">
+    <file alias="chart.js">Qt5/imports/EUI/Charts/chart.js</file>
+    <file alias="chart.html">Qt5/imports/EUI/Charts/chart.html</file>
+    <file alias="echarts.min.js">ThirdParty/echarts/echarts.min.js</file>
+  </qresource>
+</RCC>
