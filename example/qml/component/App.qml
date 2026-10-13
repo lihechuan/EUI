@@ -90,6 +90,18 @@ EApplicationWindow {
         backgroundColor: GalleryStyle.sidebar
 
         ETextButton {
+            text: ""
+            width: 32
+            iconSize: 22
+            minHeight: 28
+            accessibleName: "GitHub"
+            objectName: "galleryRepositoryLink"
+            anchors.verticalCenter: parent.verticalCenter
+            iconSource: ETheme.dark ? EIcons.GITHUB_DARK : EIcons.GITHUB_LIGHT
+
+            onClicked: Qt.openUrlExternally("https://github.com/lihechuan/EUI")
+        }
+        ETextButton {
             minHeight: 28
             font.bold: false
             objectName: "galleryLanguageSwitch"
