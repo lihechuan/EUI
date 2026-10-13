@@ -561,17 +561,17 @@ Gallery 左侧提供分类导航和名称搜索；`Ctrl+K` 聚焦搜索框。右
 先完成第 3 节并关闭程序。在第 1 节使用的终端执行，下面使用绝对路径，无需切换工作目录：
 
 ```powershell
-& "$qtKit/bin/windeployqt.exe" --release --qmldir "$appRoot" "$appRoot/build/MyEuiApp.exe"
+& "$qtKit/bin/windeployqt.exe" --release --qmldir "$appRoot" --qmlimport "$appRoot/build" "$appRoot/build/MyEuiApp.exe"
 ```
 
-部署工具将 Qt 动态库、QML 运行模块和平台插件放到程序目录。保留第 3.3 节已复制的完整 `EUI/`，将整个 `$appRoot/build/` 目录交给目标电脑运行，其中的 `MyEuiApp.exe` 是入口。先在没有开发环境的目标机器上检查程序能打开、按钮和消息能工作；其他应用将参数替换为自己的 QML 源码目录和可执行文件。
+`--qmldir` 指向 QML 源文件目录，`--qmlimport` 指向包含当前 `EUI/` 的父目录。部署工具将 Qt 动态库、QML 运行模块和平台插件放到程序目录。保留第 3.3 节已复制的完整 `EUI/`，将整个 `$appRoot/build/` 目录交给目标电脑运行，其中的 `MyEuiApp.exe` 是入口。先在没有开发环境的目标机器上检查程序能打开、按钮和消息能工作；其他应用将参数替换为自己的源码目录、模块父目录和可执行文件。
 
 ### 6.2 部署 Gallery 或额外组件
 
 部署第 2.1 节的 Gallery 时执行：
 
 ```powershell
-& "$qtKit/bin/windeployqt.exe" --release --qmldir "$euiRoot/example/qml" "$euiRoot/bin/Release/example.exe"
+& "$qtKit/bin/windeployqt.exe" --release --qmldir "$euiRoot/example/qml" --qmlimport "$euiRoot/bin/Release" "$euiRoot/bin/Release/example.exe"
 ```
 
 分发整个 `$euiRoot/bin/Release/` 目录，包括旁边的 `EUI/` 和部署工具生成的运行文件。

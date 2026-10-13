@@ -4,6 +4,10 @@ A UI component library for Qt Quick / QML desktop applications.
 
 [简体中文](README.md) | English
 
+> **Help with EUI: `xiaojiaqaq@gmail.com`**
+>
+> If you encounter a problem using EUI, please email your Qt version, operating system, component name, steps to reproduce, and any error messages. Screenshots or a minimal example help diagnose and resolve the issue faster.
+
 ## Start here
 
 | Your goal | Where to start | What you will get |
