@@ -1,0 +1,137 @@
+name: Gitee Windows release
+
+on:
+  workflow_dispatch:
+    inputs:
+      commit:
+        description: Full Gitee master commit SHA
+        required: true
+        type: string
+      version:
+        description: Version from Gitee CMakeLists.txt
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gitee-release-${{ inputs.version }}
+  cancel-in-progress: false
+
+jobs:
+  package:
+    runs-on: windows-2022
+    timeout-minutes: 60
+    outputs:
+      build: ${{ steps.source.outputs.build }}
+      commit: ${{ steps.source.outputs.commit }}
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - name: Check out release tooling
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+
+      - name: Test Gitee release automation
+        run: python -m unittest discover -s packaging -p test_gitee_release.py -v
+
+      - name: Prepare exact Gitee release source
+        id: source
+        env:
+          GITEE_TOKEN: ${{ secrets.GITEE_TOKEN }}
+          EUI_GITEE_COMMIT: ${{ inputs.commit }}
+          EUI_RELEASE_VERSION: ${{ inputs.version }}
+        run: python packaging/gitee_release.py prepare
+
+      - name: Set up MSVC 2019 toolset
+        if: steps.source.outputs.build == 'true'
+        uses: ilammy/msvc-dev-cmd@0b201ec74fa43914dc39ae48a89fd1d8cb592756 # v1
+        with:
+          arch: x64
+          toolset: '14.29'
+
+      - name: Install Qt
+        if: steps.source.outputs.build == 'true'
+        uses: jurplel/install-qt-action@a9c63c7c123f3069cff414e7e482d95dfa9d8125 # v4
+        with:
+          version: '5.15.2'
+          arch: win64_msvc2019_64
+          modules: qtwebengine
+          cache: true
+          setup-python: false
+
+      - name: Prepare OpenSSL runtime
+        if: steps.source.outputs.build == 'true'
+        run: |
+          $archive = Join-Path $env:RUNNER_TEMP 'openssl-1.1.1w.zip'
+          Invoke-WebRequest 'https://download.firedaemon.com/FireDaemon-OpenSSL/openssl-1.1.1w.zip' -OutFile $archive
+          $expected = '1870B15BF6749E65FFBBADF52CDFF3EE0E9F02943550BF4395574BB432AF3EB8'
+          if ((Get-FileHash -LiteralPath $archive -Algorithm SHA256).Hash -ne $expected) {
+              throw 'OpenSSL archive SHA-256 mismatch.'
+          }
+          $destination = Join-Path $env:RUNNER_TEMP 'eui-openssl'
+          Expand-Archive -LiteralPath $archive -DestinationPath $destination
+          "EUI_OPENSSL_DIR=$destination/openssl-1.1/x64/bin" >> $env:GITHUB_ENV
+
+      - name: Build and verify Gitee Windows packages
+        if: steps.source.outputs.build == 'true'
+        env:
+          QT_OPENGL_DLL: opengl32sw.dll
+        run: |
+          ./gitee-source/packaging/package-windows.ps1 -QtDir $env:QT_ROOT_DIR -OpenSslDir $env:EUI_OPENSSL_DIR
+          python gitee-source/packaging/check_windows_package.py
+          if ($LASTEXITCODE -ne 0) { throw 'Gitee package validation failed.' }
+          "Gitee source: ${{ steps.source.outputs.commit }}" | Set-Content gitee-source/dist/BUILD-INFO.txt -Encoding utf8
+          Copy-Item gitee-source/packaging/release-notes.md gitee-source/dist/release-notes.md
+
+      - name: Retain verified packages for publication and retry
+        if: steps.source.outputs.build == 'true'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: Gitee-Windows-${{ github.run_id }}
+          path: |
+            gitee-source/dist/EUI-Gallery-*-windows-x64-setup.exe
+            gitee-source/dist/EUI-Gallery-*-windows-x64-portable.zip
+            gitee-source/dist/SHA256SUMS.txt
+            gitee-source/dist/BUILD-INFO.txt
+            gitee-source/dist/release-notes.md
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
+
+  publish:
+    needs: package
+    if: needs.package.outputs.build == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - name: Check out release tooling
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+
+      - name: Download original verified packages
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: Gitee-Windows-${{ github.run_id }}
+          path: dist
+
+      - name: Publish and verify Gitee release attachments
+        env:
+          GITEE_TOKEN: ${{ secrets.GITEE_TOKEN }}
+          EUI_GITEE_COMMIT: ${{ needs.package.outputs.commit }}
+          EUI_RELEASE_VERSION: ${{ inputs.version }}
+        run: python packaging/gitee_release.py publish
