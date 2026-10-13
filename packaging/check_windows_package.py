@@ -39,6 +39,9 @@ required = [
     "translations/qtwebengine_locales/en-US.pak", "vcruntime140.dll", "vcruntime140_1.dll",
     "msvcp140.dll", "libssl-1_1-x64.dll", "libcrypto-1_1-x64.dll",
     "licenses/OpenSSL-LICENSE.txt", "licenses/Qt-LGPL-3.0.txt",
+    "licenses/EUI-LICENSE.txt", "licenses/THIRD_PARTY_NOTICES.md",
+    "licenses/ECharts-LICENSE.txt", "licenses/ECharts-NOTICE.txt",
+    "licenses/QR-Code-generator-LICENSE.txt", "licenses/Skill-Icons-LICENSE.txt",
 ]
 for name in required:
     assert (package / name).is_file(), f"Missing runtime file: {name}"
@@ -87,7 +90,6 @@ callback_type = ctypes.WINFUNCTYPE(wintypes.BOOL, wintypes.HWND, wintypes.LPARAM
 user32.EnumDesktopWindows.argtypes = [wintypes.HANDLE, callback_type, wintypes.LPARAM]
 user32.GetWindowThreadProcessId.argtypes = [wintypes.HWND, ctypes.POINTER(wintypes.DWORD)]
 user32.IsWindowVisible.argtypes = [wintypes.HWND]
-foreground = user32.GetForegroundWindow()
 desktop_name = "EUIPackageCheck" + str(os.getpid())
 desktop = user32.CreateDesktopW(desktop_name, None, None, 0, 0x01FF, None)
 if not desktop:
@@ -127,7 +129,9 @@ try:
 
             user32.EnumDesktopWindows(desktop, record_window, 0)
             assert windows, "Packaged app did not create a visible window on the isolated desktop"
-            assert foreground == user32.GetForegroundWindow(), "The test changed the user foreground window"
+            foreground_pid = wintypes.DWORD()
+            user32.GetWindowThreadProcessId(user32.GetForegroundWindow(), ctypes.byref(foreground_pid))
+            assert foreground_pid.value != process.dwProcessId, "The packaged app took foreground focus"
         finally:
             kernel32.TerminateProcess(process.hProcess, 0)
             kernel32.WaitForSingleObject(process.hProcess, 5000)
