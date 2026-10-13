@@ -1,0 +1,251 @@
+<RCC>
+    <qresource prefix="/example">
+        <file>data/component-api.json</file>
+        <file>data/echarts-options.json</file>
+        <file alias="eui-mark.svg">../assets/eui-mark.svg</file>
+        <file>qml/component/App.qml</file>
+        <file>qml/component/BasicExamples.qml</file>
+        <file>qml/component/CodeExpander.qml</file>
+        <file>qml/component/DataExamples.qml</file>
+        <file>qml/component/TableAvatarExample.qml</file>
+        <file>qml/component/TableAdvancedExamples.qml</file>
+        <file>qml/component/EEChartsExamples.qml</file>
+        <file>qml/component/ExampleCard.qml</file>
+        <file>qml/component/ExampleCase.qml</file>
+        <file>qml/component/ExamplePage.qml</file>
+        <file>qml/component/ExampleApi.qml</file>
+        <file>qml/component/ExampleSection.qml</file>
+        <file>qml/component/ExtendedDataExamples.qml</file>
+        <file>qml/component/ExtendedFeedbackExamples.qml</file>
+        <file>qml/component/ExtendedFormExamples.qml</file>
+        <file>qml/component/ExtendedNavigationExamples.qml</file>
+        <file>qml/component/FeedbackExamples.qml</file>
+        <file>qml/component/FormExamples.qml</file>
+        <file>qml/component/GalleryStyle.qml</file>
+        <file>qml/component/IconGallery.qml</file>
+        <file>qml/component/LayoutExamples.qml</file>
+        <file>qml/component/MediaExamples.qml</file>
+        <file>qml/component/NavigationExamples.qml</file>
+        <file>qml/component/OtherExamples.qml</file>
+        <file>qml/component/OverlayExamples.qml</file>
+        <file>qml/component/Overview.qml</file>
+        <file>qml/component/SelectionExamples.qml</file>
+        <file>qml/component/VisualEffectsExamples.qml</file>
+        <file>qml/component/WebFormDateExamples.qml</file>
+        <file>qml/component/WebFormExamples.qml</file>
+        <file>qml/component/WebBasicExamples.qml</file>
+        <file>qml/component/WebDataExamples.qml</file>
+        <file>qml/component/WebTableExamples.qml</file>
+        <file>qml/component/WebNavigationFeedbackExamples.qml</file>
+        <file>qml/component/WebFormUploadExamples.qml</file>
+        <file>qml/component/LayoutShowcase.qml</file>
+        <file>qml/component/OtherShowcase.qml</file>
+        <file>qml/component/VisualEffectsShowcase.qml</file>
+        <file>qml/component/OverlayShowcase.qml</file>
+        <file>qml/component/FeedbackShowcase.qml</file>
+        <file>qml/component/ExtendedFeedbackShowcase.qml</file>
+        <file>qml/component/NavigationShowcase.qml</file>
+        <file>qml/component/ExtendedNavigationShowcase.qml</file>
+        <file>qml/component/BasicShowcase.qml</file>
+        <file>qml/component/FormShowcase.qml</file>
+        <file>qml/component/ExtendedFormShowcase.qml</file>
+        <file>qml/component/SelectionShowcase.qml</file>
+        <file>qml/component/DataShowcase.qml</file>
+        <file>qml/component/ExtendedDataShowcase.qml</file>
+        <file>qml/component/MediaShowcase.qml</file>
+        <file>qml/component/EEChartsShowcase.qml</file>
+        <file>qml/component/qmldir</file>
+        <file alias="images/48/heroes/aatrox.png">../assets/images/48/heroes/aatrox.png</file>
+        <file alias="images/48/heroes/ahri.png">../assets/images/48/heroes/ahri.png</file>
+        <file alias="images/48/heroes/akali.png">../assets/images/48/heroes/akali.png</file>
+        <file alias="images/48/heroes/akshan.png">../assets/images/48/heroes/akshan.png</file>
+        <file alias="images/48/heroes/alistar.png">../assets/images/48/heroes/alistar.png</file>
+        <file alias="images/48/heroes/ambessa.png">../assets/images/48/heroes/ambessa.png</file>
+        <file alias="images/48/heroes/amumu.png">../assets/images/48/heroes/amumu.png</file>
+        <file alias="images/48/heroes/anivia.png">../assets/images/48/heroes/anivia.png</file>
+        <file alias="images/48/heroes/annie.png">../assets/images/48/heroes/annie.png</file>
+        <file alias="images/48/heroes/aphelios.png">../assets/images/48/heroes/aphelios.png</file>
+        <file alias="images/48/heroes/ashe.png">../assets/images/48/heroes/ashe.png</file>
+        <file alias="images/48/heroes/aurelionsol.png">../assets/images/48/heroes/aurelionsol.png</file>
+        <file alias="images/48/heroes/aurora.png">../assets/images/48/heroes/aurora.png</file>
+        <file alias="images/48/heroes/azir.png">../assets/images/48/heroes/azir.png</file>
+        <file alias="images/48/heroes/bard.png">../assets/images/48/heroes/bard.png</file>
+        <file alias="images/48/heroes/belveth.png">../assets/images/48/heroes/belveth.png</file>
+        <file alias="images/48/heroes/blitzcrank.png">../assets/images/48/heroes/blitzcrank.png</file>
+        <file alias="images/48/heroes/brand.png">../assets/images/48/heroes/brand.png</file>
+        <file alias="images/48/heroes/braum.png">../assets/images/48/heroes/braum.png</file>
+        <file alias="images/48/heroes/briar.png">../assets/images/48/heroes/briar.png</file>
+        <file alias="images/48/heroes/caitlyn.png">../assets/images/48/heroes/caitlyn.png</file>
+        <file alias="images/48/heroes/camille.png">../assets/images/48/heroes/camille.png</file>
+        <file alias="images/48/heroes/cassiopeia.png">../assets/images/48/heroes/cassiopeia.png</file>
+        <file alias="images/48/heroes/chogath.png">../assets/images/48/heroes/chogath.png</file>
+        <file alias="images/48/heroes/corki.png">../assets/images/48/heroes/corki.png</file>
+        <file alias="images/48/heroes/darius.png">../assets/images/48/heroes/darius.png</file>
+        <file alias="images/48/heroes/diana.png">../assets/images/48/heroes/diana.png</file>
+        <file alias="images/48/heroes/draven.png">../assets/images/48/heroes/draven.png</file>
+        <file alias="images/48/heroes/drmundo.png">../assets/images/48/heroes/drmundo.png</file>
+        <file alias="images/48/heroes/ekko.png">../assets/images/48/heroes/ekko.png</file>
+        <file alias="images/48/heroes/elise.png">../assets/images/48/heroes/elise.png</file>
+        <file alias="images/48/heroes/evelynn.png">../assets/images/48/heroes/evelynn.png</file>
+        <file alias="images/48/heroes/ezreal.png">../assets/images/48/heroes/ezreal.png</file>
+        <file alias="images/48/heroes/fiddlesticks.png">../assets/images/48/heroes/fiddlesticks.png</file>
+        <file alias="images/48/heroes/fiora.png">../assets/images/48/heroes/fiora.png</file>
+        <file alias="images/48/heroes/fizz.png">../assets/images/48/heroes/fizz.png</file>
+        <file alias="images/48/heroes/galio.png">../assets/images/48/heroes/galio.png</file>
+        <file alias="images/48/heroes/gangplank.png">../assets/images/48/heroes/gangplank.png</file>
+        <file alias="images/48/heroes/garen.png">../assets/images/48/heroes/garen.png</file>
+        <file alias="images/48/heroes/gnar.png">../assets/images/48/heroes/gnar.png</file>
+        <file alias="images/48/heroes/gragas.png">../assets/images/48/heroes/gragas.png</file>
+        <file alias="images/48/heroes/graves.png">../assets/images/48/heroes/graves.png</file>
+        <file alias="images/48/heroes/gwen.png">../assets/images/48/heroes/gwen.png</file>
+        <file alias="images/48/heroes/hecarim.png">../assets/images/48/heroes/hecarim.png</file>
+        <file alias="images/48/heroes/heimerdinger.png">../assets/images/48/heroes/heimerdinger.png</file>
+        <file alias="images/48/heroes/hwei.png">../assets/images/48/heroes/hwei.png</file>
+        <file alias="images/48/heroes/illaoi.png">../assets/images/48/heroes/illaoi.png</file>
+        <file alias="images/48/heroes/irelia.png">../assets/images/48/heroes/irelia.png</file>
+        <file alias="images/48/heroes/ivern.png">../assets/images/48/heroes/ivern.png</file>
+        <file alias="images/48/heroes/janna.png">../assets/images/48/heroes/janna.png</file>
+        <file alias="images/48/heroes/jarvaniv.png">../assets/images/48/heroes/jarvaniv.png</file>
+        <file alias="images/48/heroes/jax.png">../assets/images/48/heroes/jax.png</file>
+        <file alias="images/48/heroes/jayce.png">../assets/images/48/heroes/jayce.png</file>
+        <file alias="images/48/heroes/jhin.png">../assets/images/48/heroes/jhin.png</file>
+        <file alias="images/48/heroes/jinx.png">../assets/images/48/heroes/jinx.png</file>
+        <file alias="images/48/heroes/kaisa.png">../assets/images/48/heroes/kaisa.png</file>
+        <file alias="images/48/heroes/kalista.png">../assets/images/48/heroes/kalista.png</file>
+        <file alias="images/48/heroes/karma.png">../assets/images/48/heroes/karma.png</file>
+        <file alias="images/48/heroes/karthus.png">../assets/images/48/heroes/karthus.png</file>
+        <file alias="images/48/heroes/kassadin.png">../assets/images/48/heroes/kassadin.png</file>
+        <file alias="images/48/heroes/katarina.png">../assets/images/48/heroes/katarina.png</file>
+        <file alias="images/48/heroes/kayle.png">../assets/images/48/heroes/kayle.png</file>
+        <file alias="images/48/heroes/kayn.png">../assets/images/48/heroes/kayn.png</file>
+        <file alias="images/48/heroes/kennen.png">../assets/images/48/heroes/kennen.png</file>
+        <file alias="images/48/heroes/khazix.png">../assets/images/48/heroes/khazix.png</file>
+        <file alias="images/48/heroes/kindred.png">../assets/images/48/heroes/kindred.png</file>
+        <file alias="images/48/heroes/kled.png">../assets/images/48/heroes/kled.png</file>
+        <file alias="images/48/heroes/kogmaw.png">../assets/images/48/heroes/kogmaw.png</file>
+        <file alias="images/48/heroes/ksante.png">../assets/images/48/heroes/ksante.png</file>
+        <file alias="images/48/heroes/leblanc.png">../assets/images/48/heroes/leblanc.png</file>
+        <file alias="images/48/heroes/leesin.png">../assets/images/48/heroes/leesin.png</file>
+        <file alias="images/48/heroes/leona.png">../assets/images/48/heroes/leona.png</file>
+        <file alias="images/48/heroes/lillia.png">../assets/images/48/heroes/lillia.png</file>
+        <file alias="images/48/heroes/lissandra.png">../assets/images/48/heroes/lissandra.png</file>
+        <file alias="images/48/heroes/locke.png">../assets/images/48/heroes/locke.png</file>
+        <file alias="images/48/heroes/lucian.png">../assets/images/48/heroes/lucian.png</file>
+        <file alias="images/48/heroes/lulu.png">../assets/images/48/heroes/lulu.png</file>
+        <file alias="images/48/heroes/lux.png">../assets/images/48/heroes/lux.png</file>
+        <file alias="images/48/heroes/malphite.png">../assets/images/48/heroes/malphite.png</file>
+        <file alias="images/48/heroes/malzahar.png">../assets/images/48/heroes/malzahar.png</file>
+        <file alias="images/48/heroes/maokai.png">../assets/images/48/heroes/maokai.png</file>
+        <file alias="images/48/heroes/masteryi.png">../assets/images/48/heroes/masteryi.png</file>
+        <file alias="images/48/heroes/mel.png">../assets/images/48/heroes/mel.png</file>
+        <file alias="images/48/heroes/milio.png">../assets/images/48/heroes/milio.png</file>
+        <file alias="images/48/heroes/missfortune.png">../assets/images/48/heroes/missfortune.png</file>
+        <file alias="images/48/heroes/mordekaiser.png">../assets/images/48/heroes/mordekaiser.png</file>
+        <file alias="images/48/heroes/morgana.png">../assets/images/48/heroes/morgana.png</file>
+        <file alias="images/48/heroes/naafiri.png">../assets/images/48/heroes/naafiri.png</file>
+        <file alias="images/48/heroes/nami.png">../assets/images/48/heroes/nami.png</file>
+        <file alias="images/48/heroes/nasus.png">../assets/images/48/heroes/nasus.png</file>
+        <file alias="images/48/heroes/nautilus.png">../assets/images/48/heroes/nautilus.png</file>
+        <file alias="images/48/heroes/neeko.png">../assets/images/48/heroes/neeko.png</file>
+        <file alias="images/48/heroes/nidalee.png">../assets/images/48/heroes/nidalee.png</file>
+        <file alias="images/48/heroes/nilah.png">../assets/images/48/heroes/nilah.png</file>
+        <file alias="images/48/heroes/nocturne.png">../assets/images/48/heroes/nocturne.png</file>
+        <file alias="images/48/heroes/nunuandwillump.png">../assets/images/48/heroes/nunuandwillump.png</file>
+        <file alias="images/48/heroes/olaf.png">../assets/images/48/heroes/olaf.png</file>
+        <file alias="images/48/heroes/orianna.png">../assets/images/48/heroes/orianna.png</file>
+        <file alias="images/48/heroes/ornn.png">../assets/images/48/heroes/ornn.png</file>
+        <file alias="images/48/heroes/pantheon.png">../assets/images/48/heroes/pantheon.png</file>
+        <file alias="images/48/heroes/poppy.png">../assets/images/48/heroes/poppy.png</file>
+        <file alias="images/48/heroes/pyke.png">../assets/images/48/heroes/pyke.png</file>
+        <file alias="images/48/heroes/qiyana.png">../assets/images/48/heroes/qiyana.png</file>
+        <file alias="images/48/heroes/quinn.png">../assets/images/48/heroes/quinn.png</file>
+        <file alias="images/48/heroes/rakan.png">../assets/images/48/heroes/rakan.png</file>
+        <file alias="images/48/heroes/rammus.png">../assets/images/48/heroes/rammus.png</file>
+        <file alias="images/48/heroes/reksai.png">../assets/images/48/heroes/reksai.png</file>
+        <file alias="images/48/heroes/rell.png">../assets/images/48/heroes/rell.png</file>
+        <file alias="images/48/heroes/renataglasc.png">../assets/images/48/heroes/renataglasc.png</file>
+        <file alias="images/48/heroes/renekton.png">../assets/images/48/heroes/renekton.png</file>
+        <file alias="images/48/heroes/rengar.png">../assets/images/48/heroes/rengar.png</file>
+        <file alias="images/48/heroes/riven.png">../assets/images/48/heroes/riven.png</file>
+        <file alias="images/48/heroes/rumble.png">../assets/images/48/heroes/rumble.png</file>
+        <file alias="images/48/heroes/ryze.png">../assets/images/48/heroes/ryze.png</file>
+        <file alias="images/48/heroes/samira.png">../assets/images/48/heroes/samira.png</file>
+        <file alias="images/48/heroes/sejuani.png">../assets/images/48/heroes/sejuani.png</file>
+        <file alias="images/48/heroes/senna.png">../assets/images/48/heroes/senna.png</file>
+        <file alias="images/48/heroes/seraphine.png">../assets/images/48/heroes/seraphine.png</file>
+        <file alias="images/48/heroes/sett.png">../assets/images/48/heroes/sett.png</file>
+        <file alias="images/48/heroes/shaco.png">../assets/images/48/heroes/shaco.png</file>
+        <file alias="images/48/heroes/shen.png">../assets/images/48/heroes/shen.png</file>
+        <file alias="images/48/heroes/shyvana.png">../assets/images/48/heroes/shyvana.png</file>
+        <file alias="images/48/heroes/singed.png">../assets/images/48/heroes/singed.png</file>
+        <file alias="images/48/heroes/sion.png">../assets/images/48/heroes/sion.png</file>
+        <file alias="images/48/heroes/sivir.png">../assets/images/48/heroes/sivir.png</file>
+        <file alias="images/48/heroes/skarner.png">../assets/images/48/heroes/skarner.png</file>
+        <file alias="images/48/heroes/smolder.png">../assets/images/48/heroes/smolder.png</file>
+        <file alias="images/48/heroes/sona.png">../assets/images/48/heroes/sona.png</file>
+        <file alias="images/48/heroes/soraka.png">../assets/images/48/heroes/soraka.png</file>
+        <file alias="images/48/heroes/swain.png">../assets/images/48/heroes/swain.png</file>
+        <file alias="images/48/heroes/sylas.png">../assets/images/48/heroes/sylas.png</file>
+        <file alias="images/48/heroes/syndra.png">../assets/images/48/heroes/syndra.png</file>
+        <file alias="images/48/heroes/tahmkench.png">../assets/images/48/heroes/tahmkench.png</file>
+        <file alias="images/48/heroes/taliyah.png">../assets/images/48/heroes/taliyah.png</file>
+        <file alias="images/48/heroes/talon.png">../assets/images/48/heroes/talon.png</file>
+        <file alias="images/48/heroes/taric.png">../assets/images/48/heroes/taric.png</file>
+        <file alias="images/48/heroes/teemo.png">../assets/images/48/heroes/teemo.png</file>
+        <file alias="images/48/heroes/thresh.png">../assets/images/48/heroes/thresh.png</file>
+        <file alias="images/48/heroes/tristana.png">../assets/images/48/heroes/tristana.png</file>
+        <file alias="images/48/heroes/trundle.png">../assets/images/48/heroes/trundle.png</file>
+        <file alias="images/48/heroes/tryndamere.png">../assets/images/48/heroes/tryndamere.png</file>
+        <file alias="images/48/heroes/twistedfate.png">../assets/images/48/heroes/twistedfate.png</file>
+        <file alias="images/48/heroes/twitch.png">../assets/images/48/heroes/twitch.png</file>
+        <file alias="images/48/heroes/udyr.png">../assets/images/48/heroes/udyr.png</file>
+        <file alias="images/48/heroes/urgot.png">../assets/images/48/heroes/urgot.png</file>
+        <file alias="images/48/heroes/varus.png">../assets/images/48/heroes/varus.png</file>
+        <file alias="images/48/heroes/vayne.png">../assets/images/48/heroes/vayne.png</file>
+        <file alias="images/48/heroes/veigar.png">../assets/images/48/heroes/veigar.png</file>
+        <file alias="images/48/heroes/velkoz.png">../assets/images/48/heroes/velkoz.png</file>
+        <file alias="images/48/heroes/vex.png">../assets/images/48/heroes/vex.png</file>
+        <file alias="images/48/heroes/vi.png">../assets/images/48/heroes/vi.png</file>
+        <file alias="images/48/heroes/viego.png">../assets/images/48/heroes/viego.png</file>
+        <file alias="images/48/heroes/viktor.png">../assets/images/48/heroes/viktor.png</file>
+        <file alias="images/48/heroes/vladimir.png">../assets/images/48/heroes/vladimir.png</file>
+        <file alias="images/48/heroes/volibear.png">../assets/images/48/heroes/volibear.png</file>
+        <file alias="images/48/heroes/warwick.png">../assets/images/48/heroes/warwick.png</file>
+        <file alias="images/48/heroes/wukong.png">../assets/images/48/heroes/wukong.png</file>
+        <file alias="images/48/heroes/xayah.png">../assets/images/48/heroes/xayah.png</file>
+        <file alias="images/48/heroes/xerath.png">../assets/images/48/heroes/xerath.png</file>
+        <file alias="images/48/heroes/xinzhao.png">../assets/images/48/heroes/xinzhao.png</file>
+        <file alias="images/48/heroes/yasuo.png">../assets/images/48/heroes/yasuo.png</file>
+        <file alias="images/48/heroes/yone.png">../assets/images/48/heroes/yone.png</file>
+        <file alias="images/48/heroes/yorick.png">../assets/images/48/heroes/yorick.png</file>
+        <file alias="images/48/heroes/yunara.png">../assets/images/48/heroes/yunara.png</file>
+        <file alias="images/48/heroes/yuumi.png">../assets/images/48/heroes/yuumi.png</file>
+        <file alias="images/48/heroes/zaahen.png">../assets/images/48/heroes/zaahen.png</file>
+        <file alias="images/48/heroes/zac.png">../assets/images/48/heroes/zac.png</file>
+        <file alias="images/48/heroes/zed.png">../assets/images/48/heroes/zed.png</file>
+        <file alias="images/48/heroes/zeri.png">../assets/images/48/heroes/zeri.png</file>
+        <file alias="images/48/heroes/ziggs.png">../assets/images/48/heroes/ziggs.png</file>
+        <file alias="images/48/heroes/zilean.png">../assets/images/48/heroes/zilean.png</file>
+        <file alias="images/48/heroes/zoe.png">../assets/images/48/heroes/zoe.png</file>
+        <file alias="images/48/heroes/zyra.png">../assets/images/48/heroes/zyra.png</file>
+        <file alias="images/48/monsters/baronnashor.png">../assets/images/48/monsters/baronnashor.png</file>
+        <file alias="images/48/monsters/bluesentinel.png">../assets/images/48/monsters/bluesentinel.png</file>
+        <file alias="images/48/monsters/chemtechdrake.png">../assets/images/48/monsters/chemtechdrake.png</file>
+        <file alias="images/48/monsters/clouddrake.png">../assets/images/48/monsters/clouddrake.png</file>
+        <file alias="images/48/monsters/elderdragon.png">../assets/images/48/monsters/elderdragon.png</file>
+        <file alias="images/48/monsters/gromp.png">../assets/images/48/monsters/gromp.png</file>
+        <file alias="images/48/monsters/hextechdrake.png">../assets/images/48/monsters/hextechdrake.png</file>
+        <file alias="images/48/monsters/infernaldrake.png">../assets/images/48/monsters/infernaldrake.png</file>
+        <file alias="images/48/monsters/krugs.png">../assets/images/48/monsters/krugs.png</file>
+        <file alias="images/48/monsters/mountaindrake.png">../assets/images/48/monsters/mountaindrake.png</file>
+        <file alias="images/48/monsters/murkwolves.png">../assets/images/48/monsters/murkwolves.png</file>
+        <file alias="images/48/monsters/oceandrake.png">../assets/images/48/monsters/oceandrake.png</file>
+        <file alias="images/48/monsters/raptors.png">../assets/images/48/monsters/raptors.png</file>
+        <file alias="images/48/monsters/redbrambleback.png">../assets/images/48/monsters/redbrambleback.png</file>
+        <file alias="images/48/monsters/riftherald.png">../assets/images/48/monsters/riftherald.png</file>
+        <file alias="images/48/monsters/riftscuttler.png">../assets/images/48/monsters/riftscuttler.png</file>
+        <file alias="images/48/monsters/voidgrubs.png">../assets/images/48/monsters/voidgrubs.png</file>
+        <file>qml/component/AntDesignExamples.qml</file>
+        <file>qml/component/AntDesignSamples.js</file>
+    </qresource>
+</RCC>

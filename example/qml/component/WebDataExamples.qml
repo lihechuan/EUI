@@ -1,0 +1,1290 @@
+import EUI 1.0
+import QtQuick 2.15
+
+ExamplePage {
+    id: page
+
+    title: ELocale.texts.DataDisplayInteractions
+    description: ELocale.texts.WorkingExamplesOfCheckingFilteringPreviewsPaginationLayouts
+
+    ExampleSection {
+        componentName: "ETree"
+
+        ExampleCard {
+            title: ELocale.texts.CheckingPartialSelectionFilteringAndDragAndDrop
+            code: GalleryStyle.sourceCode(`
+                import EUI 1.0
+                import QtQuick 2.15
+
+                Column {
+                    spacing: 12
+                    width: parent.width
+
+                    EInput {
+                        width: Math.min(360, parent.width)
+                        placeholderText: "过滤节点"
+
+                        onTextChanged: tree.filter(text)
+                    }
+                    ETree {
+                        id: tree
+
+                        width: Math.min(440, parent.width)
+                        showCheckbox: true
+                        draggable: true
+                        expandOnClickNode: true
+                        expandedKeys: ["team"]
+                        model: [{ id: "team", label: "产品团队", children: [
+                            { id: "design", label: "设计" }, { id: "engineering", label: "开发" },
+                            { id: "archived", label: "归档", disabled: true }] },
+                            { id: "operations", label: "运营", children: [{ id: "support", label: "支持" }] }]
+                    }
+                    Row {
+                        spacing: 8
+
+                        EButton {
+                            text: "勾选团队"
+
+                            onClicked: tree.setCheckedKeys(["team"])
+                        }
+                        EButton {
+                            text: "清空"
+
+                            onClicked: tree.setCheckedKeys([])
+                        }
+                        ECheckBox {
+                            text: "严格勾选"
+
+                            onToggled: tree.checkStrictly = checked
+                        }
+                    }
+                    EText {
+                        width: parent.width
+                        wrapMode: Text.WordWrap
+                        text: "已勾选：" + tree.getCheckedKeys().join(", ") + "    半选：" + tree.halfCheckedKeys.join(", ")
+                    }
+                }`)
+
+            Column {
+                spacing: 12
+                width: parent.width
+
+                EInput {
+                    width: Math.min(360, parent.width)
+                    placeholderText: ELocale.texts.FilterNodes
+
+                    onTextChanged: webDataTree.filter(text)
+                }
+                ETree {
+                    id: webDataTree
+
+                    draggable: true
+                    showCheckbox: true
+                    expandedKeys: ["team"]
+                    expandOnClickNode: true
+                    width: Math.min(440, parent.width)
+                    model: [{ id: "team", label: ELocale.texts.ProductTeam, children: [
+                        { id: "design", label: ELocale.texts.Design }, { id: "engineering", label: ELocale.texts.Engineering },
+                        { id: "archived", label: ELocale.texts.Archived, disabled: true }] },
+                        { id: "operations", label: ELocale.texts.Operations, children: [{ id: "support", label: ELocale.texts.Support }] }]
+                }
+                Row {
+                    spacing: 8
+
+                    EButton {
+                        text: ELocale.texts.CheckTeam
+
+                        onClicked: webDataTree.setCheckedKeys(["team"])
+                    }
+                    EButton {
+                        text: ELocale.texts.Clear
+
+                        onClicked: webDataTree.setCheckedKeys([])
+                    }
+                    ECheckBox {
+                        text: ELocale.texts.StrictChecking
+
+                        onToggled: webDataTree.checkStrictly = checked
+                    }
+                }
+                EText {
+                    width: parent.width
+                    wrapMode: Text.WordWrap
+                    text: ELocale.texts.Checked2
+                        + webDataTree.getCheckedKeys().join(", ")
+                        + ELocale.texts.Partial
+                        + webDataTree.halfCheckedKeys.join(", ")
+                }
+            }
+        }
+    }
+    ExampleSection {
+        componentName: "EImage"
+
+        ExampleCard {
+            title: ELocale.texts.MultiplePreviewsZoomRotationAndKeyboardNavigation
+            code: GalleryStyle.sourceCode(`
+                import EUI 1.0
+                import QtQuick 2.15
+
+                EImage {
+                    width: 240
+                    height: 160
+                    preview: true
+                    source: "qrc:/example/eui-mark.svg"
+                    previewSrcList: [source, source]
+                    showProgress: true
+                    minScale: 0.25
+                    maxScale: 4
+                }`)
+
+            EImage {
+                width: 240
+                height: 160
+                maxScale: 4
+                preview: true
+                minScale: 0.25
+                showProgress: true
+                previewSrcList: [source, source]
+                source: "qrc:/example/eui-mark.svg"
+            }
+        }
+    }
+    ExampleSection {
+        componentName: "EPagination"
+
+        ExampleCard {
+            title: ELocale.texts.PageSizeAndPageJump
+            code: GalleryStyle.sourceCode(`
+                import EUI 1.0
+                import QtQuick 2.15
+
+                Column {
+                    spacing: 12
+                    width: parent.width
+
+                    EPagination {
+                        id: pagination
+
+                        total: 258
+                        width: parent.width
+                        pageSizes: [10, 20, 50, 100]
+                        layout: width < 760 ? "total, sizes, ->, jumper" : "total, sizes, prev, pager, next, jumper"
+
+                        onPageSizeChanged: {
+                            if (pager)
+                                pager.pageSize = pageSize
+                        }
+                        onCurrentPageChanged: {
+                            if (pager)
+                                pager.currentPage = currentPage
+                        }
+                    }
+                    EPagination {
+                        id: pager
+
+                        width: parent.width
+                        visible: width < 760
+                        total: pagination.total
+                        layout: "prev, pager, next"
+                        pageSize: pagination.pageSize
+                        currentPage: pagination.currentPage
+
+                        onCurrentChange: function(number) { pagination.setPage(number) }
+                    }
+                    EText {
+                        text: "第 " + pagination.currentPage + " 页，每页 " + pagination.pageSize + " 条"
+                    }
+                }
+            `)
+
+            Column {
+                spacing: 12
+                width: parent.width
+
+                EPagination {
+                    id: webDataPagination
+
+                    total: 258
+                    width: parent.width
+                    pageSizes: [10, 20, 50, 100]
+                    objectName: "galleryPaginationControls"
+                    layout: width < 760 ? "total, sizes, ->, jumper"
+                        : "total, sizes, prev, pager, next, jumper"
+
+                    onPageSizeChanged: {
+                        if (webDataPager)
+                            webDataPager.pageSize = pageSize
+                    }
+                    onCurrentPageChanged: {
+                        if (webDataPager)
+                            webDataPager.currentPage = currentPage
+                    }
+                }
+                EPagination {
+                    id: webDataPager
+
+                    width: parent.width
+                    visible: width < 760
+                    layout: "prev, pager, next"
+                    total: webDataPagination.total
+                    objectName: "galleryPaginationPages"
+                    pageSize: webDataPagination.pageSize
+                    currentPage: webDataPagination.currentPage
+
+                    onCurrentChange: function(number) {
+                        webDataPagination.setPage(number)
+                    }
+                }
+                EText {
+                    text: ELocale.texts.PageSizeStatus.arg(webDataPagination.currentPage)
+                        .arg(webDataPagination.pageSize)
+                }
+            }
+        }
+    }
+    ExampleSection {
+        componentName: "ECarousel"
+
+        ExampleCard {
+            title: ELocale.texts.CardCarouselHoverPauseAndNamedSlides
+            code: GalleryStyle.sourceCode(`
+                import EUI 1.0
+                import QtQuick 2.15
+
+                Column {
+                    spacing: 12
+                    width: parent.width
+
+                    ECarousel {
+                        id: carousel
+
+                        width: Math.min(600, parent.width)
+                        height: 220
+                        type: "card"
+                        arrow: "hover"
+                        trigger: "hover"
+                        pauseOnHover: true
+                        model: [{ name: "design", title: "设计系统", color: "#E7F0FD" },
+                            { name: "build", title: "组件工程", color: "#E6F2E9" },
+                            { name: "ship", title: "产品交付", color: "#FFF0DE" }]
+                        delegate: ERectangle {
+                            radius: 8
+                            color: parent.modelData.color
+
+                            EText {
+                                font.pixelSize: 24
+                                anchors.centerIn: parent
+                                text: parent.parent.modelData.title
+                                color: "#30343B"
+                            }
+                        }
+                    }
+                    EButton {
+                        text: "切换到组件工程"
+
+                        onClicked: carousel.setActiveItem("build")
+                    }
+                }`)
+
+            Column {
+                spacing: 12
+                width: parent.width
+
+                ECarousel {
+                    id: webDataCarousel
+
+                    height: 220
+                    type: "card"
+                    arrow: "hover"
+                    trigger: "hover"
+                    pauseOnHover: true
+                    width: Math.min(600, parent.width)
+                    delegate: ERectangle {
+                        radius: 8
+                        color: parent.modelData.color
+
+                        EText {
+                            color: "#30343B"
+                            font.pixelSize: 24
+                            anchors.centerIn: parent
+                            text: parent.parent.modelData.title
+                        }
+                    }
+                    model: [{ name: "design", title: ELocale.texts.DesignSystem, color: "#E7F0FD" },
+                        { name: "build", title: ELocale.texts.ComponentEngineering, color: "#E6F2E9" },
+                        { name: "ship", title: ELocale.texts.ProductDelivery, color: "#FFF0DE" }]
+                }
+                EButton {
+                    text: ELocale.texts.OpenComponentEngineering
+
+                    onClicked: webDataCarousel.setActiveItem("build")
+                }
+            }
+        }
+    }
+    ExampleSection {
+        componentName: "EDescriptions"
+
+        ExampleCard {
+            title: ELocale.texts.ColumnAndRowSpansVerticalLabelsAndExtra
+            code: GalleryStyle.sourceCode(`
+                import EUI 1.0
+                import QtQuick 2.15
+
+                Column {
+                    spacing: 12
+                    width: parent.width
+
+                    ECheckBox {
+                        text: "纵向标签"
+
+                        onToggled: details.direction = checked ? "vertical" : "horizontal"
+                    }
+                    EDescriptions {
+                        id: details
+
+                        extra: "已验证"
+                        title: "项目资料"
+                        width: parent.width
+                        columns: width < 560 ? 2 : 3
+                        model: [{ label: "名称", value: "EUI 组件库", span: 2 },
+                            { label: "版本", value: "3.0" }, { label: "维护方", value: "产品团队", rowspan: 2 },
+                            { label: "平台", value: "Desktop", span: 2 },
+                            { label: "说明", value: "支持主题、键盘和自定义内容", span: 2 }]
+                    }
+                }
+            `)
+
+            Column {
+                spacing: 12
+                width: parent.width
+
+                ECheckBox {
+                    text: ELocale.texts.VerticalLabels
+
+                    onToggled: webDataDetails.direction = checked ? "vertical" : "horizontal"
+                }
+                EDescriptions {
+                    id: webDataDetails
+
+                    width: parent.width
+                    columns: width < 560 ? 2 : 3
+                    extra: ELocale.texts.Verified
+                    title: ELocale.texts.ProjectDetails2
+                    model: [{ label: ELocale.texts.Name2, value: ELocale.texts.EUIComponentLibrary, span: 2 },
+                        { label: ELocale.texts.Version, value: "3.0" }, { label: ELocale.texts.Maintainer, value: ELocale.texts.ProductTeam, rowspan: 2 },
+                        { label: ELocale.texts.Platform, value: "Desktop", span: 2 },
+                        { label: ELocale.texts.Description, value: ELocale.texts.ThemesKeyboardAndCustomContent, span: 2 }]
+                }
+            }
+        }
+    }
+    ExampleSection {
+        componentName: "EProgress"
+
+        ExampleCard {
+            title: ELocale.texts.PercentagesColorThresholdsStripesAndIndeterminateProgress
+            code: GalleryStyle.sourceCode(`
+                import EUI 1.0
+                import QtQuick 2.15
+
+                Column {
+                    spacing: 20
+                    width: parent.width
+
+                    EProgress {
+                        width: Math.min(500, parent.width)
+                        height: 20
+                        percentage: 68
+                        showText: true
+                        striped: true
+                        stripedFlow: true
+                        color: [{ color: "#E6A23C", percentage: 30 }, { color: "#409EFF", percentage: 70 },
+                            { color: "#67C23A", percentage: 100 }]
+                    }
+                    EProgress {
+                        width: Math.min(500, parent.width)
+                        height: 10
+                        indeterminate: true
+                        duration: 1800
+                    }
+                }`)
+
+            Column {
+                spacing: 20
+                width: parent.width
+
+                EProgress {
+                    height: 20
+                    striped: true
+                    percentage: 68
+                    showText: true
+                    stripedFlow: true
+                    width: Math.min(500, parent.width)
+                    color: [{ color: "#E6A23C", percentage: 30 }, { color: "#409EFF", percentage: 70 },
+                        { color: "#67C23A", percentage: 100 }]
+                }
+                EProgress {
+                    height: 10
+                    duration: 1800
+                    indeterminate: true
+                    width: Math.min(500, parent.width)
+                }
+            }
+        }
+    }
+    ExampleSection {
+        componentName: "ECircleProgress"
+
+        ExampleCard {
+            title: ELocale.texts.DashboardStatusAndFormattedText
+            code: GalleryStyle.sourceCode(`
+                import EUI 1.0
+                import QtQuick 2.15
+
+                Row {
+                    spacing: 28
+
+                    ECircleProgress {
+                        percentage: 75
+                        dashboard: true
+                        showText: true
+                        strokeWidth: 10
+                        status: "warning"
+                        format: function(value) { return value + " 分" }
+                    }
+                    ECircleProgress {
+                        percentage: 100
+                        showText: true
+                        status: "success"
+                        strokeLinecap: "square"
+                    }
+                }`)
+
+            Row {
+                spacing: 28
+
+                ECircleProgress {
+                    percentage: 75
+                    showText: true
+                    dashboard: true
+                    strokeWidth: 10
+                    status: "warning"
+                    format: function(value) {
+                        return value + ELocale.texts.Points
+                    }
+                }
+                ECircleProgress {
+                    showText: true
+                    percentage: 100
+                    status: "success"
+                    strokeLinecap: "square"
+                }
+            }
+        }
+    }
+    ExampleSection {
+        componentName: "ECollapse"
+
+        ExampleCard {
+            title: ELocale.texts.BeforeChangeValidationAndCustomContent
+            code: GalleryStyle.sourceCode(`
+                import EUI 1.0
+                import QtQuick 2.15
+
+                ECollapse {
+                    width: Math.min(600, parent.width)
+                    expandIconPosition: "left"
+                    activeNames: ["overview"]
+                    beforeCollapse: function(name, expanded) { return name !== "locked" }
+                    model: [{ name: "overview", title: "项目概况", content: "支持多面板、手风琴和异步 beforeCollapse 校验。" },
+                        { name: "locked", title: "校验拒绝切换", content: "此项不会打开。" },
+                        { name: "details", title: "交互详情", content: "标题和内容可使用 Component delegate。" }]
+                }`)
+
+            ECollapse {
+                activeNames: ["overview"]
+                expandIconPosition: "left"
+                width: Math.min(600, parent.width)
+                beforeCollapse: function(name, expanded) {
+                    return name !== "locked"
+                }
+                model: [{ name: "overview", title: ELocale.texts.ProjectOverview, content: ELocale.texts.MultiplePanelsAccordionAndAsyncBeforeCollapseValidation },
+                    { name: "locked", title: ELocale.texts.ChangeBlockedByValidation, content: ELocale.texts.ThisPanelRemainsClosed },
+                    { name: "details", title: ELocale.texts.InteractionDetails, content: ELocale.texts.TitlesAndContentCanUseComponentDelegates }]
+            }
+        }
+    }
+    ExampleSection {
+        componentName: "ESegmented"
+
+        ExampleCard {
+            title: ELocale.texts.ValueBindingDisabledOptionsAndKeyboardNavigation
+            code: GalleryStyle.sourceCode(`
+                import EUI 1.0
+                import QtQuick 2.15
+
+                Column {
+                    spacing: 12
+                    width: parent.width
+
+                    ESegmented {
+                        id: segmented
+
+                        width: 360
+                        block: true
+                        value: "day"
+                        model: [{ label: "日", value: "day" }, { label: "周", value: "week" },
+                            { label: "月", value: "month" }, { label: "年", value: "year", disabled: true }]
+                    }
+                    EText {
+                        text: "当前值：" + segmented.currentValue
+                    }
+                }`)
+
+            Column {
+                spacing: 12
+                width: parent.width
+
+                ESegmented {
+                    id: webDataSegmented
+
+                    width: 360
+                    block: true
+                    value: "day"
+                    model: [{ label: ELocale.texts.Day, value: "day" }, { label: ELocale.texts.Week, value: "week" },
+                        { label: ELocale.texts.Month, value: "month" }, { label: ELocale.texts.Year, value: "year", disabled: true }]
+                }
+                EText {
+                    text: ELocale.texts.CurrentValue
+                        + webDataSegmented.currentValue
+                }
+            }
+        }
+    }
+    ExampleSection {
+        componentName: "ESkeleton"
+
+        ExampleCard {
+            title: ELocale.texts.MultipleSkeletonsThrottledVisibilityAndLoadedContent
+            code: GalleryStyle.sourceCode(`
+                import EUI 1.0
+                import QtQuick 2.15
+
+                Column {
+                    spacing: 16
+                    width: parent.width
+
+                    ESwitch {
+                        text: "加载中"
+                        checked: true
+
+                        onToggled: skeleton.loading = checked
+                    }
+                    ESkeleton {
+                        id: skeleton
+
+                        width: Math.min(480, parent.width)
+                        count: 2
+                        rows: 2
+                        animated: true
+                        throttle: ({ leading: 250, trailing: 150 })
+
+                        EText {
+                            width: parent.width
+                            height: 80
+                            wrapMode: Text.WordWrap
+                            text: "加载完成。切换加载状态后，内容高度保持由实际内容决定。"
+                        }
+                    }
+                }`)
+
+            Column {
+                spacing: 16
+                width: parent.width
+
+                ESwitch {
+                    checked: true
+                    text: ELocale.texts.Loading
+
+                    onToggled: webDataSkeleton.loading = checked
+                }
+                ESkeleton {
+                    id: webDataSkeleton
+
+                    rows: 2
+                    count: 2
+                    animated: true
+                    width: Math.min(480, parent.width)
+                    throttle: ({ leading: 250, trailing: 150 })
+
+                    EText {
+                        height: 80
+                        width: parent.width
+                        wrapMode: Text.WordWrap
+                        text: ELocale.texts.LoadedContentHeightFollowsTheActualContentWhen
+                    }
+                }
+            }
+        }
+    }
+    ExampleSection {
+        componentName: "EStatistic"
+
+        ExampleCard {
+            title: ELocale.texts.FormattedValuesAndCountdown
+            code: GalleryStyle.sourceCode(`
+                import EUI 1.0
+                import QtQuick 2.15
+
+                Row {
+                    spacing: 48
+
+                    EStatistic {
+                        title: "本月收入"
+                        value: 12680.25
+                        precision: 2
+                        prefix: "¥ "
+                    }
+                    EStatistic {
+                        title: "距离下一次更新"
+                        countdown: true
+                        value: Date.now() + 3600000
+                        format: "HH:mm:ss"
+                    }
+                }`)
+
+            Row {
+                spacing: 48
+
+                EStatistic {
+                    precision: 2
+                    prefix: "¥ "
+                    value: 12680.25
+                    title: ELocale.texts.MonthlyRevenue
+                }
+                EStatistic {
+                    countdown: true
+                    format: "HH:mm:ss"
+                    value: Date.now() + 3600000
+                    title: ELocale.texts.NextUpdateIn2
+                }
+            }
+        }
+    }
+    ExampleSection {
+        componentName: "ETimeline"
+
+        ExampleCard {
+            title: ELocale.texts.AlternatingLayoutIconsAndTimestampPositions
+            code: GalleryStyle.sourceCode(`
+                import EUI 1.0
+                import QtQuick 2.15
+
+                ETimeline {
+                    width: Math.min(600, parent.width)
+                    mode: "alternate"
+                    model: [{ content: "需求确认", timestamp: "2026-10-01", placement: "top", styleType: EStyle.Success },
+                        { content: "开发完成", timestamp: "2026-10-05", icon: EIcons.CHECK, size: "large" },
+                        { content: "准备发布", timestamp: "2026-10-10", hollow: true, styleType: EStyle.Warning }]
+                }`)
+
+            ETimeline {
+                mode: "alternate"
+                width: Math.min(600, parent.width)
+                model: [{ content: ELocale.texts.RequirementsConfirmed, timestamp: "2026-10-01", placement: "top", styleType: EStyle.Success },
+                    { content: ELocale.texts.DevelopmentComplete, timestamp: "2026-10-05", icon: EIcons.CHECK, size: "large" },
+                    { content: ELocale.texts.ReadyToRelease, timestamp: "2026-10-10", hollow: true, styleType: EStyle.Warning }]
+            }
+        }
+    }
+    ExampleSection {
+        componentName: "ECalendar"
+
+        ExampleCard {
+            title: ELocale.texts.DateRangesAndCustomDateCells
+            code: GalleryStyle.sourceCode(`
+                import EUI 1.0
+                import QtQuick 2.15
+
+                ECalendar {
+                    width: Math.min(620, parent.width)
+                    value: "2026-10-10"
+                    controllerType: "select"
+                    dateCellDelegate: Component {
+                        EText {
+                            padding: 10
+                            text: parent.day.slice(-2) + (parent.day === "2026-10-10" ? "\\n发布日" : "")
+                            wrapMode: Text.WordWrap
+                            color: parent.isSelected ? EPaletteManager.ThemePalette.fetchColorForStyle(EStyle.Primary)
+                                : EPaletteManager.ThemePalette.textRegular(ETheme.dark)
+                        }
+                    }
+                }`)
+
+            ECalendar {
+                value: "2026-10-10"
+                controllerType: "select"
+                width: Math.min(620, parent.width)
+                dateCellDelegate: Component {
+                    EText {
+                        padding: 10
+                        wrapMode: Text.WordWrap
+                        text: parent.day.slice(-2)
+                            + (parent.day === "2026-10-10"
+                                ? ELocale.texts.Release
+                                : "")
+                        color: parent.isSelected
+                            ? EPaletteManager.ThemePalette.fetchColorForStyle(EStyle.Primary)
+                            : EPaletteManager.ThemePalette.textRegular(ETheme.dark)
+                    }
+                }
+            }
+        }
+    }
+    ExampleSection {
+        componentName: "ETag"
+
+        ExampleCard {
+            title: ELocale.texts.CheckableTagsCustomColorsAndClosing
+            code: GalleryStyle.sourceCode(`
+                import EUI 1.0
+                import QtQuick 2.15
+
+                Row {
+                    spacing: 12
+
+                    ETag {
+                        text: "可切换"
+                        checkable: true
+                    }
+                    ETag {
+                        text: "重点"
+                        hit: true
+                        color: "#FFF0DE"
+                        styleType: EStyle.Warning
+                    }
+                    ETag {
+                        text: "可关闭"
+                        closable: true
+
+                        onClosed: visible = false
+                    }
+                }`)
+
+            Row {
+                spacing: 12
+
+                ETag {
+                    checkable: true
+                    text: ELocale.texts.Toggle
+                }
+                ETag {
+                    hit: true
+                    color: "#FFF0DE"
+                    styleType: EStyle.Warning
+                    text: ELocale.texts.Important
+                }
+                ETag {
+                    closable: true
+                    text: ELocale.texts.Closeable
+
+                    onClosed: visible = false
+                }
+            }
+        }
+    }
+    ExampleSection {
+        componentName: "EBadge"
+
+        ExampleCard {
+            title: ELocale.texts.CustomColorsAndOffsets
+            code: GalleryStyle.sourceCode(`
+                import EUI 1.0
+                import QtQuick 2.15
+
+                Row {
+                    spacing: 36
+
+                    EBadge {
+                        value: 12
+                        color: "#6D5CE7"
+                        offset: Qt.point(4, 2)
+
+                        EButton { text: "消息" }
+                    }
+                    EBadge {
+                        isDot: true
+                        offset: Qt.point(-4, 4)
+
+                        EButton { text: "通知" }
+                    }
+                }`)
+
+            Row {
+                spacing: 36
+
+                EBadge {
+                    value: 12
+                    color: "#6D5CE7"
+                    offset: Qt.point(4, 2)
+
+                    EButton { text: ELocale.texts.Messages }
+                }
+                EBadge {
+                    isDot: true
+                    offset: Qt.point(-4, 4)
+
+                    EButton { text: ELocale.texts.Notifications }
+                }
+            }
+        }
+    }
+    ExampleSection {
+        componentName: "EAvatar"
+
+        ExampleCard {
+            title: ELocale.texts.IconAvatarsCustomFallbackAndFitting
+            code: GalleryStyle.sourceCode(`
+                import EUI 1.0
+                import QtQuick 2.15
+
+                Row {
+                    spacing: 16
+
+                    EAvatar {
+                        size: 56
+                        iconSource: EIcons.PERSON
+                    }
+                    EAvatar {
+                        size: 56
+                        shape: "square"
+                        source: "qrc:/example/eui-mark.svg"
+                        fillMode: Image.PreserveAspectFit
+                    }
+                    EAvatar {
+                        size: 56
+
+                        EText {
+                            anchors.centerIn: parent
+                            text: "设计"
+                            color: "white"
+                        }
+                    }
+                }`)
+
+            Row {
+                spacing: 16
+
+                EAvatar {
+                    size: 56
+                    iconSource: EIcons.PERSON
+                }
+                EAvatar {
+                    size: 56
+                    shape: "square"
+                    fillMode: Image.PreserveAspectFit
+                    source: "qrc:/example/eui-mark.svg"
+                }
+                EAvatar {
+                    size: 56
+
+                    EText {
+                        color: "white"
+                        anchors.centerIn: parent
+                        text: ELocale.texts.Design
+                    }
+                }
+            }
+        }
+    }
+    ExampleSection {
+        componentName: "ECard"
+
+        ExampleCard {
+            title: ELocale.texts.HoverShadowsHeaderAndFooterDelegates
+            code: GalleryStyle.sourceCode(`
+                import EUI 1.0
+                import QtQuick 2.15
+
+                ECard {
+                    width: Math.min(480, parent.width)
+                    shadow: "hover"
+                    headerDelegate: Component {
+                        Row {
+                            spacing: 12
+
+                            EText {
+                                text: "项目动态"
+                                font.bold: true
+                            }
+                            ETag {
+                                text: "进行中"
+                                styleType: EStyle.Success
+                            }
+                        }
+                    }
+                    footer: "更新于 2026-10-10"
+
+                    EText {
+                        width: parent.width
+                        wrapMode: Text.WordWrap
+                        text: "卡片支持原有正文内容接口，并可自定义标题与页脚。"
+                    }
+                }`)
+
+            ECard {
+                shadow: "hover"
+                width: Math.min(480, parent.width)
+                footer: ELocale.texts.Updated20261010
+                headerDelegate: Component {
+                    Row {
+                        spacing: 12
+
+                        EText {
+                            font.bold: true
+                            text: ELocale.texts.ProjectActivity
+                        }
+                        ETag {
+                            styleType: EStyle.Success
+                            text: ELocale.texts.InProgress
+                        }
+                    }
+                }
+
+                EText {
+                    width: parent.width
+                    wrapMode: Text.WordWrap
+                    text: ELocale.texts.CardsPreserveTheBodyContentAPIAndSupport
+                }
+            }
+        }
+    }
+    ExampleSection {
+        componentName: "EEmpty"
+
+        ExampleCard {
+            title: ELocale.texts.CustomEmptyStateContent
+            code: GalleryStyle.sourceCode(`
+                import EUI 1.0
+                import QtQuick 2.15
+
+                EEmpty {
+                    width: parent.width
+                    description: "暂无项目"
+                    imageDelegate: Component {
+                        EIcon {
+                            iconSize: 64
+                            iconSource: EIcons.FOLDER_OPEN
+                            color: EPaletteManager.ThemePalette.fetchColorForStyle(EStyle.Primary)
+                        }
+                    }
+
+                    EButton {
+                        text: "创建项目"
+                        styleType: EStyle.Primary
+                    }
+                }`)
+
+            EEmpty {
+                width: parent.width
+                description: ELocale.texts.NoProjectsYet
+                imageDelegate: Component {
+                    EIcon {
+                        iconSize: 64
+                        iconSource: EIcons.FOLDER_OPEN
+                        color: EPaletteManager.ThemePalette.fetchColorForStyle(EStyle.Primary)
+                    }
+                }
+
+                EButton {
+                    styleType: EStyle.Primary
+                    text: ELocale.texts.CreateProject
+                }
+            }
+        }
+    }
+    ExampleSection {
+        componentName: "EResult"
+
+        ExampleCard {
+            title: ELocale.texts.ResultTitlesAndActions
+            code: GalleryStyle.sourceCode(`
+                import EUI 1.0
+                import QtQuick 2.15
+
+                EResult {
+                    width: parent.width
+                    title: "发布成功"
+                    subTitle: "所有任务均已完成，可以查看发布详情。"
+                    styleType: EStyle.Success
+
+                    EButton {
+                        text: "查看详情"
+                        styleType: EStyle.Primary
+                    }
+                    EButton { text: "返回" }
+                }`)
+
+            EResult {
+                width: parent.width
+                styleType: EStyle.Success
+                title: ELocale.texts.PublishedSuccessfully
+                subTitle: ELocale.texts.AllTasksAreCompleteYouCanNowView
+
+                EButton { text: ELocale.texts.Back }
+                EButton {
+                    styleType: EStyle.Primary
+                    text: ELocale.texts.ViewDetails2
+                }
+            }
+        }
+    }
+    ExampleSection {
+        componentName: "ETour"
+
+        ExampleCard {
+            title: ELocale.texts.PlacementMasksAndTargetInteraction
+            code: GalleryStyle.sourceCode(`
+                import EUI 1.0
+                import QtQuick 2.15
+
+                Column {
+                    spacing: 16
+                    width: parent.width
+
+                    EButton {
+                        id: targetButton
+
+                        text: "启动引导"
+
+                        onClicked: tour.start()
+                    }
+                    ETour {
+                        id: tour
+
+                        placement: "bottom-start"
+                        targetAreaClickable: true
+                        gap: ({ offset: 8, radius: 6 })
+                        steps: [{ target: targetButton, title: "操作入口", description: "引导期间仍可点击目标。" },
+                            { title: "完成", description: "空目标的引导卡片自动居中。" }]
+                    }
+                }`)
+
+            Column {
+                spacing: 16
+                width: parent.width
+
+                EButton {
+                    id: webDataTargetButton
+
+                    text: ELocale.texts.StartTour2
+
+                    onClicked: webDataTour.start()
+                }
+                ETour {
+                    id: webDataTour
+
+                    placement: "bottom-start"
+                    targetAreaClickable: true
+                    gap: ({ offset: 8, radius: 6 })
+                    steps: [{ target: webDataTargetButton, title: ELocale.texts.ActionEntry, description: ELocale.texts.TheTargetRemainsClickableDuringTheTour },
+                        { title: ELocale.texts.Done, description: ELocale.texts.ATourCardWithoutATargetAppearsIn }]
+                }
+            }
+        }
+    }
+    ExampleSection {
+        componentName: "EInfiniteScroll"
+
+        ExampleCard {
+            title: ELocale.texts.ThrottledLoadingAndExplicitCompletion
+            code: GalleryStyle.sourceCode(`
+                import EUI 1.0
+                import QtQuick 2.15
+
+                EInfiniteScroll {
+                    id: list
+
+                    width: Math.min(480, parent.width)
+                    height: 200
+                    delay: 200
+                    distance: 24
+                    model: ["记录 1", "记录 2", "记录 3", "记录 4"]
+
+                    onLoadMore: {
+                        const rows = model.slice()
+                        for (let index = 0; index < 4; ++index)
+                            rows.push("记录 " + (rows.length + 1))
+                        model = rows
+                        finishLoad(rows.length >= 20)
+                    }
+                }`)
+
+            EInfiniteScroll {
+                id: webDataList
+
+                delay: 200
+                height: 200
+                distance: 24
+                width: Math.min(480, parent.width)
+                model: [ELocale.texts.Record1, ELocale.texts.Record2, ELocale.texts.Record3, ELocale.texts.Record4]
+
+                onLoadMore: {
+                    const rows = model.slice()
+                    for (let index = 0; index < 4; ++index)
+                        rows.push(ELocale.texts.Record + (rows.length + 1))
+                    model = rows
+                    finishLoad(rows.length >= 20)
+                }
+            }
+        }
+    }
+    ExampleSection {
+        componentName: "EAvatarGroup"
+
+        ExampleCard {
+            title: ELocale.texts.AvatarGroupsCollapseAndHoverPreviews
+            code: GalleryStyle.sourceCode(`
+                import EUI 1.0
+                import QtQuick 2.15
+
+                EAvatarGroup {
+                    size: 44
+                    overlap: 10
+                    collapseAvatars: true
+                    maxCollapseAvatars: 3
+                    collapseAvatarsTooltip: true
+
+                    EAvatar { text: "A" }
+                    EAvatar { text: "B" }
+                    EAvatar { text: "C" }
+                    EAvatar { text: "D" }
+                    EAvatar { text: "E" }
+                }`)
+
+            EAvatarGroup {
+                size: 44
+                overlap: 10
+                collapseAvatars: true
+                maxCollapseAvatars: 3
+                collapseAvatarsTooltip: true
+
+                EAvatar { text: "A" }
+                EAvatar { text: "B" }
+                EAvatar { text: "C" }
+                EAvatar { text: "D" }
+                EAvatar { text: "E" }
+            }
+        }
+    }
+    ExampleSection {
+        componentName: "ESkeletonItem"
+
+        ExampleCard {
+            title: ELocale.texts.CustomSkeletonVariants
+            code: GalleryStyle.sourceCode(`
+                import EUI 1.0
+                import QtQuick 2.15
+
+                Row {
+                    spacing: 16
+
+                    ESkeletonItem {
+                        variant: "circle"
+                        animated: true
+                    }
+                    ESkeletonItem {
+                        variant: "image"
+                        animated: true
+                    }
+                    ESkeletonItem {
+                        variant: "button"
+                        animated: true
+                    }
+                }`)
+
+            Row {
+                spacing: 16
+
+                ESkeletonItem {
+                    animated: true
+                    variant: "circle"
+                }
+                ESkeletonItem {
+                    animated: true
+                    variant: "image"
+                }
+                ESkeletonItem {
+                    animated: true
+                    variant: "button"
+                }
+            }
+        }
+    }
+    ExampleSection {
+        componentName: "ECountdown"
+
+        ExampleCard {
+            title: ELocale.texts.StandaloneCountdown
+            code: GalleryStyle.sourceCode(`
+                import EUI 1.0
+                import QtQuick 2.15
+
+                ECountdown {
+                    title: ELocale.texts.NextUpdateIn
+                    value: Date.now() + 600000
+                    format: "mm:ss"
+                }`)
+
+            ECountdown {
+                format: "mm:ss"
+                value: Date.now() + 600000
+                title: ELocale.texts.NextUpdateIn
+            }
+        }
+    }
+    ExampleSection {
+        componentName: "EImageViewer"
+
+        ExampleCard {
+            title: ELocale.texts.StandaloneImageViewer
+            code: GalleryStyle.sourceCode(`
+                import EUI 1.0
+                import QtQuick 2.15
+
+                Column {
+                    EButton {
+                        text: ELocale.texts.OpenPreview
+
+                        onClicked: webDataViewer.visible = true
+                    }
+                    EImageViewer {
+                        id: webDataViewer
+
+                        visible: false
+                        urlList: ["qrc:/example/eui-mark.svg", "qrc:/example/eui-mark.svg"]
+
+                        onPreviewClosed: visible = false
+                    }
+                }`)
+
+            Column {
+                EButton {
+                    text: ELocale.texts.OpenPreview
+
+                    onClicked: webDataViewer.visible = true
+                }
+                EImageViewer {
+                    id: webDataViewer
+
+                    visible: false
+                    urlList: ["qrc:/example/eui-mark.svg", "qrc:/example/eui-mark.svg"]
+
+                    onPreviewClosed: visible = false
+                }
+            }
+        }
+    }
+}
