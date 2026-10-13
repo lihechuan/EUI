@@ -16,6 +16,7 @@
 | 在自己的应用中使用 EUI | [完整接入示例](docs/guide.zh-CN.md#3-接入自己的-qt-quick-应用) | 一个点击按钮后更新计数并显示消息的应用 |
 | 使用某个控件 | [常用组件用法](docs/guide.zh-CN.md#4-常用功能是什么何时用如何用) | 表单、选择器、表格、树、上传、图表和布局的示例 |
 | 将应用交给其他人运行 | [部署应用](docs/guide.zh-CN.md#6-部署应用) | 包含 EUI 模块和 Qt 运行库的程序目录 |
+| 打包当前 Gallery | [生成 Windows 安装包和免安装版](docs/guide.zh-CN.md#63-生成-windows-安装包和免安装版) | 安装 `.exe`、免安装 `.zip` 和校验文件 |
 
 ![EUI 中文组件总览：侧边导航、组件搜索、交互预览与组件分类](docs/screenshots/overview-zh.png)
 

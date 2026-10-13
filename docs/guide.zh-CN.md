@@ -578,6 +578,34 @@ Gallery 左侧提供分类导航和名称搜索；`Ctrl+K` 聚焦搜索框。右
 
 使用 `EECharts` 时还需部署 Qt WebEngine / WebChannel、`QtWebEngineProcess`、Chromium 资源文件和 `qtwebengine_locales`，保持所用 Qt Kit 的目录结构。使用媒体组件时部署 Qt Multimedia；使用 SVG 图标时部署 SVG 图片格式插件。
 
+### 6.3 生成 Windows 安装包和免安装版
+
+仓库提供 [package-windows.ps1](../packaging/package-windows.ps1)，用于打包当前 Gallery。目标平台为 Windows 10 / 11 x64，使用 Qt 5.15 MSVC x64 Kit。
+
+准备 x64 Visual Studio Developer PowerShell、CMake、Ninja，以及 [Inno Setup 6.5 或更新版本](https://jrsoftware.org/isdl.php)。OpenSSL 需要与当前 Qt 兼容的 **1.1.1 x64** 运行库，包含 `libssl-1_1-x64.dll` 和 `libcrypto-1_1-x64.dll`；OpenSSL 3 不能替代这两个 DLL。可使用 [FireDaemon 的 1.1.1w ZIP](https://download.firedaemon.com/FireDaemon-OpenSSL/openssl-1.1.1w.zip)，发布方公布的 SHA-256 为 `1870B15BF6749E65FFBBADF52CDFF3EE0E9F02943550BF4395574BB432AF3EB8`。
+
+在仓库根目录执行，将工具路径改为本机实际路径：
+
+```powershell
+./packaging/package-windows.ps1 `
+    -QtDir 'D:/Qt/5.15.2/msvc2019_64' `
+    -IsccPath 'C:/Program Files (x86)/Inno Setup 6/ISCC.exe' `
+    -OpenSslDir 'D:/OpenSSL/openssl-1.1/x64/bin'
+```
+
+`QtDir` 默认从 PATH 中的 `qmake.exe` 推断；`IsccPath` 可从 PATH、常用安装位置或 `build/packaging-tools/inno/ISCC.exe` 自动查找；`OpenSslDir` 可从 Qt Kit 的 `bin/`、Qt 的 `Tools/OpenSSL/Win_x64/bin/` 或 `build/packaging-tools/openssl/openssl-1.1/x64/bin/` 自动查找。当前机器已准备好这些工具时，只需执行 `./packaging/package-windows.ps1`。
+
+脚本重新构建 Release Gallery，收集 EUI、Qt QML 模块、WebEngine 资源和子进程、Multimedia、SVG、MSVC DLL 与 OpenSSL DLL。版本从根目录 `CMakeLists.txt` 读取；当前 `1.0` 对应以下产物：
+
+| 产物 | 用法 |
+| --- | --- |
+| `dist/EUI-Gallery-1.0.0-windows-x64-setup.exe` | 安装到当前用户目录，无需管理员权限；提供开始菜单入口、可选桌面快捷方式和卸载支持 |
+| `dist/EUI-Gallery-1.0.0-windows-x64-portable.zip` | 解压完整目录，双击其中的 `EUI-Gallery.exe` |
+| `dist/EUI-Gallery/` | 已部署的程序目录，可直接运行；再次打包会重新生成这个目录，请勿在此保存个人文件 |
+| `dist/SHA256SUMS.txt` | 安装包和免安装 ZIP 的 SHA-256 校验值 |
+
+目标电脑不需要安装 Qt 或 Visual Studio。免安装版需要保留全部 DLL 和子目录；表格布局等设置仍使用应用原有的用户配置存储方式。脚本不执行代码签名。可运行 `python packaging/check_windows_package.py` 检查包内容，并在去除开发工具路径后以后台模式验证启动；交付前仍应在目标电脑检查图表、媒体、上传和打印等实际功能。
+
 ## 7. 常见问题
 
 | 现象 | 检查方式 |
