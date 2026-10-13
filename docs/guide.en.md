@@ -10,7 +10,7 @@ This guide uses **Windows, the Qt 5.15.2 MSVC 2019 64-bit Kit, C++17, and Ninja*
 | Create your application | Section 1 → Section 2.2 → Section 3 | Clicking a button increases a counter and shows a message |
 | Integrate an existing Qt Quick project | Section 1 → Section 2.2 → Section 3.5 | Your existing window can use `import EUI 1.0` |
 
-To try the Gallery without a development environment, use the [installer or portable download](../README.md#download-and-try). To create release packages yourself, see [section 6.3](#63-build-a-windows-installer-and-portable-package).
+For a short introduction and an interactive QML example, see the [project page](../README.md). To create release packages yourself, see [section 6.3](#63-build-a-windows-installer-and-portable-package).
 
 ## Contents
 

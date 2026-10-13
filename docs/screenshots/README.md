@@ -1,10 +1,10 @@
 # 功能截图 / Feature screenshots
 
-[中文首页](../../README.zh-CN.md) · [English project page](../../README.md)
+[中文首页](../README.zh-CN.md) · [English project page](../../README.md)
 
-截图展示 EUI Gallery 中的实际界面。中英文首页分别使用对应语言的总览、表格和表单截图；其余截图展示英文界面。
+截图展示 EUI Gallery 中的实际界面，包含中英文总览、表格和表单，以及英文图标、图表和源码预览。
 
-These screenshots show the EUI Gallery. Each project page uses matching-language overview, table, and form screenshots; the remaining screenshots show the English interface.
+These screenshots show the EUI Gallery: overview, table, and form pages in English and Chinese, plus English icon, chart, and source previews.
 
 | 截图 / Screenshot | 展示功能 / Feature |
 | --- | --- |

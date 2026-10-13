@@ -1,95 +1,112 @@
 # EUI
 
-A UI component library for Qt Quick / QML desktop applications. Explore **120 components** in an interactive Gallery with QML examples and API references.
-
-English | [简体中文](README.zh-CN.md)
+English | [简体中文](docs/README.zh-CN.md)
 
 [![Windows build and package](https://github.com/lihechuan/EUI/actions/workflows/build-windows.yml/badge.svg)](https://github.com/lihechuan/EUI/actions/workflows/build-windows.yml)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-![EUI Gallery with component navigation, search, and interactive previews](docs/screenshots/overview-en.png)
+EUI is a UI component library for Qt Quick / QML desktop applications. It provides controls for forms, data tables, navigation, charts, and application feedback, with shared light and dark themes.
 
-## Features
+The **EUI Gallery** brings together **120 components** with interactive examples, copyable QML source, and API references. Use it to explore a control's behavior before adding it to your application.
 
-- **Controls and layouts** — buttons, inputs, selectors, flex and grid layouts, menus, dialogs, and notifications.
-- **Forms** — field validation, date and time pickers, and file uploads.
-- **Data views** — editable tables with sorting, filtering, selection, import/export, and printing; trees and virtual lists.
-- **Charts and animations** — native charts, Apache ECharts through WebEngine, and 83 animation presets.
-- **Themes and language** — shared light and dark palettes, scoped configuration, and English and Chinese interfaces.
+![EUI Gallery: component navigation, search, and interactive previews](docs/screenshots/overview-en.png)
 
-<details>
-<summary>More screenshots: tables, forms, and dark theme</summary>
+## Components
 
-**Editable tables**
+| Area | Components | Capabilities |
+| --- | --- | --- |
+| Everyday controls | `EButton`, `EInput`, `ESelect` | Buttons, text entry, selection, sizes, and states |
+| Forms | `EForm`, `EFormItem`, `EDatePicker`, `ETimePicker` | Field validation, error feedback, and date/time input |
+| Data views | `ETable`, `ETree`, `EList`, `EListy` | Editable tables with sorting, filtering, and pagination; trees and virtual lists |
+| Navigation and layout | `EMenu`, `ETabs`, `EBreadcrumb`, `EFlex` | Menus, page navigation, and flexible layouts |
+| Messages and dialogs | `EApp` | Application-scoped messages, notifications, and modal dialogs |
+| Charts and motion | `EChart`, `EECharts`, `EAnimation` | Native charts, Apache ECharts integration through WebEngine, and 83 animation presets |
+| Appearance and language | `ETheme`, `ELocale`, `EConfigProvider` | Light/dark themes, English/Chinese text, and scoped configuration |
 
-![Editable table with row selection, editing tools, and pagination](docs/screenshots/table-en.png)
+See [table, form, chart, and theme screenshots](docs/screenshots/README.md) for more examples of the interface.
 
-**Forms and validation**
+## Run the Gallery
 
-![Form with field validation and submission feedback](docs/screenshots/form-en.png)
+The build steps below use **Windows x64, Qt 5.15.2 MSVC 2019, CMake 3.20+, and Ninja**. Install the [required Qt modules](docs/guide.en.md#1-prerequisites), then open an x64 **Developer PowerShell for VS 2019** in the repository root.
 
-**Dark theme**
-
-![EUI Gallery in dark mode](docs/screenshots/overview-dark-en.png)
-
-See [all screenshots](docs/screenshots/README.md) for icons, charts, and source previews.
-
-</details>
-
-## Quick start
-
-Once the EUI module is installed in your application's QML import path, use its controls with `import EUI 1.0`:
-
-```qml
-import EUI 1.0
-import QtQuick 2.15
-
-EButton {
-    id: button
-
-    text: "Animate"
-
-    onClicked: EAnimation.play(button, "pulse", { duration: 500 })
-}
-```
-
-Follow the [application integration guide](docs/guide.en.md#3-integrate-a-qt-quick-application) for a complete application, or build the Gallery below to explore the components first.
-
-**Build the Gallery:** use Windows, Qt 5.15.2 MSVC 2019 x64, CMake 3.20+, and Ninja. From the repository root, run in an x64 **Developer PowerShell for VS 2019**, replacing `$qtKit` with your Qt path:
+Replace `$qtKit` with your Qt Kit directory:
 
 ```powershell
 $qtKit = 'D:/Qt/5.15.2/msvc2019_64'
 $env:PATH = "$qtKit/bin;" + $env:PATH
 
 cmake -S . -B build/local -G Ninja -DCMAKE_BUILD_TYPE=Release `
-    "-DCMAKE_PREFIX_PATH=$qtKit" -DEUI_BUILD_EXAMPLES=ON -DEUI_BUILD_TESTS=OFF
+    "-DCMAKE_PREFIX_PATH=$qtKit" -DEUI_BUILD_EXAMPLES=ON `
+    -DEUI_BUILD_TESTS=OFF -DQML_PLUGIN_DUMP:FILEPATH=OFF
 cmake --build build/local --target example --parallel
 & ./bin/Release/example.exe
 ```
 
-See [prerequisites](docs/guide.en.md#1-prerequisites) for required Qt modules. The build copies EUI into `$qtKit/qml/EUI/`, which must be writable. In the Gallery, search for a component, try its examples, and select **Show source** or **Copy source**.
+The build places the executable in `bin/Release/` and copies the EUI module beside it and into `$qtKit/qml/EUI/`. The Qt import directory must be writable.
 
-## Download and try
+In the Gallery:
 
-**v1.1.0 · Windows 10 / 11 x64**
+1. Search for a component, such as `ETable`, or browse a category.
+2. Try its examples, including editable values and component states.
+3. Select **Show source** or **Copy source**, then check the API below the examples.
 
-[Installer](https://github.com/lihechuan/EUI/releases/download/v1.1.0/EUI-Gallery-1.1.0-windows-x64-setup.exe) · [Portable ZIP](https://github.com/lihechuan/EUI/releases/download/v1.1.0/EUI-Gallery-1.1.0-windows-x64-portable.zip) · [SHA-256 checksums](https://github.com/lihechuan/EUI/releases/download/v1.1.0/SHA256SUMS.txt) · [All releases](https://github.com/lihechuan/EUI/releases)
+Use the language and theme controls to compare English/Chinese text and light/dark appearance.
 
-These packages contain the Gallery and its runtime; Qt and Visual Studio are not required. Use the installer, or extract the entire ZIP and run `EUI-Gallery.exe`, keeping all DLLs and subdirectories. The installer is unsigned. Verify downloads with `Get-FileHash FILE -Algorithm SHA256` against the checksum file.
+## Use EUI in your application
 
-Current build and release verification covers Windows x64 with Qt 5.15.2 MSVC 2019. Qt 6, Linux, macOS, ARM64, and MinGW have not undergone complete release verification.
+Build and install the library with the same Qt Kit as your application, then add the complete `EUI/` module directory to the application's QML import path. The [integration guide](docs/guide.en.md#3-integrate-a-qt-quick-application) includes the library build, CMake project, C++ entry point, and module-copy commands.
 
-## Documentation
+This `main.qml` creates a window with a counter and a message. Click **Add one** to update the bound text and display feedback through `EApp`:
 
-- [Usage guide](docs/guide.en.md) — setup, application integration, and component examples.
-- [Deployment and packaging](docs/guide.en.md#6-deploy-your-application) — distribute your application or build Gallery packages.
-- [Troubleshooting](docs/guide.en.md#7-troubleshooting) — import paths, runtime dependencies, charts, and media.
-- [Changelog](CHANGELOG.md) · [Contributing](CONTRIBUTING.md)
+```qml
+import EUI 1.0
+import QtQuick 2.15
 
-## Feedback
+EApplicationWindow {
+    id: window
 
-Report issues through [GitHub Issues](https://github.com/lihechuan/EUI/issues) or email [xiaojiaqaq@gmail.com](mailto:xiaojiaqaq@gmail.com). Include your Qt version, operating system, component name, reproduction steps, and error messages. A screenshot or minimal example helps diagnose the problem.
+    property int clicks: 0
+
+    width: 480
+    height: 320
+    visible: true
+    title: "EUI Demo"
+
+    EApp {
+        id: app
+
+        anchors.fill: parent
+
+        Column {
+            x: 24
+            y: 24
+            spacing: 16
+
+            EText {
+                text: "Clicks: " + window.clicks
+            }
+            EButton {
+                text: "Add one"
+                styleType: EStyle.Primary
+
+                onClicked: {
+                    window.clicks += 1
+                    app.message.open("Count: " + window.clicks)
+                }
+            }
+        }
+    }
+}
+```
+
+Configure form models, table columns, and other controls using the [component examples](docs/guide.en.md#4-common-features-purpose-and-usage). Follow the [deployment steps](docs/guide.en.md#6-deploy-your-application) when distributing your application.
+
+## Contributing and support
+
+Report a bug or request a feature through [GitHub Issues](https://github.com/lihechuan/EUI/issues), or contact [xiaojiaqaq@gmail.com](mailto:xiaojiaqaq@gmail.com). Include the component name, Qt version, operating system, reproduction steps, and relevant error messages.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution and build checks, and [CHANGELOG.md](CHANGELOG.md) for release history.
 
 ## License
 
-EUI's own code and documentation are [MIT licensed](LICENSE). Third-party software and assets retain their own licenses; see [third-party notices](THIRD_PARTY_NOTICES.md).
+EUI's own code and documentation use the [MIT License](LICENSE). Third-party software and assets retain their own licenses; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
