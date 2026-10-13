@@ -5,7 +5,7 @@ body:
     id: component
     attributes:
       label: 组件与 EUI 版本 / Component and EUI version
-      placeholder: ETable, v1.0.0 或提交号 / commit SHA
+      placeholder: ETable, v1.1.0 或提交号 / commit SHA
     validations:
       required: true
   - type: textarea

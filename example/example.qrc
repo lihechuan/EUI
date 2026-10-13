@@ -4,6 +4,7 @@
         <file>data/echarts-options.json</file>
         <file alias="eui-mark.svg">../assets/eui-mark.svg</file>
         <file>qml/component/App.qml</file>
+        <file>qml/component/AnimationExamples.qml</file>
         <file>qml/component/BasicExamples.qml</file>
         <file>qml/component/CodeExpander.qml</file>
         <file>qml/component/DataExamples.qml</file>

@@ -40,6 +40,7 @@ constexpr Entry VisualItems[] = {
     {"EShadow", "VisualEffectsExamples.qml", "阴影", "Shadow"},
     {"EAcrylic", "VisualEffectsExamples.qml", "亚克力", "Acrylic"},
     {"EClip", "VisualEffectsExamples.qml", "圆角裁剪", "Rounded clip"},
+    {"EAnimation", "AnimationExamples.qml", "动画", "Animation"},
     {"EBorderBeam", "AntDesignExamples.qml", "边框流光", "Border beam"},
     {"EParallaxView", "VisualEffectsExamples.qml", "视差滚动", "Parallax view"},
 };

@@ -28,6 +28,7 @@ QtObject {
     readonly property color accentSoft: dark ? "#2B3650" : "#E7EEFF"
     readonly property string codeFamily: EDefaultConfig.secondaryFontFamily
     readonly property var componentIcons: ({
+        EAnimation: EIcons.PLAY,
         EIcon: EIcons.SHAPES_4,
         EText: EIcons.FONT,
         ELink: EIcons.LINK,

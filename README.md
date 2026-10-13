@@ -9,13 +9,13 @@
 
 ## 下载并体验
 
-当前版本 **1.0.0**，面向 **Windows 10 / 11 x64**；目标电脑无需安装 Qt 或 Visual Studio。
+当前版本 **1.1.0**，面向 **Windows 10 / 11 x64**；目标电脑无需安装 Qt 或 Visual Studio。
 
 | 下载 | 使用方式 |
 | --- | --- |
-| [安装版 `.exe`](https://github.com/lihechuan/EUI/releases/download/v1.0.0/EUI-Gallery-1.0.0-windows-x64-setup.exe) | 安装到当前用户目录，提供开始菜单入口、可选桌面快捷方式和卸载支持 |
-| [免安装版 `.zip`](https://github.com/lihechuan/EUI/releases/download/v1.0.0/EUI-Gallery-1.0.0-windows-x64-portable.zip) | 完整解压后运行 `EUI-Gallery.exe`，保留所有 DLL 和子目录 |
-| [SHA-256 校验文件](https://github.com/lihechuan/EUI/releases/download/v1.0.0/SHA256SUMS.txt) | 在 PowerShell 中使用 `Get-FileHash 文件路径 -Algorithm SHA256`，与文件中同名条目比较 |
+| [安装版 `.exe`](https://github.com/lihechuan/EUI/releases/download/v1.1.0/EUI-Gallery-1.1.0-windows-x64-setup.exe) | 安装到当前用户目录，提供开始菜单入口、可选桌面快捷方式和卸载支持 |
+| [免安装版 `.zip`](https://github.com/lihechuan/EUI/releases/download/v1.1.0/EUI-Gallery-1.1.0-windows-x64-portable.zip) | 完整解压后运行 `EUI-Gallery.exe`，保留所有 DLL 和子目录 |
+| [SHA-256 校验文件](https://github.com/lihechuan/EUI/releases/download/v1.1.0/SHA256SUMS.txt) | 在 PowerShell 中使用 `Get-FileHash 文件路径 -Algorithm SHA256`，与文件中同名条目比较 |
 
 [全部版本与发布说明](https://github.com/lihechuan/EUI/releases) · [更新记录](CHANGELOG.md) · [贡献指南](CONTRIBUTING.md)
 
