@@ -1,4 +1,5 @@
 import argparse
+import base64
 import hashlib
 import json
 import os
@@ -14,7 +15,6 @@ from github_release import read_version
 
 
 REPOSITORY = 'xiaojiaz/EUI'
-GITHUB_REPOSITORY = 'lihechuan/EUI'
 API = 'https://gitee.com/api/v5/repos/' + REPOSITORY
 
 
@@ -26,6 +26,8 @@ def validate_inputs(commit, version):
 
 
 def api(path, data=None, missing=False):
+    if not os.environ.get('GITEE_TOKEN'):
+        raise RuntimeError('Configure the GitHub repository secret GITEE_TOKEN before running this workflow.')
     headers = {'Authorization': 'Bearer ' + os.environ['GITEE_TOKEN'],
                'Accept': 'application/json', 'User-Agent': 'EUI-release'}
     if data is not None:
@@ -195,32 +197,28 @@ def publish(root, commit, version):
     print('https://gitee.com/' + REPOSITORY + '/releases/tag/v' + version)
 
 
-def dispatch(root):
-    commit = os.environ['GITEE_COMMIT']
-    version = read_version((root / 'CMakeLists.txt').read_text(encoding='utf-8'))
+def plan():
+    commit = api('/commits/master')['sha']
+    validate_inputs(commit, '0.0.0')
+    source = api('/contents/CMakeLists.txt?ref=' + commit)
+    version = read_version(base64.b64decode(source['content']).decode('utf-8'))
     validate_inputs(commit, version)
-    if os.environ['GITEE_BRANCH'] != 'master':
-        raise ValueError('Only the Gitee master branch may trigger a release.')
-    request = Request('https://api.github.com/repos/' + GITHUB_REPOSITORY
-                      + '/actions/workflows/gitee-release.yml/dispatches',
-                      headers={'Authorization': 'Bearer ' + os.environ['EUI_GITHUB_DISPATCH_TOKEN'],
-                               'Accept': 'application/vnd.github+json',
-                               'Content-Type': 'application/json', 'User-Agent': 'EUI-release'},
-                      data=json.dumps({'ref': 'master', 'inputs': {
-                          'commit': commit, 'version': version}}).encode())
-    with urlopen(request, timeout=60) as response:
-        if response.status != 204:
-            raise RuntimeError('GitHub did not accept the Gitee build trigger.')
-    print(f'Gitee v{version} build requested for {commit}. Check GitHub Actions for its result.')
+    release = api('/releases/tags/v' + version, missing=True)
+    complete = bool(release and not release['prerelease']
+                    and set(package_names(version) + ['SHA256SUMS.txt']).issubset(attachments(release)))
+    print(f'Gitee v{version}: ' + ('already published; skip build.' if complete else 'build required.'))
+    return not complete, commit, version
 
 
 def main():
     parser = argparse.ArgumentParser(description='Build and publish Windows packages from Gitee pushes.')
-    parser.add_argument('command', choices=('dispatch', 'prepare', 'publish'))
+    parser.add_argument('command', choices=('plan', 'prepare', 'publish'))
     arguments = parser.parse_args()
     root = Path.cwd()
-    if arguments.command == 'dispatch':
-        dispatch(root)
+    if arguments.command == 'plan':
+        build, commit, version = plan()
+        with Path(os.environ['GITHUB_OUTPUT']).open('a', encoding='utf-8') as output:
+            output.write(f'build={str(build).lower()}\ncommit={commit}\nversion={version}\n')
     elif arguments.command == 'prepare':
         build, commit = prepare(root, os.environ['EUI_GITEE_COMMIT'], os.environ['EUI_RELEASE_VERSION'])
         with Path(os.environ['GITHUB_OUTPUT']).open('a', encoding='utf-8') as output:

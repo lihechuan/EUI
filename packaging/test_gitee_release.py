@@ -1,3 +1,4 @@
+import base64
 import hashlib
 import json
 import os
@@ -147,22 +148,39 @@ class GiteeReleaseTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 release.checksums(manifest, self.version)
 
-    def test_dispatch_is_fixed_to_owned_repository_and_master(self):
-        (self.root / 'CMakeLists.txt').write_text('project(EUI VERSION 1.1.0)\n')
-        response = unittest.mock.MagicMock()
-        response.__enter__.return_value.status = 204
-        environment = {'GITEE_BRANCH': 'master', 'GITEE_COMMIT': self.commit,
-                       'EUI_GITHUB_DISPATCH_TOKEN': 'test-token'}
-        with patch.dict(os.environ, environment), patch.object(release, 'urlopen', return_value=response) as call:
-            release.dispatch(self.root)
-            request = call.call_args.args[0]
-            self.assertIn('/lihechuan/EUI/actions/workflows/gitee-release.yml/dispatches', request.full_url)
-            self.assertEqual(json.loads(request.data), {'ref': 'master', 'inputs': {
-                'commit': self.commit, 'version': self.version}})
-            os.environ['GITEE_BRANCH'] = 'feature'
+    def test_poll_pins_master_version_and_skips_complete_release(self):
+        def api(path, data=None, missing=False):
+            if path == '/commits/master':
+                return {'sha': self.commit}
+            if path.startswith('/contents/'):
+                self.assertEqual(path, '/contents/CMakeLists.txt?ref=' + self.commit)
+                return {'content': base64.b64encode(b'project(EUI VERSION 1.1.0)\n').decode()}
+            return self.api(path, data, missing)
+        with patch.object(release, 'api', side_effect=api), patch.object(release, 'transfer') as transfer:
+            self.assertEqual(release.plan(), (True, self.commit, self.version))
+            self.item = {'id': 7, 'prerelease': True}
+            self.remote = self.files.copy()
+            self.assertTrue(release.plan()[0])
+            self.item['prerelease'] = False
+            self.assertEqual(release.plan(), (False, self.commit, self.version))
+            self.remote.pop('SHA256SUMS.txt')
+            self.assertTrue(release.plan()[0])
+            transfer.assert_not_called()
+
+    def test_poll_rejects_invalid_source(self):
+        with patch.object(release, 'api', return_value={'sha': 'master'}):
             with self.assertRaises(ValueError):
-                release.dispatch(self.root)
-            self.assertEqual(call.call_count, 1)
+                release.plan()
+        responses = [{'sha': self.commit}, {'content': base64.b64encode(b'bad cmake').decode()}]
+        with patch.object(release, 'api', side_effect=responses):
+            with self.assertRaises(ValueError):
+                release.plan()
+
+    def test_missing_token_fails_before_network_request(self):
+        with patch.dict(os.environ, {'GITEE_TOKEN': ''}), patch.object(release, 'urlopen') as call:
+            with self.assertRaisesRegex(RuntimeError, 'GITEE_TOKEN'):
+                release.api('/commits/master')
+            call.assert_not_called()
 
 
 if __name__ == '__main__':
