@@ -15,6 +15,6 @@ The root [LICENSE](LICENSE) applies to EUI's own code and documentation. Third-p
 | Microsoft Visual C++ Runtime | Windows 包中的 MSVC DLL / MSVC DLLs | 随 Visual Studio 提供的运行库，按其再分发条款分发 / distributed under the applicable Visual Studio redistribution terms |
 | Inno Setup 简体中文翻译 / Simplified Chinese translation | [ChineseSimplified.isl](packaging/ChineseSimplified.isl) | 文件头保留上游译者和来源信息 / upstream translator and source notices retained in the file header |
 
-通过当前打包脚本生成的 Windows 包在 `licenses/` 中附带 EUI、Qt、OpenSSL、ECharts、QR Code generator 和 Skill Icons 的许可，以及本清单。已发布的 `v1.0.0` 包保持原样，不包含本次新加的声明文件。品牌名称和图形的商标权不因代码许可证而转移。
+通过当前打包脚本生成的 Windows 包在 `licenses/` 中附带 EUI、Qt、OpenSSL、ECharts、QR Code generator 和 Skill Icons 的许可，以及本清单。品牌名称和图形的商标权不因代码许可证而转移。
 
-Packages built with the current script include these licenses and notices in `licenses/`. The existing `v1.0.0` packages remain unchanged and do not include the newly added notices. Code licenses do not transfer trademark rights in brand names or artwork.
+Packages built with the current script include these licenses and notices in `licenses/`. Code licenses do not transfer trademark rights in brand names or artwork.
