@@ -72,6 +72,8 @@ jobs:
         run: ./packaging/package-windows.ps1 -QtDir $env:QT_ROOT_DIR -OpenSslDir $env:EUI_OPENSSL_DIR
 
       - name: Verify runtime and portable ZIP
+        env:
+          QT_OPENGL: software
         run: python packaging/check_windows_package.py
 
       - name: Record build source and tools
