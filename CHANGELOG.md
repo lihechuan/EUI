@@ -10,8 +10,9 @@ Features, fixes, and compatibility changes for each version.
 - 在中英文首页添加安装版、免安装版和 SHA-256 下载入口，以及已验证环境表。
 - 补齐英文打包指南、贡献指南、Bug / 功能请求模板和 PR 模板。
 - 添加 Windows 自动构建、打包、包内容与后台启动验证，以及构建产物上传。
+- 版本号变化并推送到 `master` 后，自动发布安装包、免安装 ZIP 和校验文件到 GitHub Releases。
 
-English: Adds the EUI MIT license and third-party notices, bilingual downloads and compatibility information, English packaging instructions, contribution and feedback templates, and Windows build/package verification.
+English: Adds the EUI MIT license and third-party notices, bilingual downloads and compatibility information, English packaging instructions, contribution and feedback templates, Windows build/package verification, and automatic releases when the version changes on `master`.
 
 ## 1.0.0 - 2026-10-13
 

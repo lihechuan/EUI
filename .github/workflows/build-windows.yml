@@ -12,13 +12,16 @@ permissions:
   contents: read
 
 concurrency:
-  group: windows-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  group: windows-${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.ref || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   package:
     runs-on: windows-2022
     timeout-minutes: 45
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      publish: ${{ steps.version.outputs.publish }}
     defaults:
       run:
         shell: pwsh
@@ -26,12 +29,20 @@ jobs:
       - name: Check out source
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
+          fetch-depth: 0
           persist-credentials: false
 
       - name: Set up Python
         uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: '3.12'
+
+      - name: Test release automation
+        run: python -m unittest discover -s packaging -p test_github_release.py -v
+
+      - name: Detect version change
+        id: version
+        run: python packaging/github_release.py plan
 
       - name: Set up MSVC 2019 toolset
         uses: ilammy/msvc-dev-cmd@0b201ec74fa43914dc39ae48a89fd1d8cb592756 # v1
@@ -59,14 +70,6 @@ jobs:
           $destination = Join-Path $env:RUNNER_TEMP 'eui-openssl'
           Expand-Archive -LiteralPath $archive -DestinationPath $destination
           "EUI_OPENSSL_DIR=$destination/openssl-1.1/x64/bin" >> $env:GITHUB_ENV
-
-      - name: Check release version
-        if: startsWith(github.ref, 'refs/tags/v')
-        run: |
-          $version = [regex]::Match((Get-Content CMakeLists.txt -Raw), 'project\(EUI VERSION ([\d.]+)\)').Groups[1].Value
-          if ($env:GITHUB_REF_NAME -ne "v$version") {
-              throw 'The tag must match the version in CMakeLists.txt.'
-          }
 
       - name: Build and package Gallery
         run: ./packaging/package-windows.ps1 -QtDir $env:QT_ROOT_DIR -OpenSslDir $env:EUI_OPENSSL_DIR | Tee-Object -FilePath windows-package.log
@@ -102,3 +105,37 @@ jobs:
           if-no-files-found: error
           compression-level: 0
           retention-days: 14
+
+  release:
+    needs: package
+    if: needs.package.outputs.publish == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    concurrency:
+      group: release-${{ needs.package.outputs.version }}
+      cancel-in-progress: false
+    steps:
+      - name: Check out source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+
+      - name: Download verified packages
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: EUI-Gallery-windows-x64-${{ github.sha }}
+          path: dist
+
+      - name: Publish versioned release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EUI_RELEASE_VERSION: ${{ needs.package.outputs.version }}
+        run: python packaging/github_release.py publish
