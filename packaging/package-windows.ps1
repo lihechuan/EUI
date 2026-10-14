@@ -2,7 +2,9 @@
 param(
     [string]$QtDir,
     [string]$IsccPath,
-    [string]$OpenSslDir
+    [string]$OpenSslDir,
+    [ValidateSet('x86', 'x64')]
+    [string]$Architecture = 'x64'
 )
 
 Set-StrictMode -Version Latest
@@ -18,7 +20,7 @@ function Invoke-Checked {
 }
 
 $euiRoot = Split-Path $PSScriptRoot -Parent
-$buildDir = Join-Path $euiRoot 'build\windows-package'
+$buildDir = Join-Path $euiRoot "build\windows-$Architecture-package"
 $outputDir = Join-Path $euiRoot 'dist'
 $packageDir = Join-Path $outputDir 'EUI-Gallery'
 $versionMatch = [regex]::Match((Get-Content (Join-Path $euiRoot 'CMakeLists.txt') -Raw), 'project\(EUI VERSION ([\d.]+)\)')
@@ -32,11 +34,11 @@ if ($appVersion.Split('.').Count -eq 2) {
 
 foreach ($tool in 'cmake.exe', 'ninja.exe', 'cl.exe') {
     if (-not (Get-Command $tool -ErrorAction SilentlyContinue)) {
-        throw "Missing $tool. Run this script in an x64 Visual Studio Developer PowerShell with CMake and Ninja on PATH."
+        throw "Missing $tool. Run this script in a Visual Studio Developer PowerShell targeting $Architecture with CMake and Ninja on PATH."
     }
 }
-if ($env:VSCMD_ARG_TGT_ARCH -ne 'x64') {
-    throw 'The Visual Studio build environment must target x64.'
+if ($env:VSCMD_ARG_TGT_ARCH -ne $Architecture) {
+    throw "The Visual Studio build environment must target $Architecture."
 }
 if (-not $QtDir) {
     $qmake = Get-Command qmake.exe -ErrorAction Stop
@@ -46,12 +48,13 @@ $QtDir = (Resolve-Path -LiteralPath $QtDir).Path
 $deployTool = Join-Path $QtDir 'bin\windeployqt.exe'
 $qtVersion = & (Join-Path $QtDir 'bin\qmake.exe') -query QT_VERSION
 if ($LASTEXITCODE -ne 0 -or $qtVersion -notmatch '^5\.15\.') {
-    throw 'This packaging script requires a Qt 5.15 MSVC x64 Kit.'
+    throw "This packaging script requires a Qt 5.15 MSVC $Architecture Kit."
 }
 $qtSpec = & (Join-Path $QtDir 'bin\qmake.exe') -query QMAKE_XSPEC
 $qtConfig = Get-Content (Join-Path $QtDir 'mkspecs\qconfig.pri') -Raw
-if ($LASTEXITCODE -ne 0 -or $qtSpec -ne 'win32-msvc' -or $qtConfig -notmatch '(?m)^QT_ARCH\s*=\s*x86_64\s*$') {
-    throw 'The Qt Kit must use MSVC and target x64.'
+$qtArchitecture = if ($Architecture -eq 'x64') { 'x86_64' } else { 'i386' }
+if ($LASTEXITCODE -ne 0 -or $qtSpec -ne 'win32-msvc' -or $qtConfig -notmatch "(?m)^QT_ARCH\s*=\s*$qtArchitecture\s*`$") {
+    throw "The Qt Kit must use MSVC and target $Architecture."
 }
 if (-not $IsccPath) {
     $iscc = Get-Command ISCC.exe -ErrorAction SilentlyContinue
@@ -68,25 +71,27 @@ if (-not $IsccPath) {
 if (-not $IsccPath -or -not (Test-Path -LiteralPath $IsccPath -PathType Leaf)) {
     throw 'Inno Setup 6.5 or newer is required. Supply -IsccPath pointing to ISCC.exe.'
 }
+$sslSuffix = if ($Architecture -eq 'x64') { '-x64' } else { '' }
+$sslLibraries = @("libssl-1_1$sslSuffix.dll", "libcrypto-1_1$sslSuffix.dll")
 if (-not $OpenSslDir) {
     $OpenSslDir = @(
         (Join-Path $QtDir 'bin'),
-        (Join-Path (Split-Path (Split-Path $QtDir -Parent) -Parent) 'Tools\OpenSSL\Win_x64\bin'),
-        (Join-Path $euiRoot 'build\packaging-tools\openssl\openssl-1.1\x64\bin')
-    ) | Where-Object { Test-Path -LiteralPath (Join-Path $_ 'libssl-1_1-x64.dll') } | Select-Object -First 1
+        (Join-Path (Split-Path (Split-Path $QtDir -Parent) -Parent) "Tools\OpenSSL\Win_$Architecture\bin"),
+        (Join-Path $euiRoot "build\packaging-tools\openssl\openssl-1.1\$Architecture\bin")
+    ) | Where-Object { Test-Path -LiteralPath (Join-Path $_ $sslLibraries[0]) } | Select-Object -First 1
 }
-foreach ($library in 'libssl-1_1-x64.dll', 'libcrypto-1_1-x64.dll') {
+foreach ($library in $sslLibraries) {
     if (-not $OpenSslDir -or -not (Test-Path -LiteralPath (Join-Path $OpenSslDir $library) -PathType Leaf)) {
-        throw "Missing $library. Supply -OpenSslDir containing the OpenSSL 1.1.1 x64 runtime DLLs."
+        throw "Missing $library. Supply -OpenSslDir containing the OpenSSL 1.1.1 $Architecture runtime DLLs."
     }
 }
 if (-not $env:VCToolsRedistDir) {
     throw 'VCToolsRedistDir is missing. Initialize the Visual Studio Developer PowerShell first.'
 }
-$crtDir = Get-ChildItem -LiteralPath (Join-Path $env:VCToolsRedistDir 'x64') -Directory -Filter 'Microsoft.VC*.CRT' |
+$crtDir = Get-ChildItem -LiteralPath (Join-Path $env:VCToolsRedistDir $Architecture) -Directory -Filter 'Microsoft.VC*.CRT' |
     Select-Object -First 1 -ExpandProperty FullName
 if (-not $crtDir) {
-    throw 'Cannot locate the x64 MSVC redistributable DLLs.'
+    throw "Cannot locate the $Architecture MSVC redistributable DLLs."
 }
 
 $originalPath = $env:PATH
@@ -125,7 +130,7 @@ try {
         (Join-Path $packageDir 'EUI\euiplugin.dll')
     )
     Get-ChildItem -LiteralPath $crtDir -Filter '*.dll' | Copy-Item -Destination $packageDir
-    foreach ($library in 'libssl-1_1-x64.dll', 'libcrypto-1_1-x64.dll') {
+    foreach ($library in $sslLibraries) {
         Copy-Item -LiteralPath (Join-Path $OpenSslDir $library) -Destination $packageDir
     }
     Set-Content -LiteralPath (Join-Path $packageDir 'qt.conf') -Encoding ASCII -Value "[Paths]`nPrefix=.`nPlugins=.`nQml2Imports=.`nTranslations=translations`nData=."
@@ -140,15 +145,21 @@ try {
     Copy-Item -LiteralPath (Join-Path $euiRoot 'source\ThirdParty\echarts\NOTICE') -Destination (Join-Path $licensesDir 'ECharts-NOTICE.txt')
     $qrSource = Get-Content (Join-Path $euiRoot 'source\ThirdParty\qrcodegen\qrcodegen.hpp') -Raw
     Set-Content -LiteralPath (Join-Path $licensesDir 'QR-Code-generator-LICENSE.txt') -Encoding UTF8 -Value ([regex]::Match($qrSource, '(?s)^/\*.*?\*/').Value)
-    Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'README.txt') -Destination $packageDir
+    $requirements = if ($Architecture -eq 'x64') { 'Windows 10 / 11 64 位' } else { 'Windows 10 32 位或 Windows 10 / 11 64 位' }
+    $requirementsEn = if ($Architecture -eq 'x64') { 'Windows 10 / 11 x64' } else { 'Windows 10 x86 or Windows 10 / 11 x64' }
+    (Get-Content -LiteralPath (Join-Path $PSScriptRoot 'README.txt') -Raw).
+        Replace('@ARCH@', $Architecture).
+        Replace('@WINDOWS_REQUIREMENTS@', $requirements).
+        Replace('@WINDOWS_REQUIREMENTS_EN@', $requirementsEn) |
+        Set-Content -LiteralPath (Join-Path $packageDir 'README.txt') -Encoding utf8
 
-    $archive = Join-Path $outputDir "EUI-Gallery-$appVersion-windows-x64-portable.zip"
+    $archive = Join-Path $outputDir "EUI-Gallery-$appVersion-windows-$Architecture-portable.zip"
     Compress-Archive -LiteralPath $packageDir -DestinationPath $archive -CompressionLevel Optimal -Force
     Invoke-Checked $IsccPath @(
-        "/DAppVersion=$appVersion", "/DPackageDir=$packageDir", "/DOutputDir=$outputDir",
+        "/DAppVersion=$appVersion", "/DPackageDir=$packageDir", "/DOutputDir=$outputDir", "/DAppArchitecture=$Architecture",
         (Join-Path $PSScriptRoot 'windows.iss')
     )
-    Get-ChildItem -LiteralPath $outputDir -File | Where-Object Name -like "EUI-Gallery-$appVersion-windows-x64-*" |
+    Get-ChildItem -LiteralPath $outputDir -File | Where-Object Name -like "EUI-Gallery-$appVersion-windows-$Architecture-*" |
         ForEach-Object { '{0}  {1}' -f (Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash, $_.Name } |
         Set-Content -LiteralPath (Join-Path $outputDir 'SHA256SUMS.txt') -Encoding ASCII
     Write-Host "Packages created in $outputDir"

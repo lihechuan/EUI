@@ -621,6 +621,17 @@ For `EECharts`, include Qt WebEngine / WebChannel, `QtWebEngineProcess`, Chromiu
 
 ### 6.3 Build a Windows installer and portable package
 
+The workflow targets these packages. Use the actual Release attachments for published downloads; existing versions do not automatically receive new platform assets.
+
+| Platform | Installer | Portable package |
+| --- | --- | --- |
+| Windows x64 | `*-windows-x64-setup.exe` | `*-windows-x64-portable.zip` |
+| Windows x86 (32-bit) | `*-windows-x86-setup.exe` | `*-windows-x86-portable.zip` |
+| macOS Intel | `*-macos-x64.dmg` | `*-macos-x64-portable.zip` |
+| macOS Apple Silicon | `*-macos-arm64.dmg` | `*-macos-arm64-portable.zip` |
+
+Windows uses Qt 5.15.2; macOS uses Qt 6.8.3. Drag the macOS DMG application into Applications, or extract the ZIP and run its `.app`. macOS packages use ad-hoc signing without Apple Developer ID signing or notarization. Packages include runtime libraries and license notices, and retain existing per-user settings storage.
+
 The repository provides [package-windows.ps1](../packaging/package-windows.ps1) for the current Gallery. It targets Windows 10 / 11 x64 using a Qt 5.15 MSVC x64 Kit.
 
 Prepare an x64 Visual Studio Developer PowerShell, CMake, Ninja, and [Inno Setup 6.5 or newer](https://jrsoftware.org/isdl.php). OpenSSL must be a Qt-compatible **1.1.1 x64** runtime containing `libssl-1_1-x64.dll` and `libcrypto-1_1-x64.dll`; OpenSSL 3 cannot replace these DLLs. The [FireDaemon 1.1.1w ZIP](https://download.firedaemon.com/FireDaemon-OpenSSL/openssl-1.1.1w.zip) has the publisher's SHA-256 `1870B15BF6749E65FFBBADF52CDFF3EE0E9F02943550BF4395574BB432AF3EB8`.

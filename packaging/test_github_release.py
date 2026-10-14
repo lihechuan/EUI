@@ -35,9 +35,8 @@ class ReleaseAutomationTests(unittest.TestCase):
         destination = self.root / 'dist'
         destination.mkdir()
         self.files = {}
-        for suffix in ('setup.exe', 'portable.zip'):
-            name = 'EUI-Gallery-1.0.1-windows-x64-' + suffix
-            self.files[name] = ('test package ' + suffix).encode()
+        for name in release.package_names('1.0.1'):
+            self.files[name] = ('test package ' + name).encode()
             (destination / name).write_bytes(self.files[name])
         checksum = ''.join(hashlib.sha256(data).hexdigest() + '  ' + name + '\n'
                            for name, data in self.files.items())
@@ -152,6 +151,38 @@ class ReleaseAutomationTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'Local package checksum mismatch'):
                 release.publish_release(self.root, '1.0.1', 'owner/project', self.current)
             command.assert_not_called()
+
+    def test_collect_requires_all_platforms_and_valid_checksums(self):
+        self.packages()
+        destination = self.root / 'dist'
+        for index, name in enumerate(release.package_names('1.0.1')):
+            directory = destination / str(index // 2)
+            directory.mkdir(exist_ok=True)
+            (destination / name).rename(directory / name)
+            with (directory / 'SHA256SUMS.txt').open('a', encoding='ascii') as output:
+                output.write(hashlib.sha256(self.files[name]).hexdigest() + '  ' + name + '\n')
+        release.collect_packages(self.root, '1.0.1')
+        self.assertEqual(set((destination / 'SHA256SUMS.txt').read_text().splitlines()),
+                         set(self.files['SHA256SUMS.txt'].decode().splitlines()))
+        manifest = destination / str(len(release.package_names('1.0.1')) // 2 - 1) / 'SHA256SUMS.txt'
+        content = manifest.read_text()
+        manifest.write_text(content.splitlines()[0] + '\n')
+        with self.assertRaisesRegex(ValueError, 'Missing packages'):
+            release.collect_packages(self.root, '1.0.1')
+        manifest.write_text(content.replace(content[:64], '0' * 64, 1))
+        with self.assertRaisesRegex(ValueError, 'checksum mismatch'):
+            release.collect_packages(self.root, '1.0.1')
+
+    def test_packages_cover_only_windows_and_macos_architectures(self):
+        suffixes = {
+            'windows-x86-setup.exe', 'windows-x86-portable.zip',
+            'windows-x64-setup.exe', 'windows-x64-portable.zip',
+            'macos-x64.dmg', 'macos-x64-portable.zip',
+            'macos-arm64.dmg', 'macos-arm64-portable.zip',
+        }
+        names = release.package_names('1.0.1')
+        self.assertEqual(len(names), 8)
+        self.assertEqual(set(names), {'EUI-Gallery-1.0.1-' + suffix for suffix in suffixes})
 
 
 if __name__ == '__main__':

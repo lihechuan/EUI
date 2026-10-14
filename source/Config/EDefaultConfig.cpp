@@ -28,11 +28,16 @@ int EDefaultConfig::fontPixelSize() const
 QString EDefaultConfig::primaryFontFamily() const
 {
 #ifdef Q_OS_WIN
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    const auto families = QFontDatabase::families();
+#else
     const QFontDatabase database;
+    const auto families = database.families();
+#endif
     for (const auto &family :
          {QStringLiteral("Microsoft YaHei UI"), QStringLiteral("Microsoft YaHei"), QStringLiteral("Segoe UI")})
     {
-        if (database.hasFamily(family))
+        if (families.contains(family))
             return family;
     }
 #endif
@@ -47,7 +52,11 @@ QString EDefaultConfig::secondaryFontFamily() const
 #else
     const auto family = QStringLiteral("Menlo");
 #endif
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    if (QFontDatabase::families().contains(family))
+#else
     if (QFontDatabase().hasFamily(family))
+#endif
         return family;
 #endif
     return QFontDatabase::systemFont(QFontDatabase::FixedFont).family();

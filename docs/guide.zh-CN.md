@@ -621,6 +621,17 @@ Gallery 左侧提供分类导航和名称搜索；`Ctrl+K` 聚焦搜索框。右
 
 ### 6.3 生成 Windows 安装包和免安装版
 
+工作流的目标产物如下；正式下载以 Release 实际附件为准，既有版本不会自动补充新平台附件。
+
+| 平台 | 安装版 | 免安装版 |
+| --- | --- | --- |
+| Windows x64 | `*-windows-x64-setup.exe` | `*-windows-x64-portable.zip` |
+| Windows x86（32 位） | `*-windows-x86-setup.exe` | `*-windows-x86-portable.zip` |
+| macOS Intel | `*-macos-x64.dmg` | `*-macos-x64-portable.zip` |
+| macOS Apple Silicon | `*-macos-arm64.dmg` | `*-macos-arm64-portable.zip` |
+
+Windows 使用 Qt 5.15.2，macOS 使用 Qt 6.8.3。macOS DMG 将应用拖入 Applications，ZIP 解压后运行 `.app`。macOS 包使用临时签名，未进行 Apple Developer ID 签名和公证。各平台都附带运行库和许可声明，并保留应用原有的用户配置存储方式。
+
 仓库提供 [package-windows.ps1](../packaging/package-windows.ps1)，用于打包当前 Gallery。目标平台为 Windows 10 / 11 x64，使用 Qt 5.15 MSVC x64 Kit。
 
 准备 x64 Visual Studio Developer PowerShell、CMake、Ninja，以及 [Inno Setup 6.5 或更新版本](https://jrsoftware.org/isdl.php)。OpenSSL 需要与当前 Qt 兼容的 **1.1.1 x64** 运行库，包含 `libssl-1_1-x64.dll` 和 `libcrypto-1_1-x64.dll`；OpenSSL 3 不能替代这两个 DLL。可使用 [FireDaemon 的 1.1.1w ZIP](https://download.firedaemon.com/FireDaemon-OpenSSL/openssl-1.1.1w.zip)，发布方公布的 SHA-256 为 `1870B15BF6749E65FFBBADF52CDFF3EE0E9F02943550BF4395574BB432AF3EB8`。

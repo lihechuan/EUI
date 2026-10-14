@@ -492,7 +492,8 @@ EApplicationWindow {
                     if (item.componentSelected)
                         item.componentSelected.connect(window.showComponent)
                 }
-                Component.onCompleted: setSource(window.currentSource, { selectedComponent: window.currentComponent })
+                Component.onCompleted: setSource(window.currentSource,
+                    window.currentComponent.length > 0 ? { selectedComponent: window.currentComponent } : {})
 
                 Behavior on opacity {
                     NumberAnimation {

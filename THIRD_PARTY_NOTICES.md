@@ -10,6 +10,9 @@ The root [LICENSE](LICENSE) applies to EUI's own code and documentation. Third-p
 | QR Code generator 1.8.0 | `source/ThirdParty/qrcodegen/` | MIT；完整许可保留在 [qrcodegen.hpp](source/ThirdParty/qrcodegen/qrcodegen.hpp) 和 `.cpp` 文件头 / full license in the source headers |
 | Skill Icons 品牌 SVG | `source/Qt5/imports/EUI/Font/Icons/` | [MIT](source/Qt5/imports/EUI/Font/Icons/LICENSE)；[来源和修改说明 / source and modifications](source/Qt5/imports/EUI/Font/Icons/README.md) |
 | Qt 5.15.2 运行库 / runtime | Windows 安装版和免安装版 / Windows packages | [LGPL-3.0](packaging/licenses/Qt-LGPL-3.0.txt)、[GPL-3.0](packaging/licenses/Qt-GPL-3.0.txt)；具体模块与商业授权见 [Qt licensing](https://www.qt.io/licensing/) |
+| Qt 6.8.3 运行库 / runtime | macOS 安装版与免安装版 / macOS packages | [LGPL-3.0](packaging/licenses/Qt-LGPL-3.0.txt)、[GPL-3.0](packaging/licenses/Qt-GPL-3.0.txt)；构建时生成 Qt 6 兼容 QML 和预编译 Shader / Qt 6 QML and shaders are generated at build time |
+| Qt 6 WebEngine 内含组件 / bundled components | macOS 包中的 WebEngine 运行库 / WebEngine runtime | [Qt 6 WebEngine licensing and third-party notices](https://doc.qt.io/qt-6.8/qtwebengine-licensing.html) |
+| FFmpeg 运行库 / runtime | Qt 6 Multimedia 部署的运行库 / Qt 6 Multimedia dependencies | [LGPL-2.1](packaging/licenses/FFmpeg-LGPL-2.1.txt)；[来源及 Qt 构建信息 / source and Qt build information](https://doc.qt.io/qt-6.8/qtmultimedia-attribution-ffmpeg.html) |
 | Qt WebEngine 内含组件 / bundled components | Windows 包中的 WebEngine 运行库 / WebEngine runtime | [Qt WebEngine licensing and third-party notices](https://doc.qt.io/archives/qt-5.15/qtwebengine-licensing.html) |
 | OpenSSL 1.1.1w | Windows 包中的 OpenSSL DLL / OpenSSL DLLs | [OpenSSL / SSLeay license](packaging/licenses/OpenSSL-LICENSE.txt) |
 | Microsoft Visual C++ Runtime | Windows 包中的 MSVC DLL / MSVC DLLs | 随 Visual Studio 提供的运行库，按其再分发条款分发 / distributed under the applicable Visual Studio redistribution terms |

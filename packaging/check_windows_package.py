@@ -1,8 +1,8 @@
+import argparse
 import ctypes
 import msvcrt
 import os
 import struct
-import sys
 import tempfile
 import zipfile
 from ctypes import wintypes
@@ -27,8 +27,12 @@ class ProcessInfo(ctypes.Structure):
                 ("dwProcessId", wintypes.DWORD), ("dwThreadId", wintypes.DWORD)]
 
 
+parser = argparse.ArgumentParser(description='Verify Windows runtime files, architecture, and background startup.')
+parser.add_argument('package', nargs='?', type=Path)
+parser.add_argument('--arch', choices=('x86', 'x64'), default='x64')
+arguments = parser.parse_args()
 root = Path(__file__).resolve().parents[1]
-package = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else root / "dist" / "EUI-Gallery"
+package = arguments.package.resolve() if arguments.package else root / "dist" / "EUI-Gallery"
 required = [
     "EUI-Gallery.exe", "EUI/qmldir", "EUI/euiplugin.dll",
     "Qt5Core.dll", "Qt5Quick.dll", "Qt5WebEngineCore.dll", "QtWebEngineProcess.exe",
@@ -36,13 +40,16 @@ required = [
     "imageformats/qsvg.dll", "QtQuick.2/qmldir", "QtQuick/Controls.2/qmldir",
     "QtWebEngine/qmldir", "QtMultimedia/qmldir", "qt.conf", "README.txt",
     "resources/icudtl.dat", "resources/qtwebengine_resources.pak",
-    "translations/qtwebengine_locales/en-US.pak", "vcruntime140.dll", "vcruntime140_1.dll",
-    "msvcp140.dll", "libssl-1_1-x64.dll", "libcrypto-1_1-x64.dll",
+    "translations/qtwebengine_locales/en-US.pak", "vcruntime140.dll", "msvcp140.dll",
     "licenses/OpenSSL-LICENSE.txt", "licenses/Qt-LGPL-3.0.txt",
     "licenses/EUI-LICENSE.txt", "licenses/THIRD_PARTY_NOTICES.md",
     "licenses/ECharts-LICENSE.txt", "licenses/ECharts-NOTICE.txt",
     "licenses/QR-Code-generator-LICENSE.txt", "licenses/Skill-Icons-LICENSE.txt",
 ]
+suffix = '-x64' if arguments.arch == 'x64' else ''
+required += [f'libssl-1_1{suffix}.dll', f'libcrypto-1_1{suffix}.dll']
+if arguments.arch == 'x64':
+    required.append('vcruntime140_1.dll')
 for name in required:
     assert (package / name).is_file(), f"Missing runtime file: {name}"
 assert not list(package.rglob("*.pdb")), "Debug symbols should not be distributed"
@@ -52,10 +59,16 @@ exe = package / "EUI-Gallery.exe"
 binary = exe.read_bytes()
 pe = struct.unpack_from("<I", binary, 0x3C)[0]
 assert binary[pe:pe + 4] == b"PE\0\0", "Invalid executable"
-assert struct.unpack_from("<H", binary, pe + 4)[0] == 0x8664, "Expected x64 executable"
+machine = 0x8664 if arguments.arch == 'x64' else 0x14c
+assert struct.unpack_from("<H", binary, pe + 4)[0] == machine, f"Expected {arguments.arch} executable"
 assert struct.unpack_from("<H", binary, pe + 24 + 68)[0] == 2, "Expected Windows GUI subsystem"
+for path in package.rglob('*.dll'):
+    content = path.read_bytes()
+    offset = struct.unpack_from('<I', content, 0x3c)[0]
+    assert content[offset:offset + 4] == b'PE\0\0', f'Invalid runtime DLL: {path.name}'
+    assert struct.unpack_from('<H', content, offset + 4)[0] == machine, f'Wrong runtime architecture: {path.name}'
 
-archives = list((root / "dist").glob("EUI-Gallery-*-windows-x64-portable.zip"))
+archives = list((root / "dist").glob(f"EUI-Gallery-*-windows-{arguments.arch}-portable.zip"))
 assert archives, "Portable ZIP was not generated"
 archive = max(archives, key=lambda path: path.stat().st_mtime)
 with zipfile.ZipFile(archive) as zipped:
@@ -145,4 +158,4 @@ finally:
     if process.hProcess:
         kernel32.CloseHandle(process.hProcess)
     user32.CloseDesktop(desktop)
-print("PASS: x64 GUI executable, runtime files, ZIP integrity, and a visible window with no developer PATH")
+print(f"PASS: {arguments.arch} GUI executable, runtime files, ZIP integrity, and a visible window with no developer PATH")

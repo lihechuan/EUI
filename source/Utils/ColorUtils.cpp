@@ -1,4 +1,5 @@
 #include <QtMath>
+#include <QStringView>
 
 #include "ColorUtils.h"
 
@@ -47,7 +48,7 @@ QList<int> hex2Rgb(const QString &color)
     if (color.isEmpty())
         return rgb;
 
-    QStringRef hexRef(&color, color.startsWith('#') ? 1 : 0, color.length() - (color.startsWith('#') ? 1 : 0));
+    auto hexRef = QStringView(color).mid(color.startsWith('#') ? 1 : 0);
 
     // 如果包含透明度（AARRGGBB），则跳过前两位透明度部分
     if (hexRef.length() == 8)

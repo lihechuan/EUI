@@ -50,6 +50,8 @@ if(APPLE)
     target_sources(example PRIVATE "${EUI_APPLICATION_ICON}")
     set_target_properties(example PROPERTIES
         MACOSX_BUNDLE TRUE
+        MACOSX_BUNDLE_BUNDLE_NAME "EUI Gallery"
+        MACOSX_BUNDLE_GUI_IDENTIFIER "local.eui.gallery"
         MACOSX_BUNDLE_ICON_FILE eui-icon.icns
     )
 endif()

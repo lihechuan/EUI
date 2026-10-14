@@ -16,6 +16,25 @@ endif()
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Quick Qml Widgets Network Concurrent PrintSupport)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick Qml Widgets Network Concurrent PrintSupport)
 
+set(EUI_QML_IMPORTS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/Qt5/imports")
+set(EUI_RESOURCE_FILE "${EUI_QML_IMPORTS_DIRECTORY}/eui.qrc")
+if(QT_VERSION_MAJOR EQUAL 6)
+    find_package(Python3 REQUIRED COMPONENTS Interpreter)
+    find_package(Qt6 6.5 REQUIRED COMPONENTS Core5Compat ShaderTools)
+    file(GLOB_RECURSE EUI_QML_INPUTS CONFIGURE_DEPENDS "${EUI_QML_IMPORTS_DIRECTORY}/*")
+    set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS
+        ${EUI_QML_INPUTS} "${CMAKE_CURRENT_SOURCE_DIR}/.cmake/prepare_qt6.py"
+    )
+    set(EUI_QT6_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/qt6")
+    execute_process(
+        COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/.cmake/prepare_qt6.py"
+            "${CMAKE_CURRENT_SOURCE_DIR}/Qt5" "${EUI_QT6_DIRECTORY}"
+        COMMAND_ERROR_IS_FATAL ANY
+    )
+    set(EUI_RESOURCE_FILE "${EUI_QT6_DIRECTORY}/eui.qrc")
+    set(EUI_QML_IMPORTS_DIRECTORY "${EUI_QT6_DIRECTORY}/imports")
+endif()
+
 file(GLOB_RECURSE CPP_FILES CONFIGURE_DEPENDS *.cpp *.h)
 foreach(filepath ${CPP_FILES})
     string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
@@ -41,12 +60,23 @@ include(QmlPlugin)
 add_qmlplugin(${PROJECT_NAME}
     URI "EUI"
     VERSION 1.0
-    SOURCES ${sources_files} ${EUI_VERSION_RC_PATH} Qt5/imports/eui.qrc Charts.qrc
+    SOURCES ${sources_files} ${EUI_VERSION_RC_PATH} ${EUI_RESOURCE_FILE} Charts.qrc
     QMLFILES ${qml_files}
     QMLDIR imports/EUI
     BINARY_DIR ${EUI_QML_PLUGIN_DIRECTORY}
     LIBTYPE ${LIB_TYPE}
 )
+
+if(QT_VERSION_MAJOR EQUAL 6)
+    qt_add_shaders(${PROJECT_NAME} eui_shaders
+        PREFIX "/qt/qml/EUI/Shaders"
+        BASE "${EUI_QT6_DIRECTORY}/shaders"
+        FILES
+            "${EUI_QT6_DIRECTORY}/shaders/motion-blur.frag"
+            "${EUI_QT6_DIRECTORY}/shaders/theme-reveal.frag"
+            "${EUI_QT6_DIRECTORY}/shaders/theme-switch.frag"
+    )
+endif()
 
 if(MINGW)
     set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
@@ -69,7 +99,7 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::GuiPrivate Qt${QT_VERSION_MAJOR}::QmlPrivate)
 
 find_program(QML_PLUGIN_DUMP NAMES qmlplugindump)
-if(QML_PLUGIN_DUMP AND NOT EUI_BUILD_STATIC_LIB)
+if(QML_PLUGIN_DUMP AND QT_VERSION_MAJOR EQUAL 5 AND NOT EUI_BUILD_STATIC_LIB)
     set(EUI_QMLTYPES_FILE ${CMAKE_CURRENT_SOURCE_DIR}/Qt5/imports/EUI/plugins.qmltypes)
     add_custom_target(Script-Generate-QmlTypes ALL
         COMMAND ${CMAKE_COMMAND}
@@ -92,6 +122,6 @@ install(TARGETS ${PROJECT_NAME}
     LIBRARY DESTINATION imports/EUI
     ARCHIVE DESTINATION lib
 )
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Qt5/imports/EUI/
+install(DIRECTORY ${EUI_QML_IMPORTS_DIRECTORY}/EUI/
     DESTINATION imports/EUI
 )

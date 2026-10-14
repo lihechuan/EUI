@@ -34,6 +34,8 @@ int main(int argc, char *argv[])
 #endif
     QtWebEngine::initialize();
 #else
+    if (qEnvironmentVariableIsEmpty("QT_QUICK_CONTROLS_STYLE"))
+        qputenv("QT_QUICK_CONTROLS_STYLE", "Basic");
     QtWebEngineQuick::initialize();
 #endif
     QGuiApplication app(argc, argv);
