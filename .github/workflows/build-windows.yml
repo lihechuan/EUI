@@ -1,4 +1,5 @@
 name: Desktop build and package
+run-name: Desktop packages - ${{ github.event_name }} - run ${{ github.run_number }}
 
 on:
   push:

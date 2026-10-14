@@ -1,4 +1,5 @@
 name: Gitee desktop release
+run-name: Gitee desktop release - ${{ github.event_name }} - run ${{ github.run_number }}
 
 on:
   workflow_dispatch:
