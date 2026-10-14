@@ -13,6 +13,7 @@ class EDataUtils : public QObject
 public:
     explicit EDataUtils(QQmlEngine *engine);
 
+    Q_INVOKABLE bool isArray(const QJSValue &value) const;
     Q_INVOKABLE QString objectIdentity(const QJSValue &value) const;
     Q_INVOKABLE QVariantList configProviders(QObject *control) const;
     Q_INVOKABLE QString cellText(const QJSValue &row, const QJSValue &column) const;

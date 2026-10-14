@@ -139,8 +139,8 @@ Control {
     readonly property var columnTree: Logic.columns(columns)
     readonly property int effectivePageSize: Math.max(1, pageSize)
     readonly property int effectiveRowHeight: Math.max(1, rowHeight)
-    readonly property int rowCount: Array.isArray(model) ? model.length : 0
     readonly property bool indeterminate: checkedRowCount > 0 && !allSelected
+    readonly property int rowCount: EDataUtils.isArray(model) ? model.length : 0
     readonly property var displayRows: Operations.pageRows(control, processedRows)
     readonly property var summaryValues: showSummary ? Logic.summary(control) : []
     readonly property real tableWidth: Math.max(availableWidth, columnLayout.total)
@@ -183,9 +183,9 @@ Control {
         .filter(function(entry) {
             return isSelectable(entry)
         }) : []
-    readonly property bool hasTree: Array.isArray(model) && model.some(function(row) {
+    readonly property bool hasTree: EDataUtils.isArray(model) && model.some(function(row) {
         return row
-            && (Array.isArray(row[treeProps.children || "children"])
+            && (EDataUtils.isArray(row[treeProps.children || "children"])
                 && row[treeProps.children || "children"].length
             || lazy && row[treeProps.hasChildren || "hasChildren"])
     })
@@ -344,12 +344,6 @@ Control {
         return column.fixed === true || column.fixed === "left" || column.fixed === "right"
     }
 
-    function resetSource() {
-        sourceRows = Array.isArray(model) ? Operations.clone(model) : []
-        undoStack = []
-        redoStack = []
-    }
-
     function replaceCells(query, replacement, options) { return Operations.replace(control, query, replacement, options) }
 
     function columnWidth(index) {
@@ -358,6 +352,12 @@ Control {
 
     function canExpand(entry) {
         return entry && (typeof rowExpandable !== "function" || rowExpandable(entry.row, entry.index))
+    }
+
+    function resetSource() {
+        sourceRows = EDataUtils.isArray(model) ? Operations.clone(model) : []
+        undoStack = []
+        redoStack = []
     }
 
     function clearSort() {
@@ -394,12 +394,6 @@ Control {
 
     function pivot(rowFields, columnField, valueField, method) {
         return Operations.pivot(control, rowFields, columnField, valueField, method)
-    }
-
-    function rowEntry(rowOrKey) {
-        return allRows.filter(function(entry) {
-            return entry.row === rowOrKey || entryKey(entry) === rowOrKey
-        })[0] || null
     }
 
     function columnLeft(index) {
@@ -466,19 +460,19 @@ Control {
             editValue = value
     }
 
+    function columnSortOrder(column) {
+        const prop = column.prop || column.property
+        const configured = sorts.filter(function(sort) { return sort.prop === prop })[0]
+        return configured ? configured.order : sortProp === prop ? sortOrder : ""
+    }
+
     function updateKeyChildren(key, children) {
-        if (!Array.isArray(children) || !rowEntry(key))
+        if (!EDataUtils.isArray(children) || !rowEntry(key))
             return false
         const loaded = Object.assign(Object.create(null), lazyChildren)
         loaded[String(key)] = children
         lazyChildren = loaded
         return true
-    }
-
-    function columnSortOrder(column) {
-        const prop = column.prop || column.property
-        const configured = sorts.filter(function(sort) { return sort.prop === prop })[0]
-        return configured ? configured.order : sortProp === prop ? sortOrder : ""
     }
 
     function setCurrentRow(row) {
@@ -510,7 +504,15 @@ Control {
         const key = Logic.columnKey(column, allColumns.indexOf(column))
         const configured = Logic.ownValue(filterValues, key)
         const values = configured === undefined ? column.filteredValue : configured
-        return Array.isArray(values) ? values : []
+        return EDataUtils.isArray(values) ? values : []
+    }
+
+    function rowEntry(rowOrKey) {
+        const key = rowKey && rowOrKey && typeof rowOrKey === "object"
+            ? keyForRow(rowOrKey, -1) : rowOrKey
+        return allRows.filter(function(entry) {
+            return entry.row === rowOrKey || key !== undefined && key !== null && entryKey(entry) === key
+        })[0] || null
     }
 
     function styleFor(callback, entry, column, rowIndex, columnIndex) {
@@ -632,7 +634,7 @@ Control {
         const targets = keys === undefined ? allColumns.map(function(column, index) {
             return Logic.columnKey(column, index)
         })
-            : Array.isArray(keys) ? keys.map(String) : [String(keys)]
+            : EDataUtils.isArray(keys) ? keys.map(String) : [String(keys)]
         for (let index = 0; index < targets.length; ++index)
             values[targets[index]] = []
         filterValues = values
@@ -701,7 +703,7 @@ Control {
         const column = allColumns.filter(function(column, index) {
             return Logic.columnKey(column, index) === String(key)
         })[0]
-        if (!enabled || !column || !Array.isArray(values))
+        if (!enabled || !column || !EDataUtils.isArray(values))
             return false
         const filters = Object.assign(Object.create(null), filterValues)
         filters[String(key)] = column.filterMultiple === false ? values.slice(-1) : values.slice()
@@ -777,7 +779,7 @@ Control {
         const column = allColumns.filter(function(entry) {
             return (entry.prop || entry.property) === prop
         })[0]
-        const orders = column && Array.isArray(column.sortOrders) && column.sortOrders.length
+        const orders = column && EDataUtils.isArray(column.sortOrders) && column.sortOrders.length
             ? column.sortOrders : ["ascending", "descending", ""]
         const order = column ? columnSortOrder(column) : ""
         const current = orders.indexOf(order || null)
@@ -823,28 +825,14 @@ Control {
     function restoreLayout() {
         const layout = ETableIO.loadLayout(layoutKey)
         const keys = allColumns.map(function(column, index) { return Logic.columnKey(column, index) })
-        columnOrder = (Array.isArray(layout.order) ? layout.order : []).filter(function(key) { return keys.indexOf(key) >= 0 })
-        hiddenColumns = (Array.isArray(layout.hidden) ? layout.hidden : []).filter(function(key) { return keys.indexOf(key) >= 0 })
+        columnOrder = (EDataUtils.isArray(layout.order) ? layout.order : []).filter(function(key) { return keys.indexOf(key) >= 0 })
+        hiddenColumns = (EDataUtils.isArray(layout.hidden) ? layout.hidden : []).filter(function(key) { return keys.indexOf(key) >= 0 })
         const widths = {}
         keys.forEach(function(key) {
             if (layout.widths && isFinite(layout.widths[key]) && layout.widths[key] > 0)
                 widths[key] = layout.widths[key]
         })
         columnWidths = widths
-    }
-
-    function setSorts(values) {
-        if (!enabled || !Array.isArray(values) || values.some(function(value) {
-            if (!value || typeof value !== "object")
-                return true
-            const column = Operations.columnFor(control, value.prop)
-            return !column || !column.sortable || ["ascending", "descending"].indexOf(value.order) < 0
-        }) || new Set(values.map(function(value) { return value.prop })).size !== values.length) return false
-        sorts = values.slice()
-        sortProp = values.length ? values[values.length - 1].prop : ""
-        sortOrder = values.length ? values[values.length - 1].order : ""
-        sortChange({prop: sortProp, order: sortOrder, sorts: sorts})
-        return true
     }
 
     function editCell(row, prop, initialValue) {
@@ -864,16 +852,18 @@ Control {
         return true
     }
 
-    function cellSpan(entry, column, rowIndex, columnIndex) {
-        if (typeof spanMethod !== "function")
-            return Operations.mergeSpan(mergeCells, rowIndex, columnIndex, displayRows.length, columnModel.length)
-        const result = spanMethod({ row: entry.row, column: column, rowIndex: rowIndex, columnIndex: columnIndex })
-        const rows = Array.isArray(result) ? result[0] : result && result.rowspan
-        const columns = Array.isArray(result) ? result[1] : result && result.colspan
-        return { rowspan: isFinite(rows) ? Math.max(0, Math.floor(rows)) : 1,
-            colspan: isFinite(columns)
-                ? Math.max(0, Math.min(columnModel.length - columnIndex, Math.floor(columns)))
-                : 1 }
+    function setSorts(values) {
+        if (!enabled || !EDataUtils.isArray(values) || values.some(function(value) {
+            if (!value || typeof value !== "object")
+                return true
+            const column = Operations.columnFor(control, value.prop)
+            return !column || !column.sortable || ["ascending", "descending"].indexOf(value.order) < 0
+        }) || new Set(values.map(function(value) { return value.prop })).size !== values.length) return false
+        sorts = values.slice()
+        sortProp = values.length ? values[values.length - 1].prop : ""
+        sortOrder = values.length ? values[values.length - 1].order : ""
+        sortChange({prop: sortProp, order: sortOrder, sorts: sorts})
+        return true
     }
 
     function sort(prop, order) {
@@ -893,6 +883,18 @@ Control {
         sortChanged(sortProp, sortOrder)
         sortChange({ column: column, prop: sortProp, order: sortOrder })
         return true
+    }
+
+    function cellSpan(entry, column, rowIndex, columnIndex) {
+        if (typeof spanMethod !== "function")
+            return Operations.mergeSpan(mergeCells, rowIndex, columnIndex, displayRows.length, columnModel.length)
+        const result = spanMethod({ row: entry.row, column: column, rowIndex: rowIndex, columnIndex: columnIndex })
+        const rows = EDataUtils.isArray(result) ? result[0] : result && result.rowspan
+        const columns = EDataUtils.isArray(result) ? result[1] : result && result.colspan
+        return { rowspan: isFinite(rows) ? Math.max(0, Math.floor(rows)) : 1,
+            colspan: isFinite(columns)
+                ? Math.max(0, Math.min(columnModel.length - columnIndex, Math.floor(columns)))
+                : 1 }
     }
 
     function commitEdit() {
@@ -976,7 +978,7 @@ Control {
                     if (!entry)
                         return entry
                     const copy = Object.assign({}, entry)
-                    if (Array.isArray(copy.children) && copy.children.length)
+                    if (EDataUtils.isArray(copy.children) && copy.children.length)
                         copy.children = update(copy.children)
                     else if (Logic.columnKey(copy, leafIndex++) === String(key))
                         copy.visible = true
@@ -1120,7 +1122,7 @@ Control {
         if (opened
             && lazy
             && entry.hasChildren
-            && !(Array.isArray(declaredChildren) && declaredChildren.length)
+            && !(EDataUtils.isArray(declaredChildren) && declaredChildren.length)
             && Logic.ownValue(lazyChildren, String(key)) === undefined
                 && typeof load === "function"
                 && loadingKeys.indexOf(key) < 0) {
@@ -1130,13 +1132,13 @@ Control {
                 loadingKeys = loadingKeys.filter(function(value) {
                     return value !== key
                 })
-                if (revision !== modelRevision || !Array.isArray(children))
+                if (revision !== modelRevision || !EDataUtils.isArray(children))
                     return
                 updateKeyChildren(key, children)
             }
             try {
                 const result = load(entry.row, entry, resolve)
-                if (Array.isArray(result))
+                if (EDataUtils.isArray(result))
                     resolve(result)
                 else if (result && typeof result.then === "function")
                     result.then(resolve, function() {
@@ -1405,7 +1407,7 @@ Control {
             cellArea = null
             cellAreas = []
             radioKey = undefined
-            sourceRows = Array.isArray(model) ? Operations.clone(model) : []
+            sourceRows = EDataUtils.isArray(model) ? Operations.clone(model) : []
             undoStack = []
             redoStack = []
         }
@@ -1413,7 +1415,7 @@ Control {
         lazyChildren = ({})
         expansionHeights = new Map()
         loadingKeys = []
-        if (!Array.isArray(model) || currentRowIndex >= model.length)
+        if (!EDataUtils.isArray(model) || currentRowIndex >= model.length)
             currentRowIndex = -1
         if (!(selectionColumn && selectionColumn.reserveSelection && rowKey)) {
             selectionKeys = []

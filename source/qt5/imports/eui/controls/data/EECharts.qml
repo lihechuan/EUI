@@ -91,7 +91,7 @@ Control {
 
             onContextMenuRequested: request.accepted = true
             onRenderProcessTerminated: bridge.terminate(exitCode)
-            onLoadingChanged: {
+            onLoadingChanged: function(loadRequest) {
                 if (loadRequest.status === WebEngineView.LoadFailedStatus)
                     bridge.report("error", loadRequest.errorString)
             }

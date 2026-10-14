@@ -142,7 +142,7 @@ Item {
         interval: Math.max(0, item.entry.item.showTimeout === undefined ? item.owner.showTimeout
             : item.entry.item.showTimeout)
 
-        onTriggered: item.owner.open(item.entry.index)
+        onTriggered: if (item.owner.menuTrigger === "hover") item.owner.open(item.entry.index)
     }
     Timer {
         id: hideTimer
@@ -151,7 +151,7 @@ Item {
             : item.entry.item.hideTimeout)
 
         onTriggered: {
-            if (!pointer.containsMouse && !branch.hovered)
+            if (item.owner.menuTrigger === "hover" && !pointer.containsMouse && !branch.hovered)
                 item.owner.close(item.entry.index)
         }
     }

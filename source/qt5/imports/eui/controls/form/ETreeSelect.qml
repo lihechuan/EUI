@@ -2,6 +2,7 @@ import EUI 1.0
 import EUI.Private 1.0
 import "." as FormControls
 import "../config/EControlConfig.js" as EControlConfig
+import "../data/private/TableOperations.js" as DataOperations
 import QtQuick 2.15
 
 FormControls.ESelect {
@@ -94,7 +95,7 @@ FormControls.ESelect {
     function flattenNodes(source) {
         internal.revision
         const result = []
-        const stack = [{ nodes: source === undefined ? data
+        const stack = [{ nodes: source === undefined ? internal.nodes
             : source, index
             : 0, ancestors
             : [], references
@@ -262,6 +263,9 @@ FormControls.ESelect {
         property int revision: 0
         property var loadingNodes: []
         property var pendingChecks: []
+
+        readonly property var nodes: control.lazy && Object.prototype.toString.call(control.data) === "[object V4Sequence]"
+            ? DataOperations.clone(control.data) : control.data
     }
     Component {
         id: treeOption

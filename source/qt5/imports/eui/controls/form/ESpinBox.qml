@@ -125,9 +125,10 @@ SpinBox {
         + rightInset, Math.max(64, implicitContentWidth)
         + leftPadding
         + rightPadding)
-    rightPadding: (controls ? up.indicator.implicitWidth + padding : EDefaultConfig.horizontalPadding(size))
+    rightPadding: (controls ? up.indicator.implicitWidth + Math.max(padding, inside.borderWidth)
+        : EDefaultConfig.horizontalPadding(size))
         + (suffixLoader.active ? suffixLoader.width + 6 : 0)
-    leftPadding: (controls && controlsPosition === "both" ? down.indicator.implicitWidth + padding
+    leftPadding: (controls && controlsPosition === "both" ? down.indicator.implicitWidth + Math.max(padding, inside.borderWidth)
         : EDefaultConfig.horizontalPadding(size))
         + (prefixLoader.active ? prefixLoader.width + 6 : 0)
     textFromValue: function(value, locale) {

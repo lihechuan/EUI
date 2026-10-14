@@ -421,7 +421,7 @@ ComboBox {
     onValueChanged: {
         if (multiple && !Array.isArray(value))
             value = []
-        else if (internal.completed && !multiple && !grouped && value !== currentValue)
+        else if (internal.completed && !multiple && !grouped && !valuesEqual(value, currentValue))
             currentIndex = indexOfValue(value)
     }
     Component.onCompleted: {

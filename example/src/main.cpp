@@ -25,6 +25,10 @@
 
 int main(int argc, char *argv[])
 {
+#if defined(Q_OS_WIN64) && QT_VERSION == QT_VERSION_CHECK(5, 15, 2)
+    // Qt 5.15.2 can write Win64 JIT unwind records into executable-only pages.
+    qputenv("QV4_FORCE_INTERPRETER", "1");
+#endif
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
@@ -68,6 +72,12 @@ int main(int argc, char *argv[])
     ExampleClipboard clipboard(&app);
     Example3DRuntime runtime(&app);
     QQmlApplicationEngine engine;
+#if defined(Q_OS_WIN64) && QT_VERSION == QT_VERSION_CHECK(5, 15, 2)
+    // Avoid Qt 5.15.2 reentrant creation of deferred controls in nested asynchronous loaders.
+    engine.rootContext()->setContextProperty(QStringLiteral("galleryAsyncLoading"), false);
+#else
+    engine.rootContext()->setContextProperty(QStringLiteral("galleryAsyncLoading"), true);
+#endif
     engine.rootContext()->setContextProperty(QStringLiteral("exampleData"), &data);
     engine.rootContext()->setContextProperty(QStringLiteral("exampleCatalog"), &catalog);
     engine.rootContext()->setContextProperty(QStringLiteral("exampleUpdater"), &updater);

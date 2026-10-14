@@ -122,50 +122,56 @@ TextField {
         id: prependLoader
 
         readonly property var input: control
+        readonly property real contentWidth: active && item ? item.implicitWidth + 16 : 0
 
+        width: contentWidth
         height: control.height
         anchors.left: control.left
         objectName: "inputPrepend"
         active: control.prependComponent !== null
         sourceComponent: control.prependComponent
-        width: active && item ? item.implicitWidth + 16 : 0
     }
     Loader {
         id: appendLoader
 
         readonly property var input: control
+        readonly property real contentWidth: active && item ? item.implicitWidth + 16 : 0
 
+        width: contentWidth
         height: control.height
         objectName: "inputAppend"
         anchors.right: control.right
         active: control.appendComponent !== null
         sourceComponent: control.appendComponent
-        width: active && item ? item.implicitWidth + 16 : 0
     }
     Loader {
         id: prefixLoader
 
         readonly property var input: control
+        readonly property real contentWidth: active && item ? item.implicitWidth : 0
+        readonly property real contentHeight: active && item ? item.implicitHeight : 0
 
+        width: contentWidth
+        height: contentHeight
         objectName: "inputPrefix"
         y: (control.height - height) / 2
         active: control.prefixComponent !== null
         sourceComponent: control.prefixComponent
-        width: active && item ? item.implicitWidth : 0
-        height: active && item ? item.implicitHeight : 0
         x: prependLoader.width + EDefaultConfig.horizontalPadding(control.size)
     }
     Loader {
         id: suffixLoader
 
         readonly property var input: control
+        readonly property real contentWidth: active && item ? item.implicitWidth : 0
+        readonly property real contentHeight: active && item ? item.implicitHeight : 0
 
+        width: contentWidth
+        height: contentHeight
         objectName: "inputSuffix"
         y: (control.height - height) / 2
         active: control.suffixComponent !== null
         sourceComponent: control.suffixComponent
-        width: active && item ? item.implicitWidth : 0
-        height: active && item ? item.implicitHeight : 0
         x: control.width - appendLoader.width - EDefaultConfig.horizontalPadding(control.size) - width
     }
     EText {

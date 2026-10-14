@@ -8027,7 +8027,7 @@
       {
         "name": "effectiveOptions",
         "type": "var",
-        "binding": "Array.isArray(options) ? options : []",
+        "binding": "lazy && Object.prototype.toString.call(options) === \"[object V4Sequence]\" ? DataOperations.clone(options) : EDataUtils.isArray(options) ? options : []",
         "readonly": true,
         "owner": "ECascader",
         "source": "source/qt5/imports/eui/controls/form/ECascader.qml",
@@ -19481,17 +19481,17 @@
       {
         "name": "font",
         "type": "font",
-        "binding": "Qt.font({ pixelSize: 16 })",
+        "binding": "",
         "readonly": false,
-        "owner": "EWatermark",
-        "source": "source/qt5/imports/eui/controls/others/EWatermark.qml",
+        "owner": "TextField",
+        "source": "Qt Quick: TextField",
         "description": {
           "zh": "字体配置，控制字体、字号及文字样式。",
           "en": "Font settings for the family, size and text style."
         },
         "default": {
-          "zh": "Qt.font({ pixelSize: 16 })",
-          "en": "Qt.font({ pixelSize: 16 })"
+          "zh": "应用字体",
+          "en": "application font"
         },
         "details": {
           "zh": "常用字段：\nfamily、pixelSize、pointSize\nbold、italic、weight\nunderline、strikeout\nletterSpacing、wordSpacing",
@@ -21587,17 +21587,17 @@
       {
         "name": "font",
         "type": "font",
-        "binding": "Qt.font({ pixelSize: 16 })",
+        "binding": "",
         "readonly": false,
-        "owner": "EWatermark",
-        "source": "source/qt5/imports/eui/controls/others/EWatermark.qml",
+        "owner": "TextField",
+        "source": "Qt Quick: TextField",
         "description": {
           "zh": "字体配置，控制字体、字号及文字样式。",
           "en": "Font settings for the family, size and text style."
         },
         "default": {
-          "zh": "Qt.font({ pixelSize: 16 })",
-          "en": "Qt.font({ pixelSize: 16 })"
+          "zh": "应用字体",
+          "en": "application font"
         },
         "details": {
           "zh": "常用字段：\nfamily、pixelSize、pointSize\nbold、italic、weight\nunderline、strikeout\nletterSpacing、wordSpacing",
@@ -46777,7 +46777,7 @@
       {
         "name": "hasTree",
         "type": "bool",
-        "binding": "Array.isArray(model) && model.some(function(row) { return row && (Array.isArray(row[treeProps.children || \"children\"]) && row[treeProps.children || \"children\"].length || lazy && row[treeProps.hasChildren || \"hasChildren\"]) })",
+        "binding": "EDataUtils.isArray(model) && model.some(function(row) { return row && (EDataUtils.isArray(row[treeProps.children || \"children\"]) && row[treeProps.children || \"children\"].length || lazy && row[treeProps.hasChildren || \"hasChildren\"]) })",
         "readonly": true,
         "owner": "ETable",
         "source": "source/qt5/imports/eui/controls/data/ETable.qml",
@@ -46929,7 +46929,7 @@
       {
         "name": "rowCount",
         "type": "int",
-        "binding": "Array.isArray(model) ? model.length : 0",
+        "binding": "EDataUtils.isArray(model) ? model.length : 0",
         "readonly": true,
         "owner": "ETable",
         "source": "source/qt5/imports/eui/controls/data/ETable.qml",

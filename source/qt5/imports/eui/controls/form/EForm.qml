@@ -80,7 +80,7 @@ Item {
     function normalizeProps(props) {
         if (props === undefined || props === null || props === "")
             return []
-        return Array.isArray(props) ? props : [props]
+        return EDataUtils.isArray(props) ? props : [props]
     }
 
     function propMatches(item, requested) {
@@ -123,7 +123,7 @@ Item {
 
     function setInitialValues(valuesOrProps) {
         if (valuesOrProps && typeof valuesOrProps === "object"
-                && !Array.isArray(valuesOrProps)) {
+                && !EDataUtils.isArray(valuesOrProps)) {
             const items = formItems()
             for (let index = 0; index < items.length; ++index) {
                 const value = valueAtPath(valuesOrProps, items[index].prop)
@@ -148,21 +148,6 @@ Item {
         }
     }
 
-    function valueAtPath(object, path) {
-        if (!object || path === undefined || path === null || path === "")
-            return undefined
-        if (object[path] !== undefined)
-            return object[path]
-        const segments = Array.isArray(path) ? path : String(path).split(".")
-        let value = object
-        for (let index = 0; index < segments.length; ++index) {
-            if (value === undefined || value === null)
-                return undefined
-            value = value[segments[index]]
-        }
-        return value
-    }
-
     function clearValidate(props) {
         ++internal.validationRevision
         const items = selectedItems(props)
@@ -178,10 +163,25 @@ Item {
         }
     }
 
+    function valueAtPath(object, path) {
+        if (!object || path === undefined || path === null || path === "")
+            return undefined
+        if (object[path] !== undefined)
+            return object[path]
+        const segments = EDataUtils.isArray(path) ? path : String(path).split(".")
+        let value = object
+        for (let index = 0; index < segments.length; ++index) {
+            if (value === undefined || value === null)
+                return undefined
+            value = value[segments[index]]
+        }
+        return value
+    }
+
     function setValueAtPath(object, path, value) {
         if (!object || path === undefined || path === null || path === "")
             return false
-        const segments = Array.isArray(path) ? path : String(path).split(".")
+        const segments = EDataUtils.isArray(path) ? path : String(path).split(".")
         let target = object
         for (let index = 0; index < segments.length - 1; ++index) {
             const key = segments[index]

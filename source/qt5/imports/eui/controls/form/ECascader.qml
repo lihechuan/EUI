@@ -2,6 +2,7 @@ import EUI 1.0
 import EUI.Private 1.0
 import "." as FormControls
 import "../config/EControlConfig.js" as EControlConfig
+import "../data/private/TableOperations.js" as DataOperations
 import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
@@ -32,7 +33,8 @@ FormControls.EInput {
 
     readonly property alias popup: cascadePopup
     readonly property var nodePaths: flattenPaths()
-    readonly property var effectiveOptions: Array.isArray(options) ? options : []
+    readonly property var effectiveOptions: lazy && Object.prototype.toString.call(options) === "[object V4Sequence]"
+        ? DataOperations.clone(options) : EDataUtils.isArray(options) ? options : []
     readonly property real columnHeight: Math.min(240, internal.levels.reduce(function(rows, nodes) {
         return Math.max(rows, nodes.length)
     }, 1) * Math.max(30, EDefaultConfig.controlHeight(size) + 2))

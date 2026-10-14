@@ -90,7 +90,7 @@ MenuItem {
             ? action.subMenu.entry.showTimeout : action.submenuOwner ? action.submenuOwner.showTimeout : 150)
 
         onTriggered: {
-            if (!action.subMenu || !action.enabled)
+            if (!action.managedSubmenu || !action.enabled || action.submenuOwner.menuTrigger !== "hover")
                 return
             for (let index = 0; index < action.menu.count; ++index) {
                 const item = action.menu.itemAt(index)
@@ -109,13 +109,14 @@ MenuItem {
             ? action.subMenu.entry.hideTimeout : action.submenuOwner ? action.submenuOwner.hideTimeout : 150)
 
         onTriggered: {
-            if (action.subMenu && !submenuHover.hovered && !action.subMenu.hovered)
+            if (action.managedSubmenu && action.submenuOwner.menuTrigger === "hover"
+                && !submenuHover.hovered && !action.subMenu.hovered)
                 action.subMenu.close()
         }
     }
     Connections {
         function onHoveredChanged() {
-            if (!action.managedSubmenu)
+            if (!action.managedSubmenu || action.submenuOwner.menuTrigger !== "hover")
                 return
             if (action.subMenu.hovered)
                 closeTimer.stop()

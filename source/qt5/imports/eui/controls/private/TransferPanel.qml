@@ -114,12 +114,13 @@ Control {
 
             readonly property var panel: control
             readonly property var checkedKeys: control.checkedKeys
+            readonly property real contentHeight: active && item ? item.implicitHeight : 0
 
             width: parent.width
+            height: contentHeight
             anchors.bottom: parent.bottom
             active: control.footerComponent !== null
             sourceComponent: control.footerComponent
-            height: active && item ? item.implicitHeight : 0
         }
         ListView {
             clip: true

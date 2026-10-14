@@ -8,6 +8,9 @@
 #include <QQuickItem>
 #include <QStringList>
 #include <private/qjsvalue_p.h>
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#include <private/qv4sequenceobject_p.h>
+#endif
 
 #include "EDataUtils.h"
 
@@ -44,14 +47,30 @@ struct MenuFrame
     QStringList path;
 };
 
+bool isArrayValue(const QJSValue &value)
+{
+    if (value.isArray())
+        return true;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    return QJSValuePrivate::asManagedType<QV4::Sequence>(&value) != nullptr;
+#else
+    return false;
+#endif
+}
+
 quint32 arrayLength(const QJSValue &value)
 {
-    return value.isArray() ? value.property(QStringLiteral("length")).toUInt() : 0;
+    return isArrayValue(value) ? value.property(QStringLiteral("length")).toUInt() : 0;
 }
 }
 
 EDataUtils::EDataUtils(QQmlEngine *engine) : QObject(engine), m_engine(engine)
 {
+}
+
+bool EDataUtils::isArray(const QJSValue &value) const
+{
+    return isArrayValue(value);
 }
 
 QString EDataUtils::objectIdentity(const QJSValue &value) const
@@ -229,7 +248,7 @@ QJSValue EDataUtils::treeVisibleNodes(const QJSValue &nodes, const QJSValue &exp
             !expanded.contains(entry.property(QStringLiteral("key")).toString()))
             hiddenLevel = level;
     }
-    return filtered || !nodes.isArray() ? result : nodes;
+    return filtered || !isArrayValue(nodes) ? result : nodes;
 }
 
 QJSValue EDataUtils::columnWidths(const QJSValue &columns, qreal availableWidth) const

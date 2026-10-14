@@ -10,10 +10,12 @@ Flickable {
     property string title: ""
     property int exampleCount: 0
     property string description: ""
-    property bool previewsReady: false
+    property bool layoutReady: false
     property string selectedComponent: ""
 
     readonly property bool examplePage: true
+    readonly property bool previewsReady: layoutReady
+        && (!parent || parent.status === undefined || parent.status === Loader.Ready)
     readonly property var componentEntry: {
         if (typeof exampleCatalog === "undefined")
             return null
@@ -58,7 +60,7 @@ Flickable {
     onSelectedComponentChanged: Qt.callLater(updateExampleCount)
     Component.onCompleted: Qt.callLater(function() {
         pageColumn.forceLayout()
-        previewsReady = true
+        layoutReady = true
         updateExampleCount()
     })
 

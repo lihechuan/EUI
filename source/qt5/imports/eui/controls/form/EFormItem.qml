@@ -90,7 +90,7 @@ Item {
     function normalizeRules(value) {
         if (value === undefined || value === null)
             return []
-        return Array.isArray(value) ? value.slice(0) : [value]
+        return EDataUtils.isArray(value) ? value.slice(0) : [value]
     }
 
     function clearValidate() {
@@ -123,7 +123,7 @@ Item {
     }
 
     function snapshotValue(value) {
-        if (Array.isArray(value))
+        if (EDataUtils.isArray(value))
             return value.slice(0)
         if (value && typeof value === "object") {
             try { return JSON.parse(JSON.stringify(value)) }
@@ -135,7 +135,7 @@ Item {
     function isEmpty(value) {
         return value === undefined || value === null
                 || (typeof value === "string" && value.trim().length === 0)
-                || (Array.isArray(value) && value.length === 0)
+                || (EDataUtils.isArray(value) && value.length === 0)
                 || (typeof value === "boolean" && !value)
     }
 
@@ -176,7 +176,7 @@ Item {
             return true
         if (!rule || rule.trigger === undefined || rule.trigger === null)
             return true
-        const triggers = Array.isArray(rule.trigger) ? rule.trigger : [rule.trigger]
+        const triggers = EDataUtils.isArray(rule.trigger) ? rule.trigger : [rule.trigger]
         return triggers.indexOf(trigger) >= 0
     }
 
@@ -408,9 +408,9 @@ Item {
             else if (type === "boolean")
                 validType = typeof value === "boolean"
             else if (type === "array")
-                validType = Array.isArray(value)
+                validType = EDataUtils.isArray(value)
             else if (type === "object")
-                validType = value && typeof value === "object" && !Array.isArray(value)
+                validType = value && typeof value === "object" && !EDataUtils.isArray(value)
             else if (type === "email")
                 validType = typeof value === "string" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
             else if (type === "url")
@@ -419,7 +419,7 @@ Item {
                 return ruleMessage(rule, EControlConfig.textFor(control, "InvalidValueType", ELocale.texts))
         }
 
-        const measurable = typeof value === "string" || Array.isArray(value)
+        const measurable = typeof value === "string" || EDataUtils.isArray(value)
         const amount = measurable ? value.length : value
         if (rule.len !== undefined && amount !== rule.len)
             return ruleMessage(
@@ -564,9 +564,11 @@ Item {
             Loader {
                 readonly property var formItem: control
                 readonly property string label: control.label
+                readonly property real contentWidth: item ? item.implicitWidth : 0
+                readonly property real contentHeight: item ? item.implicitHeight : 0
 
-                width: item ? item.implicitWidth : 0
-                height: item ? item.implicitHeight : 0
+                width: contentWidth
+                height: contentHeight
                 active: control.labelComponent !== null
                 sourceComponent: control.labelComponent
                 anchors.verticalCenter: parent.verticalCenter

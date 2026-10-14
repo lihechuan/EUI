@@ -1,85 +1,19 @@
 .pragma library
 
-function valueAt(row, path) {
-    const parts = String(path || "").split(".")
-    let value = row
-    for (let index = 0; index < parts.length && value !== null && value !== undefined; ++index)
-        value = value[parts[index]]
-    return value
+function ownValue(object, key) {
+    return object && Object.prototype.hasOwnProperty.call(object, key) ? object[key] : undefined
 }
 
 function columnKey(column, index) {
     return String(column._columnKey === undefined ? column.columnKey || column.key || column.prop || column.property || column.type || index : column._columnKey)
 }
 
-function columns(source) {
-    const leaves = []
-    const groups = []
-    const stack = []
-    let depth = 1
-    function visit(items, level, inheritedFixed, hidden, path) {
-        if (!Array.isArray(items))
-            return
-        for (let index = 0; index < items.length; ++index) {
-            const original = items[index]
-            if (!original || typeof original !== "object" || stack.indexOf(original) >= 0)
-                continue
-            const column = Object.assign({}, original)
-            column.fixed = column.fixed === undefined ? inheritedFixed : column.fixed
-            column.visible = !hidden && column.visible !== false
-            const start = leaves.length
-            if (Array.isArray(column.children) && column.children.length) {
-                stack.push(original)
-                visit(column.children, level + 1, column.fixed, !column.visible, path + "/" + index)
-                stack.pop()
-                groups.push({ column: column, level: level, start: start, count: leaves.length - start })
-            } else {
-                column._columnKey = columnKey(column, leaves.length)
-                column._level = level
-                column._groupPath = path
-                leaves.push(column)
-                depth = Math.max(depth, level + 1)
-            }
-        }
-    }
-    visit(source, 0, false, false, "")
-    return { leaves: leaves, groups: groups, depth: depth }
-}
-
-function rows(owner) {
-    const entries = []
-    const ancestors = new Set()
-    const stack = [{ items: owner.model, index: 0, level: 0, parentKey: null, parentIndex: -1, disabled: false, row: null }]
-    let childIndex = owner.rowCount
-    while (stack.length) {
-        const frame = stack[stack.length - 1]
-        if (!Array.isArray(frame.items) || frame.index >= frame.items.length) {
-            ancestors.delete(frame.row)
-            stack.pop()
-            continue
-        }
-        const index = frame.index++
-        const row = frame.items[index]
-        if (!row || typeof row !== "object" || ancestors.has(row))
-            continue
-        const sourceIndex = frame.level === 0 ? index : childIndex++
-        const key = owner.keyForRow(row, sourceIndex)
-        const declaredChildren = row[owner.treeProps.children || "children"]
-        const loadedChildren = ownValue(owner.lazyChildren, String(key))
-        const children = loadedChildren || declaredChildren
-        const hasChildren = Array.isArray(children) && children.length > 0
-            || loadedChildren === undefined && owner.lazy && Boolean(row[owner.treeProps.hasChildren || "hasChildren"])
-        const treeIndex = entries.length
-        const disabled = frame.disabled || Boolean(row.disabled)
-        entries.push({ row: row, index: sourceIndex, key: key, level: frame.level, treeIndex: treeIndex,
-            parentIndex: frame.parentIndex, parentKey: frame.parentKey, disabled: disabled, hasChildren: hasChildren })
-        if (Array.isArray(children) && children.length) {
-            ancestors.add(row)
-            stack.push({ items: children, index: 0, level: frame.level + 1, parentKey: key,
-                parentIndex: treeIndex, disabled: disabled, row: row })
-        }
-    }
-    return entries
+function valueAt(row, path) {
+    const parts = String(path || "").split(".")
+    let value = row
+    for (let index = 0; index < parts.length && value !== null && value !== undefined; ++index)
+        value = value[parts[index]]
+    return value
 }
 
 function compareValues(left, right) {
@@ -92,6 +26,21 @@ function compareValues(left, right) {
     if (typeof left === "number" || typeof right === "number")
         return typeof left === "number" ? -1 : 1
     return String(left).localeCompare(String(right))
+}
+
+function summary(owner) {
+    const rows = owner.displayRows.filter(function(entry) { return !entry.group }).map(function(entry) { return entry.row })
+    if (typeof owner.summaryMethod === "function") {
+        const values = owner.summaryMethod({ columns: owner.columnModel, data: rows })
+        return EDataUtils.isArray(values) ? values : []
+    }
+    return owner.columnModel.map(function(column, index) {
+        if (index === 0)
+            return owner.sumText
+        const values = rows.map(function(row) { return valueAt(row, column.prop || column.property) })
+        const numbers = values.filter(function(value) { return value !== null && value !== "" && isFinite(Number(value)) })
+        return numbers.length ? numbers.reduce(function(sum, value) { return sum + Number(value) }, 0) : ""
+    })
 }
 
 function filteredRows(owner, source) {
@@ -118,6 +67,76 @@ function filteredRows(owner, source) {
                 matches[source[index].parentIndex] = true
     }
     return source.filter(function(entry, index) { return matches[index] })
+}
+
+function columns(source) {
+    const leaves = []
+    const groups = []
+    const stack = []
+    let depth = 1
+    function visit(items, level, inheritedFixed, hidden, path) {
+        if (!EDataUtils.isArray(items))
+            return
+        for (let index = 0; index < items.length; ++index) {
+            const original = items[index]
+            if (!original || typeof original !== "object" || stack.indexOf(original) >= 0)
+                continue
+            const column = Object.assign({}, original)
+            column.fixed = column.fixed === undefined ? inheritedFixed : column.fixed
+            column.visible = !hidden && column.visible !== false
+            const start = leaves.length
+            if (EDataUtils.isArray(column.children) && column.children.length) {
+                stack.push(original)
+                visit(column.children, level + 1, column.fixed, !column.visible, path + "/" + index)
+                stack.pop()
+                groups.push({ column: column, level: level, start: start, count: leaves.length - start })
+            } else {
+                column._columnKey = columnKey(column, leaves.length)
+                column._level = level
+                column._groupPath = path
+                leaves.push(column)
+                depth = Math.max(depth, level + 1)
+            }
+        }
+    }
+    visit(source, 0, false, false, "")
+    return { leaves: leaves, groups: groups, depth: depth }
+}
+
+function rows(owner) {
+    const entries = []
+    const ancestors = new Set()
+    const stack = [{ items: owner.model, index: 0, level: 0, parentKey: null, parentIndex: -1, disabled: false, row: null }]
+    let childIndex = owner.rowCount
+    while (stack.length) {
+        const frame = stack[stack.length - 1]
+        if (!EDataUtils.isArray(frame.items) || frame.index >= frame.items.length) {
+            ancestors.delete(frame.row)
+            stack.pop()
+            continue
+        }
+        const index = frame.index++
+        const row = frame.items[index]
+        if (!row || typeof row !== "object" || ancestors.has(row))
+            continue
+        const sourceIndex = frame.level === 0 ? index : childIndex++
+        const key = owner.keyForRow(row, sourceIndex)
+        const declaredChildren = row[owner.treeProps.children || "children"]
+        const loadedChildren = ownValue(owner.lazyChildren, String(key))
+        const children = loadedChildren || declaredChildren
+        const hasChildren = EDataUtils.isArray(children) && children.length > 0
+            || loadedChildren === undefined && owner.lazy && Boolean(row[owner.treeProps.hasChildren || "hasChildren"])
+        const treeIndex = entries.length
+        const disabled = frame.disabled || Boolean(row.disabled)
+        entries.push({ row: row, index: sourceIndex, key: key, level: frame.level, treeIndex: treeIndex,
+            parentIndex: frame.parentIndex, parentKey: frame.parentKey, disabled: disabled, hasChildren: hasChildren })
+        if (EDataUtils.isArray(children) && children.length) {
+            ancestors.add(row)
+            stack.push({ items: children, index: 0, level: frame.level + 1, parentKey: key,
+                parentIndex: treeIndex, disabled: disabled, row: row })
+        }
+    }
+    return entries
 }
 
 function displayRows(owner) {
@@ -148,7 +167,7 @@ function displayRows(owner) {
             result = Number(column.sortMethod(left.row, right.row)) || 0
         else {
             const by = column.sortBy || owner.sortProp
-            const properties = Array.isArray(by) ? by : [by]
+            const properties = EDataUtils.isArray(by) ? by : [by]
             for (let index = 0; index < properties.length && result === 0; ++index) {
                 const property = properties[index]
                 result = compareValues(typeof property === "function" ? property(left.row, left.index) : valueAt(left.row, property),
@@ -182,23 +201,4 @@ function displayRows(owner) {
         }
     }
     return result
-}
-
-function summary(owner) {
-    const rows = owner.displayRows.filter(function(entry) { return !entry.group }).map(function(entry) { return entry.row })
-    if (typeof owner.summaryMethod === "function") {
-        const values = owner.summaryMethod({ columns: owner.columnModel, data: rows })
-        return Array.isArray(values) ? values : []
-    }
-    return owner.columnModel.map(function(column, index) {
-        if (index === 0)
-            return owner.sumText
-        const values = rows.map(function(row) { return valueAt(row, column.prop || column.property) })
-        const numbers = values.filter(function(value) { return value !== null && value !== "" && isFinite(Number(value)) })
-        return numbers.length ? numbers.reduce(function(sum, value) { return sum + Number(value) }, 0) : ""
-    })
-}
-
-function ownValue(object, key) {
-    return object && Object.prototype.hasOwnProperty.call(object, key) ? object[key] : undefined
 }

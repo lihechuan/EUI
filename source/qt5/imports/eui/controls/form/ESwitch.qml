@@ -117,6 +117,7 @@ Switch {
                 easing.bezierCurve: [0.645, 0.045, 0.355, 1, 1, 1]
             }
         }
+
         ERectangle {
             y: 2
             height: width
@@ -176,7 +177,7 @@ Switch {
             value = checked ? activeValue : inactiveValue
     }
     onCheckedChanged: Qt.callLater(function() {
-        if (!control.loading)
+        if (control && !control.loading)
             control.value = control.checked ? control.activeValue : control.inactiveValue
     })
 

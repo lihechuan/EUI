@@ -241,22 +241,24 @@ Drawer {
         property real initialSize: 0
         property point pressPosition
 
+        z: 1
         enabled: control.resizable
-        parent: control.background
+        objectName: "drawerResizeHandle"
         width: control.horizontal ? 6 : control.width
         height: control.horizontal ? control.height : 6
         x: control.edge === Qt.LeftEdge ? control.width - width : 0
         y: control.edge === Qt.TopEdge ? control.height - height : 0
+        parent: control.contentItem ? control.contentItem.parent : null
         cursorShape: control.horizontal ? Qt.SizeHorCursor : Qt.SizeVerCursor
 
         onCanceled: control.resizeEnded(control.horizontal ? control.width : control.height)
         onReleased: control.resizeEnded(control.horizontal ? control.width : control.height)
-        onPressed: {
+        onPressed: function(mouse) {
             pressPosition = mapToItem(control.parent, mouse.x, mouse.y)
             initialSize = control.horizontal ? control.width : control.height
             control.resizeStarted(initialSize)
         }
-        onPositionChanged: {
+        onPositionChanged: function(mouse) {
             if (!pressed)
                 return
             const position = mapToItem(control.parent, mouse.x, mouse.y)

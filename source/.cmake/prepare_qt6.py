@@ -16,6 +16,7 @@ def prepare(source, destination):
     module = destination / 'imports/eui'
     for file in module.rglob('*.qml'):
         text = file.read_text(encoding='utf-8')
+        text = text.replace('Array.isArray(', 'EDataUtils.isArray(')
         text = text.replace('import Qt.labs.calendar 1.0\n', '')
         text = text.replace('import QtQuick.Controls 2.15', 'import QtQuick.Controls')
         if file.name == 'ECalendar.qml':
@@ -33,6 +34,8 @@ def prepare(source, destination):
         ('import QtMultimedia 5.15', 'import QtMultimedia'),
         ('player.muted', 'audioOutput.muted'),
         ('player.volume', 'audioOutput.volume'),
+        ('player.seek(value)', 'player.position = value'),
+        ('player.seek(position)', 'player.position = position'),
         ('property alias autoPlay: player.autoPlay', 'property bool autoPlay: false'),
         ('        source: player\n', '        id: videoOutput\n'),
         ('onError: control.failed(errorString)',
@@ -63,6 +66,13 @@ def prepare(source, destination):
          '    Component {\n        id: defaultTrigger'),
     ):
         text = replace(text, before, after)
+    text = replace(text, '    onEnabledChanged: if (!enabled && internal.fileDialog)',
+                   '    onDirectoryChanged: if (internal.fileDialog) {\n'
+                   '        internal.fileDialog.close()\n'
+                   '        internal.fileDialog.destroy()\n'
+                   '        internal.fileDialog = null\n'
+                   '    }\n'
+                   '    onEnabledChanged: if (!enabled && internal.fileDialog)')
     upload.write_text(text, encoding='utf-8')
 
     picker = module / 'controls/form/EFilePicker.qml'

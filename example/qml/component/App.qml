@@ -11,6 +11,7 @@ EApplicationWindow {
     property string openedGroup: "basic"
     property bool navigationExpanded: true
     property string currentSource: "Overview.qml"
+    property bool asynchronousLoading: typeof galleryAsyncLoading === "undefined" || galleryAsyncLoading
 
     readonly property int navigationWidth: navigationExpanded ? 232 : 64
     readonly property var pages: {
@@ -555,12 +556,12 @@ EApplicationWindow {
             Loader {
                 id: exampleLoader
 
-                asynchronous: true
                 anchors.left: parent.left
                 anchors.right: parent.right
                 objectName: "galleryLoader"
                 anchors.bottom: parent.bottom
                 anchors.top: headerBar.bottom
+                asynchronous: window.asynchronousLoading
                 opacity: status === Loader.Ready ? 1 : 0
 
                 onLoaded: {
