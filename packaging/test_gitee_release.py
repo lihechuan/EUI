@@ -2,6 +2,7 @@ import base64
 import hashlib
 import json
 import os
+import sys
 import tarfile
 import tempfile
 import unittest
@@ -61,7 +62,8 @@ class GiteeReleaseTests(unittest.TestCase):
 
     def promote(self, request, timeout):
         self.assertEqual(request.method, 'PATCH')
-        self.assertEqual(json.loads(request.data), {'prerelease': False})
+        self.assertEqual(json.loads(request.data), {'tag_name': 'v1.1.0', 'name': 'EUI Gallery 1.1.0',
+                         'body': '1. Animation presets.\n', 'prerelease': False})
         self.assertEqual(self.remote, self.files)
         self.promoted = True
         response = unittest.mock.MagicMock()
@@ -87,7 +89,8 @@ class GiteeReleaseTests(unittest.TestCase):
         self.assertEqual(self.uploads, [])
 
     def test_partial_release_is_completed_and_verified(self):
-        self.item = {'id': 7, 'prerelease': True}
+        self.item = {'id': 7, 'prerelease': True, 'name': 'EUI Gallery 1.1.0',
+                     'body': '1. Animation presets.\n'}
         name = next(iter(self.files))
         self.remote[name] = self.files[name]
         self.publish()
@@ -181,6 +184,19 @@ class GiteeReleaseTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, 'GITEE_TOKEN'):
                 release.api('/commits/master')
             call.assert_not_called()
+
+    def test_upload_accepts_utf8_json_on_windows(self):
+        original = release.subprocess.run
+        payload = json.dumps({'id': 7, 'name': 'package.zip', 'uploader': '历河川'}, ensure_ascii=False)
+        def curl(arguments, **options):
+            return original([sys.executable, '-c',
+                             'import sys; sys.stdout.buffer.write(' + repr(payload) + '.encode("utf-8"))'],
+                            **options)
+        with patch.object(release.subprocess, 'run', side_effect=curl), \
+                patch.dict(os.environ, {'GITEE_TOKEN': 'test-token'}):
+            asset = release.transfer(release.API + '/releases/7/attach_files',
+                                     upload=self.root / 'dist/SHA256SUMS.txt')
+            self.assertEqual(asset['uploader'], '历河川')
 
 
 if __name__ == '__main__':

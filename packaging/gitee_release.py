@@ -54,7 +54,7 @@ def transfer(url, output=None, upload=None):
     token = os.environ['GITEE_TOKEN']
     if any(character in token for character in '\r\n"\\'):
         raise ValueError('Invalid Gitee token format.')
-    result = subprocess.run(arguments + [url], capture_output=True, text=True,
+    result = subprocess.run(arguments + [url], capture_output=True, text=True, encoding='utf-8',
                             input='header = "Authorization: Bearer ' + token + '"\n')
     if result.returncode:
         raise RuntimeError(f'Gitee file transfer failed (curl exit {result.returncode}).')
@@ -188,7 +188,8 @@ def publish(root, commit, version):
     request = Request(API + f"/releases/{release['id']}", method='PATCH',
                       headers={'Authorization': 'Bearer ' + os.environ['GITEE_TOKEN'],
                                'Content-Type': 'application/json'},
-                      data=json.dumps({'prerelease': False}).encode())
+                      data=json.dumps({'tag_name': 'v' + version, 'name': release['name'],
+                                       'body': release['body'], 'prerelease': False}).encode())
     with urlopen(request, timeout=60) as response:
         if json.load(response)['prerelease']:
             raise ValueError('Gitee release is still a prerelease.')
