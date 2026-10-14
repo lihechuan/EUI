@@ -69,8 +69,10 @@ target_link_libraries(example PRIVATE
     Qt${QT_VERSION_MAJOR}::Core
     Qt${QT_VERSION_MAJOR}::Quick
     Qt${QT_VERSION_MAJOR}::Gui
-    euiplugin
 )
+if(NOT APPLE OR EUI_BUILD_STATIC_LIB)
+    target_link_libraries(example PRIVATE euiplugin)
+endif()
 if(QT_VERSION_MAJOR EQUAL 5)
     target_link_libraries(example PRIVATE Qt5::WebEngine)
 else()

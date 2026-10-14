@@ -70,8 +70,12 @@ def main():
                 raise ValueError('Missing packaged runtime file: ' + relative)
         if (app / 'Contents/MacOS/EUI').exists():
             raise ValueError('QML resources must be outside the executable directory.')
+        executable = app / 'Contents/MacOS/example'
+        dependencies = subprocess.check_output(['otool', '-L', str(executable)], text=True)
+        if 'euiplugin' in dependencies:
+            raise ValueError('The Gallery must load EUI through its QML plugin only.')
         subprocess.run(['codesign', '--verify', '--deep', '--strict', str(app)], check=True)
-        startup(app / 'Contents/MacOS/example', environment, destination)
+        startup(executable, environment, destination)
     print('Installer and portable package verification passed.')
 
 
