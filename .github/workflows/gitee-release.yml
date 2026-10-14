@@ -1,4 +1,4 @@
-name: Gitee Windows release
+name: Gitee desktop release
 
 on:
   workflow_dispatch:
@@ -43,6 +43,14 @@ jobs:
   package:
     needs: plan
     if: needs.plan.outputs.build == 'true'
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: x64
+            qt-arch: win64_msvc2019_64
+          - arch: x86
+            qt-arch: win32_msvc2019
     runs-on: windows-2022
     timeout-minutes: 60
     outputs:
@@ -74,7 +82,7 @@ jobs:
         if: steps.source.outputs.build == 'true'
         uses: ilammy/msvc-dev-cmd@0b201ec74fa43914dc39ae48a89fd1d8cb592756 # v1
         with:
-          arch: x64
+          arch: ${{ matrix.arch }}
           toolset: '14.29'
 
       - name: Install Qt
@@ -82,7 +90,7 @@ jobs:
         uses: jurplel/install-qt-action@a9c63c7c123f3069cff414e7e482d95dfa9d8125 # v4
         with:
           version: '5.15.2'
-          arch: win64_msvc2019_64
+          arch: ${{ matrix.qt-arch }}
           modules: qtwebengine
           cache: true
           setup-python: false
@@ -98,15 +106,15 @@ jobs:
           }
           $destination = Join-Path $env:RUNNER_TEMP 'eui-openssl'
           Expand-Archive -LiteralPath $archive -DestinationPath $destination
-          "EUI_OPENSSL_DIR=$destination/openssl-1.1/x64/bin" >> $env:GITHUB_ENV
+          "EUI_OPENSSL_DIR=$destination/openssl-1.1/${{ matrix.arch }}/bin" >> $env:GITHUB_ENV
 
       - name: Build and verify Gitee Windows packages
         if: steps.source.outputs.build == 'true'
         env:
           QT_OPENGL_DLL: opengl32sw.dll
         run: |
-          ./gitee-source/packaging/package-windows.ps1 -QtDir $env:QT_ROOT_DIR -OpenSslDir $env:EUI_OPENSSL_DIR
-          python gitee-source/packaging/check_windows_package.py
+          ./gitee-source/packaging/package-windows.ps1 -QtDir $env:QT_ROOT_DIR -OpenSslDir $env:EUI_OPENSSL_DIR -Architecture '${{ matrix.arch }}'
+          python gitee-source/packaging/check_windows_package.py --arch '${{ matrix.arch }}'
           if ($LASTEXITCODE -ne 0) { throw 'Gitee package validation failed.' }
           "Gitee source: ${{ steps.source.outputs.commit }}" | Set-Content gitee-source/dist/BUILD-INFO.txt -Encoding utf8
           Copy-Item gitee-source/packaging/release-notes.md gitee-source/dist/release-notes.md
@@ -115,10 +123,10 @@ jobs:
         if: steps.source.outputs.build == 'true'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          name: Gitee-Windows-${{ github.run_id }}
+          name: Gitee-windows-${{ matrix.arch }}-${{ github.run_id }}
           path: |
-            gitee-source/dist/EUI-Gallery-*-windows-x64-setup.exe
-            gitee-source/dist/EUI-Gallery-*-windows-x64-portable.zip
+            gitee-source/dist/EUI-Gallery-*-windows-${{ matrix.arch }}-setup.exe
+            gitee-source/dist/EUI-Gallery-*-windows-${{ matrix.arch }}-portable.zip
             gitee-source/dist/SHA256SUMS.txt
             gitee-source/dist/BUILD-INFO.txt
             gitee-source/dist/release-notes.md
@@ -126,8 +134,77 @@ jobs:
           compression-level: 0
           retention-days: 14
 
+  package-macos:
+    needs: plan
+    if: needs.plan.outputs.build == 'true'
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-15-intel
+            platform: macos-x64
+          - runner: macos-15
+            platform: macos-arm64
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 60
+    steps:
+      - name: Check out release tooling
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+
+      - name: Prepare exact Gitee release source
+        id: source
+        env:
+          GITEE_TOKEN: ${{ secrets.GITEE_TOKEN }}
+          EUI_GITEE_COMMIT: ${{ needs.plan.outputs.commit }}
+          EUI_RELEASE_VERSION: ${{ needs.plan.outputs.version }}
+        run: python packaging/gitee_release.py prepare
+
+      - name: Install Qt 6
+        if: steps.source.outputs.build == 'true'
+        uses: jurplel/install-qt-action@a9c63c7c123f3069cff414e7e482d95dfa9d8125 # v4
+        with:
+          version: '6.8.3'
+          modules: qtwebengine qtwebchannel qtpositioning qt5compat qtshadertools qtmultimedia qtquick3d qtquicktimeline
+          cache: true
+          setup-python: false
+
+      - name: Build native installer and portable package
+        if: steps.source.outputs.build == 'true'
+        run: python gitee-source/packaging/package-macos.py --qt-dir "$QT_ROOT_DIR"
+
+      - name: Test Qt 6 controls and adapted interfaces
+        if: steps.source.outputs.build == 'true'
+        env:
+          QT_QUICK_BACKEND: software
+          QT_QUICK_CONTROLS_STYLE: Basic
+        run: qmltestrunner -input gitee-source/packaging/tst_qt6.qml -import "gitee-source/build/${{ matrix.platform }}-package/source" -platform offscreen
+
+      - name: Verify extracted packages and background startup
+        if: steps.source.outputs.build == 'true'
+        run: python gitee-source/packaging/check_macos_package.py
+
+      - name: Retain verified packages for publication and retry
+        if: steps.source.outputs.build == 'true'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: Gitee-${{ matrix.platform }}-${{ github.run_id }}
+          path: |
+            gitee-source/dist/EUI-Gallery-*.dmg
+            gitee-source/dist/EUI-Gallery-*-portable.zip
+            gitee-source/dist/SHA256SUMS.txt
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
+
   publish:
-    needs: [plan, package]
+    needs: [plan, package, package-macos]
     if: needs.package.outputs.build == 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 60
@@ -145,8 +222,15 @@ jobs:
       - name: Download original verified packages
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
         with:
-          name: Gitee-Windows-${{ github.run_id }}
+          pattern: Gitee-*-${{ github.run_id }}
           path: dist
+
+      - name: Collect all desktop packages and verify checksums
+        env:
+          EUI_RELEASE_VERSION: ${{ needs.plan.outputs.version }}
+        run: |
+          python packaging/gitee_release.py collect
+          cp dist/Gitee-windows-x64-${{ github.run_id }}/release-notes.md dist/release-notes.md
 
       - name: Publish and verify Gitee release attachments
         env:

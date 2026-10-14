@@ -10,9 +10,17 @@ from pathlib import Path
 from unittest.mock import patch
 
 import gitee_release as release
+import github_release
 
 
 class GiteeReleaseTests(unittest.TestCase):
+    def test_desktop_packages_match_github_and_cover_all_architectures(self):
+        names = release.package_names('1.2.0')
+        self.assertEqual(names, github_release.package_names('1.2.0'))
+        self.assertEqual(len(names), 8)
+        for platform in ('windows-x64', 'windows-x86', 'macos-x64', 'macos-arm64'):
+            self.assertEqual(sum(platform in name for name in names), 2)
+
     def setUp(self):
         directory = tempfile.TemporaryDirectory(prefix='eui-gitee-test-')
         self.addCleanup(directory.cleanup)
@@ -121,6 +129,43 @@ class GiteeReleaseTests(unittest.TestCase):
                 patch.object(release, 'transfer', side_effect=self.transfer):
             self.assertEqual(release.prepare(self.root, self.commit, self.version), (False, self.commit))
         self.assertFalse((self.root / 'gitee-source').exists())
+
+    def test_missing_mac_package_is_not_a_complete_release(self):
+        self.remote = self.files.copy()
+        self.remote.pop(f'EUI-Gallery-{self.version}-macos-arm64.dmg')
+        self.item = {'id': 7, 'prerelease': False}
+        with patch.object(release, 'api', side_effect=self.api):
+            self.assertFalse(release.verify_release(self.item, self.version))
+
+    def test_legacy_110_release_is_preserved_without_relaxing_new_versions(self):
+        self.remote = {name: data for name, data in self.files.items() if 'windows-x64' in name}
+        names = list(self.remote)
+        self.remote['SHA256SUMS.txt'] = ''.join(
+            hashlib.sha256(data).hexdigest() + '  ' + name + '\n'
+            for name, data in self.remote.items()).encode()
+        self.item = {'id': 7, 'prerelease': False}
+        with patch.object(release, 'api', side_effect=self.api), \
+                patch.object(release, 'transfer', side_effect=self.transfer):
+            self.assertTrue(release.verify_release(self.item, '1.1.0'))
+            self.assertFalse(release.verify_release(self.item, '1.1.1'))
+        self.assertEqual(release.release_packages('1.1.0', self.remote), names)
+
+    def test_collect_checks_all_four_platform_artifacts(self):
+        for platform in ('windows-x64', 'windows-x86', 'macos-x64', 'macos-arm64'):
+            artifact = self.root / 'dist' / platform
+            artifact.mkdir()
+            values = {name: data for name, data in self.files.items() if platform in name}
+            for name, data in values.items():
+                (artifact / name).write_bytes(data)
+            (artifact / 'SHA256SUMS.txt').write_text(''.join(
+                hashlib.sha256(data).hexdigest() + '  ' + name + '\n'
+                for name, data in values.items()), encoding='ascii')
+        with patch.object(release.Path, 'cwd', return_value=self.root), \
+                patch.object(sys, 'argv', ['gitee_release.py', 'collect']), \
+                patch.dict(os.environ, {'EUI_RELEASE_VERSION': self.version}):
+            release.main()
+        self.assertEqual(set(release.checksums(self.root / 'dist/SHA256SUMS.txt', self.version)),
+                         set(release.package_names(self.version)))
 
     def test_prepare_pins_existing_tag_and_checks_archive_version(self):
         source = self.root / 'archive-source'

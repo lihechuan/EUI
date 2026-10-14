@@ -11,7 +11,7 @@ from pathlib import Path
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
-from github_release import read_version
+from github_release import read_version, package_names, collect_packages
 
 
 REPOSITORY = 'xiaojiaz/EUI'
@@ -66,9 +66,14 @@ def digest(path):
         return hashlib.file_digest(stream, 'sha256').hexdigest()
 
 
-def package_names(version):
-    return [f'EUI-Gallery-{version}-windows-x64-{suffix}'
-            for suffix in ('setup.exe', 'portable.zip')]
+def release_packages(version, assets):
+    names = package_names(version)
+    if set(names + ['SHA256SUMS.txt']).issubset(assets):
+        return names
+    legacy = names[:2]
+    if version == '1.1.0' and set(legacy + ['SHA256SUMS.txt']) == set(assets):
+        return legacy
+    return []
 
 
 def attachments(release):
@@ -91,15 +96,15 @@ def find_tag(version):
         page += 1
 
 
-def checksums(manifest, version):
+def checksums(manifest, version, names=None):
     result = {}
     for line in manifest.read_text(encoding='ascii').splitlines():
         checksum, name = line.split('  ', 1)
         if name in result or not re.fullmatch(r'[0-9a-fA-F]{64}', checksum):
             raise ValueError('Invalid or duplicate package checksum.')
         result[name] = checksum.lower()
-    if set(result) != set(package_names(version)):
-        raise ValueError('Checksums must cover exactly the two Windows packages.')
+    if set(result) != set(names if names is not None else package_names(version)):
+        raise ValueError('Checksums must cover exactly the configured desktop packages.')
     return result
 
 
@@ -111,14 +116,14 @@ def download(release, asset, destination):
 
 def verify_release(release, version):
     assets = attachments(release)
-    names = package_names(version) + ['SHA256SUMS.txt']
-    if not set(names).issubset(assets):
+    names = release_packages(version, assets)
+    if not names:
         return False
     with tempfile.TemporaryDirectory(prefix='eui-gitee-verify-') as directory:
         root = Path(directory)
         download(release, assets['SHA256SUMS.txt'], root / 'SHA256SUMS.txt')
-        expected = checksums(root / 'SHA256SUMS.txt', version)
-        for name in package_names(version):
+        expected = checksums(root / 'SHA256SUMS.txt', version, names)
+        for name in names:
             download(release, assets[name], root / name)
             if digest(root / name) != expected[name]:
                 raise ValueError('Downloaded Gitee checksum mismatch: ' + name)
@@ -206,14 +211,14 @@ def plan():
     validate_inputs(commit, version)
     release = api('/releases/tags/v' + version, missing=True)
     complete = bool(release and not release['prerelease']
-                    and set(package_names(version) + ['SHA256SUMS.txt']).issubset(attachments(release)))
+                    and release_packages(version, attachments(release)))
     print(f'Gitee v{version}: ' + ('already published; skip build.' if complete else 'build required.'))
     return not complete, commit, version
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Build and publish Windows packages from Gitee pushes.')
-    parser.add_argument('command', choices=('plan', 'prepare', 'publish'))
+    parser = argparse.ArgumentParser(description='Build and publish desktop packages from Gitee pushes.')
+    parser.add_argument('command', choices=('plan', 'prepare', 'collect', 'publish'))
     arguments = parser.parse_args()
     root = Path.cwd()
     if arguments.command == 'plan':
@@ -224,6 +229,8 @@ def main():
         build, commit = prepare(root, os.environ['EUI_GITEE_COMMIT'], os.environ['EUI_RELEASE_VERSION'])
         with Path(os.environ['GITHUB_OUTPUT']).open('a', encoding='utf-8') as output:
             output.write(f'build={str(build).lower()}\ncommit={commit}\n')
+    elif arguments.command == 'collect':
+        collect_packages(root, os.environ['EUI_RELEASE_VERSION'])
     else:
         publish(root, os.environ['EUI_GITEE_COMMIT'], os.environ['EUI_RELEASE_VERSION'])
 
