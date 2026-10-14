@@ -47,7 +47,7 @@ def package_macos(root, stage, output, qt, version, arch):
     )]
     for group in ('imageformats', 'iconengines', 'networkinformation', 'tls', 'printsupport', 'multimedia', 'position'):
         plugin_files += [file for file in (qt / 'plugins' / group).glob('*.dylib')
-                         if not file.name.endswith('_debug.dylib') and 'serialnmea' not in file.name]
+                         if not file.name.endswith('_debug.dylib') and 'nmea' not in file.name]
     executables = []
     for file in plugin_files:
         relative = file.relative_to(qt / 'plugins')
@@ -59,7 +59,7 @@ def package_macos(root, stage, output, qt, version, arch):
         '-qmldir=' + str(root / 'example/qml'), '-qmlimport=' + str(imports), '-codesign=-', *executables)
     run('codesign', '--verify', '--deep', '--strict', app)
     executable = app / 'Contents/MacOS/example'
-    run('lipo', '-verify_arch', 'arm64' if arch == 'arm64' else 'x86_64', executable)
+    run('lipo', executable, '-verify_arch', 'arm64' if arch == 'arm64' else 'x86_64')
     run('ditto', '-c', '-k', '--sequesterRsrc', '--keepParent', app,
         output / f'EUI-Gallery-{version}-macos-{arch}-portable.zip')
     image = stage / 'dmg'
