@@ -74,8 +74,12 @@ Example3DRuntime::~Example3DRuntime()
 {
     if (m_child)
     {
-        m_child->kill();
-        m_child->waitForFinished(3000);
+        if (m_stage == QStringLiteral("preparing"))
+            m_child->terminate();
+        else
+            m_child->kill();
+        if (!m_child->waitForFinished(3000))
+            m_child->kill();
     }
     delete m_staging;
 }
@@ -90,8 +94,22 @@ bool Example3DRuntime::supported() const
 {
 #ifdef Q_OS_WIN
     return QSysInfo::currentCpuArchitecture() == QStringLiteral("x86_64");
+#elif defined(Q_OS_MACOS)
+    return QSysInfo::currentCpuArchitecture() == QStringLiteral("x86_64") ||
+           QSysInfo::currentCpuArchitecture() == QStringLiteral("arm64");
 #else
     return false;
+#endif
+}
+
+QString Example3DRuntime::platform() const
+{
+#ifdef Q_OS_MACOS
+    return QStringLiteral("macOS");
+#elif defined(Q_OS_WIN)
+    return QStringLiteral("Windows");
+#else
+    return QSysInfo::productType();
 #endif
 }
 
@@ -146,11 +164,20 @@ bool Example3DRuntime::readManifest(const QString &directory)
     m_manifest = file.readAll();
     const auto document = QJsonDocument::fromJson(m_manifest);
     const auto manifest = document.object();
-    m_files = manifest.value(QStringLiteral("files")).toArray();
-    if (!document.isObject() || manifest.value(QStringLiteral("schema")).toInt() != 1
-        || manifest.value(QStringLiteral("architecture")).toString() != QStringLiteral("x64")
-        || manifest.value(QStringLiteral("entry")).toString() != QStringLiteral("EUI-Gallery-Qt6.exe")
-        || m_files.isEmpty() || m_files.size() > 10000)
+    m_files             = manifest.value(QStringLiteral("files")).toArray();
+#ifdef Q_OS_MACOS
+    const auto entry = QStringLiteral("EUI Gallery.app/Contents/MacOS/example");
+    const auto architecture =
+        QSysInfo::currentCpuArchitecture() == QStringLiteral("arm64") ? QStringLiteral("arm64") : QStringLiteral("x64");
+    if (manifest.value(QStringLiteral("platform")).toString() != QStringLiteral("macos"))
+        return false;
+#else
+    const auto entry        = QStringLiteral("EUI-Gallery-Qt6.exe");
+    const auto architecture = QStringLiteral("x64");
+#endif
+    if (!document.isObject() || manifest.value(QStringLiteral("schema")).toInt() != 1 ||
+        manifest.value(QStringLiteral("architecture")).toString() != architecture ||
+        manifest.value(QStringLiteral("entry")).toString() != entry || m_files.isEmpty() || m_files.size() > 10000)
         return false;
     QStringList paths;
     m_total = 0;
@@ -164,12 +191,35 @@ bool Example3DRuntime::readManifest(const QString &directory)
             || size != static_cast<qint64>(size) || hash.size() != 64
             || QByteArray::fromHex(hash).toHex() != hash)
             return false;
+#ifdef Q_OS_MACOS
+        const auto link = record.value(QStringLiteral("link")).toString();
+        if (!path.startsWith(QStringLiteral("EUI Gallery.app/")))
+            return false;
+        if (!link.isEmpty())
+        {
+            const auto target = QDir::cleanPath(QFileInfo(path).path() + QLatin1Char('/') + link);
+            if (QDir::isAbsolutePath(link) || link.contains(QLatin1Char(':')) || link.contains(QLatin1Char('\\')) ||
+                link.contains(QChar::Null) || !target.startsWith(QStringLiteral("EUI Gallery.app/")) || size != 0 ||
+                hash != QCryptographicHash::hash({}, QCryptographicHash::Sha256).toHex())
+                return false;
+        }
+#else
+        if (record.contains(QStringLiteral("link")))
+            return false;
+#endif
         paths.append(path);
         m_total += static_cast<qint64>(size);
     }
     return m_total > 0 && m_total < 2147483648LL
-        && paths.contains(QStringLiteral("EUI-Gallery-Qt6.exe")) && paths.contains(QStringLiteral("Qt6Core.dll"))
-        && paths.contains(QStringLiteral("Qt6Quick3D.dll")) && paths.contains(QStringLiteral("qt.conf"));
+#ifdef Q_OS_MACOS
+           && paths.contains(entry) && paths.contains(QStringLiteral("EUI Gallery.app/Contents/Resources/qt.conf")) &&
+           paths.contains(QStringLiteral("EUI Gallery.app/Contents/Frameworks/QtCore.framework/Versions/A/QtCore")) &&
+           paths.contains(
+               QStringLiteral("EUI Gallery.app/Contents/Frameworks/QtQuick3D.framework/Versions/A/QtQuick3D"));
+#else
+           && paths.contains(QStringLiteral("EUI-Gallery-Qt6.exe")) && paths.contains(QStringLiteral("Qt6Core.dll")) &&
+           paths.contains(QStringLiteral("Qt6Quick3D.dll")) && paths.contains(QStringLiteral("qt.conf"));
+#endif
 }
 
 QByteArray Example3DRuntime::cacheFingerprint() const
@@ -181,8 +231,21 @@ QByteArray Example3DRuntime::cacheFingerprint() const
         const auto record = value.toObject();
         const auto path = record.value(QStringLiteral("path")).toString();
         const QFileInfo file(m_destination + QLatin1Char('/') + path);
-        if (!regularFile(m_destination, path)
-            || file.size() != static_cast<qint64>(record.value(QStringLiteral("size")).toDouble()))
+#ifdef Q_OS_MACOS
+        const auto link = record.value(QStringLiteral("link")).toString();
+        if (!link.isEmpty())
+        {
+            if (!file.isSymLink() || file.symLinkTarget() != QDir::cleanPath(file.path() + QLatin1Char('/') + link) ||
+                !file.canonicalFilePath().startsWith(m_destination + QStringLiteral("/EUI Gallery.app/")))
+                return {};
+            hash.addData(link.toUtf8());
+            continue;
+        }
+        if (file.isExecutable() != record.value(QStringLiteral("executable")).toBool())
+            return {};
+#endif
+        if (!regularFile(m_destination, path) ||
+            file.size() != static_cast<qint64>(record.value(QStringLiteral("size")).toDouble()))
             return {};
         hash.addData(QByteArray::number(file.lastModified().toMSecsSinceEpoch()));
         hash.addData("\n");
@@ -273,6 +336,15 @@ void Example3DRuntime::install(const QString &language, bool dark)
     const auto error = locatePayload();
     if (!error.isEmpty())
     {
+#if defined(Q_OS_MACOS) && defined(EUI_QUICK3D_PREPARE_SCRIPT)
+        if (m_payloadDirectory.isEmpty() &&
+            (error == QStringLiteral("missingPayload") || error == QStringLiteral("runtimeMismatch")) &&
+            QFileInfo::exists(QStringLiteral(EUI_QUICK3D_PREPARE_SCRIPT)))
+        {
+            prepareRuntime();
+            return;
+        }
+#endif
         fail(error);
         return;
     }
@@ -304,6 +376,53 @@ void Example3DRuntime::install(const QString &language, bool dark)
     m_timer.start(0);
 }
 
+void Example3DRuntime::prepareRuntime()
+{
+#if defined(Q_OS_MACOS) && defined(EUI_QUICK3D_PREPARE_SCRIPT)
+    const auto python = QStandardPaths::findExecutable(QStringLiteral("python3"));
+    if (python.isEmpty())
+    {
+        fail(QStringLiteral("prepareFailed"));
+        return;
+    }
+    m_stage = QStringLiteral("preparing");
+    emit changed();
+    m_child          = new QProcess(this);
+    auto environment = QProcessEnvironment::systemEnvironment();
+    for (const auto &name : environment.keys())
+        if (name.startsWith(QStringLiteral("QT_")) || name.startsWith(QStringLiteral("QML")) ||
+            name.startsWith(QStringLiteral("DYLD_")))
+            environment.remove(name);
+    m_child->setProcessEnvironment(environment);
+    m_child->setProcessChannelMode(QProcess::ForwardedChannels);
+    connect(m_child, &QProcess::errorOccurred, this, [this]() { fail(QStringLiteral("prepareFailed")); });
+    connect(m_child,
+            qOverload<int, QProcess::ExitStatus>(&QProcess::finished),
+            this,
+            [this](int code, QProcess::ExitStatus status)
+            {
+                if (code != 0 || status != QProcess::NormalExit)
+                {
+                    fail(QStringLiteral("prepareFailed"));
+                    return;
+                }
+                m_child->deleteLater();
+                m_child = nullptr;
+                m_busy  = false;
+                install(m_language, m_dark);
+            });
+    m_child->start(python,
+                   {QStringLiteral(EUI_QUICK3D_PREPARE_SCRIPT),
+                    QStringLiteral("--install-qt"),
+                    QStringLiteral("--gallery-version"),
+                    QStringLiteral(EUI_GALLERY_VERSION),
+                    QStringLiteral("--gallery-revision"),
+                    QStringLiteral(EUI_GALLERY_REVISION)});
+#else
+    fail(QStringLiteral("unsupported"));
+#endif
+}
+
 void Example3DRuntime::copyNext()
 {
     if (m_stage == QStringLiteral("launching"))
@@ -331,9 +450,27 @@ void Example3DRuntime::copyNext()
         m_timer.stop();
         if (!m_cached)
         {
-            if (QFileInfo(m_destination).isSymLink()
-                || (QDir(m_destination).exists() && !QDir(m_destination).removeRecursively())
-                || !QDir().rename(m_staging->path(), m_destination))
+#ifdef Q_OS_MACOS
+            // Create bundle links only after file writes, so installation cannot follow them outside the staging
+            // directory.
+            for (const auto &value : m_files)
+            {
+                const auto record = value.toObject();
+                const auto link   = record.value(QStringLiteral("link")).toString();
+                if (link.isEmpty())
+                    continue;
+                const auto destination =
+                    m_staging->path() + QLatin1Char('/') + record.value(QStringLiteral("path")).toString();
+                if (!QDir().mkpath(QFileInfo(destination).path()) || !QFile::link(link, destination))
+                {
+                    fail(QStringLiteral("writeFailed"));
+                    return;
+                }
+            }
+#endif
+            if (QFileInfo(m_destination).isSymLink() ||
+                (QDir(m_destination).exists() && !QDir(m_destination).removeRecursively()) ||
+                !QDir().rename(m_staging->path(), m_destination))
             {
                 fail(QStringLiteral("writeFailed"));
                 return;
@@ -354,6 +491,13 @@ void Example3DRuntime::copyNext()
     }
     const auto record = m_files.at(m_index).toObject();
     const auto relative = record.value(QStringLiteral("path")).toString();
+#ifdef Q_OS_MACOS
+    if (!record.value(QStringLiteral("link")).toString().isEmpty())
+    {
+        ++m_index;
+        return;
+    }
+#endif
     if (!m_input.isOpen())
     {
         const auto origin = m_cached ? m_destination : m_source;
@@ -389,6 +533,19 @@ void Example3DRuntime::copyNext()
     if (!m_input.atEnd())
         return;
     m_input.close();
+#ifdef Q_OS_MACOS
+    if (!m_cached)
+    {
+        auto permissions = QFile::ReadOwner | QFile::WriteOwner | QFile::ReadGroup | QFile::ReadOther;
+        if (record.value(QStringLiteral("executable")).toBool())
+            permissions |= QFile::ExeOwner | QFile::ExeGroup | QFile::ExeOther;
+        if (!m_output.setPermissions(permissions))
+        {
+            fail(QStringLiteral("writeFailed"));
+            return;
+        }
+    }
+#endif
     m_output.close();
     if (m_hash.result().toHex() != record.value(QStringLiteral("sha256")).toString().toLatin1())
     {
@@ -404,14 +561,20 @@ void Example3DRuntime::launch()
     auto environment = QProcessEnvironment::systemEnvironment();
     for (const auto &name : environment.keys())
     {
-        if (name.startsWith(QStringLiteral("QT_")) || name.startsWith(QStringLiteral("QML"))
-            || name.startsWith(QStringLiteral("QSG_")) || name.startsWith(QStringLiteral("QTWEBENGINE_")))
+        if (name.startsWith(QStringLiteral("QT_")) || name.startsWith(QStringLiteral("QML")) ||
+            name.startsWith(QStringLiteral("QSG_")) || name.startsWith(QStringLiteral("QTWEBENGINE_")) ||
+            name.startsWith(QStringLiteral("DYLD_")))
             environment.remove(name);
     }
-    environment.insert(QStringLiteral("PATH"), m_destination + QLatin1Char(';')
-        + qEnvironmentVariable("WINDIR") + QStringLiteral("/System32"));
     environment.insert(QStringLiteral("QT_QUICK_CONTROLS_STYLE"), QStringLiteral("Basic"));
+#ifdef Q_OS_MACOS
+    environment.insert(QStringLiteral("PATH"), QStringLiteral("/usr/bin:/bin:/usr/sbin:/sbin"));
+    environment.insert(QStringLiteral("QSG_RHI_BACKEND"), QStringLiteral("metal"));
+#else
+    environment.insert(QStringLiteral("PATH"),
+                       m_destination + QLatin1Char(';') + qEnvironmentVariable("WINDIR") + QStringLiteral("/System32"));
     environment.insert(QStringLiteral("QSG_RHI_BACKEND"), QStringLiteral("d3d11"));
+#endif
     environment.insert(QStringLiteral("EUI_GALLERY_INSTALL_DIR"),
         qEnvironmentVariable("EUI_GALLERY_INSTALL_DIR", QCoreApplication::applicationDirPath()));
     m_readyFile = m_destination + QStringLiteral("/.ready-") + QString::number(QCoreApplication::applicationPid());
@@ -420,6 +583,8 @@ void Example3DRuntime::launch()
     if (QCoreApplication::arguments().contains(QStringLiteral("--quick3d-runtime-check")))
     {
         environment.insert(QStringLiteral("QT_FORCE_STDERR_LOGGING"), QStringLiteral("1"));
+        if (qEnvironmentVariable("QT_QPA_PLATFORM") == QStringLiteral("offscreen"))
+            environment.insert(QStringLiteral("QT_QPA_PLATFORM"), QStringLiteral("offscreen"));
         m_child->setProcessChannelMode(QProcess::ForwardedChannels);
     }
     m_child->setProcessEnvironment(environment);
@@ -443,6 +608,7 @@ void Example3DRuntime::launch()
     m_progress = 0.95;
     emit changed();
     m_timer.start(100);
-    m_child->start(m_destination + QStringLiteral("/EUI-Gallery-Qt6.exe"), arguments);
+    const auto entry = QJsonDocument::fromJson(m_manifest).object().value(QStringLiteral("entry")).toString();
+    m_child->start(m_destination + QLatin1Char('/') + entry, arguments);
     m_deadline.start(45000);
 }

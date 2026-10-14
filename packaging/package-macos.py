@@ -33,11 +33,9 @@ def licenses(root, destination):
         re.match(r'/\*.*?\*/', text, re.S).group(), encoding='utf-8')
 
 
-def package_macos(root, stage, output, qt, version, arch):
-    app = stage / 'EUI Gallery.app'
-    shutil.copytree(root / 'bin/Release/example.app', app, symlinks=True)
+def deploy_macos(root, app, qt, run=run):
     licenses(root, app / 'Contents/Resources/licenses')
-    imports = stage / 'qml'
+    imports = app.parent / 'qml'
     imports.mkdir()
     shutil.move(app / 'Contents/MacOS/EUI', imports / 'EUI')
     (app / 'Contents/Resources/qt.conf').write_text(
@@ -59,6 +57,12 @@ def package_macos(root, stage, output, qt, version, arch):
     run(qt / 'bin/macdeployqt', app, '-always-overwrite', '-no-plugins',
         '-qmldir=' + str(root / 'example'), '-qmlimport=' + str(imports), '-codesign=-', *executables)
     run('codesign', '--verify', '--deep', '--strict', app)
+
+
+def package_macos(root, stage, output, qt, version, arch):
+    app = stage / 'EUI Gallery.app'
+    shutil.copytree(root / 'bin/Release/example.app', app, symlinks=True)
+    deploy_macos(root, app, qt)
     executable = app / 'Contents/MacOS/example'
     run('lipo', executable, '-verify_arch', 'arm64' if arch == 'arm64' else 'x86_64')
     run('ditto', '-c', '-k', '--sequesterRsrc', '--keepParent', app,

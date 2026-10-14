@@ -147,6 +147,9 @@ int main(int argc, char *argv[])
                 {QStringLiteral("footer"), version ? version->property("text") : QVariant()},
                 {QStringLiteral("update"), update && update->property("visible").toBool()}});
             qInfo("QUICK3D_GALLERY %s", QJsonDocument(report).toJson(QJsonDocument::Compact).constData());
+            if (arguments.isSet(QStringLiteral("quick3d-ready-file")) &&
+                qEnvironmentVariable("QT_QPA_PLATFORM") == QStringLiteral("offscreen"))
+                QTimer::singleShot(1000, &runtime, &Example3DRuntime::confirmReady);
         }
         const auto result = arguments.value(QStringLiteral("update-result"));
         if (!result.isEmpty())

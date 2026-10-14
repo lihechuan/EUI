@@ -67,6 +67,11 @@ target_compile_definitions(example PRIVATE
     EUI_GALLERY_REVISION="${EUI_GALLERY_REVISION}"
     EUI_QUICK3D_PAYLOAD_DIR="${CMAKE_SOURCE_DIR}/build/quick3d-runtime"
 )
+if(APPLE AND QT_VERSION_MAJOR EQUAL 5)
+    target_compile_definitions(example PRIVATE
+        EUI_QUICK3D_PREPARE_SCRIPT="${CMAKE_SOURCE_DIR}/packaging/prepare-quick3d-runtime.py"
+    )
+endif()
 
 target_sources(example PRIVATE example.qrc "${EUI_QUICK3D_SOURCE_RESOURCE}" ../source/utils/ECodeTools.cpp)
 if(EUI_QUICK3D_AVAILABLE)

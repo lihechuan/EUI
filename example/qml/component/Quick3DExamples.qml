@@ -77,7 +77,8 @@ ExamplePage {
                         visible: !preview.available || preview.software
                         anchors.horizontalCenter: parent.horizontalCenter
                         enabled: exampleRuntime.supported && !exampleRuntime.busy
-                        text: exampleRuntime.busy ? exampleRuntime.stage === "installing" ? ELocale.texts.Quick3DInstalling
+                        text: exampleRuntime.busy ? exampleRuntime.stage === "preparing" ? ELocale.texts.Quick3DPreparing
+                            : exampleRuntime.stage === "installing" ? ELocale.texts.Quick3DInstalling
                             : exampleRuntime.stage === "verifying" ? ELocale.texts.Quick3DVerifying : ELocale.texts.Quick3DOpening
                             : exampleRuntime.installed ? ELocale.texts.Quick3DOpen : ELocale.texts.Quick3DInstall
 
@@ -94,10 +95,12 @@ ExamplePage {
                         color: "#55514d"
                         width: parent.width
                         wrapMode: Text.WordWrap
+                        objectName: "quick3dPlatformStatus"
                         horizontalAlignment: Text.AlignHCenter
-                        visible: exampleRuntime.stage !== "idle" || !exampleRuntime.supported
-                        text: !exampleRuntime.supported ? ELocale.texts.Quick3DUnsupported
+                        text: !exampleRuntime.supported ? ELocale.texts.Quick3DUnsupported.arg(exampleRuntime.platform)
                             : exampleRuntime.error.length > 0 ? ELocale.texts["Quick3DError_" + exampleRuntime.error]
+                            : exampleRuntime.stage === "idle" ? ELocale.texts.Quick3DPlatform.arg(exampleRuntime.platform)
+                            : exampleRuntime.stage === "preparing" ? ELocale.texts.Quick3DStage_preparing.arg(exampleRuntime.platform)
                             : ELocale.texts["Quick3DStage_" + exampleRuntime.stage] || ""
                     }
                 }
