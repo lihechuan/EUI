@@ -10,8 +10,8 @@
 #include <QJsonDocument>
 
 #include "ExampleData.h"
-#include "../../source/Enum/EIcons.h"
-#include "../../source/Enum/EStyle.h"
+#include "../../source/enum/EIcons.h"
+#include "../../source/enum/EStyle.h"
 
 namespace
 {

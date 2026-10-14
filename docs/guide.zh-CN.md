@@ -235,7 +235,7 @@ MyEuiApp/
       qmldir
       euiplugin.dll
       plugins.qmltypes
-      Controls/
+      controls/
       ...其余模块文件
 ```
 
@@ -297,7 +297,7 @@ EConfigProvider {
 
 在窗口初始化或语言切换事件中设置 `ELocale.language = "zh"` / `"en"`、`ETheme.dark = false` / `true`。`size` 支持 `EStyle.Small`、`Medium`、`Large`；控件显式设置的尺寸优先于默认值。Provider 的 `disabled: true` 会禁用其子控件。
 
-语言切换更新内置标签、提示和 Gallery 文本。你直接写入的 `text`、`label` 和业务数据不会自动翻译，应使用应用自己的翻译或绑定。内置语言资源位于 [zh.json](../source/Qt5/imports/EUI/i18n/zh.json) 和 [en.json](../source/Qt5/imports/EUI/i18n/en.json)。
+语言切换更新内置标签、提示和 Gallery 文本。你直接写入的 `text`、`label` 和业务数据不会自动翻译，应使用应用自己的翻译或绑定。内置语言资源位于 [zh.json](../source/qt5/imports/eui/i18n/zh.json) 和 [en.json](../source/qt5/imports/eui/i18n/en.json)。
 
 Provider 的 `locale: "en"` 或 `"zh"` 只设置该内容区域中支持配置继承的控件文本，不改变全局语言。也可传入 `locale: ({name: "zh", texts: {SelectAnOption: "选择项目"}})` 覆盖局部内置文案。
 

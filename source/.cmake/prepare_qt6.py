@@ -13,7 +13,7 @@ def replace(text, before, after):
 
 def prepare(source, destination):
     shutil.copytree(source / 'imports', destination / 'imports', dirs_exist_ok=True)
-    module = destination / 'imports/EUI'
+    module = destination / 'imports/eui'
     for file in module.rglob('*.qml'):
         text = file.read_text(encoding='utf-8')
         text = text.replace('import Qt.labs.calendar 1.0\n', '')
@@ -23,11 +23,11 @@ def prepare(source, destination):
         if re.search(r'\b(QtObject|Timer|Connections|Component|Binding)\b', text):
             text = replace(text, 'import QtQuick 2.15\n', 'import QtQuick 2.15\nimport QtQml 2.15\n')
         file.write_text(text, encoding='utf-8')
-    clip = module / 'Controls/Effects/EClip.qml'
+    clip = module / 'controls/effects/EClip.qml'
     clip.write_text(replace(clip.read_text(encoding='utf-8'),
                             'import QtGraphicalEffects 1.15', 'import Qt5Compat.GraphicalEffects'), encoding='utf-8')
 
-    media = module / 'Controls/Data/EMediaPlayer.qml'
+    media = module / 'controls/data/EMediaPlayer.qml'
     text = media.read_text(encoding='utf-8')
     for before, after in (
         ('import QtMultimedia 5.15', 'import QtMultimedia'),
@@ -44,7 +44,7 @@ def prepare(source, destination):
         text = replace(text, before, after)
     media.write_text(text, encoding='utf-8')
 
-    upload = module / 'Controls/Form/EUpload.qml'
+    upload = module / 'controls/form/EUpload.qml'
     text = upload.read_text(encoding='utf-8')
     for before, after in (
         ('import QtQuick.Dialogs 1.3', 'import QtQuick.Dialogs'),
@@ -68,9 +68,9 @@ def prepare(source, destination):
     shaders = destination / 'shaders'
     shaders.mkdir(exist_ok=True)
     for path, name in (
-        ('Controls/Data/ECarousel.qml', 'motion-blur'),
-        ('Controls/Form/EThemeSwitch.qml', 'theme-switch'),
-        ('Controls/Basic/EApplicationWindow.qml', 'theme-reveal'),
+        ('controls/data/ECarousel.qml', 'motion-blur'),
+        ('controls/form/EThemeSwitch.qml', 'theme-switch'),
+        ('controls/basic/EApplicationWindow.qml', 'theme-reveal'),
     ):
         file = module / path
         text = file.read_text(encoding='utf-8')

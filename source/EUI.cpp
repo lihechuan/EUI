@@ -3,33 +3,33 @@
 #include <QGuiApplication>
 
 #include "EUI.h"
-#include "Enum/EIcons.h"
-#include "Enum/EStyle.h"
-#include "Config/ELocale.h"
-#include "Layout/ELayout.h"
-#include "Utils/ETableIO.h"
-#include "Enum/EPlacement.h"
-#include "Utils/EAnimation.h"
-#include "Utils/EDataUtils.h"
-#include "Enum/EOrientation.h"
-#include "Utils/RandomUtils.h"
-#include "Config/EValueUtils.h"
-#include "Style/Theme/ETheme.h"
-#include "Config/EDefaultConfig.h"
-#include "Enum/EValidationState.h"
-#include "Component/EFileUploader.h"
-#include "Component/EChartRenderer.h"
-#include "Component/EEChartsBridge.h"
-#include "Component/EMasonryLayout.h"
-#include "Component/EWindowActions.h"
-#include "Component/EQrCodeRenderer.h"
-#include "Component/EShadowRenderer.h"
-#include "Component/ECaptchaRenderer.h"
-#include "Component/EBackdropRenderer.h"
-#include "State/EComponentStateObject.h"
-#include "Component/EAdvancedRectangle.h"
-#include "Component/EWatermarkRenderer.h"
-#include "Style/Palettes/EPaletteManager.h"
+#include "enum/EIcons.h"
+#include "enum/EStyle.h"
+#include "config/ELocale.h"
+#include "layout/ELayout.h"
+#include "utils/ETableIO.h"
+#include "enum/EPlacement.h"
+#include "utils/EAnimation.h"
+#include "utils/EDataUtils.h"
+#include "enum/EOrientation.h"
+#include "utils/RandomUtils.h"
+#include "config/EValueUtils.h"
+#include "style/theme/ETheme.h"
+#include "config/EDefaultConfig.h"
+#include "enum/EValidationState.h"
+#include "component/EFileUploader.h"
+#include "component/EChartRenderer.h"
+#include "component/EEChartsBridge.h"
+#include "component/EMasonryLayout.h"
+#include "component/EWindowActions.h"
+#include "component/EQrCodeRenderer.h"
+#include "component/EShadowRenderer.h"
+#include "component/ECaptchaRenderer.h"
+#include "component/EBackdropRenderer.h"
+#include "state/EComponentStateObject.h"
+#include "component/EAdvancedRectangle.h"
+#include "component/EWatermarkRenderer.h"
+#include "style/palettes/EPaletteManager.h"
 
 namespace
 {
@@ -40,143 +40,143 @@ struct QmlType
 };
 
 const QmlType PrivateTypes[] = {
-    {"ColorSquare", "Controls/Private/ColorSquare.qml"},
-    {"MessageCard", "Controls/Private/MessageCard.qml"},
-    {"PickerPopup", "Controls/Private/PickerPopup.qml"},
-    {"SliderTrack", "Controls/Private/SliderTrack.qml"},
-    {"FieldSurface", "Controls/Private/FieldSurface.qml"},
-    {"ScrollHandle", "Controls/Private/ScrollHandle.qml"},
-    {"SliderHandle", "Controls/Private/SliderHandle.qml"},
-    {"TransferPanel", "Controls/Private/TransferPanel.qml"},
-    {"OptionDelegate", "Controls/Private/OptionDelegate.qml"},
-    {"NotificationCard", "Controls/Private/NotificationCard.qml"},
+    {"ColorSquare", "controls/private/ColorSquare.qml"},
+    {"MessageCard", "controls/private/MessageCard.qml"},
+    {"PickerPopup", "controls/private/PickerPopup.qml"},
+    {"SliderTrack", "controls/private/SliderTrack.qml"},
+    {"FieldSurface", "controls/private/FieldSurface.qml"},
+    {"ScrollHandle", "controls/private/ScrollHandle.qml"},
+    {"SliderHandle", "controls/private/SliderHandle.qml"},
+    {"TransferPanel", "controls/private/TransferPanel.qml"},
+    {"OptionDelegate", "controls/private/OptionDelegate.qml"},
+    {"NotificationCard", "controls/private/NotificationCard.qml"},
 };
 
 const QmlType PublicTypes[] = {
-    {"ETag", "Controls/Data/ETag.qml"},
-    {"ECol", "Controls/Basic/ECol.qml"},
-    {"ERow", "Controls/Basic/ERow.qml"},
-    {"EApp", "Controls/Config/EApp.qml"},
-    {"ECard", "Controls/Data/ECard.qml"},
-    {"EForm", "Controls/Form/EForm.qml"},
-    {"EList", "Controls/Data/EList.qml"},
-    {"ERate", "Controls/Form/ERate.qml"},
-    {"ETour", "Controls/Data/ETour.qml"},
-    {"ETree", "Controls/Data/ETree.qml"},
-    {"EFlex", "Controls/Basic/EFlex.qml"},
-    {"EIcon", "Controls/Basic/EIcon.qml"},
-    {"ELink", "Controls/Basic/ELink.qml"},
-    {"EMain", "Controls/Basic/EMain.qml"},
-    {"EText", "Controls/Basic/EText.qml"},
-    {"EBadge", "Controls/Data/EBadge.qml"},
-    {"EChart", "Controls/Data/EChart.qml"},
-    {"EEmpty", "Controls/Data/EEmpty.qml"},
-    {"EImage", "Controls/Data/EImage.qml"},
-    {"EInput", "Controls/Form/EInput.qml"},
-    {"EListy", "Controls/Data/EListy.qml"},
-    {"ERadio", "Controls/Form/ERadio.qml"},
-    {"ETable", "Controls/Data/ETable.qml"},
-    {"EAside", "Controls/Basic/EAside.qml"},
-    {"EClip", "Controls/Effects/EClip.qml"},
-    {"ESpace", "Controls/Basic/ESpace.qml"},
-    {"EAvatar", "Controls/Data/EAvatar.qml"},
-    {"EQRCode", "Controls/Data/EQRCode.qml"},
-    {"EResult", "Controls/Data/EResult.qml"},
-    {"ESelect", "Controls/Form/ESelect.qml"},
-    {"ESlider", "Controls/Form/ESlider.qml"},
-    {"ESwitch", "Controls/Form/ESwitch.qml"},
-    {"EUpload", "Controls/Form/EUpload.qml"},
-    {"EAppBar", "Controls/Basic/EAppBar.qml"},
-    {"EButton", "Controls/Basic/EButton.qml"},
-    {"EFooter", "Controls/Basic/EFooter.qml"},
-    {"EHeader", "Controls/Basic/EHeader.qml"},
-    {"ECaptcha", "Controls/Form/ECaptcha.qml"},
-    {"EECharts", "Controls/Data/EECharts.qml"},
-    {"EMention", "Controls/Form/EMention.qml"},
-    {"EMenu", "Controls/Navigation/EMenu.qml"},
-    {"ESpinBox", "Controls/Form/ESpinBox.qml"},
-    {"ETabs", "Controls/Navigation/ETabs.qml"},
-    {"EAlert", "Controls/Indicator/EAlert.qml"},
-    {"EShadow", "Controls/Effects/EShadow.qml"},
-    {"EAffix", "Controls/Navigation/EAffix.qml"},
-    {"ECalendar", "Controls/Data/ECalendar.qml"},
-    {"ECarousel", "Controls/Data/ECarousel.qml"},
-    {"ECascader", "Controls/Form/ECascader.qml"},
-    {"ECheckBox", "Controls/Form/ECheckBox.qml"},
-    {"ECollapse", "Controls/Data/ECollapse.qml"},
-    {"EDivider", "Controls/Others/EDivider.qml"},
-    {"EFormItem", "Controls/Form/EFormItem.qml"},
-    {"EInputOtp", "Controls/Form/EInputOtp.qml"},
-    {"EInputTag", "Controls/Form/EInputTag.qml"},
-    {"EListItem", "Controls/Data/EListItem.qml"},
-    {"ESkeleton", "Controls/Data/ESkeleton.qml"},
-    {"ESteps", "Controls/Navigation/ESteps.qml"},
-    {"ETimeline", "Controls/Data/ETimeline.qml"},
-    {"ETransfer", "Controls/Form/ETransfer.qml"},
-    {"EAcrylic", "Controls/Effects/EAcrylic.qml"},
-    {"EDialog", "Controls/Indicator/EDialog.qml"},
-    {"EDrawer", "Controls/Indicator/EDrawer.qml"},
-    {"EFlexItem", "Controls/Basic/EFlexItem.qml"},
-    {"ESplitter", "Controls/Basic/ESplitter.qml"},
-    {"ETextArea", "Controls/Basic/ETextArea.qml"},
-    {"EAnchor", "Controls/Navigation/EAnchor.qml"},
-    {"ECountdown", "Controls/Data/ECountdown.qml"},
-    {"ESegmented", "Controls/Data/ESegmented.qml"},
-    {"EStatistic", "Controls/Data/EStatistic.qml"},
-    {"EContainer", "Controls/Basic/EContainer.qml"},
-    {"ELoading", "Controls/Indicator/ELoading.qml"},
-    {"EMessage", "Controls/Indicator/EMessage.qml"},
-    {"EPopover", "Controls/Indicator/EPopover.qml"},
-    {"ERectangle", "Controls/Basic/ERectangle.qml"},
-    {"EScrollbar", "Controls/Basic/EScrollbar.qml"},
-    {"EToolTip", "Controls/Indicator/EToolTip.qml"},
-    {"EBacktop", "Controls/Navigation/EBacktop.qml"},
-    {"EDatePicker", "Controls/Form/EDatePicker.qml"},
-    {"EMenuBar", "Controls/Navigation/EMenuBar.qml"},
-    {"EPagination", "Controls/Data/EPagination.qml"},
-    {"ERadioGroup", "Controls/Form/ERadioGroup.qml"},
-    {"EStatusView", "Controls/Data/EStatusView.qml"},
-    {"ETimePicker", "Controls/Form/ETimePicker.qml"},
-    {"ETimeSelect", "Controls/Form/ETimeSelect.qml"},
-    {"ETreeSelect", "Controls/Form/ETreeSelect.qml"},
-    {"EWatermark", "Controls/Others/EWatermark.qml"},
-    {"EProgress", "Controls/Indicator/EProgress.qml"},
-    {"ETextButton", "Controls/Basic/ETextButton.qml"},
-    {"ETypography", "Controls/Basic/ETypography.qml"},
-    {"EAvatarGroup", "Controls/Data/EAvatarGroup.qml"},
-    {"EColorPicker", "Controls/Form/EColorPicker.qml"},
-    {"EDropdown", "Controls/Navigation/EDropdown.qml"},
-    {"EImageViewer", "Controls/Data/EImageViewer.qml"},
-    {"EMediaPlayer", "Controls/Data/EMediaPlayer.qml"},
-    {"ERadioButton", "Controls/Form/ERadioButton.qml"},
-    {"ERangeSlider", "Controls/Form/ERangeSlider.qml"},
-    {"EThemeSwitch", "Controls/Form/EThemeSwitch.qml"},
-    {"EBorderBeam", "Controls/Effects/EBorderBeam.qml"},
-    {"EFloatButton", "Controls/Basic/EFloatButton.qml"},
-    {"EAutocomplete", "Controls/Form/EAutocomplete.qml"},
-    {"EDescriptions", "Controls/Data/EDescriptions.qml"},
-    {"ESkeletonItem", "Controls/Data/ESkeletonItem.qml"},
-    {"ECopyableText", "Controls/Basic/ECopyableText.qml"},
-    {"EMessageBox", "Controls/Indicator/EMessageBox.qml"},
-    {"EPopconfirm", "Controls/Indicator/EPopconfirm.qml"},
-    {"ERotatingIcon", "Controls/Basic/ERotatingIcon.qml"},
-    {"EBreadcrumb", "Controls/Navigation/EBreadcrumb.qml"},
-    {"ECheckBoxGroup", "Controls/Form/ECheckBoxGroup.qml"},
-    {"EPageHeader", "Controls/Navigation/EPageHeader.qml"},
-    {"EParallaxView", "Controls/Effects/EParallaxView.qml"},
-    {"ESplitterPanel", "Controls/Basic/ESplitterPanel.qml"},
-    {"ECheckBoxButton", "Controls/Form/ECheckBoxButton.qml"},
-    {"EDateTimePicker", "Controls/Form/EDateTimePicker.qml"},
-    {"EInfiniteScroll", "Controls/Data/EInfiniteScroll.qml"},
-    {"EShortcutPicker", "Controls/Form/EShortcutPicker.qml"},
-    {"ENotification", "Controls/Indicator/ENotification.qml"},
-    {"EConfigProvider", "Controls/Config/EConfigProvider.qml"},
-    {"EDatePickerPanel", "Controls/Form/EDatePickerPanel.qml"},
-    {"EStaggeredLayout", "Controls/Basic/EStaggeredLayout.qml"},
-    {"EColorPickerPanel", "Controls/Form/EColorPickerPanel.qml"},
-    {"ECircleProgress", "Controls/Indicator/ECircleProgress.qml"},
-    {"EFloatButtonGroup", "Controls/Basic/EFloatButtonGroup.qml"},
-    {"EApplicationWindow", "Controls/Basic/EApplicationWindow.qml"},
+    {"ETag", "controls/data/ETag.qml"},
+    {"ECol", "controls/basic/ECol.qml"},
+    {"ERow", "controls/basic/ERow.qml"},
+    {"EApp", "controls/config/EApp.qml"},
+    {"ECard", "controls/data/ECard.qml"},
+    {"EForm", "controls/form/EForm.qml"},
+    {"EList", "controls/data/EList.qml"},
+    {"ERate", "controls/form/ERate.qml"},
+    {"ETour", "controls/data/ETour.qml"},
+    {"ETree", "controls/data/ETree.qml"},
+    {"EFlex", "controls/basic/EFlex.qml"},
+    {"EIcon", "controls/basic/EIcon.qml"},
+    {"ELink", "controls/basic/ELink.qml"},
+    {"EMain", "controls/basic/EMain.qml"},
+    {"EText", "controls/basic/EText.qml"},
+    {"EBadge", "controls/data/EBadge.qml"},
+    {"EChart", "controls/data/EChart.qml"},
+    {"EEmpty", "controls/data/EEmpty.qml"},
+    {"EImage", "controls/data/EImage.qml"},
+    {"EInput", "controls/form/EInput.qml"},
+    {"EListy", "controls/data/EListy.qml"},
+    {"ERadio", "controls/form/ERadio.qml"},
+    {"ETable", "controls/data/ETable.qml"},
+    {"EAside", "controls/basic/EAside.qml"},
+    {"EClip", "controls/effects/EClip.qml"},
+    {"ESpace", "controls/basic/ESpace.qml"},
+    {"EAvatar", "controls/data/EAvatar.qml"},
+    {"EQRCode", "controls/data/EQRCode.qml"},
+    {"EResult", "controls/data/EResult.qml"},
+    {"ESelect", "controls/form/ESelect.qml"},
+    {"ESlider", "controls/form/ESlider.qml"},
+    {"ESwitch", "controls/form/ESwitch.qml"},
+    {"EUpload", "controls/form/EUpload.qml"},
+    {"EAppBar", "controls/basic/EAppBar.qml"},
+    {"EButton", "controls/basic/EButton.qml"},
+    {"EFooter", "controls/basic/EFooter.qml"},
+    {"EHeader", "controls/basic/EHeader.qml"},
+    {"ECaptcha", "controls/form/ECaptcha.qml"},
+    {"EECharts", "controls/data/EECharts.qml"},
+    {"EMention", "controls/form/EMention.qml"},
+    {"EMenu", "controls/navigation/EMenu.qml"},
+    {"ESpinBox", "controls/form/ESpinBox.qml"},
+    {"ETabs", "controls/navigation/ETabs.qml"},
+    {"EAlert", "controls/indicator/EAlert.qml"},
+    {"EShadow", "controls/effects/EShadow.qml"},
+    {"EAffix", "controls/navigation/EAffix.qml"},
+    {"ECalendar", "controls/data/ECalendar.qml"},
+    {"ECarousel", "controls/data/ECarousel.qml"},
+    {"ECascader", "controls/form/ECascader.qml"},
+    {"ECheckBox", "controls/form/ECheckBox.qml"},
+    {"ECollapse", "controls/data/ECollapse.qml"},
+    {"EDivider", "controls/others/EDivider.qml"},
+    {"EFormItem", "controls/form/EFormItem.qml"},
+    {"EInputOtp", "controls/form/EInputOtp.qml"},
+    {"EInputTag", "controls/form/EInputTag.qml"},
+    {"EListItem", "controls/data/EListItem.qml"},
+    {"ESkeleton", "controls/data/ESkeleton.qml"},
+    {"ESteps", "controls/navigation/ESteps.qml"},
+    {"ETimeline", "controls/data/ETimeline.qml"},
+    {"ETransfer", "controls/form/ETransfer.qml"},
+    {"EAcrylic", "controls/effects/EAcrylic.qml"},
+    {"EDialog", "controls/indicator/EDialog.qml"},
+    {"EDrawer", "controls/indicator/EDrawer.qml"},
+    {"EFlexItem", "controls/basic/EFlexItem.qml"},
+    {"ESplitter", "controls/basic/ESplitter.qml"},
+    {"ETextArea", "controls/basic/ETextArea.qml"},
+    {"EAnchor", "controls/navigation/EAnchor.qml"},
+    {"ECountdown", "controls/data/ECountdown.qml"},
+    {"ESegmented", "controls/data/ESegmented.qml"},
+    {"EStatistic", "controls/data/EStatistic.qml"},
+    {"EContainer", "controls/basic/EContainer.qml"},
+    {"ELoading", "controls/indicator/ELoading.qml"},
+    {"EMessage", "controls/indicator/EMessage.qml"},
+    {"EPopover", "controls/indicator/EPopover.qml"},
+    {"ERectangle", "controls/basic/ERectangle.qml"},
+    {"EScrollbar", "controls/basic/EScrollbar.qml"},
+    {"EToolTip", "controls/indicator/EToolTip.qml"},
+    {"EBacktop", "controls/navigation/EBacktop.qml"},
+    {"EDatePicker", "controls/form/EDatePicker.qml"},
+    {"EMenuBar", "controls/navigation/EMenuBar.qml"},
+    {"EPagination", "controls/data/EPagination.qml"},
+    {"ERadioGroup", "controls/form/ERadioGroup.qml"},
+    {"EStatusView", "controls/data/EStatusView.qml"},
+    {"ETimePicker", "controls/form/ETimePicker.qml"},
+    {"ETimeSelect", "controls/form/ETimeSelect.qml"},
+    {"ETreeSelect", "controls/form/ETreeSelect.qml"},
+    {"EWatermark", "controls/others/EWatermark.qml"},
+    {"EProgress", "controls/indicator/EProgress.qml"},
+    {"ETextButton", "controls/basic/ETextButton.qml"},
+    {"ETypography", "controls/basic/ETypography.qml"},
+    {"EAvatarGroup", "controls/data/EAvatarGroup.qml"},
+    {"EColorPicker", "controls/form/EColorPicker.qml"},
+    {"EDropdown", "controls/navigation/EDropdown.qml"},
+    {"EImageViewer", "controls/data/EImageViewer.qml"},
+    {"EMediaPlayer", "controls/data/EMediaPlayer.qml"},
+    {"ERadioButton", "controls/form/ERadioButton.qml"},
+    {"ERangeSlider", "controls/form/ERangeSlider.qml"},
+    {"EThemeSwitch", "controls/form/EThemeSwitch.qml"},
+    {"EBorderBeam", "controls/effects/EBorderBeam.qml"},
+    {"EFloatButton", "controls/basic/EFloatButton.qml"},
+    {"EAutocomplete", "controls/form/EAutocomplete.qml"},
+    {"EDescriptions", "controls/data/EDescriptions.qml"},
+    {"ESkeletonItem", "controls/data/ESkeletonItem.qml"},
+    {"ECopyableText", "controls/basic/ECopyableText.qml"},
+    {"EMessageBox", "controls/indicator/EMessageBox.qml"},
+    {"EPopconfirm", "controls/indicator/EPopconfirm.qml"},
+    {"ERotatingIcon", "controls/basic/ERotatingIcon.qml"},
+    {"EBreadcrumb", "controls/navigation/EBreadcrumb.qml"},
+    {"ECheckBoxGroup", "controls/form/ECheckBoxGroup.qml"},
+    {"EPageHeader", "controls/navigation/EPageHeader.qml"},
+    {"EParallaxView", "controls/effects/EParallaxView.qml"},
+    {"ESplitterPanel", "controls/basic/ESplitterPanel.qml"},
+    {"ECheckBoxButton", "controls/form/ECheckBoxButton.qml"},
+    {"EDateTimePicker", "controls/form/EDateTimePicker.qml"},
+    {"EInfiniteScroll", "controls/data/EInfiniteScroll.qml"},
+    {"EShortcutPicker", "controls/form/EShortcutPicker.qml"},
+    {"ENotification", "controls/indicator/ENotification.qml"},
+    {"EConfigProvider", "controls/config/EConfigProvider.qml"},
+    {"EDatePickerPanel", "controls/form/EDatePickerPanel.qml"},
+    {"EStaggeredLayout", "controls/basic/EStaggeredLayout.qml"},
+    {"EColorPickerPanel", "controls/form/EColorPickerPanel.qml"},
+    {"ECircleProgress", "controls/indicator/ECircleProgress.qml"},
+    {"EFloatButtonGroup", "controls/basic/EFloatButtonGroup.qml"},
+    {"EApplicationWindow", "controls/basic/EApplicationWindow.qml"},
 };
 }
 

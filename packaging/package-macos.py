@@ -19,15 +19,15 @@ def licenses(root, destination):
     for source, name in (
         (root / 'LICENSE', 'EUI-LICENSE.txt'),
         (root / 'THIRD_PARTY_NOTICES.md', 'THIRD_PARTY_NOTICES.md'),
-        (root / 'source/Qt5/imports/EUI/Font/Icons/LICENSE', 'Skill-Icons-LICENSE.txt'),
-        (root / 'source/ThirdParty/echarts/LICENSE', 'ECharts-LICENSE.txt'),
-        (root / 'source/ThirdParty/echarts/NOTICE', 'ECharts-NOTICE.txt'),
+        (root / 'source/qt5/imports/eui/font/icons/LICENSE', 'Skill-Icons-LICENSE.txt'),
+        (root / 'source/thirdparty/echarts/LICENSE', 'ECharts-LICENSE.txt'),
+        (root / 'source/thirdparty/echarts/NOTICE', 'ECharts-NOTICE.txt'),
     ):
         shutil.copy2(source, destination / name)
     for file in (root / 'packaging/licenses').glob('Qt-*.txt'):
         shutil.copy2(file, destination / file.name)
     shutil.copy2(root / 'packaging/licenses/FFmpeg-LGPL-2.1.txt', destination)
-    text = (root / 'source/ThirdParty/qrcodegen/qrcodegen.hpp').read_text(encoding='utf-8')
+    text = (root / 'source/thirdparty/qrcodegen/qrcodegen.hpp').read_text(encoding='utf-8')
     (destination / 'QR-Code-generator-LICENSE.txt').write_text(
         re.match(r'/\*.*?\*/', text, re.S).group(), encoding='utf-8')
 

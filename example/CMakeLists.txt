@@ -62,7 +62,7 @@ target_include_directories(example PRIVATE
 
 target_sources(example PRIVATE example.qrc)
 if(NOT EUI_BUILD_STATIC_LIB)
-    target_sources(example PRIVATE ../source/Enum/EIcons.h)
+    target_sources(example PRIVATE ../source/enum/EIcons.h)
 endif()
 
 target_link_libraries(example PRIVATE

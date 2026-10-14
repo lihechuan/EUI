@@ -235,7 +235,7 @@ MyEuiApp/
       qmldir
       euiplugin.dll
       plugins.qmltypes
-      Controls/
+      controls/
       ...remaining module files
 ```
 
@@ -297,7 +297,7 @@ EConfigProvider {
 
 Set `ELocale.language = "zh"` / `"en"` and `ETheme.dark = false` / `true` during window initialization or in a language/theme action. Sizes are `EStyle.Small`, `Medium`, and `Large`; a control's explicit size overrides its inherited default. A provider with `disabled: true` disables its descendants.
 
-Language changes update built-in labels, hints, and Gallery text. Your own `text`, `label`, and business data do not translate automatically; use your application's localization bindings. Built-in locale resources are [zh.json](../source/Qt5/imports/EUI/i18n/zh.json) and [en.json](../source/Qt5/imports/EUI/i18n/en.json).
+Language changes update built-in labels, hints, and Gallery text. Your own `text`, `label`, and business data do not translate automatically; use your application's localization bindings. Built-in locale resources are [zh.json](../source/qt5/imports/eui/i18n/zh.json) and [en.json](../source/qt5/imports/eui/i18n/en.json).
 
 Set a provider's `locale: "en"` or `"zh"` to change built-in text only within that region for controls supporting configuration inheritance, without changing the global language. You can also pass `locale: ({name: "en", texts: {SelectAnOption: "Choose an item"}})` to override scoped built-in text.
 

@@ -16,7 +16,7 @@ endif()
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Quick Qml Widgets Network Concurrent PrintSupport)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick Qml Widgets Network Concurrent PrintSupport)
 
-set(EUI_QML_IMPORTS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/Qt5/imports")
+set(EUI_QML_IMPORTS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/qt5/imports")
 set(EUI_RESOURCE_FILE "${EUI_QML_IMPORTS_DIRECTORY}/eui.qrc")
 if(QT_VERSION_MAJOR EQUAL 6)
     find_package(Python3 REQUIRED COMPONENTS Interpreter)
@@ -28,7 +28,7 @@ if(QT_VERSION_MAJOR EQUAL 6)
     set(EUI_QT6_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/qt6")
     execute_process(
         COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/.cmake/prepare_qt6.py"
-            "${CMAKE_CURRENT_SOURCE_DIR}/Qt5" "${EUI_QT6_DIRECTORY}"
+            "${CMAKE_CURRENT_SOURCE_DIR}/qt5" "${EUI_QT6_DIRECTORY}"
         COMMAND_ERROR_IS_FATAL ANY
     )
     set(EUI_RESOURCE_FILE "${EUI_QT6_DIRECTORY}/eui.qrc")
@@ -62,7 +62,7 @@ add_qmlplugin(${PROJECT_NAME}
     VERSION 1.0
     SOURCES ${sources_files} ${EUI_VERSION_RC_PATH} ${EUI_RESOURCE_FILE} Charts.qrc
     QMLFILES ${qml_files}
-    QMLDIR imports/EUI
+    QMLDIR "${EUI_QML_IMPORTS_DIRECTORY}/eui"
     BINARY_DIR ${EUI_QML_PLUGIN_DIRECTORY}
     LIBTYPE ${LIB_TYPE}
 )
@@ -100,7 +100,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::GuiPrivate 
 
 find_program(QML_PLUGIN_DUMP NAMES qmlplugindump)
 if(QML_PLUGIN_DUMP AND QT_VERSION_MAJOR EQUAL 5 AND NOT EUI_BUILD_STATIC_LIB)
-    set(EUI_QMLTYPES_FILE ${CMAKE_CURRENT_SOURCE_DIR}/Qt5/imports/EUI/plugins.qmltypes)
+    set(EUI_QMLTYPES_FILE ${CMAKE_CURRENT_SOURCE_DIR}/qt5/imports/eui/plugins.qmltypes)
     add_custom_target(Script-Generate-QmlTypes ALL
         COMMAND ${CMAKE_COMMAND}
             -DQML_PLUGIN_DUMP=${QML_PLUGIN_DUMP}
@@ -122,6 +122,6 @@ install(TARGETS ${PROJECT_NAME}
     LIBRARY DESTINATION imports/EUI
     ARCHIVE DESTINATION lib
 )
-install(DIRECTORY ${EUI_QML_IMPORTS_DIRECTORY}/EUI/
+install(DIRECTORY ${EUI_QML_IMPORTS_DIRECTORY}/eui/
     DESTINATION imports/EUI
 )

@@ -3,7 +3,7 @@
 #include <QObject>
 #include <QQmlEngine>
 
-#include "Macros/singleton.h"
+#include "macros/singleton.h"
 
 class EUI : public QObject
 {
