@@ -62,6 +62,14 @@ def main():
         subprocess.run(['ditto', '-x', '-k', str(base) + '-portable.zip', directory], check=True)
         subprocess.run(['hdiutil', 'verify', str(base) + '.dmg'], check=True)
         app = destination / 'EUI Gallery.app'
+        for relative in ('Contents/Resources/qml/EUI/qmldir',
+                         'Contents/PlugIns/platforms/libqcocoa.dylib',
+                         'Contents/PlugIns/platforms/libqoffscreen.dylib',
+                         'Contents/PlugIns/imageformats/libqsvg.dylib'):
+            if not (app / relative).is_file():
+                raise ValueError('Missing packaged runtime file: ' + relative)
+        if (app / 'Contents/MacOS/EUI').exists():
+            raise ValueError('QML resources must be outside the executable directory.')
         subprocess.run(['codesign', '--verify', '--deep', '--strict', str(app)], check=True)
         startup(app / 'Contents/MacOS/example', environment, destination)
     print('Installer and portable package verification passed.')

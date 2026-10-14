@@ -36,12 +36,27 @@ def package_macos(root, stage, output, qt, version, arch):
     app = stage / 'EUI Gallery.app'
     shutil.copytree(root / 'bin/Release/example.app', app, symlinks=True)
     licenses(root, app / 'Contents/Resources/licenses')
-    for relative in ('imageformats/libqsvg.dylib', 'platforms/libqoffscreen.dylib'):
+    imports = stage / 'qml'
+    imports.mkdir()
+    shutil.move(app / 'Contents/MacOS/EUI', imports / 'EUI')
+    (app / 'Contents/Resources/qt.conf').write_text(
+        '[Paths]\nPlugins = PlugIns\nImports = Resources/qml\nQmlImports = Resources/qml\n', encoding='utf-8')
+    plugin_files = [qt / 'plugins' / relative for relative in (
+        'platforms/libqcocoa.dylib', 'platforms/libqoffscreen.dylib',
+        'sqldrivers/libqsqlite.dylib',
+    )]
+    for group in ('imageformats', 'iconengines', 'networkinformation', 'tls', 'printsupport', 'multimedia', 'position'):
+        plugin_files += [file for file in (qt / 'plugins' / group).glob('*.dylib')
+                         if not file.name.endswith('_debug.dylib') and 'serialnmea' not in file.name]
+    executables = []
+    for file in plugin_files:
+        relative = file.relative_to(qt / 'plugins')
         destination = app / 'Contents/PlugIns' / relative
         destination.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(qt / 'plugins' / relative, destination)
-    run(qt / 'bin/macdeployqt', app, '-always-overwrite',
-        '-qmldir=' + str(root / 'example/qml'), '-qmlimport=' + str(app / 'Contents/MacOS'), '-codesign=-')
+        shutil.copy2(file, destination)
+        executables.append('-executable=' + str(destination))
+    run(qt / 'bin/macdeployqt', app, '-always-overwrite', '-no-plugins',
+        '-qmldir=' + str(root / 'example/qml'), '-qmlimport=' + str(imports), '-codesign=-', *executables)
     run('codesign', '--verify', '--deep', '--strict', app)
     executable = app / 'Contents/MacOS/example'
     run('lipo', '-verify_arch', 'arm64' if arch == 'arm64' else 'x86_64', executable)
