@@ -10,6 +10,7 @@
 #include "utils/ETableIO.h"
 #include "enum/EPlacement.h"
 #include "utils/EAnimation.h"
+#include "utils/ECodeTools.h"
 #include "utils/EDataUtils.h"
 #include "enum/EOrientation.h"
 #include "utils/RandomUtils.h"
@@ -17,6 +18,7 @@
 #include "style/theme/ETheme.h"
 #include "config/EDefaultConfig.h"
 #include "enum/EValidationState.h"
+#include "utils/EFilePickerUtils.h"
 #include "component/EFileUploader.h"
 #include "component/EChartRenderer.h"
 #include "component/EEChartsBridge.h"
@@ -98,11 +100,13 @@ const QmlType PublicTypes[] = {
     {"ETabs", "controls/navigation/ETabs.qml"},
     {"EAlert", "controls/indicator/EAlert.qml"},
     {"EShadow", "controls/effects/EShadow.qml"},
+    {"EToolBar", "controls/basic/EToolBar.qml"},
     {"EAffix", "controls/navigation/EAffix.qml"},
     {"ECalendar", "controls/data/ECalendar.qml"},
     {"ECarousel", "controls/data/ECarousel.qml"},
     {"ECascader", "controls/form/ECascader.qml"},
     {"ECheckBox", "controls/form/ECheckBox.qml"},
+    {"ECodeView", "controls/data/ECodeView.qml"},
     {"ECollapse", "controls/data/ECollapse.qml"},
     {"EDivider", "controls/others/EDivider.qml"},
     {"EFormItem", "controls/form/EFormItem.qml"},
@@ -123,6 +127,7 @@ const QmlType PublicTypes[] = {
     {"ECountdown", "controls/data/ECountdown.qml"},
     {"ESegmented", "controls/data/ESegmented.qml"},
     {"EStatistic", "controls/data/EStatistic.qml"},
+    {"EWizard", "controls/navigation/EWizard.qml"},
     {"EContainer", "controls/basic/EContainer.qml"},
     {"ELoading", "controls/indicator/ELoading.qml"},
     {"EMessage", "controls/indicator/EMessage.qml"},
@@ -132,6 +137,7 @@ const QmlType PublicTypes[] = {
     {"EToolTip", "controls/indicator/EToolTip.qml"},
     {"EBacktop", "controls/navigation/EBacktop.qml"},
     {"EDatePicker", "controls/form/EDatePicker.qml"},
+    {"EFilePicker", "controls/form/EFilePicker.qml"},
     {"EMenuBar", "controls/navigation/EMenuBar.qml"},
     {"EPagination", "controls/data/EPagination.qml"},
     {"ERadioGroup", "controls/form/ERadioGroup.qml"},
@@ -155,6 +161,7 @@ const QmlType PublicTypes[] = {
     {"EFloatButton", "controls/basic/EFloatButton.qml"},
     {"EAutocomplete", "controls/form/EAutocomplete.qml"},
     {"EDescriptions", "controls/data/EDescriptions.qml"},
+    {"EFolderPicker", "controls/form/EFolderPicker.qml"},
     {"ESkeletonItem", "controls/data/ESkeletonItem.qml"},
     {"ECopyableText", "controls/basic/ECopyableText.qml"},
     {"EMessageBox", "controls/indicator/EMessageBox.qml"},
@@ -176,6 +183,7 @@ const QmlType PublicTypes[] = {
     {"EColorPickerPanel", "controls/form/EColorPickerPanel.qml"},
     {"ECircleProgress", "controls/indicator/ECircleProgress.qml"},
     {"EFloatButtonGroup", "controls/basic/EFloatButtonGroup.qml"},
+    {"ECommandPalette", "controls/navigation/ECommandPalette.qml"},
     {"EApplicationWindow", "controls/basic/EApplicationWindow.qml"},
 };
 }
@@ -192,6 +200,8 @@ void EUI::registerTypes(const char *uri) const
     int minor = minor_;
     qmlRegisterType<EComponentStateObject>(uri, major, minor, "EComponentStateObject");
     qmlRegisterType<EAdvancedRectangle>(uri, major, minor, "EAdvancedRectangle");
+    qmlRegisterType<ECodeTools>("EUI.Private", major, minor, "CodeTools");
+    qmlRegisterType<EFilePickerUtils>("EUI.Private", major, minor, "PickerFileUtils");
     qmlRegisterType<EFileUploader>("EUI.Private", major, minor, "FileUploader");
     qmlRegisterType<EShadowRenderer>("EUI.Private", major, minor, "ShadowRenderer");
     qmlRegisterType<EBackdropRenderer>("EUI.Private", major, minor, "BackdropRenderer");

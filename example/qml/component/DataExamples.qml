@@ -473,7 +473,7 @@ ExamplePage {
 
                 EEmpty {
                     width: parent.width
-                    description: "暂无项目"
+                    description: ELocale.texts.NoProjectsYet
                     imageDelegate: Component {
                         EIcon {
                             iconSize: 64
@@ -483,10 +483,11 @@ ExamplePage {
                     }
 
                     EButton {
-                        text: "创建项目"
                         styleType: EStyle.Primary
+                        text: ELocale.texts.CreateProject
                     }
-                }`)
+                }
+`)
 
             EEmpty {
                 width: parent.width
@@ -516,30 +517,31 @@ ExamplePage {
                 import QtQuick 2.15
 
                 ECard {
-                    width: Math.min(480, parent.width)
                     shadow: "hover"
+                    width: Math.min(480, parent.width)
+                    footer: ELocale.texts.Updated20261010
                     headerDelegate: Component {
                         Row {
                             spacing: 12
 
                             EText {
-                                text: "项目动态"
                                 font.bold: true
+                                text: ELocale.texts.ProjectActivity
                             }
                             ETag {
-                                text: "进行中"
                                 styleType: EStyle.Success
+                                text: ELocale.texts.InProgress
                             }
                         }
                     }
-                    footer: "更新于 2026-10-10"
 
                     EText {
                         width: parent.width
                         wrapMode: Text.WordWrap
-                        text: "卡片支持原有正文内容接口，并可自定义标题与页脚。"
+                        text: ELocale.texts.CardsPreserveTheBodyContentAPIAndSupport
                     }
-                }`)
+                }
+`)
 
             ECard {
                 shadow: "hover"
@@ -587,19 +589,20 @@ ExamplePage {
                     EAvatar {
                         size: 56
                         shape: "square"
-                        source: "qrc:/example/eui-mark.svg"
                         fillMode: Image.PreserveAspectFit
+                        source: "qrc:/example/eui-mark.svg"
                     }
                     EAvatar {
                         size: 56
 
                         EText {
-                            anchors.centerIn: parent
-                            text: "设计"
                             color: "white"
+                            anchors.centerIn: parent
+                            text: ELocale.texts.Design
                         }
                     }
-                }`)
+                }
+`)
 
             Row {
                 spacing: 16
@@ -643,15 +646,16 @@ ExamplePage {
                         color: "#6D5CE7"
                         offset: Qt.point(4, 2)
 
-                        EButton { text: "消息" }
+                        EButton { text: ELocale.texts.Messages }
                     }
                     EBadge {
                         isDot: true
                         offset: Qt.point(-4, 4)
 
-                        EButton { text: "通知" }
+                        EButton { text: ELocale.texts.Notifications }
                     }
-                }`)
+                }
+`)
 
             Row {
                 spacing: 36
@@ -685,22 +689,23 @@ ExamplePage {
                     spacing: 12
 
                     ETag {
-                        text: "可切换"
                         checkable: true
+                        text: ELocale.texts.Toggle
                     }
                     ETag {
-                        text: "重点"
                         hit: true
                         color: "#FFF0DE"
                         styleType: EStyle.Warning
+                        text: ELocale.texts.Important
                     }
                     ETag {
-                        text: "可关闭"
                         closable: true
+                        text: ELocale.texts.Closable
 
                         onClosed: visible = false
                     }
-                }`)
+                }
+`)
 
             Row {
                 spacing: 12
@@ -738,28 +743,29 @@ ExamplePage {
                     width: parent.width
 
                     ESwitch {
-                        text: "加载中"
                         checked: true
+                        text: ELocale.texts.Loading
 
                         onToggled: skeleton.loading = checked
                     }
                     ESkeleton {
                         id: skeleton
 
-                        width: Math.min(480, parent.width)
-                        count: 2
                         rows: 2
+                        count: 2
                         animated: true
+                        width: Math.min(480, parent.width)
                         throttle: ({ leading: 250, trailing: 150 })
 
                         EText {
-                            width: parent.width
                             height: 80
+                            width: parent.width
                             wrapMode: Text.WordWrap
-                            text: "加载完成。切换加载状态后，内容高度保持由实际内容决定。"
+                            text: ELocale.texts.LoadedContentHeightFollowsTheActualContentWhen
                         }
                     }
-                }`)
+                }
+`)
 
             Column {
                 spacing: 16
@@ -833,7 +839,7 @@ ExamplePage {
                         onCurrentChange: function(number) { pagination.setPage(number) }
                     }
                     EText {
-                        text: "第 " + pagination.currentPage + " 页，每页 " + pagination.pageSize + " 条"
+                        text: ELocale.texts.PageSizeStatus.arg(pagination.currentPage).arg(pagination.pageSize)
                     }
                 }
             `)
@@ -898,38 +904,38 @@ ExamplePage {
 
                     EInput {
                         width: Math.min(360, parent.width)
-                        placeholderText: "过滤节点"
+                        placeholderText: ELocale.texts.FilterNodes
 
                         onTextChanged: tree.filter(text)
                     }
                     ETree {
                         id: tree
 
-                        width: Math.min(440, parent.width)
-                        showCheckbox: true
                         draggable: true
-                        expandOnClickNode: true
+                        showCheckbox: true
                         expandedKeys: ["team"]
-                        model: [{ id: "team", label: "产品团队", children: [
-                            { id: "design", label: "设计" }, { id: "engineering", label: "开发" },
-                            { id: "archived", label: "归档", disabled: true }] },
-                            { id: "operations", label: "运营", children: [{ id: "support", label: "支持" }] }]
+                        expandOnClickNode: true
+                        width: Math.min(440, parent.width)
+                        model: [{ id: "team", label: ELocale.texts.ProductTeam, children: [
+                            { id: "design", label: ELocale.texts.Design }, { id: "engineering", label: ELocale.texts.Engineering },
+                            { id: "archived", label: ELocale.texts.Archived, disabled: true }] },
+                            { id: "operations", label: ELocale.texts.Operations, children: [{ id: "support", label: ELocale.texts.Support }] }]
                     }
                     Row {
                         spacing: 8
 
                         EButton {
-                            text: "勾选团队"
+                            text: ELocale.texts.CheckTeam
 
                             onClicked: tree.setCheckedKeys(["team"])
                         }
                         EButton {
-                            text: "清空"
+                            text: ELocale.texts.Clear
 
                             onClicked: tree.setCheckedKeys([])
                         }
                         ECheckBox {
-                            text: "严格勾选"
+                            text: ELocale.texts.StrictChecking
 
                             onToggled: tree.checkStrictly = checked
                         }
@@ -937,9 +943,10 @@ ExamplePage {
                     EText {
                         width: parent.width
                         wrapMode: Text.WordWrap
-                        text: "已勾选：" + tree.getCheckedKeys().join(", ") + "    半选：" + tree.halfCheckedKeys.join(", ")
+                        text: ELocale.texts.TreeCheckStatus.arg(tree.getCheckedKeys().join(", ")).arg(tree.halfCheckedKeys.join(", "))
                     }
-                }`)
+                }
+`)
 
             Column {
                 spacing: 12

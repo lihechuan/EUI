@@ -36,13 +36,13 @@ Column {
                             target: view
 
                             EButton {
-                                text: "固定操作"
                                 styleType: EStyle.Primary
+                                text: ELocale.texts.AffixedAction
                             }
                         }
                         EText {
                             height: 400
-                            text: "滚动容器查看固定效果"
+                            text: ELocale.texts.ScrollTheContainerToSeeTheAffixBehavior
                         }
                     }
                 }
@@ -69,13 +69,13 @@ Column {
                         target: view
 
                         EButton {
-                            text: "固定操作"
                             styleType: EStyle.Primary
+                            text: ELocale.texts.AffixedAction
                         }
                     }
                     EText {
                         height: 400
-                        text: "滚动容器查看固定效果"
+                        text: ELocale.texts.ScrollTheContainerToSeeTheAffixBehavior
                     }
                 }
             }
@@ -113,13 +113,13 @@ Column {
                             position: EPlacement.Bottom
 
                             EButton {
-                                text: "固定操作"
                                 styleType: EStyle.Primary
+                                text: ELocale.texts.AffixedAction
                             }
                         }
                         EText {
                             height: 400
-                            text: "滚动容器查看固定效果"
+                            text: ELocale.texts.ScrollTheContainerToSeeTheAffixBehavior
                         }
                     }
                 }
@@ -147,13 +147,13 @@ Column {
                         position: EPlacement.Bottom
 
                         EButton {
-                            text: "固定操作"
                             styleType: EStyle.Primary
+                            text: ELocale.texts.AffixedAction
                         }
                     }
                     EText {
                         height: 400
-                        text: "滚动容器查看固定效果"
+                        text: ELocale.texts.ScrollTheContainerToSeeTheAffixBehavior
                     }
                 }
             }
@@ -189,13 +189,13 @@ Column {
                             target: view
 
                             EButton {
-                                text: "固定操作"
                                 styleType: EStyle.Primary
+                                text: ELocale.texts.AffixedAction
                             }
                         }
                         EText {
                             height: 400
-                            text: "滚动容器查看固定效果"
+                            text: ELocale.texts.ScrollTheContainerToSeeTheAffixBehavior
                         }
                     }
                 }
@@ -221,13 +221,13 @@ Column {
                         target: view
 
                         EButton {
-                            text: "固定操作"
                             styleType: EStyle.Primary
+                            text: ELocale.texts.AffixedAction
                         }
                     }
                     EText {
                         height: 400
-                        text: "滚动容器查看固定效果"
+                        text: ELocale.texts.ScrollTheContainerToSeeTheAffixBehavior
                     }
                 }
             }
@@ -266,23 +266,23 @@ Column {
                             EAffix {
                                 target: view
 
-                                onChanged: result.text = fixed ? "已固定" : "跟随内容"
+                                onChanged: result.text = fixed ? ELocale.texts.Affixed : ELocale.texts.FollowingContent
 
                                 EButton {
-                                    text: "固定操作"
                                     styleType: EStyle.Primary
+                                    text: ELocale.texts.AffixedAction
                                 }
                             }
                             EText {
                                 height: 400
-                                text: "滚动容器查看固定效果"
+                                text: ELocale.texts.ScrollTheContainerToSeeTheAffixBehavior
                             }
                         }
                     }
                     EText {
                         id: result
 
-                        text: "跟随内容"
+                        text: ELocale.texts.FollowingContent
                     }
                 }
             `)
@@ -310,23 +310,23 @@ Column {
                         EAffix {
                             target: view
 
-                            onChanged: result.text = fixed ? "已固定" : "跟随内容"
+                            onChanged: result.text = fixed ? ELocale.texts.Affixed : ELocale.texts.FollowingContent
 
                             EButton {
-                                text: "固定操作"
                                 styleType: EStyle.Primary
+                                text: ELocale.texts.AffixedAction
                             }
                         }
                         EText {
                             height: 400
-                            text: "滚动容器查看固定效果"
+                            text: ELocale.texts.ScrollTheContainerToSeeTheAffixBehavior
                         }
                     }
                 }
                 EText {
                     id: result
 
-                    text: "跟随内容"
+                    text: ELocale.texts.FollowingContent
                 }
             }
         }
@@ -349,7 +349,7 @@ Column {
                         marker: true
                         target: view
                         width: Math.min(480, parent.width)
-                        model: [{title: "设计", target: first}, {title: "开发", target: second}, {title: "发布", target: third}]
+                        model: [{title: ELocale.texts.Design, target: first}, {title: ELocale.texts.Engineering, target: second}, {title: ELocale.texts.Publish, target: third}]
                     }
                     Flickable {
                         id: view
@@ -367,19 +367,19 @@ Column {
                                 id: first
 
                                 height: 200
-                                text: "设计规范"
+                                text: ELocale.texts.DesignGuidelines
                             }
                             EText {
                                 id: second
 
                                 height: 200
-                                text: "开发规范"
+                                text: ELocale.texts.DevelopmentGuidelines
                             }
                             EText {
                                 id: third
 
                                 height: 200
-                                text: "发布规范"
+                                text: ELocale.texts.ReleaseGuidelines
                             }
                         }
                     }
@@ -394,7 +394,7 @@ Column {
                     marker: true
                     target: view
                     width: Math.min(480, parent.width)
-                    model: [{title: "设计", target: first}, {title: "开发", target: second}, {title: "发布", target: third}]
+                    model: [{title: ELocale.texts.Design, target: first}, {title: ELocale.texts.Engineering, target: second}, {title: ELocale.texts.Publish, target: third}]
                 }
                 Flickable {
                     id: view
@@ -412,19 +412,19 @@ Column {
                             id: first
 
                             height: 200
-                            text: "设计规范"
+                            text: ELocale.texts.DesignGuidelines
                         }
                         EText {
                             id: second
 
                             height: 200
-                            text: "开发规范"
+                            text: ELocale.texts.DevelopmentGuidelines
                         }
                         EText {
                             id: third
 
                             height: 200
-                            text: "发布规范"
+                            text: ELocale.texts.ReleaseGuidelines
                         }
                     }
                 }
@@ -449,7 +449,7 @@ Column {
                         target: view
                         direction: EOrientation.Horizontal
                         width: Math.min(480, parent.width)
-                        model: [{title: "设计", target: first}, {title: "开发", target: second}, {title: "发布", target: third}]
+                        model: [{title: ELocale.texts.Design, target: first}, {title: ELocale.texts.Engineering, target: second}, {title: ELocale.texts.Publish, target: third}]
                     }
                     Flickable {
                         id: view
@@ -467,19 +467,19 @@ Column {
                                 id: first
 
                                 height: 200
-                                text: "设计规范"
+                                text: ELocale.texts.DesignGuidelines
                             }
                             EText {
                                 id: second
 
                                 height: 200
-                                text: "开发规范"
+                                text: ELocale.texts.DevelopmentGuidelines
                             }
                             EText {
                                 id: third
 
                                 height: 200
-                                text: "发布规范"
+                                text: ELocale.texts.ReleaseGuidelines
                             }
                         }
                     }
@@ -494,7 +494,7 @@ Column {
                     target: view
                     direction: EOrientation.Horizontal
                     width: Math.min(480, parent.width)
-                    model: [{title: "设计", target: first}, {title: "开发", target: second}, {title: "发布", target: third}]
+                    model: [{title: ELocale.texts.Design, target: first}, {title: ELocale.texts.Engineering, target: second}, {title: ELocale.texts.Publish, target: third}]
                 }
                 Flickable {
                     id: view
@@ -512,19 +512,19 @@ Column {
                             id: first
 
                             height: 200
-                            text: "设计规范"
+                            text: ELocale.texts.DesignGuidelines
                         }
                         EText {
                             id: second
 
                             height: 200
-                            text: "开发规范"
+                            text: ELocale.texts.DevelopmentGuidelines
                         }
                         EText {
                             id: third
 
                             height: 200
-                            text: "发布规范"
+                            text: ELocale.texts.ReleaseGuidelines
                         }
                     }
                 }
@@ -550,7 +550,7 @@ Column {
                         target: view
                         duration: 350
                         width: Math.min(480, parent.width)
-                        model: [{title: "设计", target: first}, {title: "开发", target: second}, {title: "发布", target: third}]
+                        model: [{title: ELocale.texts.Design, target: first}, {title: ELocale.texts.Engineering, target: second}, {title: ELocale.texts.Publish, target: third}]
                     }
                     Flickable {
                         id: view
@@ -568,19 +568,19 @@ Column {
                                 id: first
 
                                 height: 200
-                                text: "设计规范"
+                                text: ELocale.texts.DesignGuidelines
                             }
                             EText {
                                 id: second
 
                                 height: 200
-                                text: "开发规范"
+                                text: ELocale.texts.DevelopmentGuidelines
                             }
                             EText {
                                 id: third
 
                                 height: 200
-                                text: "发布规范"
+                                text: ELocale.texts.ReleaseGuidelines
                             }
                         }
                     }
@@ -596,7 +596,7 @@ Column {
                     target: view
                     duration: 350
                     width: Math.min(480, parent.width)
-                    model: [{title: "设计", target: first}, {title: "开发", target: second}, {title: "发布", target: third}]
+                    model: [{title: ELocale.texts.Design, target: first}, {title: ELocale.texts.Engineering, target: second}, {title: ELocale.texts.Publish, target: third}]
                 }
                 Flickable {
                     id: view
@@ -614,19 +614,19 @@ Column {
                             id: first
 
                             height: 200
-                            text: "设计规范"
+                            text: ELocale.texts.DesignGuidelines
                         }
                         EText {
                             id: second
 
                             height: 200
-                            text: "开发规范"
+                            text: ELocale.texts.DevelopmentGuidelines
                         }
                         EText {
                             id: third
 
                             height: 200
-                            text: "发布规范"
+                            text: ELocale.texts.ReleaseGuidelines
                         }
                     }
                 }
@@ -651,7 +651,7 @@ Column {
                         target: view
                         enabled: false
                         width: Math.min(480, parent.width)
-                        model: [{title: "设计", target: first}, {title: "开发", target: second}, {title: "发布", target: third}]
+                        model: [{title: ELocale.texts.Design, target: first}, {title: ELocale.texts.Engineering, target: second}, {title: ELocale.texts.Publish, target: third}]
                     }
                     Flickable {
                         id: view
@@ -669,19 +669,19 @@ Column {
                                 id: first
 
                                 height: 200
-                                text: "设计规范"
+                                text: ELocale.texts.DesignGuidelines
                             }
                             EText {
                                 id: second
 
                                 height: 200
-                                text: "开发规范"
+                                text: ELocale.texts.DevelopmentGuidelines
                             }
                             EText {
                                 id: third
 
                                 height: 200
-                                text: "发布规范"
+                                text: ELocale.texts.ReleaseGuidelines
                             }
                         }
                     }
@@ -696,7 +696,7 @@ Column {
                     target: view
                     enabled: false
                     width: Math.min(480, parent.width)
-                    model: [{title: "设计", target: first}, {title: "开发", target: second}, {title: "发布", target: third}]
+                    model: [{title: ELocale.texts.Design, target: first}, {title: ELocale.texts.Engineering, target: second}, {title: ELocale.texts.Publish, target: third}]
                 }
                 Flickable {
                     id: view
@@ -714,19 +714,19 @@ Column {
                             id: first
 
                             height: 200
-                            text: "设计规范"
+                            text: ELocale.texts.DesignGuidelines
                         }
                         EText {
                             id: second
 
                             height: 200
-                            text: "开发规范"
+                            text: ELocale.texts.DevelopmentGuidelines
                         }
                         EText {
                             id: third
 
                             height: 200
-                            text: "发布规范"
+                            text: ELocale.texts.ReleaseGuidelines
                         }
                     }
                 }
@@ -762,51 +762,51 @@ Column {
 
                             EText {
                                 height: 48
-                                text: "项目 1"
+                                text: ELocale.texts.ProjectNumber.arg(1)
                             }
                             EText {
                                 height: 48
-                                text: "项目 2"
+                                text: ELocale.texts.ProjectNumber.arg(2)
                             }
                             EText {
                                 height: 48
-                                text: "项目 3"
+                                text: ELocale.texts.ProjectNumber.arg(3)
                             }
                             EText {
                                 height: 48
-                                text: "项目 4"
+                                text: ELocale.texts.ProjectNumber.arg(4)
                             }
                             EText {
                                 height: 48
-                                text: "项目 5"
+                                text: ELocale.texts.ProjectNumber.arg(5)
                             }
                             EText {
                                 height: 48
-                                text: "项目 6"
+                                text: ELocale.texts.ProjectNumber.arg(6)
                             }
                             EText {
                                 height: 48
-                                text: "项目 7"
+                                text: ELocale.texts.ProjectNumber.arg(7)
                             }
                             EText {
                                 height: 48
-                                text: "项目 8"
+                                text: ELocale.texts.ProjectNumber.arg(8)
                             }
                             EText {
                                 height: 48
-                                text: "项目 9"
+                                text: ELocale.texts.ProjectNumber.arg(9)
                             }
                             EText {
                                 height: 48
-                                text: "项目 10"
+                                text: ELocale.texts.ProjectNumber.arg(10)
                             }
                             EText {
                                 height: 48
-                                text: "项目 11"
+                                text: ELocale.texts.ProjectNumber.arg(11)
                             }
                             EText {
                                 height: 48
-                                text: "项目 12"
+                                text: ELocale.texts.ProjectNumber.arg(12)
                             }
                         }
                     }
@@ -836,51 +836,51 @@ Column {
 
                         EText {
                             height: 48
-                            text: "项目 1"
+                            text: ELocale.texts.ProjectNumber.arg(1)
                         }
                         EText {
                             height: 48
-                            text: "项目 2"
+                            text: ELocale.texts.ProjectNumber.arg(2)
                         }
                         EText {
                             height: 48
-                            text: "项目 3"
+                            text: ELocale.texts.ProjectNumber.arg(3)
                         }
                         EText {
                             height: 48
-                            text: "项目 4"
+                            text: ELocale.texts.ProjectNumber.arg(4)
                         }
                         EText {
                             height: 48
-                            text: "项目 5"
+                            text: ELocale.texts.ProjectNumber.arg(5)
                         }
                         EText {
                             height: 48
-                            text: "项目 6"
+                            text: ELocale.texts.ProjectNumber.arg(6)
                         }
                         EText {
                             height: 48
-                            text: "项目 7"
+                            text: ELocale.texts.ProjectNumber.arg(7)
                         }
                         EText {
                             height: 48
-                            text: "项目 8"
+                            text: ELocale.texts.ProjectNumber.arg(8)
                         }
                         EText {
                             height: 48
-                            text: "项目 9"
+                            text: ELocale.texts.ProjectNumber.arg(9)
                         }
                         EText {
                             height: 48
-                            text: "项目 10"
+                            text: ELocale.texts.ProjectNumber.arg(10)
                         }
                         EText {
                             height: 48
-                            text: "项目 11"
+                            text: ELocale.texts.ProjectNumber.arg(11)
                         }
                         EText {
                             height: 48
-                            text: "项目 12"
+                            text: ELocale.texts.ProjectNumber.arg(12)
                         }
                     }
                 }
@@ -920,51 +920,51 @@ Column {
 
                             EText {
                                 height: 48
-                                text: "项目 1"
+                                text: ELocale.texts.ProjectNumber.arg(1)
                             }
                             EText {
                                 height: 48
-                                text: "项目 2"
+                                text: ELocale.texts.ProjectNumber.arg(2)
                             }
                             EText {
                                 height: 48
-                                text: "项目 3"
+                                text: ELocale.texts.ProjectNumber.arg(3)
                             }
                             EText {
                                 height: 48
-                                text: "项目 4"
+                                text: ELocale.texts.ProjectNumber.arg(4)
                             }
                             EText {
                                 height: 48
-                                text: "项目 5"
+                                text: ELocale.texts.ProjectNumber.arg(5)
                             }
                             EText {
                                 height: 48
-                                text: "项目 6"
+                                text: ELocale.texts.ProjectNumber.arg(6)
                             }
                             EText {
                                 height: 48
-                                text: "项目 7"
+                                text: ELocale.texts.ProjectNumber.arg(7)
                             }
                             EText {
                                 height: 48
-                                text: "项目 8"
+                                text: ELocale.texts.ProjectNumber.arg(8)
                             }
                             EText {
                                 height: 48
-                                text: "项目 9"
+                                text: ELocale.texts.ProjectNumber.arg(9)
                             }
                             EText {
                                 height: 48
-                                text: "项目 10"
+                                text: ELocale.texts.ProjectNumber.arg(10)
                             }
                             EText {
                                 height: 48
-                                text: "项目 11"
+                                text: ELocale.texts.ProjectNumber.arg(11)
                             }
                             EText {
                                 height: 48
-                                text: "项目 12"
+                                text: ELocale.texts.ProjectNumber.arg(12)
                             }
                         }
                     }
@@ -994,51 +994,51 @@ Column {
 
                         EText {
                             height: 48
-                            text: "项目 1"
+                            text: ELocale.texts.ProjectNumber.arg(1)
                         }
                         EText {
                             height: 48
-                            text: "项目 2"
+                            text: ELocale.texts.ProjectNumber.arg(2)
                         }
                         EText {
                             height: 48
-                            text: "项目 3"
+                            text: ELocale.texts.ProjectNumber.arg(3)
                         }
                         EText {
                             height: 48
-                            text: "项目 4"
+                            text: ELocale.texts.ProjectNumber.arg(4)
                         }
                         EText {
                             height: 48
-                            text: "项目 5"
+                            text: ELocale.texts.ProjectNumber.arg(5)
                         }
                         EText {
                             height: 48
-                            text: "项目 6"
+                            text: ELocale.texts.ProjectNumber.arg(6)
                         }
                         EText {
                             height: 48
-                            text: "项目 7"
+                            text: ELocale.texts.ProjectNumber.arg(7)
                         }
                         EText {
                             height: 48
-                            text: "项目 8"
+                            text: ELocale.texts.ProjectNumber.arg(8)
                         }
                         EText {
                             height: 48
-                            text: "项目 9"
+                            text: ELocale.texts.ProjectNumber.arg(9)
                         }
                         EText {
                             height: 48
-                            text: "项目 10"
+                            text: ELocale.texts.ProjectNumber.arg(10)
                         }
                         EText {
                             height: 48
-                            text: "项目 11"
+                            text: ELocale.texts.ProjectNumber.arg(11)
                         }
                         EText {
                             height: 48
-                            text: "项目 12"
+                            text: ELocale.texts.ProjectNumber.arg(12)
                         }
                     }
                 }
@@ -1078,51 +1078,51 @@ Column {
 
                             EText {
                                 height: 48
-                                text: "项目 1"
+                                text: ELocale.texts.ProjectNumber.arg(1)
                             }
                             EText {
                                 height: 48
-                                text: "项目 2"
+                                text: ELocale.texts.ProjectNumber.arg(2)
                             }
                             EText {
                                 height: 48
-                                text: "项目 3"
+                                text: ELocale.texts.ProjectNumber.arg(3)
                             }
                             EText {
                                 height: 48
-                                text: "项目 4"
+                                text: ELocale.texts.ProjectNumber.arg(4)
                             }
                             EText {
                                 height: 48
-                                text: "项目 5"
+                                text: ELocale.texts.ProjectNumber.arg(5)
                             }
                             EText {
                                 height: 48
-                                text: "项目 6"
+                                text: ELocale.texts.ProjectNumber.arg(6)
                             }
                             EText {
                                 height: 48
-                                text: "项目 7"
+                                text: ELocale.texts.ProjectNumber.arg(7)
                             }
                             EText {
                                 height: 48
-                                text: "项目 8"
+                                text: ELocale.texts.ProjectNumber.arg(8)
                             }
                             EText {
                                 height: 48
-                                text: "项目 9"
+                                text: ELocale.texts.ProjectNumber.arg(9)
                             }
                             EText {
                                 height: 48
-                                text: "项目 10"
+                                text: ELocale.texts.ProjectNumber.arg(10)
                             }
                             EText {
                                 height: 48
-                                text: "项目 11"
+                                text: ELocale.texts.ProjectNumber.arg(11)
                             }
                             EText {
                                 height: 48
-                                text: "项目 12"
+                                text: ELocale.texts.ProjectNumber.arg(12)
                             }
                         }
                     }
@@ -1153,51 +1153,51 @@ Column {
 
                         EText {
                             height: 48
-                            text: "项目 1"
+                            text: ELocale.texts.ProjectNumber.arg(1)
                         }
                         EText {
                             height: 48
-                            text: "项目 2"
+                            text: ELocale.texts.ProjectNumber.arg(2)
                         }
                         EText {
                             height: 48
-                            text: "项目 3"
+                            text: ELocale.texts.ProjectNumber.arg(3)
                         }
                         EText {
                             height: 48
-                            text: "项目 4"
+                            text: ELocale.texts.ProjectNumber.arg(4)
                         }
                         EText {
                             height: 48
-                            text: "项目 5"
+                            text: ELocale.texts.ProjectNumber.arg(5)
                         }
                         EText {
                             height: 48
-                            text: "项目 6"
+                            text: ELocale.texts.ProjectNumber.arg(6)
                         }
                         EText {
                             height: 48
-                            text: "项目 7"
+                            text: ELocale.texts.ProjectNumber.arg(7)
                         }
                         EText {
                             height: 48
-                            text: "项目 8"
+                            text: ELocale.texts.ProjectNumber.arg(8)
                         }
                         EText {
                             height: 48
-                            text: "项目 9"
+                            text: ELocale.texts.ProjectNumber.arg(9)
                         }
                         EText {
                             height: 48
-                            text: "项目 10"
+                            text: ELocale.texts.ProjectNumber.arg(10)
                         }
                         EText {
                             height: 48
-                            text: "项目 11"
+                            text: ELocale.texts.ProjectNumber.arg(11)
                         }
                         EText {
                             height: 48
-                            text: "项目 12"
+                            text: ELocale.texts.ProjectNumber.arg(12)
                         }
                     }
                 }
@@ -1238,51 +1238,51 @@ Column {
 
                             EText {
                                 height: 48
-                                text: "项目 1"
+                                text: ELocale.texts.ProjectNumber.arg(1)
                             }
                             EText {
                                 height: 48
-                                text: "项目 2"
+                                text: ELocale.texts.ProjectNumber.arg(2)
                             }
                             EText {
                                 height: 48
-                                text: "项目 3"
+                                text: ELocale.texts.ProjectNumber.arg(3)
                             }
                             EText {
                                 height: 48
-                                text: "项目 4"
+                                text: ELocale.texts.ProjectNumber.arg(4)
                             }
                             EText {
                                 height: 48
-                                text: "项目 5"
+                                text: ELocale.texts.ProjectNumber.arg(5)
                             }
                             EText {
                                 height: 48
-                                text: "项目 6"
+                                text: ELocale.texts.ProjectNumber.arg(6)
                             }
                             EText {
                                 height: 48
-                                text: "项目 7"
+                                text: ELocale.texts.ProjectNumber.arg(7)
                             }
                             EText {
                                 height: 48
-                                text: "项目 8"
+                                text: ELocale.texts.ProjectNumber.arg(8)
                             }
                             EText {
                                 height: 48
-                                text: "项目 9"
+                                text: ELocale.texts.ProjectNumber.arg(9)
                             }
                             EText {
                                 height: 48
-                                text: "项目 10"
+                                text: ELocale.texts.ProjectNumber.arg(10)
                             }
                             EText {
                                 height: 48
-                                text: "项目 11"
+                                text: ELocale.texts.ProjectNumber.arg(11)
                             }
                             EText {
                                 height: 48
-                                text: "项目 12"
+                                text: ELocale.texts.ProjectNumber.arg(12)
                             }
                         }
                     }
@@ -1313,51 +1313,51 @@ Column {
 
                         EText {
                             height: 48
-                            text: "项目 1"
+                            text: ELocale.texts.ProjectNumber.arg(1)
                         }
                         EText {
                             height: 48
-                            text: "项目 2"
+                            text: ELocale.texts.ProjectNumber.arg(2)
                         }
                         EText {
                             height: 48
-                            text: "项目 3"
+                            text: ELocale.texts.ProjectNumber.arg(3)
                         }
                         EText {
                             height: 48
-                            text: "项目 4"
+                            text: ELocale.texts.ProjectNumber.arg(4)
                         }
                         EText {
                             height: 48
-                            text: "项目 5"
+                            text: ELocale.texts.ProjectNumber.arg(5)
                         }
                         EText {
                             height: 48
-                            text: "项目 6"
+                            text: ELocale.texts.ProjectNumber.arg(6)
                         }
                         EText {
                             height: 48
-                            text: "项目 7"
+                            text: ELocale.texts.ProjectNumber.arg(7)
                         }
                         EText {
                             height: 48
-                            text: "项目 8"
+                            text: ELocale.texts.ProjectNumber.arg(8)
                         }
                         EText {
                             height: 48
-                            text: "项目 9"
+                            text: ELocale.texts.ProjectNumber.arg(9)
                         }
                         EText {
                             height: 48
-                            text: "项目 10"
+                            text: ELocale.texts.ProjectNumber.arg(10)
                         }
                         EText {
                             height: 48
-                            text: "项目 11"
+                            text: ELocale.texts.ProjectNumber.arg(11)
                         }
                         EText {
                             height: 48
-                            text: "项目 12"
+                            text: ELocale.texts.ProjectNumber.arg(12)
                         }
                     }
                 }
@@ -1380,18 +1380,18 @@ Column {
                 import QtQuick 2.15
 
                 EPageHeader {
-                    title: "工作台"
-                    content: "项目详情"
                     showBack: false
                     width: parent.width
+                    title: ELocale.texts.Workspace2
+                    content: ELocale.texts.ProjectDetails
                 }
             `)
 
             EPageHeader {
-                title: "工作台"
-                content: "项目详情"
                 showBack: false
                 width: parent.width
+                title: ELocale.texts.Workspace2
+                content: ELocale.texts.ProjectDetails
             }
         }
     }
@@ -1406,18 +1406,18 @@ Column {
                 import QtQuick 2.15
 
                 EPageHeader {
-                    title: "工作台"
-                    content: "项目详情"
                     width: parent.width
                     iconSource: EIcons.HOUSE
+                    title: ELocale.texts.Workspace2
+                    content: ELocale.texts.ProjectDetails
                 }
             `)
 
             EPageHeader {
-                title: "工作台"
-                content: "项目详情"
                 width: parent.width
                 iconSource: EIcons.HOUSE
+                title: ELocale.texts.Workspace2
+                content: ELocale.texts.ProjectDetails
             }
         }
     }
@@ -1432,26 +1432,26 @@ Column {
                 import QtQuick 2.15
 
                 EPageHeader {
-                    title: "工作台"
-                    content: "项目详情"
                     width: parent.width
+                    title: ELocale.texts.Workspace2
+                    content: ELocale.texts.ProjectDetails
 
                     EButton {
-                        text: "编辑"
                         size: EStyle.Small
+                        text: ELocale.texts.Edit
                         styleType: EStyle.Primary
                     }
                 }
             `)
 
             EPageHeader {
-                title: "工作台"
-                content: "项目详情"
                 width: parent.width
+                title: ELocale.texts.Workspace2
+                content: ELocale.texts.ProjectDetails
 
                 EButton {
-                    text: "编辑"
                     size: EStyle.Small
+                    text: ELocale.texts.Edit
                     styleType: EStyle.Primary
                 }
             }
@@ -1468,28 +1468,28 @@ Column {
                 import QtQuick 2.15
 
                 EPageHeader {
-                    title: "工作台"
-                    content: "项目详情"
                     width: parent.width
+                    title: ELocale.texts.Workspace2
+                    content: ELocale.texts.ProjectDetails
                     bodyComponent: Component {
                         EText {
                             width: parent.width
                             wrapMode: Text.WordWrap
-                            text: "在页面标题下展示当前项目的说明与状态。"
+                            text: ELocale.texts.ShowTheCurrentProjectDescriptionAndStatusBelow
                         }
                     }
                 }
             `)
 
             EPageHeader {
-                title: "工作台"
-                content: "项目详情"
                 width: parent.width
+                title: ELocale.texts.Workspace2
+                content: ELocale.texts.ProjectDetails
                 bodyComponent: Component {
                     EText {
                         width: parent.width
                         wrapMode: Text.WordWrap
-                        text: "在页面标题下展示当前项目的说明与状态。"
+                        text: ELocale.texts.ShowTheCurrentProjectDescriptionAndStatusBelow
                     }
                 }
             }

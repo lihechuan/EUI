@@ -25,7 +25,12 @@ ExamplePage {
                         texts: [ELocale.texts.Poor, ELocale.texts.Fair, ELocale.texts.Good, ELocale.texts.Great, ELocale.texts.Excellent]
                         colors: ["#909399", "#E6A23C", "#E6A23C", "#F5B301", "#F5B301"]
                     }
-                    ERate { value: 4.5; readOnly: true; showScore: true; scoreTemplate: "{value}/5" }
+                    ERate {
+                        value: 4.5
+                        readOnly: true
+                        showScore: true
+                        scoreTemplate: "{value}/5"
+                    }
                 }`)
 
             Flow {
@@ -224,30 +229,31 @@ ExamplePage {
 
                     ESelect {
                         multiple: true
-                        filterable: true
-                        allowCreate: true
                         clearable: true
-                        textRole: "label"
-                        valueRole: "value"
+                        filterable: true
                         multipleLimit: 3
+                        allowCreate: true
+                        textRole: "label"
                         collapseTags: true
-                        model: [{label: "Desktop", options: [{label: "Qt", value: "qt"}, {label: "QML", value: "qml"}]},
-                            {label: "Web", options: [{label: "Vue", value: "vue"}, {label: "TypeScript", value: "ts"}]}]
+                        valueRole: "value"
+                        popupFooter: Component {
+                            EText {
+                                padding: 8
+                                text: ELocale.texts.ChooseUpToThreeItems
+                            }
+                        }
                         tagDelegate: Component {
                             ETag {
                                 closable: true
                                 size: EStyle.Small
                                 text: parent.label
                                 styleType: EStyle.Success
+
                                 onClosed: parent.remove()
                             }
                         }
-                        popupFooter: Component {
-                            EText {
-                                padding: 8
-                                text: "最多选择三项"
-                            }
-                        }
+                        model: [{label: "Desktop", options: [{label: "Qt", value: "qt"}, {label: "QML", value: "qml"}]},
+                            {label: "Web", options: [{label: "Vue", value: "vue"}, {label: "TypeScript", value: "ts"}]}]
                     }
                     ESelect {
                         remote: true
@@ -259,7 +265,8 @@ ExamplePage {
                                 .filter(function(item) { return item.label.toLowerCase().indexOf(query.toLowerCase()) >= 0 }))
                         }
                     }
-                }`)
+                }
+`)
 
             Flow {
                 spacing: 16

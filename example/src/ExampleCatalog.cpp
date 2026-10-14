@@ -15,6 +15,8 @@ struct Entry
     const char *source;
     const char *chinese;
     const char *english;
+    bool demo = false;
+    const char *introducedIn = "";
 };
 
 struct Group
@@ -43,6 +45,7 @@ constexpr Entry VisualItems[] = {
     {"EAnimation", "AnimationExamples.qml", "动画", "Animation"},
     {"EBorderBeam", "AntDesignExamples.qml", "边框流光", "Border beam"},
     {"EParallaxView", "VisualEffectsExamples.qml", "视差滚动", "Parallax view"},
+    {"TokyoScene", "Quick3DExamples.qml", "3D 动画", "3D animation", true},
 };
 
 constexpr Entry FeedbackItems[] = {
@@ -68,7 +71,9 @@ constexpr Entry NavigationItems[] = {
     {"EAnchor", "ExtendedNavigationExamples.qml", "锚点", "Anchor"},
     {"EBreadcrumb", "NavigationExamples.qml", "面包屑", "Breadcrumb"},
     {"EBacktop", "ExtendedNavigationExamples.qml", "回到顶部", "Backtop"},
+    {"EWizard", "DesktopExamples.qml", "步骤向导", "Wizard", false, "1.2.0"},
     {"EPageHeader", "ExtendedNavigationExamples.qml", "页头", "Page header"},
+    {"ECommandPalette", "DesktopExamples.qml", "命令面板", "Command palette", false, "1.2.0"},
 };
 
 constexpr Entry BasicItems[] = {
@@ -86,6 +91,7 @@ constexpr Entry BasicItems[] = {
     {"ETypography", "LayoutExamples.qml", "排版", "Typography"},
     {"EFloatButton", "AntDesignExamples.qml", "悬浮按钮", "Float button"},
     {"ESplitterPanel", "LayoutExamples.qml", "分隔面板项", "Splitter panel"},
+    {"EToolBar", "DesktopExamples.qml", "工具栏", "Toolbar", false, "1.2.0"},
     {"EStaggeredLayout", "LayoutExamples.qml", "瀑布布局", "Staggered layout"},
 };
 
@@ -127,15 +133,17 @@ constexpr Entry FormItems[] = {
     {"EDatePicker", "SelectionExamples.qml", "日期选择", "Date picker"},
     {"EInputOtp", "ExtendedFormExamples.qml", "验证码输入", "Input OTP"},
     {"ETimePicker", "SelectionExamples.qml", "时间选择", "Time picker"},
-    {"EAutocomplete", "SelectionExamples.qml", "自动补全", "Autocomplete"},
     {"ETimeSelect", "ExtendedFormExamples.qml", "时间下拉", "Time select"},
     {"ETreeSelect", "ExtendedFormExamples.qml", "树形选择", "Tree select"},
+    {"EAutocomplete", "SelectionExamples.qml", "自动补全", "Autocomplete"},
     {"EColorPicker", "ExtendedFormExamples.qml", "颜色选择", "Color picker"},
     {"ERangeSlider", "ExtendedFormExamples.qml", "范围滑块", "Range slider"},
-    {"EShortcutPicker", "ExtendedFormExamples.qml", "快捷键", "Shortcut picker"},
     {"EDatePickerPanel", "SelectionExamples.qml", "日期面板", "Date picker panel"},
+    {"EShortcutPicker", "ExtendedFormExamples.qml", "快捷键", "Shortcut picker"},
     {"EDateTimePicker", "ExtendedFormExamples.qml", "日期时间", "Date time picker"},
+    {"EFilePicker", "DesktopExamples.qml", "文件选择", "File picker", false, "1.2.0"},
     {"EColorPickerPanel", "ExtendedFormExamples.qml", "颜色面板", "Color picker panel"},
+    {"EFolderPicker", "DesktopExamples.qml", "目录选择", "Folder picker", false, "1.2.0"},
 };
 
 constexpr Entry DataItems[] = {
@@ -156,19 +164,20 @@ constexpr Entry DataItems[] = {
     {"EProgress", "FeedbackExamples.qml", "进度条", "Progress"},
     {"EQRCode", "ExtendedDataExamples.qml", "二维码", "QR code"},
     {"EAvatarGroup", "DataExamples.qml", "头像组", "Avatar group"},
-    {"ECalendar", "ExtendedDataExamples.qml", "日历", "Calendar"},
     {"EListy", "AntDesignExamples.qml", "虚拟列表", "Virtual list"},
+    {"ECalendar", "ExtendedDataExamples.qml", "日历", "Calendar"},
     {"ECarousel", "ExtendedDataExamples.qml", "走马灯", "Carousel"},
+    {"ESkeletonItem", "DataExamples.qml", "骨架项", "Skeleton item"},
     {"ETimeline", "ExtendedDataExamples.qml", "时间线", "Timeline"},
     {"ECollapse", "ExtendedDataExamples.qml", "折叠面板", "Collapse"},
-    {"ESkeletonItem", "DataExamples.qml", "骨架项", "Skeleton item"},
+    {"EMediaPlayer", "MediaExamples.qml", "媒体播放器", "Media player"},
     {"EStatistic", "ExtendedDataExamples.qml", "统计", "Statistic"},
     {"ECountdown", "ExtendedDataExamples.qml", "倒计时", "Countdown"},
-    {"EMediaPlayer", "MediaExamples.qml", "媒体播放器", "Media player"},
     {"ESegmented", "ExtendedDataExamples.qml", "分段控制", "Segmented"},
     {"EStatusView", "ExtendedDataExamples.qml", "状态视图", "Status view"},
     {"EImageViewer", "ExtendedDataExamples.qml", "图片预览", "Image viewer"},
     {"EDescriptions", "ExtendedDataExamples.qml", "描述列表", "Descriptions"},
+    {"ECodeView", "DesktopExamples.qml", "代码展示", "Code view", false, "1.2.0"},
     {"EECharts", "EEChartsExamples.qml", "Apache ECharts", "Apache ECharts"},
     {"EInfiniteScroll", "ExtendedDataExamples.qml", "无限滚动", "Infinite scroll"},
 };
@@ -206,6 +215,24 @@ ExampleCatalog::ExampleCatalog(QObject *parent) : QObject(parent)
 QVariantList ExampleCatalog::groups() const
 {
     return m_groups;
+}
+
+bool ExampleCatalog::quick3DAvailable() const
+{
+#ifdef EUI_HAS_QUICK3D
+    return true;
+#else
+    return false;
+#endif
+}
+
+QString ExampleCatalog::quick3DSource(const QString &fileName) const
+{
+    if (fileName != QStringLiteral("TokyoView.qml") && fileName != QStringLiteral("TokyoScene.qml")
+        && fileName != QStringLiteral("assets/LittlestTokyo.qml"))
+        return QString();
+    QFile file(QStringLiteral(":/example/quick3d-source/") + fileName + QStringLiteral(".txt"));
+    return file.open(QIODevice::ReadOnly) ? QString::fromUtf8(file.readAll()) : QString();
 }
 
 void ExampleCatalog::setLocale(QObject *locale)
@@ -309,6 +336,7 @@ QVariantMap ExampleCatalog::documentation(const QString &index) const
         QVariantMap row = value.toMap();
         row.insert(QStringLiteral("defaultValue"), row.take(QStringLiteral("default")).toMap().value(language));
         row.insert(QStringLiteral("description"), row.value(QStringLiteral("description")).toMap().value(language));
+        row.insert(QStringLiteral("details"), row.value(QStringLiteral("details")).toMap().value(language).toString());
         properties.append(row);
     }
     result.insert(QStringLiteral("properties"), properties);
@@ -327,7 +355,11 @@ void ExampleCatalog::rebuild()
             const Entry &entry  = definition.items[index];
             const QString name  = QString::fromUtf8(entry.index);
             const QString label = QString::fromUtf8(chinese ? entry.chinese : entry.english);
+            const QString introducedIn = QString::fromLatin1(entry.introducedIn);
             items.append(QVariantMap{
+                {QStringLiteral("isNew"), introducedIn == QStringLiteral(EUI_GALLERY_VERSION)},
+                {QStringLiteral("introducedIn"), introducedIn},
+                {QStringLiteral("demo"), entry.demo},
                 {QStringLiteral("index"), name},
                 {QStringLiteral("label"), label},
                 {QStringLiteral("text"), label},

@@ -179,6 +179,14 @@ ExamplePage {
                 text: playground.invocation
                 objectName: "animationInvocation"
                 font.family: GalleryStyle.codeFamily
+
+                MouseArea {
+                    hoverEnabled: true
+                    anchors.fill: parent
+                    cursorShape: Qt.ArrowCursor
+                    acceptedButtons: Qt.NoButton
+                    objectName: "animationSourcePointer"
+                }
             }
         }
     }

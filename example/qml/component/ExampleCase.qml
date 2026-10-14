@@ -7,9 +7,10 @@ Item {
 
     property string code: ""
     property string title: ""
+    property var sourceFiles: []
     property string description: ""
 
-    readonly property bool hasSource: code.length > 0
+    readonly property bool hasSource: code.length > 0 || sourceFiles.length > 0
 
     implicitHeight: panel.height
     width: parent ? parent.width : 0
@@ -83,6 +84,16 @@ Item {
                     width: parent.width
                     color: GalleryStyle.line
                 }
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.NoButton
+                    objectName: "galleryPreviewWheelGuard"
+
+                    onWheel: function(wheel) {
+                        wheel.accepted = GalleryStyle.previewScrollAt(parent, wheel.x, wheel.y,
+                            wheel.pixelDelta.x || wheel.angleDelta.x, wheel.pixelDelta.y || wheel.angleDelta.y)
+                    }
+                }
                 Column {
                     id: previewContent
 
@@ -98,7 +109,8 @@ Item {
             CodeExpander {
                 code: control.code
                 width: parent.width
-                visible: control.code.length > 0
+                visible: control.hasSource
+                sourceFiles: control.sourceFiles
             }
         }
     }

@@ -29,6 +29,13 @@ QtObject {
     readonly property string codeFamily: EDefaultConfig.secondaryFontFamily
     readonly property var componentIcons: ({
         EAnimation: EIcons.PLAY,
+        EFilePicker: EIcons.FILE_CODE,
+        EFolderPicker: EIcons.FOLDER,
+        EToolBar: EIcons.SLIDERS,
+        ECodeView: EIcons.CODE,
+        ECommandPalette: EIcons.MAGNIFIER,
+        EWizard: EIcons.LIST_CHECK,
+        TokyoScene: EIcons.BOX,
         EIcon: EIcons.SHAPES_4,
         EText: EIcons.FONT,
         ELink: EIcons.LINK,
@@ -169,5 +176,25 @@ QtObject {
             extensions: EIcons.CODE
         }
         return icons[group] || EIcons.CUBE
+    }
+
+    function previewScrollAt(root, x, y, dx, dy) {
+        const pending = [root]
+        while (pending.length > 0) {
+            const item = pending.pop()
+            if (!item.visible || !item.enabled)
+                continue
+            const point = item.mapFromItem(root, x, y)
+            const inside = point.x >= 0 && point.y >= 0 && point.x < item.width && point.y < item.height
+            if (!inside && item.clip)
+                continue
+            if (inside && (item.contentY !== undefined && dy !== 0 && item.contentHeight > item.height
+                || item.contentX !== undefined && dx !== 0 && item.contentWidth > item.width))
+                return true
+            const children = item.children || []
+            for (let index = 0; index < children.length; ++index)
+                pending.push(children[index])
+        }
+        return false
     }
 }

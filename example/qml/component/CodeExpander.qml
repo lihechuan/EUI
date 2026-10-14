@@ -7,29 +7,15 @@ Item {
     id: control
 
     property string code: ""
+    property int currentFile: 0
+    property var sourceFiles: []
     property bool expanded: false
     property int maximumSourceHeight: 360
 
-    readonly property int sourceLineCount: code.split(/\r\n|\r|\n/).length
-
-    function sourceParagraph(contents) {
-        return '<p style="margin:0; line-height:22px; -qt-line-height-type:fixed">' + contents + '</p>'
-    }
-
-    function highlightedCode() {
-        return sourceParagraph(exampleData.highlightCode(code, {
-            plain: GalleryStyle.text,
-            type: GalleryStyle.dark ? "#71CED1" : "#087F8C",
-            property: GalleryStyle.dark ? "#89B4FA" : "#315EB5",
-            keyword: GalleryStyle.dark ? "#C4A7E7" : "#8255AD",
-            literal: GalleryStyle.dark ? "#C4A7E7" : "#8255AD",
-            string: GalleryStyle.dark ? "#A6D3A0" : "#27775B",
-            number: GalleryStyle.dark ? "#E6B673" : "#A15C21",
-            member: GalleryStyle.dark ? "#89B4FA" : "#315EB5",
-            comment: GalleryStyle.muted,
-            punctuation: GalleryStyle.muted
-        }))
-    }
+    readonly property bool hasFiles: sourceFiles.length > 0
+    readonly property int sourceLineCount: displayedCode.split(/\r\n|\r|\n/).length
+    readonly property string displayedCode: hasFiles && currentFile >= 0 && currentFile < sourceFiles.length
+        ? sourceFiles[currentFile].code : code
 
     width: parent ? parent.width : 0
     objectName: "galleryCodeExpander"
@@ -95,7 +81,7 @@ Item {
             font.pixelSize: GalleryStyle.captionSize
             anchors.verticalCenter: parent.verticalCenter
 
-            onClicked: exampleClipboard.setText(control.code)
+            onClicked: exampleClipboard.setText(control.displayedCode)
         }
     }
     ERectangle {
@@ -108,7 +94,8 @@ Item {
         anchors.top: toolbar.bottom
         objectName: "gallerySourcePane"
         color: GalleryStyle.dark ? "#1D2129" : "#F6F8FC"
-        height: control.expanded ? Math.min(control.maximumSourceHeight, sourceText.contentHeight + 40) : 0
+        height: control.expanded ? Math.min(control.maximumSourceHeight, codeView.contentHeight
+            + (control.hasFiles ? 34 : 0)) : 0
 
         ERectangle {
             height: 10
@@ -120,66 +107,134 @@ Item {
             width: parent.width
             color: GalleryStyle.line
         }
-        Item {
-            id: gutter
+        Column {
+            id: fileExplorer
 
             clip: true
             height: parent.height
-            width: Math.max(52, String(control.sourceLineCount).length * 9 + 24)
+            visible: control.hasFiles
+            objectName: "gallerySourceFiles"
+            width: visible ? Math.min(220, parent.width * 0.3) : 0
 
-            Text {
-                id: lineNumbers
-
-                x: 8
-                font.pixelSize: 14
-                width: parent.width - 22
-                textFormat: Text.RichText
-                renderType: Text.QtRendering
-                font.family: GalleryStyle.codeFamily
-                horizontalAlignment: Text.AlignRight
-                objectName: "gallerySourceLineNumbers"
-                color: GalleryStyle.dark ? "#777F8F" : "#8992A3"
-                y: sourceText.y + codeViewport.y - codeViewport.contentY
-                text: control.expanded ? control.sourceParagraph(control.code.split(/\r\n|\r|\n/)
-                    .map(function(line, index) { return index + 1 }).join("<br/>")) : ""
+            EText {
+                height: 34
+                leftPadding: 12
+                width: parent.width
+                color: GalleryStyle.muted
+                text: ELocale.texts.SourceFiles
+                verticalAlignment: Text.AlignVCenter
+                font.pixelSize: GalleryStyle.captionSize
             }
-            ERectangle {
-                y: 12
-                width: 1
-                height: parent.height - 24
-                anchors.right: parent.right
-                color: GalleryStyle.dark ? "#343B49" : "#E1E6EF"
+            Repeater {
+                model: control.sourceFiles
+
+                Column {
+                    width: fileExplorer.width
+
+                    EText {
+                        height: 28
+                        leftPadding: 12
+                        width: parent.width
+                        color: GalleryStyle.muted
+                        verticalAlignment: Text.AlignVCenter
+                        font.pixelSize: GalleryStyle.captionSize
+                        text: modelData.path.split("/").slice(0, -1).join("/")
+                        visible: text.length > 0 && (index === 0
+                            || control.sourceFiles[index - 1].path.split("/").slice(0, -1).join("/") !== text)
+                    }
+                    ETextButton {
+                        id: fileButton
+
+                        minHeight: 32
+                        leftPadding: 12
+                        rightPadding: 8
+                        font.bold: false
+                        font.pixelSize: 12
+                        width: parent.width
+                        text: modelData.path.split("/").pop()
+                        objectName: "gallerySourceFile" + index
+                        styleType: control.currentFile === index ? EStyle.Primary : EStyle.Default
+                        contentItem: EText {
+                            font.pixelSize: 12
+                            text: fileButton.text
+                            elide: Text.ElideRight
+                            verticalAlignment: Text.AlignVCenter
+                            color: control.currentFile === index ? GalleryStyle.accent : GalleryStyle.text
+                        }
+
+                        onClicked: control.currentFile = index
+                    }
+                }
             }
         }
-        Flickable {
-            id: codeViewport
+        ERectangle {
+            width: 1
+            height: parent.height
+            x: fileExplorer.width
+            color: GalleryStyle.line
+            visible: control.hasFiles
+        }
+        Item {
+            id: editorArea
 
-            clip: true
-            anchors.margins: 1
-            anchors.fill: parent
-            anchors.leftMargin: gutter.width
-            objectName: "gallerySourceViewport"
-            ScrollBar.vertical: ScrollHandle { }
-            ScrollBar.horizontal: ScrollHandle { }
-            boundsBehavior: Flickable.StopAtBounds
-            contentHeight: sourceText.contentHeight + 40
-            contentWidth: Math.max(width, sourceText.contentWidth + 40)
+            height: parent.height
+            x: fileExplorer.width
+            width: parent.width - x
 
-            ECopyableText {
-                id: sourceText
+            ERectangle {
+                id: fileTab
 
-                x: 20
-                y: 20
+                height: 34
+                width: parent.width
+                visible: control.hasFiles
+                color: GalleryStyle.surface
+                objectName: "gallerySourceFileTab"
+
+                EIcon {
+                    x: 12
+                    iconSize: 14
+                    color: GalleryStyle.accent
+                    iconSource: EIcons.FILE_CODE
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+                EText {
+                    x: 34
+                    elide: Text.ElideRight
+                    color: GalleryStyle.text
+                    width: parent.width - 46
+                    font.pixelSize: GalleryStyle.captionSize
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: control.hasFiles && control.currentFile >= 0 && control.currentFile < control.sourceFiles.length
+                        ? control.sourceFiles[control.currentFile].path : ""
+                }
+            }
+            ECodeView {
+                id: codeView
+
+                showCopy: false
                 font.pixelSize: 14
-                selectByMouse: true
-                wrapMode: TextEdit.NoWrap
-                renderType: Text.QtRendering
-                textColor: GalleryStyle.text
-                textFormat: TextEdit.RichText
-                objectName: "gallerySourceText"
+                width: parent.width
+                height: parent.height - y
+                backgroundColor: sourcePane.color
                 font.family: GalleryStyle.codeFamily
-                width: Math.max(codeViewport.width - 40, contentWidth)
-                text: control.expanded ? control.highlightedCode() : ""
+                y: fileTab.visible ? fileTab.height : 0
+                code: control.expanded ? control.displayedCode : ""
+
+                Component.onCompleted: {
+                    const names = {codeText: "gallerySourceText", codeViewport: "gallerySourceViewport",
+                        codePointer: "gallerySourcePointer", codeLineNumbers: "gallerySourceLineNumbers",
+                        codeVerticalScroll: "gallerySourceVerticalScroll",
+                        codeHorizontalScroll: "gallerySourceHorizontalScroll"}
+                    const pending = [codeView]
+                    while (pending.length > 0) {
+                        const item = pending.pop()
+                        if (names[item.objectName])
+                            item.objectName = names[item.objectName]
+                        const children = item.children || []
+                        for (let index = 0; index < children.length; ++index)
+                            pending.push(children[index])
+                    }
+                }
             }
         }
     }

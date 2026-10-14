@@ -1,4 +1,4 @@
-﻿cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.20)
 
 project(example VERSION 1.0)
 
@@ -8,7 +8,9 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE})
+if(NOT CMAKE_RUNTIME_OUTPUT_DIRECTORY)
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE})
+endif()
 
 set(APPLICATION_DIR_PATH ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 
@@ -60,7 +62,18 @@ target_include_directories(example PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-target_sources(example PRIVATE example.qrc)
+target_compile_definitions(example PRIVATE
+    EUI_GALLERY_VERSION="${EUI_GALLERY_VERSION}"
+    EUI_GALLERY_REVISION="${EUI_GALLERY_REVISION}"
+    EUI_QUICK3D_PAYLOAD_DIR="${CMAKE_SOURCE_DIR}/build/quick3d-runtime"
+)
+
+target_sources(example PRIVATE example.qrc "${EUI_QUICK3D_SOURCE_RESOURCE}" ../source/utils/ECodeTools.cpp)
+if(EUI_QUICK3D_AVAILABLE)
+    target_sources(example PRIVATE quick3d/littlest-tokyo/littlest-tokyo.qrc)
+    target_compile_definitions(example PRIVATE EUI_HAS_QUICK3D)
+    target_link_libraries(example PRIVATE Qt6::Quick3D Qt6::QuickTimeline)
+endif()
 if(NOT EUI_BUILD_STATIC_LIB)
     target_sources(example PRIVATE ../source/enum/EIcons.h)
 endif()
@@ -69,6 +82,7 @@ target_link_libraries(example PRIVATE
     Qt${QT_VERSION_MAJOR}::Core
     Qt${QT_VERSION_MAJOR}::Quick
     Qt${QT_VERSION_MAJOR}::Gui
+    Qt${QT_VERSION_MAJOR}::Network
 )
 if(NOT APPLE OR EUI_BUILD_STATIC_LIB)
     target_link_libraries(example PRIVATE euiplugin)
@@ -100,4 +114,30 @@ if (TARGET Script-Generate-QmlTypes)
     add_dependencies(deploy_eui_to_example Script-Generate-QmlTypes)
 endif()
 
-add_dependencies(example deploy_eui_to_qt deploy_eui_to_example)
+add_dependencies(example eui_quick3d_sources deploy_eui_to_qt deploy_eui_to_example)
+
+if(WIN32 AND QT_VERSION_MAJOR EQUAL 5 AND CMAKE_SIZEOF_VOID_P EQUAL 8)
+    set(EUI_QUICK3D_BUILD_DIRECTORY "${CMAKE_SOURCE_DIR}/build/quick3d-gallery-runtime")
+    set(EUI_QUICK3D_RUNTIME_DIRECTORY "${CMAKE_SOURCE_DIR}/build/quick3d-runtime")
+    if(EXISTS "${EUI_QUICK3D_BUILD_DIRECTORY}/CMakeCache.txt"
+        AND EXISTS "${EUI_QUICK3D_RUNTIME_DIRECTORY}/manifest.json")
+        file(STRINGS "${EUI_QUICK3D_BUILD_DIRECTORY}/CMakeCache.txt" EUI_QUICK3D_QT_DIRECTORY
+            REGEX "^Qt6_DIR:(PATH|UNINITIALIZED)=")
+        string(REGEX REPLACE "^[^=]+=" "" EUI_QUICK3D_QT_DIRECTORY "${EUI_QUICK3D_QT_DIRECTORY}")
+        foreach(level RANGE 1 3)
+            cmake_path(GET EUI_QUICK3D_QT_DIRECTORY PARENT_PATH EUI_QUICK3D_QT_DIRECTORY)
+        endforeach()
+        if(EXISTS "${EUI_QUICK3D_QT_DIRECTORY}/bin/windeployqt.exe")
+            add_custom_target(sync_quick3d_runtime
+                COMMAND powershell.exe -NoProfile -ExecutionPolicy Bypass
+                    -File "${CMAKE_SOURCE_DIR}/packaging/prepare-quick3d-runtime.ps1"
+                    -QtDir "${EUI_QUICK3D_QT_DIRECTORY}" -BuildDir "${EUI_QUICK3D_BUILD_DIRECTORY}"
+                    -OutputDir "${EUI_QUICK3D_RUNTIME_DIRECTORY}" -Refresh
+                    -GalleryBuildFile "${CMAKE_BINARY_DIR}/gallery-build.json" -CMakeProgram "${CMAKE_COMMAND}"
+                COMMENT "Synchronizing the prepared Qt 6 runtime with the current Gallery sources"
+                VERBATIM
+            )
+            add_dependencies(example sync_quick3d_runtime)
+        endif()
+    endif()
+endif()

@@ -20,20 +20,20 @@ Column {
                     width: parent.width
 
                     ETag {
-                        text: "状态"
                         styleType: EStyle.Primary
+                        text: ELocale.texts.Status
                     }
                     ETag {
-                        text: "状态"
                         styleType: EStyle.Success
+                        text: ELocale.texts.Status
                     }
                     ETag {
-                        text: "状态"
                         styleType: EStyle.Warning
+                        text: ELocale.texts.Status
                     }
                     ETag {
-                        text: "状态"
                         styleType: EStyle.Danger
+                        text: ELocale.texts.Status
                     }
                 }
             `)
@@ -43,20 +43,20 @@ Column {
                 width: parent.width
 
                 ETag {
-                    text: "状态"
                     styleType: EStyle.Primary
+                    text: ELocale.texts.Status
                 }
                 ETag {
-                    text: "状态"
                     styleType: EStyle.Success
+                    text: ELocale.texts.Status
                 }
                 ETag {
-                    text: "状态"
                     styleType: EStyle.Warning
+                    text: ELocale.texts.Status
                 }
                 ETag {
-                    text: "状态"
                     styleType: EStyle.Danger
+                    text: ELocale.texts.Status
                 }
             }
         }
@@ -76,16 +76,16 @@ Column {
                     width: parent.width
 
                     ETag {
-                        text: "状态"
                         effect: "light"
+                        text: ELocale.texts.Status
                     }
                     ETag {
-                        text: "状态"
                         effect: "dark"
+                        text: ELocale.texts.Status
                     }
                     ETag {
-                        text: "状态"
                         effect: "plain"
+                        text: ELocale.texts.Status
                     }
                 }
             `)
@@ -95,16 +95,16 @@ Column {
                 width: parent.width
 
                 ETag {
-                    text: "状态"
                     effect: "light"
+                    text: ELocale.texts.Status
                 }
                 ETag {
-                    text: "状态"
                     effect: "dark"
+                    text: ELocale.texts.Status
                 }
                 ETag {
-                    text: "状态"
                     effect: "plain"
+                    text: ELocale.texts.Status
                 }
             }
         }
@@ -124,16 +124,16 @@ Column {
                     width: parent.width
 
                     ETag {
-                        text: "可关闭"
                         closable: true
+                        text: ELocale.texts.Closable
                     }
                     ETag {
-                        text: "可选择"
                         checkable: true
+                        text: ELocale.texts.Selectable
                     }
                     ETag {
-                        text: "圆角"
                         round: true
+                        text: ELocale.texts.Round
                     }
                 }
             `)
@@ -143,16 +143,16 @@ Column {
                 width: parent.width
 
                 ETag {
-                    text: "可关闭"
                     closable: true
+                    text: ELocale.texts.Closable
                 }
                 ETag {
-                    text: "可选择"
                     checkable: true
+                    text: ELocale.texts.Selectable
                 }
                 ETag {
-                    text: "圆角"
                     round: true
+                    text: ELocale.texts.Round
                 }
             }
         }
@@ -168,27 +168,27 @@ Column {
                 import QtQuick 2.15
 
                 ECard {
-                    header: "项目详情"
-                    footer: "更新于今天"
+                    footer: ELocale.texts.UpdatedToday
                     width: Math.min(480, parent.width)
+                    header: ELocale.texts.ProjectDetails
 
                     EText {
                         width: parent.width
-                        text: "卡片可以承载标题、正文和页脚。"
                         wrapMode: Text.WordWrap
+                        text: ELocale.texts.CardsCanContainATitleBodyAndFooter
                     }
                 }
             `)
 
             ECard {
-                header: "项目详情"
-                footer: "更新于今天"
+                footer: ELocale.texts.UpdatedToday
                 width: Math.min(480, parent.width)
+                header: ELocale.texts.ProjectDetails
 
                 EText {
                     width: parent.width
-                    text: "卡片可以承载标题、正文和页脚。"
                     wrapMode: Text.WordWrap
+                    text: ELocale.texts.CardsCanContainATitleBodyAndFooter
                 }
             }
         }
@@ -208,18 +208,18 @@ Column {
                     width: parent.width
 
                     ECard {
-                        header: "项目"
                         shadow: "always"
+                        header: ELocale.texts.Project
                         width: Math.min(220, parent.width)
                     }
                     ECard {
-                        header: "项目"
                         shadow: "hover"
+                        header: ELocale.texts.Project
                         width: Math.min(220, parent.width)
                     }
                     ECard {
-                        header: "项目"
                         shadow: "never"
+                        header: ELocale.texts.Project
                         width: Math.min(220, parent.width)
                     }
                 }
@@ -230,18 +230,18 @@ Column {
                 width: parent.width
 
                 ECard {
-                    header: "项目"
                     shadow: "always"
+                    header: ELocale.texts.Project
                     width: Math.min(220, parent.width)
                 }
                 ECard {
-                    header: "项目"
                     shadow: "hover"
+                    header: ELocale.texts.Project
                     width: Math.min(220, parent.width)
                 }
                 ECard {
-                    header: "项目"
                     shadow: "never"
+                    header: ELocale.texts.Project
                     width: Math.min(220, parent.width)
                 }
             }
@@ -264,20 +264,20 @@ Column {
                             spacing: 12
 
                             EText {
-                                text: "任务列表"
                                 font.bold: true
+                                text: ELocale.texts.TaskList
                             }
                             EButton {
-                                text: "新增"
                                 size: EStyle.Small
+                                text: ELocale.texts.Add
                             }
                         }
                     }
 
                     EText {
                         width: parent.width
-                        text: "头部可加入筛选、操作和状态。"
                         wrapMode: Text.WordWrap
+                        text: ELocale.texts.TheHeaderCanContainFiltersActionsAndStatus
                     }
                 }
             `)
@@ -289,20 +289,20 @@ Column {
                         spacing: 12
 
                         EText {
-                            text: "任务列表"
                             font.bold: true
+                            text: ELocale.texts.TaskList
                         }
                         EButton {
-                            text: "新增"
                             size: EStyle.Small
+                            text: ELocale.texts.Add
                         }
                     }
                 }
 
                 EText {
                     width: parent.width
-                    text: "头部可加入筛选、操作和状态。"
                     wrapMode: Text.WordWrap
+                    text: ELocale.texts.TheHeaderCanContainFiltersActionsAndStatus
                 }
             }
         }
@@ -326,7 +326,7 @@ Column {
                         value: 0
 
                         EButton {
-                            text: "消息"
+                            text: ELocale.texts.Messages
                         }
                     }
                     EBadge {
@@ -334,7 +334,7 @@ Column {
                         value: 8
 
                         EButton {
-                            text: "消息"
+                            text: ELocale.texts.Messages
                         }
                     }
                     EBadge {
@@ -342,7 +342,7 @@ Column {
                         value: 120
 
                         EButton {
-                            text: "消息"
+                            text: ELocale.texts.Messages
                         }
                     }
                 }
@@ -357,7 +357,7 @@ Column {
                     value: 0
 
                     EButton {
-                        text: "消息"
+                        text: ELocale.texts.Messages
                     }
                 }
                 EBadge {
@@ -365,7 +365,7 @@ Column {
                     value: 8
 
                     EButton {
-                        text: "消息"
+                        text: ELocale.texts.Messages
                     }
                 }
                 EBadge {
@@ -373,7 +373,7 @@ Column {
                     value: 120
 
                     EButton {
-                        text: "消息"
+                        text: ELocale.texts.Messages
                     }
                 }
             }
@@ -407,7 +407,7 @@ Column {
                         styleType: EStyle.Warning
 
                         EButton {
-                            text: "版本"
+                            text: ELocale.texts.Version
                         }
                     }
                 }
@@ -431,7 +431,7 @@ Column {
                     styleType: EStyle.Warning
 
                     EButton {
-                        text: "版本"
+                        text: ELocale.texts.Version
                     }
                 }
             }
@@ -454,14 +454,14 @@ Column {
                     ESwitch {
                         id: hide
 
-                        text: "隐藏徽标"
+                        text: ELocale.texts.HideBadge
                     }
                     EBadge {
                         value: 12
                         hidden: hide.checked
 
                         EButton {
-                            text: "通知"
+                            text: ELocale.texts.Notifications
                         }
                     }
                 }
@@ -474,14 +474,14 @@ Column {
                 ESwitch {
                     id: hide
 
-                    text: "隐藏徽标"
+                    text: ELocale.texts.HideBadge
                 }
                 EBadge {
                     value: 12
                     hidden: hide.checked
 
                     EButton {
-                        text: "通知"
+                        text: ELocale.texts.Notifications
                     }
                 }
             }
@@ -503,8 +503,8 @@ Column {
                     headerHeight: 36
                     showSummary: true
                     width: parent.width
-                    columns: [{prop: "name", label: "项目", width: 180}, {prop: "version", label: "版本", width: 120}, {prop: "score", label: "得分", sortable: true}]
-                    model: [{id: 1, name: "桌面端", version: "1.0", score: 92}, {id: 2, name: "网页端", version: "2.0", score: 86}, {id: 3, name: "移动端", version: "1.5", score: 78}]
+                    columns: [{prop: "name", label: ELocale.texts.Project, width: 180}, {prop: "version", label: ELocale.texts.Version, width: 120}, {prop: "score", label: ELocale.texts.Score2, sortable: true}]
+                    model: [{id: 1, name: ELocale.texts.Desktop, version: "1.0", score: 92}, {id: 2, name: ELocale.texts.Web, version: "2.0", score: 86}, {id: 3, name: ELocale.texts.Mobile, version: "1.5", score: 78}]
                 }
             `)
 
@@ -514,8 +514,8 @@ Column {
                 headerHeight: 36
                 showSummary: true
                 width: parent.width
-                columns: [{prop: "name", label: "项目", width: 180}, {prop: "version", label: "版本", width: 120}, {prop: "score", label: "得分", sortable: true}]
-                model: [{id: 1, name: "桌面端", version: "1.0", score: 92}, {id: 2, name: "网页端", version: "2.0", score: 86}, {id: 3, name: "移动端", version: "1.5", score: 78}]
+                columns: [{prop: "name", label: ELocale.texts.Project, width: 180}, {prop: "version", label: ELocale.texts.Version, width: 120}, {prop: "score", label: ELocale.texts.Score2, sortable: true}]
+                model: [{id: 1, name: ELocale.texts.Desktop, version: "1.0", score: 92}, {id: 2, name: ELocale.texts.Web, version: "2.0", score: 86}, {id: 3, name: ELocale.texts.Mobile, version: "1.5", score: 78}]
             }
         }
     }
@@ -535,8 +535,8 @@ Column {
                     width: parent.width
                     showColumnSettings: true
                     highlightCurrentRow: true
-                    columns: [{prop: "name", label: "项目", width: 180}, {prop: "version", label: "版本", width: 120}, {prop: "score", label: "得分", sortable: true}]
-                    model: [{id: 1, name: "桌面端", version: "1.0", score: 92}, {id: 2, name: "网页端", version: "2.0", score: 86}, {id: 3, name: "移动端", version: "1.5", score: 78}]
+                    columns: [{prop: "name", label: ELocale.texts.Project, width: 180}, {prop: "version", label: ELocale.texts.Version, width: 120}, {prop: "score", label: ELocale.texts.Score2, sortable: true}]
+                    model: [{id: 1, name: ELocale.texts.Desktop, version: "1.0", score: 92}, {id: 2, name: ELocale.texts.Web, version: "2.0", score: 86}, {id: 3, name: ELocale.texts.Mobile, version: "1.5", score: 78}]
                 }
             `)
 
@@ -546,8 +546,8 @@ Column {
                 width: parent.width
                 showColumnSettings: true
                 highlightCurrentRow: true
-                columns: [{prop: "name", label: "项目", width: 180}, {prop: "version", label: "版本", width: 120}, {prop: "score", label: "得分", sortable: true}]
-                model: [{id: 1, name: "桌面端", version: "1.0", score: 92}, {id: 2, name: "网页端", version: "2.0", score: 86}, {id: 3, name: "移动端", version: "1.5", score: 78}]
+                columns: [{prop: "name", label: ELocale.texts.Project, width: 180}, {prop: "version", label: ELocale.texts.Version, width: 120}, {prop: "score", label: ELocale.texts.Score2, sortable: true}]
+                model: [{id: 1, name: ELocale.texts.Desktop, version: "1.0", score: 92}, {id: 2, name: ELocale.texts.Web, version: "2.0", score: 86}, {id: 3, name: ELocale.texts.Mobile, version: "1.5", score: 78}]
             }
         }
     }
@@ -568,7 +568,7 @@ Column {
                     checkedKeys: ["icon"]
                     defaultExpandAll: true
                     width: Math.min(480, parent.width)
-                    model: [{id: "design", value: "design", label: "设计", children: [{id: "icon", value: "icon", label: "图标"}, {id: "theme", value: "theme", label: "主题"}]}, {id: "dev", value: "dev", label: "开发", children: [{id: "qml", value: "qml", label: "QML"}, {id: "cpp", value: "cpp", label: "C++"}]}]
+                    model: [{id: "design", value: "design", label: ELocale.texts.Design, children: [{id: "icon", value: "icon", label: ELocale.texts.Icon}, {id: "theme", value: "theme", label: ELocale.texts.Theme}]}, {id: "dev", value: "dev", label: ELocale.texts.Engineering, children: [{id: "qml", value: "qml", label: "QML"}, {id: "cpp", value: "cpp", label: "C++"}]}]
                 }
             `)
 
@@ -579,7 +579,7 @@ Column {
                 checkedKeys: ["icon"]
                 defaultExpandAll: true
                 width: Math.min(480, parent.width)
-                model: [{id: "design", value: "design", label: "设计", children: [{id: "icon", value: "icon", label: "图标"}, {id: "theme", value: "theme", label: "主题"}]}, {id: "dev", value: "dev", label: "开发", children: [{id: "qml", value: "qml", label: "QML"}, {id: "cpp", value: "cpp", label: "C++"}]}]
+                model: [{id: "design", value: "design", label: ELocale.texts.Design, children: [{id: "icon", value: "icon", label: ELocale.texts.Icon}, {id: "theme", value: "theme", label: ELocale.texts.Theme}]}, {id: "dev", value: "dev", label: ELocale.texts.Engineering, children: [{id: "qml", value: "qml", label: "QML"}, {id: "cpp", value: "cpp", label: "C++"}]}]
             }
         }
     }
@@ -601,15 +601,15 @@ Column {
                         id: query
 
                         clearable: true
-                        placeholderText: "筛选节点"
                         width: Math.min(480, parent.width)
+                        placeholderText: ELocale.texts.FilterNodes2
                     }
                     ETree {
                         nodeKey: "id"
                         defaultExpandAll: true
                         filterValue: query.text
                         width: Math.min(480, parent.width)
-                        model: [{id: "design", value: "design", label: "设计", children: [{id: "icon", value: "icon", label: "图标"}, {id: "theme", value: "theme", label: "主题"}]}, {id: "dev", value: "dev", label: "开发", children: [{id: "qml", value: "qml", label: "QML"}, {id: "cpp", value: "cpp", label: "C++"}]}]
+                        model: [{id: "design", value: "design", label: ELocale.texts.Design, children: [{id: "icon", value: "icon", label: ELocale.texts.Icon}, {id: "theme", value: "theme", label: ELocale.texts.Theme}]}, {id: "dev", value: "dev", label: ELocale.texts.Engineering, children: [{id: "qml", value: "qml", label: "QML"}, {id: "cpp", value: "cpp", label: "C++"}]}]
                     }
                 }
             `)
@@ -622,15 +622,15 @@ Column {
                     id: query
 
                     clearable: true
-                    placeholderText: "筛选节点"
                     width: Math.min(480, parent.width)
+                    placeholderText: ELocale.texts.FilterNodes2
                 }
                 ETree {
                     nodeKey: "id"
                     defaultExpandAll: true
                     filterValue: query.text
                     width: Math.min(480, parent.width)
-                    model: [{id: "design", value: "design", label: "设计", children: [{id: "icon", value: "icon", label: "图标"}, {id: "theme", value: "theme", label: "主题"}]}, {id: "dev", value: "dev", label: "开发", children: [{id: "qml", value: "qml", label: "QML"}, {id: "cpp", value: "cpp", label: "C++"}]}]
+                    model: [{id: "design", value: "design", label: ELocale.texts.Design, children: [{id: "icon", value: "icon", label: ELocale.texts.Icon}, {id: "theme", value: "theme", label: ELocale.texts.Theme}]}, {id: "dev", value: "dev", label: ELocale.texts.Engineering, children: [{id: "qml", value: "qml", label: "QML"}, {id: "cpp", value: "cpp", label: "C++"}]}]
                 }
             }
         }
@@ -652,7 +652,7 @@ Column {
                     highlightCurrent: true
                     expandedKeys: ["design"]
                     width: Math.min(480, parent.width)
-                    model: [{id: "design", value: "design", label: "设计", children: [{id: "icon", value: "icon", label: "图标"}, {id: "theme", value: "theme", label: "主题"}]}, {id: "dev", value: "dev", label: "开发", children: [{id: "qml", value: "qml", label: "QML"}, {id: "cpp", value: "cpp", label: "C++"}]}]
+                    model: [{id: "design", value: "design", label: ELocale.texts.Design, children: [{id: "icon", value: "icon", label: ELocale.texts.Icon}, {id: "theme", value: "theme", label: ELocale.texts.Theme}]}, {id: "dev", value: "dev", label: ELocale.texts.Engineering, children: [{id: "qml", value: "qml", label: "QML"}, {id: "cpp", value: "cpp", label: "C++"}]}]
                 }
             `)
 
@@ -663,7 +663,7 @@ Column {
                 highlightCurrent: true
                 expandedKeys: ["design"]
                 width: Math.min(480, parent.width)
-                model: [{id: "design", value: "design", label: "设计", children: [{id: "icon", value: "icon", label: "图标"}, {id: "theme", value: "theme", label: "主题"}]}, {id: "dev", value: "dev", label: "开发", children: [{id: "qml", value: "qml", label: "QML"}, {id: "cpp", value: "cpp", label: "C++"}]}]
+                model: [{id: "design", value: "design", label: ELocale.texts.Design, children: [{id: "icon", value: "icon", label: ELocale.texts.Icon}, {id: "theme", value: "theme", label: ELocale.texts.Theme}]}, {id: "dev", value: "dev", label: ELocale.texts.Engineering, children: [{id: "qml", value: "qml", label: "QML"}, {id: "cpp", value: "cpp", label: "C++"}]}]
             }
         }
     }
@@ -678,23 +678,23 @@ Column {
                 import QtQuick 2.15
 
                 EEmpty {
-                    description: "还没有项目"
                     width: Math.min(480, parent.width)
+                    description: ELocale.texts.NoProjectsYet2
 
                     EButton {
-                        text: "创建项目"
                         styleType: EStyle.Primary
+                        text: ELocale.texts.CreateProject
                     }
                 }
             `)
 
             EEmpty {
-                description: "还没有项目"
                 width: Math.min(480, parent.width)
+                description: ELocale.texts.NoProjectsYet2
 
                 EButton {
-                    text: "创建项目"
                     styleType: EStyle.Primary
+                    text: ELocale.texts.CreateProject
                 }
             }
         }
@@ -711,8 +711,8 @@ Column {
 
                 EEmpty {
                     imageSize: 64
-                    description: "没有搜索结果"
                     width: Math.min(480, parent.width)
+                    description: ELocale.texts.NoSearchResults
                     imageDelegate: Component {
                         EIcon {
                             iconSize: 64
@@ -725,8 +725,8 @@ Column {
 
             EEmpty {
                 imageSize: 64
-                description: "没有搜索结果"
                 width: Math.min(480, parent.width)
+                description: ELocale.texts.NoSearchResults
                 imageDelegate: Component {
                     EIcon {
                         iconSize: 64
@@ -750,14 +750,14 @@ Column {
                 EEmpty {
                     width: 240
                     imageSize: 48
-                    description: "暂无记录"
+                    description: ELocale.texts.NoRecords
                 }
             `)
 
             EEmpty {
                 width: 240
                 imageSize: 48
-                description: "暂无记录"
+                description: ELocale.texts.NoRecords
             }
         }
     }
@@ -906,8 +906,8 @@ Column {
                     ESwitch {
                         id: loading
 
-                        text: "加载中"
                         checked: true
+                        text: ELocale.texts.Loading
                     }
                     ESkeleton {
                         rows: 3
@@ -917,8 +917,8 @@ Column {
 
                         EText {
                             width: parent.width
-                            text: "加载完成后展示真实内容。"
                             wrapMode: Text.WordWrap
+                            text: ELocale.texts.ShowTheActualContentWhenLoadingFinishes
                         }
                     }
                 }
@@ -931,8 +931,8 @@ Column {
                 ESwitch {
                     id: loading
 
-                    text: "加载中"
                     checked: true
+                    text: ELocale.texts.Loading
                 }
                 ESkeleton {
                     rows: 3
@@ -942,8 +942,8 @@ Column {
 
                     EText {
                         width: parent.width
-                        text: "加载完成后展示真实内容。"
                         wrapMode: Text.WordWrap
+                        text: ELocale.texts.ShowTheActualContentWhenLoadingFinishes
                     }
                 }
             }
@@ -1128,7 +1128,7 @@ Column {
                         showTotal: true
                     }
                     EText {
-                        text: "当前页：" + pages.currentPage + "，每页：" + pages.pageSize
+                        text: ELocale.texts.CurrentPageAndSize.arg(pages.currentPage).arg(pages.pageSize)
                     }
                 }
             `)
@@ -1146,7 +1146,7 @@ Column {
                     showTotal: true
                 }
                 EText {
-                    text: "当前页：" + pages.currentPage + "，每页：" + pages.pageSize
+                    text: ELocale.texts.CurrentPageAndSize.arg(pages.currentPage).arg(pages.pageSize)
                 }
             }
         }

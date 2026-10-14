@@ -626,7 +626,7 @@ function importText(owner, text, options) {
                 const decode = function(value) { return value.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, "&") }
                 const rows = String(text).match(type === "xml" ? /<Row\b[^>]*>[\s\S]*?<\/Row>/gi : /<tr\b[^>]*>[\s\S]*?<\/tr>/gi) || []
                 matrix = rows.map(function(row) {
-                    const cells = row.match(type === "xml" ? /<Data\b[^>]*>[\s\S]*?<\/Data>/gi : /<t[dh]\b[^>]*>[\s\S]*?<\/t[dh]>/gi) || []
+                    const cells = row.match(type === "xml" ? /<data\b[^>]*>[\s\S]*?<\/Data>/gi : /<t[dh]\b[^>]*>[\s\S]*?<\/t[dh]>/gi) || []
                     return cells.map(function(cell) { return decode(cell.replace(/<[^>]*>/g, "")) })
                 })
             } else {

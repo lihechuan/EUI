@@ -32,10 +32,12 @@ ECheckBoxButton 1.0 controls/form/ECheckBoxButton.qml
 ECheckBoxGroup 1.0 controls/form/ECheckBoxGroup.qml
 ECircleProgress 1.0 controls/indicator/ECircleProgress.qml
 EClip 1.0 controls/effects/EClip.qml
+ECodeView 1.0 controls/data/ECodeView.qml
 ECol 1.0 controls/basic/ECol.qml
 ECollapse 1.0 controls/data/ECollapse.qml
 EColorPicker 1.0 controls/form/EColorPicker.qml
 EColorPickerPanel 1.0 controls/form/EColorPickerPanel.qml
+ECommandPalette 1.0 controls/navigation/ECommandPalette.qml
 EConfigProvider 1.0 controls/config/EConfigProvider.qml
 EContainer 1.0 controls/basic/EContainer.qml
 ECopyableText 1.0 controls/basic/ECopyableText.qml
@@ -50,10 +52,12 @@ EDrawer 1.0 controls/indicator/EDrawer.qml
 EDropdown 1.0 controls/navigation/EDropdown.qml
 EECharts 1.0 controls/data/EECharts.qml
 EEmpty 1.0 controls/data/EEmpty.qml
+EFilePicker 1.0 controls/form/EFilePicker.qml
 EFlex 1.0 controls/basic/EFlex.qml
 EFlexItem 1.0 controls/basic/EFlexItem.qml
 EFloatButton 1.0 controls/basic/EFloatButton.qml
 EFloatButtonGroup 1.0 controls/basic/EFloatButtonGroup.qml
+EFolderPicker 1.0 controls/form/EFolderPicker.qml
 EFooter 1.0 controls/basic/EFooter.qml
 EForm 1.0 controls/form/EForm.qml
 EFormItem 1.0 controls/form/EFormItem.qml
@@ -121,6 +125,7 @@ EThemeSwitch 1.0 controls/form/EThemeSwitch.qml
 ETimePicker 1.0 controls/form/ETimePicker.qml
 ETimeSelect 1.0 controls/form/ETimeSelect.qml
 ETimeline 1.0 controls/data/ETimeline.qml
+EToolBar 1.0 controls/basic/EToolBar.qml
 EToolTip 1.0 controls/indicator/EToolTip.qml
 ETour 1.0 controls/data/ETour.qml
 ETransfer 1.0 controls/form/ETransfer.qml
@@ -129,5 +134,6 @@ ETreeSelect 1.0 controls/form/ETreeSelect.qml
 ETypography 1.0 controls/basic/ETypography.qml
 EUpload 1.0 controls/form/EUpload.qml
 EWatermark 1.0 controls/others/EWatermark.qml
+EWizard 1.0 controls/navigation/EWizard.qml
 
 plugin euiplugin

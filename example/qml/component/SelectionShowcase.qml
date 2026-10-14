@@ -45,7 +45,7 @@ Column {
                     value: 4
                     readOnly: true
                     showText: true
-                    texts: ["较差", "一般", "满意", "很好", "优秀"]
+                    texts: [ELocale.texts.Poor, ELocale.texts.Fair, ELocale.texts.Satisfied, ELocale.texts.Great, ELocale.texts.Excellent2]
                 }
             `)
 
@@ -53,7 +53,7 @@ Column {
                 value: 4
                 readOnly: true
                 showText: true
-                texts: ["较差", "一般", "满意", "很好", "优秀"]
+                texts: [ELocale.texts.Poor, ELocale.texts.Fair, ELocale.texts.Satisfied, ELocale.texts.Great, ELocale.texts.Excellent2]
             }
         }
     }
@@ -157,9 +157,9 @@ Column {
                     clearable: true
                     filterable: true
                     allowCreate: true
-                    placeholderText: "筛选或创建项目"
                     model: ["QML", "Qt", "C++"]
                     width: Math.min(480, parent.width)
+                    placeholderText: ELocale.texts.FilterOrCreateAProject
                 }
             `)
 
@@ -167,9 +167,9 @@ Column {
                 clearable: true
                 filterable: true
                 allowCreate: true
-                placeholderText: "筛选或创建项目"
                 model: ["QML", "Qt", "C++"]
                 width: Math.min(480, parent.width)
+                placeholderText: ELocale.texts.FilterOrCreateAProject
             }
         }
     }
@@ -189,13 +189,13 @@ Column {
 
                     ESelect {
                         model: []
-                        noDataText: "尚未创建项目"
                         width: Math.min(480, parent.width)
+                        noDataText: ELocale.texts.NoProjectsCreatedYet
                     }
                     ESelect {
                         loading: true
-                        loadingText: "正在查询…"
                         width: Math.min(480, parent.width)
+                        loadingText: ELocale.texts.Searching
                     }
                 }
             `)
@@ -206,13 +206,13 @@ Column {
 
                 ESelect {
                     model: []
-                    noDataText: "尚未创建项目"
                     width: Math.min(480, parent.width)
+                    noDataText: ELocale.texts.NoProjectsCreatedYet
                 }
                 ESelect {
                     loading: true
-                    loadingText: "正在查询…"
                     width: Math.min(480, parent.width)
+                    loadingText: ELocale.texts.Searching
                 }
             }
         }
@@ -323,17 +323,17 @@ Column {
 
                 ETimePicker {
                     isRange: true
-                    endPlaceholder: "结束时间"
-                    startPlaceholder: "开始时间"
                     width: Math.min(480, parent.width)
+                    endPlaceholder: ELocale.texts.EndTime
+                    startPlaceholder: ELocale.texts.StartTime
                 }
             `)
 
             ETimePicker {
                 isRange: true
-                endPlaceholder: "结束时间"
-                startPlaceholder: "开始时间"
                 width: Math.min(480, parent.width)
+                endPlaceholder: ELocale.texts.EndTime
+                startPlaceholder: ELocale.texts.StartTime
             }
         }
     }
@@ -457,7 +457,7 @@ Column {
                     popupMaxHeight: 120
                     fitInputWidth: false
                     width: Math.min(480, parent.width)
-                    model: ["Design", "Develop", "Deploy"]
+                    model: [ELocale.texts.Design, "Develop", "Deploy"]
                 }
             `)
 
@@ -467,7 +467,7 @@ Column {
                 popupMaxHeight: 120
                 fitInputWidth: false
                 width: Math.min(480, parent.width)
-                model: ["Design", "Develop", "Deploy"]
+                model: [ELocale.texts.Design, "Develop", "Deploy"]
             }
         }
     }

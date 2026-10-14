@@ -112,6 +112,14 @@ Flickable {
                     text: control.componentEntry ? control.componentEntry.label
                         : control.selectedComponent.length > 0 ? control.selectedComponent : control.title
                 }
+                ETag {
+                    size: EStyle.Small
+                    styleType: EStyle.Success
+                    objectName: "galleryDetailNewBadge"
+                    visible: !!control.componentEntry && control.componentEntry.isNew
+                    text: control.componentEntry ? ELocale.texts.ComponentNewVersion.arg(
+                        control.componentEntry.introducedIn) : ""
+                }
                 ERectangle {
                     radius: 5
                     height: 23
@@ -157,8 +165,8 @@ Flickable {
         width: pageColumn.width
         objectName: "galleryApiLoader"
         componentName: control.selectedComponent
-        visible: control.selectedComponent.length > 0
         y: pageColumn.y + pageColumn.implicitHeight + (visible ? 24 : 0)
+        visible: control.selectedComponent.length > 0 && !(control.componentEntry && control.componentEntry.demo)
 
         ExampleApi { componentName: control.selectedComponent }
     }

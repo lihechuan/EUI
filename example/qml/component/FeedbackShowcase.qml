@@ -88,7 +88,7 @@ Column {
                     ESwitch {
                         id: active
 
-                        text: "加载中"
+                        text: ELocale.texts.Loading
                     }
                     ERectangle {
                         id: target
@@ -99,16 +99,16 @@ Column {
                         width: Math.min(480, parent.width)
 
                         EText {
-                            text: "项目内容"
                             color: "#E7F0FF"
                             anchors.centerIn: parent
+                            text: ELocale.texts.ProjectContent
                         }
                     }
                     ELoading {
-                        text: "正在处理…"
                         material: true
                         target: target
                         loading: active.checked
+                        text: ELocale.texts.Working
                     }
                 }
             `)
@@ -120,7 +120,7 @@ Column {
                 ESwitch {
                     id: active
 
-                    text: "加载中"
+                    text: ELocale.texts.Loading
                 }
                 ERectangle {
                     id: target
@@ -131,16 +131,16 @@ Column {
                     width: Math.min(480, parent.width)
 
                     EText {
-                        text: "项目内容"
                         color: "#E7F0FF"
                         anchors.centerIn: parent
+                        text: ELocale.texts.ProjectContent
                     }
                 }
                 ELoading {
-                    text: "正在处理…"
                     material: true
                     target: target
                     loading: active.checked
+                    text: ELocale.texts.Working
                 }
             }
         }
@@ -162,10 +162,10 @@ Column {
                     ELoading {
                         width: 40
                         height: 40
-                        text: "正在加载"
                         material: true
                         anchors.centerIn: parent
                         styleType: EStyle.Success
+                        text: ELocale.texts.Loading4
                     }
                 }
             `)
@@ -177,10 +177,10 @@ Column {
                 ELoading {
                     width: 40
                     height: 40
-                    text: "正在加载"
                     material: true
                     anchors.centerIn: parent
                     styleType: EStyle.Success
+                    text: ELocale.texts.Loading4
                 }
             }
         }
@@ -204,12 +204,12 @@ Column {
                         width: parent.width
 
                         EButton {
-                            text: "显示通知"
+                            text: ELocale.texts.ShowNotification
 
-                            onClicked: messages.open({message: "项目已经更新", title: "项目通知", styleType: EStyle.Success})
+                            onClicked: messages.open({message: ELocale.texts.TheProjectHasBeenUpdated2, title: ELocale.texts.ProjectNotification, styleType: EStyle.Success})
                         }
                         EButton {
-                            text: "清空通知"
+                            text: ELocale.texts.ClearNotifications
 
                             onClicked: messages.closeAll()
                         }
@@ -229,12 +229,12 @@ Column {
                     width: parent.width
 
                     EButton {
-                        text: "显示通知"
+                        text: ELocale.texts.ShowNotification
 
-                        onClicked: messages.open({message: "项目已经更新", title: "项目通知", styleType: EStyle.Success})
+                        onClicked: messages.open({message: ELocale.texts.TheProjectHasBeenUpdated2, title: ELocale.texts.ProjectNotification, styleType: EStyle.Success})
                     }
                     EButton {
-                        text: "清空通知"
+                        text: ELocale.texts.ClearNotifications
 
                         onClicked: messages.closeAll()
                     }
@@ -264,12 +264,12 @@ Column {
                         width: parent.width
 
                         EButton {
-                            text: "显示通知"
+                            text: ELocale.texts.ShowNotification
 
-                            onClicked: messages.open({message: "项目已经更新", title: "项目通知", styleType: EStyle.Warning})
+                            onClicked: messages.open({message: ELocale.texts.TheProjectHasBeenUpdated2, title: ELocale.texts.ProjectNotification, styleType: EStyle.Warning})
                         }
                         EButton {
-                            text: "清空通知"
+                            text: ELocale.texts.ClearNotifications
 
                             onClicked: messages.closeAll()
                         }
@@ -292,12 +292,12 @@ Column {
                     width: parent.width
 
                     EButton {
-                        text: "显示通知"
+                        text: ELocale.texts.ShowNotification
 
-                        onClicked: messages.open({message: "项目已经更新", title: "项目通知", styleType: EStyle.Warning})
+                        onClicked: messages.open({message: ELocale.texts.TheProjectHasBeenUpdated2, title: ELocale.texts.ProjectNotification, styleType: EStyle.Warning})
                     }
                     EButton {
-                        text: "清空通知"
+                        text: ELocale.texts.ClearNotifications
 
                         onClicked: messages.closeAll()
                     }
@@ -330,12 +330,12 @@ Column {
                         width: parent.width
 
                         EButton {
-                            text: "显示通知"
+                            text: ELocale.texts.ShowNotification
 
-                            onClicked: messages.open({message: "项目已经更新", title: "项目通知", styleType: EStyle.Info})
+                            onClicked: messages.open({message: ELocale.texts.TheProjectHasBeenUpdated2, title: ELocale.texts.ProjectNotification, styleType: EStyle.Info})
                         }
                         EButton {
-                            text: "清空通知"
+                            text: ELocale.texts.ClearNotifications
 
                             onClicked: messages.closeAll()
                         }
@@ -357,12 +357,12 @@ Column {
                     width: parent.width
 
                     EButton {
-                        text: "显示通知"
+                        text: ELocale.texts.ShowNotification
 
-                        onClicked: messages.open({message: "项目已经更新", title: "项目通知", styleType: EStyle.Info})
+                        onClicked: messages.open({message: ELocale.texts.TheProjectHasBeenUpdated2, title: ELocale.texts.ProjectNotification, styleType: EStyle.Info})
                     }
                     EButton {
-                        text: "清空通知"
+                        text: ELocale.texts.ClearNotifications
 
                         onClicked: messages.closeAll()
                     }
@@ -394,12 +394,12 @@ Column {
                         width: parent.width
 
                         EButton {
-                            text: "显示通知"
+                            text: ELocale.texts.ShowNotification
 
-                            onClicked: messages.open({message: "项目已经更新", title: "项目通知", styleType: EStyle.Primary})
+                            onClicked: messages.open({message: ELocale.texts.TheProjectHasBeenUpdated2, title: ELocale.texts.ProjectNotification, styleType: EStyle.Primary})
                         }
                         EButton {
-                            text: "清空通知"
+                            text: ELocale.texts.ClearNotifications
 
                             onClicked: messages.closeAll()
                         }
@@ -422,12 +422,12 @@ Column {
                     width: parent.width
 
                     EButton {
-                        text: "显示通知"
+                        text: ELocale.texts.ShowNotification
 
-                        onClicked: messages.open({message: "项目已经更新", title: "项目通知", styleType: EStyle.Primary})
+                        onClicked: messages.open({message: ELocale.texts.TheProjectHasBeenUpdated2, title: ELocale.texts.ProjectNotification, styleType: EStyle.Primary})
                     }
                     EButton {
-                        text: "清空通知"
+                        text: ELocale.texts.ClearNotifications
 
                         onClicked: messages.closeAll()
                     }
@@ -458,14 +458,14 @@ Column {
                     EButton {
                         id: target
 
-                        text: "显示提示"
+                        text: ELocale.texts.ShowHint
                     }
                     EToolTip {
                         id: panel
 
                         reference: target
-                        text: "此操作将在当前项目中生效。"
                         placement: EPlacement.Right
+                        text: ELocale.texts.ThisActionAppliesToTheCurrentProject
                     }
                 }
             `)
@@ -477,14 +477,14 @@ Column {
                 EButton {
                     id: target
 
-                    text: "显示提示"
+                    text: ELocale.texts.ShowHint
                 }
                 EToolTip {
                     id: panel
 
                     reference: target
-                    text: "此操作将在当前项目中生效。"
                     placement: EPlacement.Right
+                    text: ELocale.texts.ThisActionAppliesToTheCurrentProject
                 }
             }
         }
@@ -506,7 +506,7 @@ Column {
                     EButton {
                         id: target
 
-                        text: "显示提示"
+                        text: ELocale.texts.ShowHint
                     }
                     EToolTip {
                         id: panel
@@ -515,7 +515,7 @@ Column {
                         showAfter: 300
                         trigger: "hover"
                         reference: target
-                        text: "此操作将在当前项目中生效。"
+                        text: ELocale.texts.ThisActionAppliesToTheCurrentProject
                     }
                 }
             `)
@@ -527,7 +527,7 @@ Column {
                 EButton {
                     id: target
 
-                    text: "显示提示"
+                    text: ELocale.texts.ShowHint
                 }
                 EToolTip {
                     id: panel
@@ -536,7 +536,7 @@ Column {
                     showAfter: 300
                     trigger: "hover"
                     reference: target
-                    text: "此操作将在当前项目中生效。"
+                    text: ELocale.texts.ThisActionAppliesToTheCurrentProject
                 }
             }
         }
@@ -558,7 +558,7 @@ Column {
                     EButton {
                         id: target
 
-                        text: "显示提示"
+                        text: ELocale.texts.ShowHint
                     }
                     EToolTip {
                         id: panel
@@ -566,7 +566,7 @@ Column {
                         effect: "dark"
                         showArrow: false
                         reference: target
-                        text: "此操作将在当前项目中生效。"
+                        text: ELocale.texts.ThisActionAppliesToTheCurrentProject
                     }
                 }
             `)
@@ -578,7 +578,7 @@ Column {
                 EButton {
                     id: target
 
-                    text: "显示提示"
+                    text: ELocale.texts.ShowHint
                 }
                 EToolTip {
                     id: panel
@@ -586,7 +586,7 @@ Column {
                     effect: "dark"
                     showArrow: false
                     reference: target
-                    text: "此操作将在当前项目中生效。"
+                    text: ELocale.texts.ThisActionAppliesToTheCurrentProject
                 }
             }
         }
@@ -608,7 +608,7 @@ Column {
                     EButton {
                         id: target
 
-                        text: "显示提示"
+                        text: ELocale.texts.ShowHint
 
                         onClicked: panel.open()
                     }
@@ -617,7 +617,7 @@ Column {
 
                         reference: target
                         trigger: "manual"
-                        text: "此操作将在当前项目中生效。"
+                        text: ELocale.texts.ThisActionAppliesToTheCurrentProject
                     }
                 }
             `)
@@ -629,7 +629,7 @@ Column {
                 EButton {
                     id: target
 
-                    text: "显示提示"
+                    text: ELocale.texts.ShowHint
 
                     onClicked: panel.open()
                 }
@@ -638,7 +638,7 @@ Column {
 
                     reference: target
                     trigger: "manual"
-                    text: "此操作将在当前项目中生效。"
+                    text: ELocale.texts.ThisActionAppliesToTheCurrentProject
                 }
             }
         }

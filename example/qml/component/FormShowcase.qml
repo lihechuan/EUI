@@ -156,27 +156,27 @@ Column {
                         editable: true
                         numberStep: 0.5
                         numberValue: 12.5
-                        validationMessage: "校验信息"
                         width: Math.min(220, parent.width)
                         validationState: EValidationState.Success
+                        validationMessage: ELocale.texts.ValidationMessage
                     }
                     ESpinBox {
                         precision: 1
                         editable: true
                         numberStep: 0.5
                         numberValue: 12.5
-                        validationMessage: "校验信息"
                         width: Math.min(220, parent.width)
                         validationState: EValidationState.Warning
+                        validationMessage: ELocale.texts.ValidationMessage
                     }
                     ESpinBox {
                         precision: 1
                         editable: true
                         numberStep: 0.5
                         numberValue: 12.5
-                        validationMessage: "校验信息"
                         width: Math.min(220, parent.width)
                         validationState: EValidationState.Error
+                        validationMessage: ELocale.texts.ValidationMessage
                     }
                 }
             `)
@@ -190,27 +190,27 @@ Column {
                     editable: true
                     numberStep: 0.5
                     numberValue: 12.5
-                    validationMessage: "校验信息"
                     width: Math.min(220, parent.width)
                     validationState: EValidationState.Success
+                    validationMessage: ELocale.texts.ValidationMessage
                 }
                 ESpinBox {
                     precision: 1
                     editable: true
                     numberStep: 0.5
                     numberValue: 12.5
-                    validationMessage: "校验信息"
                     width: Math.min(220, parent.width)
                     validationState: EValidationState.Warning
+                    validationMessage: ELocale.texts.ValidationMessage
                 }
                 ESpinBox {
                     precision: 1
                     editable: true
                     numberStep: 0.5
                     numberValue: 12.5
-                    validationMessage: "校验信息"
                     width: Math.min(220, parent.width)
                     validationState: EValidationState.Error
+                    validationMessage: ELocale.texts.ValidationMessage
                 }
             }
         }
@@ -273,16 +273,16 @@ Column {
 
                         EFormItem {
                             prop: "name"
-                            label: "项目名称"
                             required: true
                             width: parent.width
                             labelPosition: "top"
-                            helpText: "使用 3 到 20 个字符"
-                            rules: [{min: 3, max: 20, message: "请输入 3 到 20 个字符"}]
+                            label: ELocale.texts.ProjectName
+                            helpText: ELocale.texts.Use3To20Characters
+                            rules: [{min: 3, max: 20, message: ELocale.texts.Enter3To20Characters}]
 
                             EInput {
                                 width: parent.width
-                                placeholderText: "项目名称"
+                                placeholderText: ELocale.texts.ProjectName
                             }
                         }
                     }
@@ -291,13 +291,13 @@ Column {
                         width: parent.width
 
                         EButton {
-                            text: "校验"
                             styleType: EStyle.Primary
+                            text: ELocale.texts.TableValidate
 
                             onClicked: sample.validate()
                         }
                         EButton {
-                            text: "重置"
+                            text: ELocale.texts.Reset
 
                             onClicked: sample.resetFields()
                         }
@@ -317,16 +317,16 @@ Column {
 
                     EFormItem {
                         prop: "name"
-                        label: "项目名称"
                         required: true
                         width: parent.width
                         labelPosition: "top"
-                        helpText: "使用 3 到 20 个字符"
-                        rules: [{min: 3, max: 20, message: "请输入 3 到 20 个字符"}]
+                        label: ELocale.texts.ProjectName
+                        helpText: ELocale.texts.Use3To20Characters
+                        rules: [{min: 3, max: 20, message: ELocale.texts.Enter3To20Characters}]
 
                         EInput {
                             width: parent.width
-                            placeholderText: "项目名称"
+                            placeholderText: ELocale.texts.ProjectName
                         }
                     }
                 }
@@ -335,13 +335,13 @@ Column {
                     width: parent.width
 
                     EButton {
-                        text: "校验"
                         styleType: EStyle.Primary
+                        text: ELocale.texts.TableValidate
 
                         onClicked: sample.validate()
                     }
                     EButton {
-                        text: "重置"
+                        text: ELocale.texts.Reset
 
                         onClicked: sample.resetFields()
                     }
@@ -371,17 +371,17 @@ Column {
 
                         EFormItem {
                             prop: "name"
-                            label: "项目名称"
                             required: true
                             labelWidth: 100
                             width: parent.width
                             labelPosition: "left"
-                            helpText: "使用 3 到 20 个字符"
-                            rules: [{min: 3, max: 20, message: "请输入 3 到 20 个字符"}]
+                            label: ELocale.texts.ProjectName
+                            helpText: ELocale.texts.Use3To20Characters
+                            rules: [{min: 3, max: 20, message: ELocale.texts.Enter3To20Characters}]
 
                             EInput {
                                 width: parent.width
-                                placeholderText: "项目名称"
+                                placeholderText: ELocale.texts.ProjectName
                             }
                         }
                     }
@@ -390,13 +390,13 @@ Column {
                         width: parent.width
 
                         EButton {
-                            text: "校验"
                             styleType: EStyle.Primary
+                            text: ELocale.texts.TableValidate
 
                             onClicked: sample.validate()
                         }
                         EButton {
-                            text: "重置"
+                            text: ELocale.texts.Reset
 
                             onClicked: sample.resetFields()
                         }
@@ -416,17 +416,17 @@ Column {
 
                     EFormItem {
                         prop: "name"
-                        label: "项目名称"
                         required: true
                         labelWidth: 100
                         width: parent.width
                         labelPosition: "left"
-                        helpText: "使用 3 到 20 个字符"
-                        rules: [{min: 3, max: 20, message: "请输入 3 到 20 个字符"}]
+                        label: ELocale.texts.ProjectName
+                        helpText: ELocale.texts.Use3To20Characters
+                        rules: [{min: 3, max: 20, message: ELocale.texts.Enter3To20Characters}]
 
                         EInput {
                             width: parent.width
-                            placeholderText: "项目名称"
+                            placeholderText: ELocale.texts.ProjectName
                         }
                     }
                 }
@@ -435,13 +435,13 @@ Column {
                     width: parent.width
 
                     EButton {
-                        text: "校验"
                         styleType: EStyle.Primary
+                        text: ELocale.texts.TableValidate
 
                         onClicked: sample.validate()
                     }
                     EButton {
-                        text: "重置"
+                        text: ELocale.texts.Reset
 
                         onClicked: sample.resetFields()
                     }
@@ -471,17 +471,17 @@ Column {
 
                         EFormItem {
                             prop: "name"
-                            label: "项目名称"
                             required: true
                             width: parent.width
                             showSuccessState: true
                             validateOnChange: true
-                            helpText: "使用 3 到 20 个字符"
-                            rules: [{min: 3, max: 20, message: "请输入 3 到 20 个字符"}]
+                            label: ELocale.texts.ProjectName
+                            helpText: ELocale.texts.Use3To20Characters
+                            rules: [{min: 3, max: 20, message: ELocale.texts.Enter3To20Characters}]
 
                             EInput {
                                 width: parent.width
-                                placeholderText: "项目名称"
+                                placeholderText: ELocale.texts.ProjectName
                             }
                         }
                     }
@@ -490,13 +490,13 @@ Column {
                         width: parent.width
 
                         EButton {
-                            text: "校验"
                             styleType: EStyle.Primary
+                            text: ELocale.texts.TableValidate
 
                             onClicked: sample.validate()
                         }
                         EButton {
-                            text: "重置"
+                            text: ELocale.texts.Reset
 
                             onClicked: sample.resetFields()
                         }
@@ -516,17 +516,17 @@ Column {
 
                     EFormItem {
                         prop: "name"
-                        label: "项目名称"
                         required: true
                         width: parent.width
                         showSuccessState: true
                         validateOnChange: true
-                        helpText: "使用 3 到 20 个字符"
-                        rules: [{min: 3, max: 20, message: "请输入 3 到 20 个字符"}]
+                        label: ELocale.texts.ProjectName
+                        helpText: ELocale.texts.Use3To20Characters
+                        rules: [{min: 3, max: 20, message: ELocale.texts.Enter3To20Characters}]
 
                         EInput {
                             width: parent.width
-                            placeholderText: "项目名称"
+                            placeholderText: ELocale.texts.ProjectName
                         }
                     }
                 }
@@ -535,13 +535,13 @@ Column {
                     width: parent.width
 
                     EButton {
-                        text: "校验"
                         styleType: EStyle.Primary
+                        text: ELocale.texts.TableValidate
 
                         onClicked: sample.validate()
                     }
                     EButton {
-                        text: "重置"
+                        text: ELocale.texts.Reset
 
                         onClicked: sample.resetFields()
                     }
@@ -571,17 +571,17 @@ Column {
 
                         EFormItem {
                             prop: "name"
-                            label: "项目名称"
                             required: true
                             formDisabled: true
                             width: parent.width
-                            helpText: "使用 3 到 20 个字符"
                             hideRequiredAsterisk: true
-                            rules: [{min: 3, max: 20, message: "请输入 3 到 20 个字符"}]
+                            label: ELocale.texts.ProjectName
+                            helpText: ELocale.texts.Use3To20Characters
+                            rules: [{min: 3, max: 20, message: ELocale.texts.Enter3To20Characters}]
 
                             EInput {
                                 width: parent.width
-                                placeholderText: "项目名称"
+                                placeholderText: ELocale.texts.ProjectName
                             }
                         }
                     }
@@ -590,13 +590,13 @@ Column {
                         width: parent.width
 
                         EButton {
-                            text: "校验"
                             styleType: EStyle.Primary
+                            text: ELocale.texts.TableValidate
 
                             onClicked: sample.validate()
                         }
                         EButton {
-                            text: "重置"
+                            text: ELocale.texts.Reset
 
                             onClicked: sample.resetFields()
                         }
@@ -616,17 +616,17 @@ Column {
 
                     EFormItem {
                         prop: "name"
-                        label: "项目名称"
                         required: true
                         formDisabled: true
                         width: parent.width
-                        helpText: "使用 3 到 20 个字符"
                         hideRequiredAsterisk: true
-                        rules: [{min: 3, max: 20, message: "请输入 3 到 20 个字符"}]
+                        label: ELocale.texts.ProjectName
+                        helpText: ELocale.texts.Use3To20Characters
+                        rules: [{min: 3, max: 20, message: ELocale.texts.Enter3To20Characters}]
 
                         EInput {
                             width: parent.width
-                            placeholderText: "项目名称"
+                            placeholderText: ELocale.texts.ProjectName
                         }
                     }
                 }
@@ -635,13 +635,13 @@ Column {
                     width: parent.width
 
                     EButton {
-                        text: "校验"
                         styleType: EStyle.Primary
+                        text: ELocale.texts.TableValidate
 
                         onClicked: sample.validate()
                     }
                     EButton {
-                        text: "重置"
+                        text: ELocale.texts.Reset
 
                         onClicked: sample.resetFields()
                     }
@@ -664,19 +664,19 @@ Column {
                     width: parent.width
 
                     ERadioButton {
-                        text: "选项"
                         checked: true
                         size: EStyle.Small
+                        text: ELocale.texts.Option
                     }
                     ERadioButton {
-                        text: "选项"
                         checked: true
                         size: EStyle.Medium
+                        text: ELocale.texts.Option
                     }
                     ERadioButton {
-                        text: "选项"
                         checked: true
                         size: EStyle.Large
+                        text: ELocale.texts.Option
                     }
                 }
             `)
@@ -686,19 +686,19 @@ Column {
                 width: parent.width
 
                 ERadioButton {
-                    text: "选项"
                     checked: true
                     size: EStyle.Small
+                    text: ELocale.texts.Option
                 }
                 ERadioButton {
-                    text: "选项"
                     checked: true
                     size: EStyle.Medium
+                    text: ELocale.texts.Option
                 }
                 ERadioButton {
-                    text: "选项"
                     checked: true
                     size: EStyle.Large
+                    text: ELocale.texts.Option
                 }
             }
         }
@@ -718,19 +718,19 @@ Column {
                     width: parent.width
 
                     ERadioButton {
-                        text: "选项"
                         checked: true
                         styleType: EStyle.Primary
+                        text: ELocale.texts.Option
                     }
                     ERadioButton {
-                        text: "选项"
                         checked: true
                         styleType: EStyle.Success
+                        text: ELocale.texts.Option
                     }
                     ERadioButton {
-                        text: "选项"
                         checked: true
                         styleType: EStyle.Warning
+                        text: ELocale.texts.Option
                     }
                 }
             `)
@@ -740,19 +740,19 @@ Column {
                 width: parent.width
 
                 ERadioButton {
-                    text: "选项"
                     checked: true
                     styleType: EStyle.Primary
+                    text: ELocale.texts.Option
                 }
                 ERadioButton {
-                    text: "选项"
                     checked: true
                     styleType: EStyle.Success
+                    text: ELocale.texts.Option
                 }
                 ERadioButton {
-                    text: "选项"
                     checked: true
                     styleType: EStyle.Warning
+                    text: ELocale.texts.Option
                 }
             }
         }
@@ -772,14 +772,14 @@ Column {
                     width: parent.width
 
                     ERadioButton {
-                        text: "不可修改"
                         checked: true
                         enabled: false
+                        text: ELocale.texts.CannotBeChanged
                     }
                     ERadioButton {
-                        text: "不可修改"
                         checked: false
                         enabled: false
+                        text: ELocale.texts.CannotBeChanged
                     }
                 }
             `)
@@ -789,14 +789,14 @@ Column {
                 width: parent.width
 
                 ERadioButton {
-                    text: "不可修改"
                     checked: true
                     enabled: false
+                    text: ELocale.texts.CannotBeChanged
                 }
                 ERadioButton {
-                    text: "不可修改"
                     checked: false
                     enabled: false
+                    text: ELocale.texts.CannotBeChanged
                 }
             }
         }
@@ -818,10 +818,10 @@ Column {
                     ERadioButton {
                         id: choice
 
-                        text: "启用此选项"
+                        text: ELocale.texts.EnableThisOption
                     }
                     EText {
-                        text: choice.checked ? "已选中" : "未选中"
+                        text: choice.checked ? ELocale.texts.Checked : ELocale.texts.Unchecked
                     }
                 }
             `)
@@ -833,10 +833,10 @@ Column {
                 ERadioButton {
                     id: choice
 
-                    text: "启用此选项"
+                    text: ELocale.texts.EnableThisOption
                 }
                 EText {
-                    text: choice.checked ? "已选中" : "未选中"
+                    text: choice.checked ? ELocale.texts.Checked : ELocale.texts.Unchecked
                 }
             }
         }
@@ -862,7 +862,7 @@ Column {
                         transitionDuration: 300
                     }
                     EText {
-                        text: ETheme.dark ? "深色主题" : "浅色主题"
+                        text: ETheme.dark ? ELocale.texts.DarkTheme : ELocale.texts.LightTheme
                     }
                 }
             `)
@@ -878,7 +878,7 @@ Column {
                     transitionDuration: 300
                 }
                 EText {
-                    text: ETheme.dark ? "深色主题" : "浅色主题"
+                    text: ETheme.dark ? ELocale.texts.DarkTheme : ELocale.texts.LightTheme
                 }
             }
         }
@@ -970,19 +970,19 @@ Column {
                     width: parent.width
 
                     ECheckBoxButton {
-                        text: "选项"
                         checked: true
                         size: EStyle.Small
+                        text: ELocale.texts.Option
                     }
                     ECheckBoxButton {
-                        text: "选项"
                         checked: true
                         size: EStyle.Medium
+                        text: ELocale.texts.Option
                     }
                     ECheckBoxButton {
-                        text: "选项"
                         checked: true
                         size: EStyle.Large
+                        text: ELocale.texts.Option
                     }
                 }
             `)
@@ -992,19 +992,19 @@ Column {
                 width: parent.width
 
                 ECheckBoxButton {
-                    text: "选项"
                     checked: true
                     size: EStyle.Small
+                    text: ELocale.texts.Option
                 }
                 ECheckBoxButton {
-                    text: "选项"
                     checked: true
                     size: EStyle.Medium
+                    text: ELocale.texts.Option
                 }
                 ECheckBoxButton {
-                    text: "选项"
                     checked: true
                     size: EStyle.Large
+                    text: ELocale.texts.Option
                 }
             }
         }
@@ -1024,19 +1024,19 @@ Column {
                     width: parent.width
 
                     ECheckBoxButton {
-                        text: "选项"
                         checked: true
                         styleType: EStyle.Primary
+                        text: ELocale.texts.Option
                     }
                     ECheckBoxButton {
-                        text: "选项"
                         checked: true
                         styleType: EStyle.Success
+                        text: ELocale.texts.Option
                     }
                     ECheckBoxButton {
-                        text: "选项"
                         checked: true
                         styleType: EStyle.Warning
+                        text: ELocale.texts.Option
                     }
                 }
             `)
@@ -1046,19 +1046,19 @@ Column {
                 width: parent.width
 
                 ECheckBoxButton {
-                    text: "选项"
                     checked: true
                     styleType: EStyle.Primary
+                    text: ELocale.texts.Option
                 }
                 ECheckBoxButton {
-                    text: "选项"
                     checked: true
                     styleType: EStyle.Success
+                    text: ELocale.texts.Option
                 }
                 ECheckBoxButton {
-                    text: "选项"
                     checked: true
                     styleType: EStyle.Warning
+                    text: ELocale.texts.Option
                 }
             }
         }
@@ -1078,14 +1078,14 @@ Column {
                     width: parent.width
 
                     ECheckBoxButton {
-                        text: "不可修改"
                         checked: true
                         enabled: false
+                        text: ELocale.texts.CannotBeChanged
                     }
                     ECheckBoxButton {
-                        text: "不可修改"
                         checked: false
                         enabled: false
+                        text: ELocale.texts.CannotBeChanged
                     }
                 }
             `)
@@ -1095,14 +1095,14 @@ Column {
                 width: parent.width
 
                 ECheckBoxButton {
-                    text: "不可修改"
                     checked: true
                     enabled: false
+                    text: ELocale.texts.CannotBeChanged
                 }
                 ECheckBoxButton {
-                    text: "不可修改"
                     checked: false
                     enabled: false
+                    text: ELocale.texts.CannotBeChanged
                 }
             }
         }
@@ -1124,10 +1124,10 @@ Column {
                     ECheckBoxButton {
                         id: choice
 
-                        text: "启用此选项"
+                        text: ELocale.texts.EnableThisOption
                     }
                     EText {
-                        text: choice.checked ? "已选中" : "未选中"
+                        text: choice.checked ? ELocale.texts.Checked : ELocale.texts.Unchecked
                     }
                 }
             `)
@@ -1139,10 +1139,10 @@ Column {
                 ECheckBoxButton {
                     id: choice
 
-                    text: "启用此选项"
+                    text: ELocale.texts.EnableThisOption
                 }
                 EText {
-                    text: choice.checked ? "已选中" : "未选中"
+                    text: choice.checked ? ELocale.texts.Checked : ELocale.texts.Unchecked
                 }
             }
         }
@@ -1170,15 +1170,15 @@ Column {
 
                         EFormItem {
                             prop: "name"
-                            label: "项目名称"
                             required: true
                             width: parent.width
-                            helpText: "使用 3 到 20 个字符"
-                            rules: [{min: 3, max: 20, message: "请输入 3 到 20 个字符"}]
+                            label: ELocale.texts.ProjectName
+                            helpText: ELocale.texts.Use3To20Characters
+                            rules: [{min: 3, max: 20, message: ELocale.texts.Enter3To20Characters}]
 
                             EInput {
                                 width: parent.width
-                                placeholderText: "项目名称"
+                                placeholderText: ELocale.texts.ProjectName
                             }
                         }
                     }
@@ -1187,13 +1187,13 @@ Column {
                         width: parent.width
 
                         EButton {
-                            text: "校验"
                             styleType: EStyle.Primary
+                            text: ELocale.texts.TableValidate
 
                             onClicked: sample.validate()
                         }
                         EButton {
-                            text: "重置"
+                            text: ELocale.texts.Reset
 
                             onClicked: sample.resetFields()
                         }
@@ -1214,15 +1214,15 @@ Column {
 
                     EFormItem {
                         prop: "name"
-                        label: "项目名称"
                         required: true
                         width: parent.width
-                        helpText: "使用 3 到 20 个字符"
-                        rules: [{min: 3, max: 20, message: "请输入 3 到 20 个字符"}]
+                        label: ELocale.texts.ProjectName
+                        helpText: ELocale.texts.Use3To20Characters
+                        rules: [{min: 3, max: 20, message: ELocale.texts.Enter3To20Characters}]
 
                         EInput {
                             width: parent.width
-                            placeholderText: "项目名称"
+                            placeholderText: ELocale.texts.ProjectName
                         }
                     }
                 }
@@ -1231,13 +1231,13 @@ Column {
                     width: parent.width
 
                     EButton {
-                        text: "校验"
                         styleType: EStyle.Primary
+                        text: ELocale.texts.TableValidate
 
                         onClicked: sample.validate()
                     }
                     EButton {
-                        text: "重置"
+                        text: ELocale.texts.Reset
 
                         onClicked: sample.resetFields()
                     }
@@ -1269,15 +1269,15 @@ Column {
 
                         EFormItem {
                             prop: "name"
-                            label: "项目名称"
                             required: true
                             width: parent.width
-                            helpText: "使用 3 到 20 个字符"
-                            rules: [{min: 3, max: 20, message: "请输入 3 到 20 个字符"}]
+                            label: ELocale.texts.ProjectName
+                            helpText: ELocale.texts.Use3To20Characters
+                            rules: [{min: 3, max: 20, message: ELocale.texts.Enter3To20Characters}]
 
                             EInput {
                                 width: parent.width
-                                placeholderText: "项目名称"
+                                placeholderText: ELocale.texts.ProjectName
                             }
                         }
                     }
@@ -1286,13 +1286,13 @@ Column {
                         width: parent.width
 
                         EButton {
-                            text: "校验"
                             styleType: EStyle.Primary
+                            text: ELocale.texts.TableValidate
 
                             onClicked: sample.validate()
                         }
                         EButton {
-                            text: "重置"
+                            text: ELocale.texts.Reset
 
                             onClicked: sample.resetFields()
                         }
@@ -1314,15 +1314,15 @@ Column {
 
                     EFormItem {
                         prop: "name"
-                        label: "项目名称"
                         required: true
                         width: parent.width
-                        helpText: "使用 3 到 20 个字符"
-                        rules: [{min: 3, max: 20, message: "请输入 3 到 20 个字符"}]
+                        label: ELocale.texts.ProjectName
+                        helpText: ELocale.texts.Use3To20Characters
+                        rules: [{min: 3, max: 20, message: ELocale.texts.Enter3To20Characters}]
 
                         EInput {
                             width: parent.width
-                            placeholderText: "项目名称"
+                            placeholderText: ELocale.texts.ProjectName
                         }
                     }
                 }
@@ -1331,13 +1331,13 @@ Column {
                     width: parent.width
 
                     EButton {
-                        text: "校验"
                         styleType: EStyle.Primary
+                        text: ELocale.texts.TableValidate
 
                         onClicked: sample.validate()
                     }
                     EButton {
-                        text: "重置"
+                        text: ELocale.texts.Reset
 
                         onClicked: sample.resetFields()
                     }
@@ -1368,15 +1368,15 @@ Column {
 
                         EFormItem {
                             prop: "name"
-                            label: "项目名称"
                             required: true
                             width: parent.width
-                            helpText: "使用 3 到 20 个字符"
-                            rules: [{min: 3, max: 20, message: "请输入 3 到 20 个字符"}]
+                            label: ELocale.texts.ProjectName
+                            helpText: ELocale.texts.Use3To20Characters
+                            rules: [{min: 3, max: 20, message: ELocale.texts.Enter3To20Characters}]
 
                             EInput {
                                 width: parent.width
-                                placeholderText: "项目名称"
+                                placeholderText: ELocale.texts.ProjectName
                             }
                         }
                     }
@@ -1385,13 +1385,13 @@ Column {
                         width: parent.width
 
                         EButton {
-                            text: "校验"
                             styleType: EStyle.Primary
+                            text: ELocale.texts.TableValidate
 
                             onClicked: sample.validate()
                         }
                         EButton {
-                            text: "重置"
+                            text: ELocale.texts.Reset
 
                             onClicked: sample.resetFields()
                         }
@@ -1412,15 +1412,15 @@ Column {
 
                     EFormItem {
                         prop: "name"
-                        label: "项目名称"
                         required: true
                         width: parent.width
-                        helpText: "使用 3 到 20 个字符"
-                        rules: [{min: 3, max: 20, message: "请输入 3 到 20 个字符"}]
+                        label: ELocale.texts.ProjectName
+                        helpText: ELocale.texts.Use3To20Characters
+                        rules: [{min: 3, max: 20, message: ELocale.texts.Enter3To20Characters}]
 
                         EInput {
                             width: parent.width
-                            placeholderText: "项目名称"
+                            placeholderText: ELocale.texts.ProjectName
                         }
                     }
                 }
@@ -1429,13 +1429,13 @@ Column {
                     width: parent.width
 
                     EButton {
-                        text: "校验"
                         styleType: EStyle.Primary
+                        text: ELocale.texts.TableValidate
 
                         onClicked: sample.validate()
                     }
                     EButton {
-                        text: "重置"
+                        text: ELocale.texts.Reset
 
                         onClicked: sample.resetFields()
                     }
@@ -1467,15 +1467,15 @@ Column {
 
                         EFormItem {
                             prop: "name"
-                            label: "项目名称"
                             required: true
                             width: parent.width
-                            helpText: "使用 3 到 20 个字符"
-                            rules: [{min: 3, max: 20, message: "请输入 3 到 20 个字符"}]
+                            label: ELocale.texts.ProjectName
+                            helpText: ELocale.texts.Use3To20Characters
+                            rules: [{min: 3, max: 20, message: ELocale.texts.Enter3To20Characters}]
 
                             EInput {
                                 width: parent.width
-                                placeholderText: "项目名称"
+                                placeholderText: ELocale.texts.ProjectName
                             }
                         }
                     }
@@ -1484,13 +1484,13 @@ Column {
                         width: parent.width
 
                         EButton {
-                            text: "校验"
                             styleType: EStyle.Primary
+                            text: ELocale.texts.TableValidate
 
                             onClicked: sample.validate()
                         }
                         EButton {
-                            text: "重置"
+                            text: ELocale.texts.Reset
 
                             onClicked: sample.resetFields()
                         }
@@ -1512,15 +1512,15 @@ Column {
 
                     EFormItem {
                         prop: "name"
-                        label: "项目名称"
                         required: true
                         width: parent.width
-                        helpText: "使用 3 到 20 个字符"
-                        rules: [{min: 3, max: 20, message: "请输入 3 到 20 个字符"}]
+                        label: ELocale.texts.ProjectName
+                        helpText: ELocale.texts.Use3To20Characters
+                        rules: [{min: 3, max: 20, message: ELocale.texts.Enter3To20Characters}]
 
                         EInput {
                             width: parent.width
-                            placeholderText: "项目名称"
+                            placeholderText: ELocale.texts.ProjectName
                         }
                     }
                 }
@@ -1529,13 +1529,13 @@ Column {
                     width: parent.width
 
                     EButton {
-                        text: "校验"
                         styleType: EStyle.Primary
+                        text: ELocale.texts.TableValidate
 
                         onClicked: sample.validate()
                     }
                     EButton {
-                        text: "重置"
+                        text: ELocale.texts.Reset
 
                         onClicked: sample.resetFields()
                     }
@@ -1661,21 +1661,21 @@ Column {
 
                     EInput {
                         text: "Qt Quick"
-                        validationMessage: "校验信息"
                         width: Math.min(220, parent.width)
                         validationState: EValidationState.Success
+                        validationMessage: ELocale.texts.ValidationMessage
                     }
                     EInput {
                         text: "Qt Quick"
-                        validationMessage: "校验信息"
                         width: Math.min(220, parent.width)
                         validationState: EValidationState.Warning
+                        validationMessage: ELocale.texts.ValidationMessage
                     }
                     EInput {
                         text: "Qt Quick"
-                        validationMessage: "校验信息"
                         width: Math.min(220, parent.width)
                         validationState: EValidationState.Error
+                        validationMessage: ELocale.texts.ValidationMessage
                     }
                 }
             `)
@@ -1686,21 +1686,21 @@ Column {
 
                 EInput {
                     text: "Qt Quick"
-                    validationMessage: "校验信息"
                     width: Math.min(220, parent.width)
                     validationState: EValidationState.Success
+                    validationMessage: ELocale.texts.ValidationMessage
                 }
                 EInput {
                     text: "Qt Quick"
-                    validationMessage: "校验信息"
                     width: Math.min(220, parent.width)
                     validationState: EValidationState.Warning
+                    validationMessage: ELocale.texts.ValidationMessage
                 }
                 EInput {
                     text: "Qt Quick"
-                    validationMessage: "校验信息"
                     width: Math.min(220, parent.width)
                     validationState: EValidationState.Error
+                    validationMessage: ELocale.texts.ValidationMessage
                 }
             }
         }
@@ -1766,19 +1766,19 @@ Column {
                     width: parent.width
 
                     ERadio {
-                        text: "选项"
                         checked: true
                         size: EStyle.Small
+                        text: ELocale.texts.Option
                     }
                     ERadio {
-                        text: "选项"
                         checked: true
                         size: EStyle.Medium
+                        text: ELocale.texts.Option
                     }
                     ERadio {
-                        text: "选项"
                         checked: true
                         size: EStyle.Large
+                        text: ELocale.texts.Option
                     }
                 }
             `)
@@ -1788,19 +1788,19 @@ Column {
                 width: parent.width
 
                 ERadio {
-                    text: "选项"
                     checked: true
                     size: EStyle.Small
+                    text: ELocale.texts.Option
                 }
                 ERadio {
-                    text: "选项"
                     checked: true
                     size: EStyle.Medium
+                    text: ELocale.texts.Option
                 }
                 ERadio {
-                    text: "选项"
                     checked: true
                     size: EStyle.Large
+                    text: ELocale.texts.Option
                 }
             }
         }
@@ -1820,19 +1820,19 @@ Column {
                     width: parent.width
 
                     ERadio {
-                        text: "选项"
                         checked: true
                         styleType: EStyle.Primary
+                        text: ELocale.texts.Option
                     }
                     ERadio {
-                        text: "选项"
                         checked: true
                         styleType: EStyle.Success
+                        text: ELocale.texts.Option
                     }
                     ERadio {
-                        text: "选项"
                         checked: true
                         styleType: EStyle.Warning
+                        text: ELocale.texts.Option
                     }
                 }
             `)
@@ -1842,19 +1842,19 @@ Column {
                 width: parent.width
 
                 ERadio {
-                    text: "选项"
                     checked: true
                     styleType: EStyle.Primary
+                    text: ELocale.texts.Option
                 }
                 ERadio {
-                    text: "选项"
                     checked: true
                     styleType: EStyle.Success
+                    text: ELocale.texts.Option
                 }
                 ERadio {
-                    text: "选项"
                     checked: true
                     styleType: EStyle.Warning
+                    text: ELocale.texts.Option
                 }
             }
         }
@@ -1874,14 +1874,14 @@ Column {
                     width: parent.width
 
                     ERadio {
-                        text: "不可修改"
                         checked: true
                         enabled: false
+                        text: ELocale.texts.CannotBeChanged
                     }
                     ERadio {
-                        text: "不可修改"
                         checked: false
                         enabled: false
+                        text: ELocale.texts.CannotBeChanged
                     }
                 }
             `)
@@ -1891,14 +1891,14 @@ Column {
                 width: parent.width
 
                 ERadio {
-                    text: "不可修改"
                     checked: true
                     enabled: false
+                    text: ELocale.texts.CannotBeChanged
                 }
                 ERadio {
-                    text: "不可修改"
                     checked: false
                     enabled: false
+                    text: ELocale.texts.CannotBeChanged
                 }
             }
         }
@@ -1920,10 +1920,10 @@ Column {
                     ERadio {
                         id: choice
 
-                        text: "启用此选项"
+                        text: ELocale.texts.EnableThisOption
                     }
                     EText {
-                        text: choice.checked ? "已选中" : "未选中"
+                        text: choice.checked ? ELocale.texts.Checked : ELocale.texts.Unchecked
                     }
                 }
             `)
@@ -1935,10 +1935,10 @@ Column {
                 ERadio {
                     id: choice
 
-                    text: "启用此选项"
+                    text: ELocale.texts.EnableThisOption
                 }
                 EText {
-                    text: choice.checked ? "已选中" : "未选中"
+                    text: choice.checked ? ELocale.texts.Checked : ELocale.texts.Unchecked
                 }
             }
         }
@@ -1988,8 +1988,8 @@ Column {
                     to: 100
                     value: 35
                     width: Math.min(480, parent.width)
-                    marks: ({0: "最低", 25: "推荐", 75: "较高", 100: "最高"})
                     formatTooltip: function(value) { return Math.round(value) + "%" }
+                    marks: ({0: ELocale.texts.Lowest, 25: ELocale.texts.Recommended, 75: ELocale.texts.Higher, 100: ELocale.texts.Highest})
                 }
             `)
 
@@ -1998,8 +1998,8 @@ Column {
                 to: 100
                 value: 35
                 width: Math.min(480, parent.width)
-                marks: ({0: "最低", 25: "推荐", 75: "较高", 100: "最高"})
                 formatTooltip: function(value) { return Math.round(value) + "%" }
+                marks: ({0: ELocale.texts.Lowest, 25: ELocale.texts.Recommended, 75: ELocale.texts.Higher, 100: ELocale.texts.Highest})
             }
         }
     }
@@ -2044,19 +2044,19 @@ Column {
                     width: parent.width
 
                     ESwitch {
-                        activeText: "开启"
-                        inactiveText: "关闭"
                         size: EStyle.Small
+                        activeText: ELocale.texts.On
+                        inactiveText: ELocale.texts.Close
                     }
                     ESwitch {
-                        activeText: "开启"
-                        inactiveText: "关闭"
                         size: EStyle.Medium
+                        activeText: ELocale.texts.On
+                        inactiveText: ELocale.texts.Close
                     }
                     ESwitch {
-                        activeText: "开启"
-                        inactiveText: "关闭"
                         size: EStyle.Large
+                        activeText: ELocale.texts.On
+                        inactiveText: ELocale.texts.Close
                     }
                 }
             `)
@@ -2066,19 +2066,19 @@ Column {
                 width: parent.width
 
                 ESwitch {
-                    activeText: "开启"
-                    inactiveText: "关闭"
                     size: EStyle.Small
+                    activeText: ELocale.texts.On
+                    inactiveText: ELocale.texts.Close
                 }
                 ESwitch {
-                    activeText: "开启"
-                    inactiveText: "关闭"
                     size: EStyle.Medium
+                    activeText: ELocale.texts.On
+                    inactiveText: ELocale.texts.Close
                 }
                 ESwitch {
-                    activeText: "开启"
-                    inactiveText: "关闭"
                     size: EStyle.Large
+                    activeText: ELocale.texts.On
+                    inactiveText: ELocale.texts.Close
                 }
             }
         }
@@ -2186,19 +2186,19 @@ Column {
                     width: parent.width
 
                     ECheckBox {
-                        text: "选项"
                         checked: true
                         size: EStyle.Small
+                        text: ELocale.texts.Option
                     }
                     ECheckBox {
-                        text: "选项"
                         checked: true
                         size: EStyle.Medium
+                        text: ELocale.texts.Option
                     }
                     ECheckBox {
-                        text: "选项"
                         checked: true
                         size: EStyle.Large
+                        text: ELocale.texts.Option
                     }
                 }
             `)
@@ -2208,19 +2208,19 @@ Column {
                 width: parent.width
 
                 ECheckBox {
-                    text: "选项"
                     checked: true
                     size: EStyle.Small
+                    text: ELocale.texts.Option
                 }
                 ECheckBox {
-                    text: "选项"
                     checked: true
                     size: EStyle.Medium
+                    text: ELocale.texts.Option
                 }
                 ECheckBox {
-                    text: "选项"
                     checked: true
                     size: EStyle.Large
+                    text: ELocale.texts.Option
                 }
             }
         }
@@ -2240,19 +2240,19 @@ Column {
                     width: parent.width
 
                     ECheckBox {
-                        text: "选项"
                         checked: true
                         styleType: EStyle.Primary
+                        text: ELocale.texts.Option
                     }
                     ECheckBox {
-                        text: "选项"
                         checked: true
                         styleType: EStyle.Success
+                        text: ELocale.texts.Option
                     }
                     ECheckBox {
-                        text: "选项"
                         checked: true
                         styleType: EStyle.Warning
+                        text: ELocale.texts.Option
                     }
                 }
             `)
@@ -2262,19 +2262,19 @@ Column {
                 width: parent.width
 
                 ECheckBox {
-                    text: "选项"
                     checked: true
                     styleType: EStyle.Primary
+                    text: ELocale.texts.Option
                 }
                 ECheckBox {
-                    text: "选项"
                     checked: true
                     styleType: EStyle.Success
+                    text: ELocale.texts.Option
                 }
                 ECheckBox {
-                    text: "选项"
                     checked: true
                     styleType: EStyle.Warning
+                    text: ELocale.texts.Option
                 }
             }
         }
@@ -2294,14 +2294,14 @@ Column {
                     width: parent.width
 
                     ECheckBox {
-                        text: "不可修改"
                         checked: true
                         enabled: false
+                        text: ELocale.texts.CannotBeChanged
                     }
                     ECheckBox {
-                        text: "不可修改"
                         checked: false
                         enabled: false
+                        text: ELocale.texts.CannotBeChanged
                     }
                 }
             `)
@@ -2311,14 +2311,14 @@ Column {
                 width: parent.width
 
                 ECheckBox {
-                    text: "不可修改"
                     checked: true
                     enabled: false
+                    text: ELocale.texts.CannotBeChanged
                 }
                 ECheckBox {
-                    text: "不可修改"
                     checked: false
                     enabled: false
+                    text: ELocale.texts.CannotBeChanged
                 }
             }
         }
@@ -2340,10 +2340,10 @@ Column {
                     ECheckBox {
                         id: choice
 
-                        text: "启用此选项"
+                        text: ELocale.texts.EnableThisOption
                     }
                     EText {
-                        text: choice.checked ? "已选中" : "未选中"
+                        text: choice.checked ? ELocale.texts.Checked : ELocale.texts.Unchecked
                     }
                 }
             `)
@@ -2355,10 +2355,10 @@ Column {
                 ECheckBox {
                     id: choice
 
-                    text: "启用此选项"
+                    text: ELocale.texts.EnableThisOption
                 }
                 EText {
-                    text: choice.checked ? "已选中" : "未选中"
+                    text: choice.checked ? ELocale.texts.Checked : ELocale.texts.Unchecked
                 }
             }
         }

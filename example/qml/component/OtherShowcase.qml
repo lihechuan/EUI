@@ -20,17 +20,17 @@ Column {
                     width: parent.width
 
                     EDivider {
-                        text: "分组"
+                        text: ELocale.texts.Group
                         contentPosition: EPlacement.Left
                         width: Math.min(240, parent.width)
                     }
                     EDivider {
-                        text: "分组"
+                        text: ELocale.texts.Group
                         contentPosition: EPlacement.Center
                         width: Math.min(240, parent.width)
                     }
                     EDivider {
-                        text: "分组"
+                        text: ELocale.texts.Group
                         contentPosition: EPlacement.Right
                         width: Math.min(240, parent.width)
                     }
@@ -42,17 +42,17 @@ Column {
                 width: parent.width
 
                 EDivider {
-                    text: "分组"
+                    text: ELocale.texts.Group
                     contentPosition: EPlacement.Left
                     width: Math.min(240, parent.width)
                 }
                 EDivider {
-                    text: "分组"
+                    text: ELocale.texts.Group
                     contentPosition: EPlacement.Center
                     width: Math.min(240, parent.width)
                 }
                 EDivider {
-                    text: "分组"
+                    text: ELocale.texts.Group
                     contentPosition: EPlacement.Right
                     width: Math.min(240, parent.width)
                 }
@@ -134,21 +134,21 @@ Column {
                     width: parent.width
 
                     EText {
-                        text: "设计"
+                        text: ELocale.texts.Design
                     }
                     EDivider {
                         verticalHeight: 24
                         direction: EOrientation.Vertical
                     }
                     EText {
-                        text: "开发"
+                        text: ELocale.texts.Engineering
                     }
                     EDivider {
                         verticalHeight: 24
                         direction: EOrientation.Vertical
                     }
                     EText {
-                        text: "发布"
+                        text: ELocale.texts.Publish
                     }
                 }
             `)
@@ -158,21 +158,21 @@ Column {
                 width: parent.width
 
                 EText {
-                    text: "设计"
+                    text: ELocale.texts.Design
                 }
                 EDivider {
                     verticalHeight: 24
                     direction: EOrientation.Vertical
                 }
                 EText {
-                    text: "开发"
+                    text: ELocale.texts.Engineering
                 }
                 EDivider {
                     verticalHeight: 24
                     direction: EOrientation.Vertical
                 }
                 EText {
-                    text: "发布"
+                    text: ELocale.texts.Publish
                 }
             }
         }
@@ -198,7 +198,7 @@ Column {
                                 iconSource: EIcons.PALETTE
                             }
                             EText {
-                                text: "高级设置"
+                                text: ELocale.texts.AdvancedSettings
                             }
                         }
                     }
@@ -216,7 +216,7 @@ Column {
                             iconSource: EIcons.PALETTE
                         }
                         EText {
-                            text: "高级设置"
+                            text: ELocale.texts.AdvancedSettings
                         }
                     }
                 }
@@ -238,13 +238,13 @@ Column {
                     width: Math.min(480, parent.width)
 
                     ECard {
-                        header: "项目文档"
                         anchors.fill: parent
+                        header: ELocale.texts.ProjectDocument
 
                         EText {
-                            text: "水印覆盖文档内容。"
                             width: parent.width
                             wrapMode: Text.WordWrap
+                            text: ELocale.texts.TheWatermarkCoversTheDocumentContent
                         }
                     }
                     EWatermark {
@@ -259,13 +259,13 @@ Column {
                 width: Math.min(480, parent.width)
 
                 ECard {
-                    header: "项目文档"
                     anchors.fill: parent
+                    header: ELocale.texts.ProjectDocument
 
                     EText {
-                        text: "水印覆盖文档内容。"
                         width: parent.width
                         wrapMode: Text.WordWrap
+                        text: ELocale.texts.TheWatermarkCoversTheDocumentContent
                     }
                 }
                 EWatermark {
@@ -290,13 +290,13 @@ Column {
                     width: Math.min(480, parent.width)
 
                     ECard {
-                        header: "项目文档"
                         anchors.fill: parent
+                        header: ELocale.texts.ProjectDocument
 
                         EText {
-                            text: "水印覆盖文档内容。"
                             width: parent.width
                             wrapMode: Text.WordWrap
+                            text: ELocale.texts.TheWatermarkCoversTheDocumentContent
                         }
                     }
                     EWatermark {
@@ -315,13 +315,13 @@ Column {
                 width: Math.min(480, parent.width)
 
                 ECard {
-                    header: "项目文档"
                     anchors.fill: parent
+                    header: ELocale.texts.ProjectDocument
 
                     EText {
-                        text: "水印覆盖文档内容。"
                         width: parent.width
                         wrapMode: Text.WordWrap
+                        text: ELocale.texts.TheWatermarkCoversTheDocumentContent
                     }
                 }
                 EWatermark {
@@ -350,13 +350,13 @@ Column {
                     width: Math.min(480, parent.width)
 
                     ECard {
-                        header: "项目文档"
                         anchors.fill: parent
+                        header: ELocale.texts.ProjectDocument
 
                         EText {
-                            text: "水印覆盖文档内容。"
                             width: parent.width
                             wrapMode: Text.WordWrap
+                            text: ELocale.texts.TheWatermarkCoversTheDocumentContent
                         }
                     }
                     EWatermark {
@@ -373,13 +373,13 @@ Column {
                 width: Math.min(480, parent.width)
 
                 ECard {
-                    header: "项目文档"
                     anchors.fill: parent
+                    header: ELocale.texts.ProjectDocument
 
                     EText {
-                        text: "水印覆盖文档内容。"
                         width: parent.width
                         wrapMode: Text.WordWrap
+                        text: ELocale.texts.TheWatermarkCoversTheDocumentContent
                     }
                 }
                 EWatermark {
@@ -406,13 +406,13 @@ Column {
                     width: Math.min(480, parent.width)
 
                     ECard {
-                        header: "项目文档"
                         anchors.fill: parent
+                        header: ELocale.texts.ProjectDocument
 
                         EText {
-                            text: "水印覆盖文档内容。"
                             width: parent.width
                             wrapMode: Text.WordWrap
+                            text: ELocale.texts.TheWatermarkCoversTheDocumentContent
                         }
                     }
                     EWatermark {
@@ -431,13 +431,13 @@ Column {
                 width: Math.min(480, parent.width)
 
                 ECard {
-                    header: "项目文档"
                     anchors.fill: parent
+                    header: ELocale.texts.ProjectDocument
 
                     EText {
-                        text: "水印覆盖文档内容。"
                         width: parent.width
                         wrapMode: Text.WordWrap
+                        text: ELocale.texts.TheWatermarkCoversTheDocumentContent
                     }
                 }
                 EWatermark {
@@ -465,7 +465,7 @@ Column {
                     width: parent.width
                     currentIndex: "home"
                     direction: EOrientation.Horizontal
-                    model: [{index: "home", text: "概览", iconSource: EIcons.HOUSE}, {index: "work", text: "工作区", children: [{index: "design", text: "设计"}, {index: "dev", text: "开发"}]}, {index: "locked", text: "归档", disabled: true}]
+                    model: [{index: "home", text: ELocale.texts.Overview, iconSource: EIcons.HOUSE}, {index: "work", text: ELocale.texts.Workspace, children: [{index: "design", text: ELocale.texts.Design}, {index: "dev", text: ELocale.texts.Engineering}]}, {index: "locked", text: ELocale.texts.Archived, disabled: true}]
                 }
             `)
 
@@ -473,7 +473,7 @@ Column {
                 width: parent.width
                 currentIndex: "home"
                 direction: EOrientation.Horizontal
-                model: [{index: "home", text: "概览", iconSource: EIcons.HOUSE}, {index: "work", text: "工作区", children: [{index: "design", text: "设计"}, {index: "dev", text: "开发"}]}, {index: "locked", text: "归档", disabled: true}]
+                model: [{index: "home", text: ELocale.texts.Overview, iconSource: EIcons.HOUSE}, {index: "work", text: ELocale.texts.Workspace, children: [{index: "design", text: ELocale.texts.Design}, {index: "dev", text: ELocale.texts.Engineering}]}, {index: "locked", text: ELocale.texts.Archived, disabled: true}]
             }
         }
     }
@@ -494,13 +494,13 @@ Column {
                     ESwitch {
                         id: collapsed
 
-                        text: "折叠菜单"
+                        text: ELocale.texts.CollapseMenu
                     }
                     EMenu {
                         uniqueOpened: true
                         collapse: collapsed.checked
                         width: Math.min(480, parent.width)
-                        model: [{index: "home", text: "概览", iconSource: EIcons.HOUSE}, {index: "work", text: "工作区", children: [{index: "design", text: "设计"}, {index: "dev", text: "开发"}]}, {index: "locked", text: "归档", disabled: true}]
+                        model: [{index: "home", text: ELocale.texts.Overview, iconSource: EIcons.HOUSE}, {index: "work", text: ELocale.texts.Workspace, children: [{index: "design", text: ELocale.texts.Design}, {index: "dev", text: ELocale.texts.Engineering}]}, {index: "locked", text: ELocale.texts.Archived, disabled: true}]
                     }
                 }
             `)
@@ -512,13 +512,13 @@ Column {
                 ESwitch {
                     id: collapsed
 
-                    text: "折叠菜单"
+                    text: ELocale.texts.CollapseMenu
                 }
                 EMenu {
                     uniqueOpened: true
                     collapse: collapsed.checked
                     width: Math.min(480, parent.width)
-                    model: [{index: "home", text: "概览", iconSource: EIcons.HOUSE}, {index: "work", text: "工作区", children: [{index: "design", text: "设计"}, {index: "dev", text: "开发"}]}, {index: "locked", text: "归档", disabled: true}]
+                    model: [{index: "home", text: ELocale.texts.Overview, iconSource: EIcons.HOUSE}, {index: "work", text: ELocale.texts.Workspace, children: [{index: "design", text: ELocale.texts.Design}, {index: "dev", text: ELocale.texts.Engineering}]}, {index: "locked", text: ELocale.texts.Archived, disabled: true}]
                 }
             }
         }
@@ -538,7 +538,7 @@ Column {
                     openedIndexes: ["work"]
                     activeTextColor: "#21B6A8"
                     width: Math.min(480, parent.width)
-                    model: [{index: "home", text: "概览", iconSource: EIcons.HOUSE}, {index: "work", text: "工作区", children: [{index: "design", text: "设计"}, {index: "dev", text: "开发"}]}, {index: "locked", text: "归档", disabled: true}]
+                    model: [{index: "home", text: ELocale.texts.Overview, iconSource: EIcons.HOUSE}, {index: "work", text: ELocale.texts.Workspace, children: [{index: "design", text: ELocale.texts.Design}, {index: "dev", text: ELocale.texts.Engineering}]}, {index: "locked", text: ELocale.texts.Archived, disabled: true}]
                 }
             `)
 
@@ -547,7 +547,7 @@ Column {
                 openedIndexes: ["work"]
                 activeTextColor: "#21B6A8"
                 width: Math.min(480, parent.width)
-                model: [{index: "home", text: "概览", iconSource: EIcons.HOUSE}, {index: "work", text: "工作区", children: [{index: "design", text: "设计"}, {index: "dev", text: "开发"}]}, {index: "locked", text: "归档", disabled: true}]
+                model: [{index: "home", text: ELocale.texts.Overview, iconSource: EIcons.HOUSE}, {index: "work", text: ELocale.texts.Workspace, children: [{index: "design", text: ELocale.texts.Design}, {index: "dev", text: ELocale.texts.Engineering}]}, {index: "locked", text: ELocale.texts.Archived, disabled: true}]
             }
         }
     }

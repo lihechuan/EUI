@@ -13,6 +13,9 @@ Flickable {
     readonly property int componentCount: groups.reduce(function(total, group) {
         return total + group.children.length
     }, 0)
+    readonly property var newComponents: groups.reduce(function(items, group) {
+        return items.concat(group.children.filter(function(entry) { return entry.isNew }))
+    }, [])
     readonly property var featuredEntries: [{
         "component": "EInput",
         "color": GalleryStyle.accent,
@@ -66,6 +69,40 @@ Flickable {
                 color: GalleryStyle.muted
                 font.pixelSize: GalleryStyle.captionSize
                 text: control.componentCount + ELocale.texts.ComponentsInteractiveQtQuickExamples
+            }
+        }
+        Column {
+            spacing: 12
+            width: parent.width
+            objectName: "galleryNewComponents"
+            visible: control.newComponents.length > 0
+
+            EText {
+                color: GalleryStyle.text
+                font.weight: Font.DemiBold
+                font.pixelSize: GalleryStyle.headingSize
+                text: ELocale.texts.ComponentNewVersion.arg(control.newComponents.length > 0
+                    ? control.newComponents[0].introducedIn : "")
+            }
+            Flow {
+                spacing: 8
+                width: parent.width
+
+                Repeater {
+                    model: control.newComponents
+
+                    EButton {
+                        property var entry: modelData
+
+                        plain: true
+                        size: EStyle.Small
+                        styleType: EStyle.Success
+                        objectName: "galleryNewComponentLink"
+                        text: entry.index + " · " + ELocale.texts.ComponentNew
+
+                        onClicked: control.componentSelected(entry)
+                    }
+                }
             }
         }
         Item {
@@ -392,6 +429,19 @@ Flickable {
                                             color: categoryLink.hovered || categoryLink.activeFocus ? GalleryStyle.accentSoft : GalleryStyle.canvas
                                         }
                                         contentItem: Item {
+                                            ETag {
+                                                leftPadding: 4
+                                                rightPadding: 4
+                                                size: EStyle.Small
+                                                anchors.top: parent.top
+                                                styleType: EStyle.Success
+                                                anchors.right: parent.right
+                                                text: ELocale.texts.ComponentNew
+                                                visible: categoryLink.entry.isNew
+                                                objectName: "galleryOverviewNewBadge"
+
+                                                onClicked: control.componentSelected(categoryLink.entry)
+                                            }
                                             EIcon {
                                                 y: 10
                                                 iconSize: 26

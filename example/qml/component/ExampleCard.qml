@@ -102,6 +102,16 @@ Item {
                         color: GalleryStyle.line
                         visible: control.code.length > 0
                     }
+                    MouseArea {
+                        anchors.fill: parent
+                        acceptedButtons: Qt.NoButton
+                        objectName: "galleryPreviewWheelGuard"
+
+                        onWheel: function(wheel) {
+                            wheel.accepted = GalleryStyle.previewScrollAt(parent, wheel.x, wheel.y,
+                                wheel.pixelDelta.x || wheel.angleDelta.x, wheel.pixelDelta.y || wheel.angleDelta.y)
+                        }
+                    }
                     Column {
                         id: exampleContent
 

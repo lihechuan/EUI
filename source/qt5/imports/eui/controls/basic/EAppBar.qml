@@ -18,6 +18,8 @@ Control {
     property color backgroundColor: EPaletteManager.ThemePalette.surfaceComponent(ETheme.dark)
 
     readonly property bool macOS: Qt.platform.os === "osx"
+    readonly property color buttonHoverColor: ETheme.dark ? "#414145" : "#D8D8DE"
+    readonly property color buttonPressedColor: ETheme.dark ? "#55555B" : "#C2C2CA"
 
     signal closeRequested()
 
@@ -146,8 +148,8 @@ Control {
                 width: control.macOS ? 12 : minimizeButton.width
                 height: control.macOS ? 12 : minimizeButton.height
                 color: control.macOS ? "#FEBC2E" : (minimizeButton.pressed
-                    ? EPaletteManager.ThemePalette.surfacePressed(ETheme.dark)
-                    : (minimizeButton.hovered ? EPaletteManager.ThemePalette.surfaceHover(ETheme.dark)
+                    ? control.buttonPressedColor
+                    : (minimizeButton.hovered ? control.buttonHoverColor
                         : "transparent"))
             }
 
@@ -173,22 +175,22 @@ Control {
                 visible: !control.macOS || maximizeButton.hovered
                 color: control.macOS ? "#1B6328" : control.textColor
             }
-            accessibleName: control.Window.window
-                && (control.Window.window.visibility === Window.Maximized
-                    || control.Window.window.visibility === Window.FullScreen)
-                ? EControlConfig.textFor(control, "Restore", ELocale.texts)
-                : (control.macOS ? EControlConfig.textFor(control, "FullScreen", ELocale.texts)
-                    : EControlConfig.textFor(control, "Maximize", ELocale.texts))
             background: Rectangle {
                 anchors.centerIn: parent
                 radius: control.macOS ? 6 : 0
                 width: control.macOS ? 12 : maximizeButton.width
                 height: control.macOS ? 12 : maximizeButton.height
                 color: control.macOS ? "#28C840" : (maximizeButton.pressed
-                    ? EPaletteManager.ThemePalette.surfacePressed(ETheme.dark)
-                    : (maximizeButton.hovered ? EPaletteManager.ThemePalette.surfaceHover(ETheme.dark)
+                    ? control.buttonPressedColor
+                    : (maximizeButton.hovered ? control.buttonHoverColor
                         : "transparent"))
             }
+            accessibleName: control.Window.window
+                && (control.Window.window.visibility === Window.Maximized
+                    || control.Window.window.visibility === Window.FullScreen)
+                ? EControlConfig.textFor(control, "Restore", ELocale.texts)
+                : (control.macOS ? EControlConfig.textFor(control, "FullScreen", ELocale.texts)
+                    : EControlConfig.textFor(control, "Maximize", ELocale.texts))
 
             onClicked: {
                 if (control.macOS)

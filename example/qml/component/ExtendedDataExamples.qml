@@ -85,20 +85,21 @@ ExamplePage {
                 EInfiniteScroll {
                     id: list
 
-                    width: Math.min(480, parent.width)
-                    height: 200
                     delay: 200
+                    height: 200
                     distance: 24
-                    model: ["记录 1", "记录 2", "记录 3", "记录 4"]
+                    width: Math.min(480, parent.width)
+                    model: [ELocale.texts.Record1, ELocale.texts.Record2, ELocale.texts.Record3, ELocale.texts.Record4]
 
                     onLoadMore: {
                         const rows = model.slice()
                         for (let index = 0; index < 4; ++index)
-                            rows.push("记录 " + (rows.length + 1))
+                            rows.push(ELocale.texts.Record + (rows.length + 1))
                         model = rows
                         finishLoad(rows.length >= 20)
                     }
-                }`)
+                }
+`)
 
             EInfiniteScroll {
                 id: webDataList
@@ -135,7 +136,7 @@ ExamplePage {
                     EButton {
                         id: targetButton
 
-                        text: "启动引导"
+                        text: ELocale.texts.StartTour2
 
                         onClicked: tour.start()
                     }
@@ -145,10 +146,11 @@ ExamplePage {
                         placement: "bottom-start"
                         targetAreaClickable: true
                         gap: ({ offset: 8, radius: 6 })
-                        steps: [{ target: targetButton, title: "操作入口", description: "引导期间仍可点击目标。" },
-                            { title: "完成", description: "空目标的引导卡片自动居中。" }]
+                        steps: [{ target: targetButton, title: ELocale.texts.ActionEntry, description: ELocale.texts.TheTargetRemainsClickableDuringTheTour },
+                            { title: ELocale.texts.Done, description: ELocale.texts.ATourCardWithoutATargetAppearsIn }]
                     }
-                }`)
+                }
+`)
 
             Column {
                 spacing: 16
@@ -184,16 +186,17 @@ ExamplePage {
 
                 EResult {
                     width: parent.width
-                    title: "发布成功"
-                    subTitle: "所有任务均已完成，可以查看发布详情。"
                     styleType: EStyle.Success
+                    title: ELocale.texts.PublishedSuccessfully
+                    subTitle: ELocale.texts.AllTasksAreCompleteYouCanNowView
 
                     EButton {
-                        text: "查看详情"
                         styleType: EStyle.Primary
+                        text: ELocale.texts.CoreSampleDetails
                     }
-                    EButton { text: "返回" }
-                }`)
+                    EButton { text: ELocale.texts.Back }
+                }
+`)
 
             EResult {
                 width: parent.width
@@ -219,19 +222,20 @@ ExamplePage {
                 import QtQuick 2.15
 
                 ECalendar {
-                    width: Math.min(620, parent.width)
                     value: "2026-10-10"
                     controllerType: "select"
+                    width: Math.min(620, parent.width)
                     dateCellDelegate: Component {
                         EText {
                             padding: 10
-                            text: parent.day.slice(-2) + (parent.day === "2026-10-10" ? "\\n发布日" : "")
                             wrapMode: Text.WordWrap
+                            text: parent.day.slice(-2) + (parent.day === "2026-10-10" ? ELocale.texts.ReleaseDayMarker : "")
                             color: parent.isSelected ? EPaletteManager.ThemePalette.fetchColorForStyle(EStyle.Primary)
                                 : EPaletteManager.ThemePalette.textRegular(ETheme.dark)
                         }
                     }
-                }`)
+                }
+`)
 
             ECalendar {
                 value: "2026-10-10"
@@ -263,12 +267,13 @@ ExamplePage {
                 import QtQuick 2.15
 
                 ETimeline {
-                    width: Math.min(600, parent.width)
                     mode: "alternate"
-                    model: [{ content: "需求确认", timestamp: "2026-10-01", placement: "top", styleType: EStyle.Success },
-                        { content: "开发完成", timestamp: "2026-10-05", icon: EIcons.CHECK, size: "large" },
-                        { content: "准备发布", timestamp: "2026-10-10", hollow: true, styleType: EStyle.Warning }]
-                }`)
+                    width: Math.min(600, parent.width)
+                    model: [{ content: ELocale.texts.RequirementsConfirmed, timestamp: "2026-10-01", placement: "top", styleType: EStyle.Success },
+                        { content: ELocale.texts.DevelopmentComplete, timestamp: "2026-10-05", icon: EIcons.CHECK, size: "large" },
+                        { content: ELocale.texts.ReadyToRelease, timestamp: "2026-10-10", hollow: true, styleType: EStyle.Warning }]
+                }
+`)
 
             ETimeline {
                 mode: "alternate"
@@ -292,18 +297,19 @@ ExamplePage {
                     spacing: 48
 
                     EStatistic {
-                        title: "本月收入"
-                        value: 12680.25
                         precision: 2
                         prefix: "¥ "
+                        value: 12680.25
+                        title: ELocale.texts.MonthlyRevenue
                     }
                     EStatistic {
-                        title: "距离下一次更新"
                         countdown: true
-                        value: Date.now() + 3600000
                         format: "HH:mm:ss"
+                        value: Date.now() + 3600000
+                        title: ELocale.texts.NextUpdateIn2
                     }
-                }`)
+                }
+`)
 
             Row {
                 spacing: 48
@@ -342,13 +348,14 @@ ExamplePage {
                         width: 360
                         block: true
                         value: "day"
-                        model: [{ label: "日", value: "day" }, { label: "周", value: "week" },
-                            { label: "月", value: "month" }, { label: "年", value: "year", disabled: true }]
+                        model: [{ label: ELocale.texts.Day, value: "day" }, { label: ELocale.texts.Week, value: "week" },
+                            { label: ELocale.texts.Month, value: "month" }, { label: ELocale.texts.Year, value: "year", disabled: true }]
                     }
                     EText {
-                        text: "当前值：" + segmented.currentValue
+                        text: ELocale.texts.CurrentValue + segmented.currentValue
                     }
-                }`)
+                }
+`)
 
             Column {
                 spacing: 12
@@ -380,14 +387,15 @@ ExamplePage {
                 import QtQuick 2.15
 
                 ECollapse {
-                    width: Math.min(600, parent.width)
-                    expandIconPosition: "left"
                     activeNames: ["overview"]
+                    expandIconPosition: "left"
+                    width: Math.min(600, parent.width)
                     beforeCollapse: function(name, expanded) { return name !== "locked" }
-                    model: [{ name: "overview", title: "项目概况", content: "支持多面板、手风琴和异步 beforeCollapse 校验。" },
-                        { name: "locked", title: "校验拒绝切换", content: "此项不会打开。" },
-                        { name: "details", title: "交互详情", content: "标题和内容可使用 Component delegate。" }]
-                }`)
+                    model: [{ name: "overview", title: ELocale.texts.ProjectOverview, content: ELocale.texts.MultiplePanelsAccordionAndAsyncBeforeCollapseValidation },
+                        { name: "locked", title: ELocale.texts.ChangeBlockedByValidation, content: ELocale.texts.ThisPanelRemainsClosed },
+                        { name: "details", title: ELocale.texts.InteractionDetails, content: ELocale.texts.TitlesAndContentCanUseComponentDelegates }]
+                }
+`)
 
             ECollapse {
                 activeNames: ["overview"]
@@ -416,21 +424,21 @@ ExamplePage {
                     width: parent.width
 
                     ECheckBox {
-                        text: "纵向标签"
+                        text: ELocale.texts.VerticalLabels
 
                         onToggled: details.direction = checked ? "vertical" : "horizontal"
                     }
                     EDescriptions {
                         id: details
 
-                        extra: "已验证"
-                        title: "项目资料"
                         width: parent.width
                         columns: width < 560 ? 2 : 3
-                        model: [{ label: "名称", value: "EUI 组件库", span: 2 },
-                            { label: "版本", value: "3.0" }, { label: "维护方", value: "产品团队", rowspan: 2 },
-                            { label: "平台", value: "Desktop", span: 2 },
-                            { label: "说明", value: "支持主题、键盘和自定义内容", span: 2 }]
+                        extra: ELocale.texts.Verified
+                        title: ELocale.texts.ProjectDetails2
+                        model: [{ label: ELocale.texts.Name2, value: ELocale.texts.EUIComponentLibrary, span: 2 },
+                            { label: ELocale.texts.Version, value: "3.0" }, { label: ELocale.texts.Maintainer, value: ELocale.texts.ProductTeam, rowspan: 2 },
+                            { label: ELocale.texts.Platform, value: "Desktop", span: 2 },
+                            { label: ELocale.texts.ApiDescription, value: ELocale.texts.ThemesKeyboardAndCustomContent, span: 2 }]
                     }
                 }
             `)
@@ -475,33 +483,34 @@ ExamplePage {
                     ECarousel {
                         id: carousel
 
-                        width: Math.min(600, parent.width)
                         height: 220
                         type: "card"
                         arrow: "hover"
                         trigger: "hover"
                         pauseOnHover: true
-                        model: [{ name: "design", title: "设计系统", color: "#E7F0FD" },
-                            { name: "build", title: "组件工程", color: "#E6F2E9" },
-                            { name: "ship", title: "产品交付", color: "#FFF0DE" }]
+                        width: Math.min(600, parent.width)
                         delegate: ERectangle {
                             radius: 8
                             color: parent.modelData.color
 
                             EText {
+                                color: "#30343B"
                                 font.pixelSize: 24
                                 anchors.centerIn: parent
                                 text: parent.parent.modelData.title
-                                color: "#30343B"
                             }
                         }
+                        model: [{ name: "design", title: ELocale.texts.DesignSystem, color: "#E7F0FD" },
+                            { name: "build", title: ELocale.texts.ComponentEngineering, color: "#E6F2E9" },
+                            { name: "ship", title: ELocale.texts.ProductDelivery, color: "#FFF0DE" }]
                     }
                     EButton {
-                        text: "切换到组件工程"
+                        text: ELocale.texts.OpenComponentEngineering
 
                         onClicked: carousel.setActiveItem("build")
                     }
-                }`)
+                }
+`)
 
             Column {
                 spacing: 12

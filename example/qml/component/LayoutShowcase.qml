@@ -28,11 +28,11 @@ Column {
                         width: parent.width
 
                         EButton {
-                            text: "项目操作"
+                            text: ELocale.texts.ProjectActions
                         }
                         EInput {
-                            text: "继承禁用状态"
                             width: Math.min(480, parent.width)
+                            text: ELocale.texts.InheritTheDisabledState
                         }
                         ESelect {
                             model: ["QML", "Qt"]
@@ -55,11 +55,11 @@ Column {
                     width: parent.width
 
                     EButton {
-                        text: "项目操作"
+                        text: ELocale.texts.ProjectActions
                     }
                     EInput {
-                        text: "继承禁用状态"
                         width: Math.min(480, parent.width)
+                        text: ELocale.texts.InheritTheDisabledState
                     }
                     ESelect {
                         model: ["QML", "Qt"]
@@ -92,16 +92,16 @@ Column {
                         width: parent.width
 
                         EButton {
-                            text: "局部按钮默认值"
+                            text: ELocale.texts.LocalButtonDefaults
                         }
                         ECard {
-                            header: "局部卡片"
+                            header: ELocale.texts.LocalCard
                             width: Math.min(480, parent.width)
 
                             EText {
-                                text: "配置仅作用于当前子树。"
                                 width: parent.width
                                 wrapMode: Text.WordWrap
+                                text: ELocale.texts.TheConfigurationAppliesOnlyToThisSubtree
                             }
                         }
                     }
@@ -121,16 +121,16 @@ Column {
                     width: parent.width
 
                     EButton {
-                        text: "局部按钮默认值"
+                        text: ELocale.texts.LocalButtonDefaults
                     }
                     ECard {
-                        header: "局部卡片"
+                        header: ELocale.texts.LocalCard
                         width: Math.min(480, parent.width)
 
                         EText {
-                            text: "配置仅作用于当前子树。"
                             width: parent.width
                             wrapMode: Text.WordWrap
+                            text: ELocale.texts.TheConfigurationAppliesOnlyToThisSubtree
                         }
                     }
                 }
@@ -196,20 +196,20 @@ Column {
                     width: parent.width
 
                     ELink {
-                        text: "查看文档"
                         styleType: EStyle.Primary
+                        text: ELocale.texts.ViewDocumentation
                     }
                     ELink {
-                        text: "查看文档"
                         styleType: EStyle.Success
+                        text: ELocale.texts.ViewDocumentation
                     }
                     ELink {
-                        text: "查看文档"
                         styleType: EStyle.Warning
+                        text: ELocale.texts.ViewDocumentation
                     }
                     ELink {
-                        text: "查看文档"
                         styleType: EStyle.Danger
+                        text: ELocale.texts.ViewDocumentation
                     }
                 }
             `)
@@ -219,20 +219,20 @@ Column {
                 width: parent.width
 
                 ELink {
-                    text: "查看文档"
                     styleType: EStyle.Primary
+                    text: ELocale.texts.ViewDocumentation
                 }
                 ELink {
-                    text: "查看文档"
                     styleType: EStyle.Success
+                    text: ELocale.texts.ViewDocumentation
                 }
                 ELink {
-                    text: "查看文档"
                     styleType: EStyle.Warning
+                    text: ELocale.texts.ViewDocumentation
                 }
                 ELink {
-                    text: "查看文档"
                     styleType: EStyle.Danger
+                    text: ELocale.texts.ViewDocumentation
                 }
             }
         }
@@ -252,14 +252,14 @@ Column {
                     width: parent.width
 
                     ELink {
-                        text: "项目详情"
                         enabled: true
                         underline: true
+                        text: ELocale.texts.ProjectDetails
                     }
                     ELink {
-                        text: "项目详情"
                         enabled: false
                         underline: true
+                        text: ELocale.texts.ProjectDetails
                     }
                 }
             `)
@@ -269,14 +269,14 @@ Column {
                 width: parent.width
 
                 ELink {
-                    text: "项目详情"
                     enabled: true
                     underline: true
+                    text: ELocale.texts.ProjectDetails
                 }
                 ELink {
-                    text: "项目详情"
                     enabled: false
                     underline: true
+                    text: ELocale.texts.ProjectDetails
                 }
             }
         }
@@ -292,18 +292,18 @@ Column {
                 import QtQuick 2.15
 
                 ELink {
-                    text: "打开设置"
                     leftIcon: true
                     iconSource: EIcons.PENCIL
                     styleType: EStyle.Primary
+                    text: ELocale.texts.OpenSettings
                 }
             `)
 
             ELink {
-                text: "打开设置"
                 leftIcon: true
                 iconSource: EIcons.PENCIL
                 styleType: EStyle.Primary
+                text: ELocale.texts.OpenSettings
             }
         }
     }
@@ -322,14 +322,14 @@ Column {
                     width: parent.width
 
                     ELink {
-                        text: "查看最新版本"
+                        text: ELocale.texts.ViewTheLatestVersion
 
-                        onClicked: result.text = "当前版本：1.0"
+                        onClicked: result.text = ELocale.texts.CurrentVersion10
                     }
                     EText {
                         id: result
 
-                        text: "点击链接查看信息"
+                        text: ELocale.texts.ClickTheLinkToViewInformation
                     }
                 }
             `)
@@ -339,14 +339,14 @@ Column {
                 width: parent.width
 
                 ELink {
-                    text: "查看最新版本"
+                    text: ELocale.texts.ViewTheLatestVersion
 
-                    onClicked: result.text = "当前版本：1.0"
+                    onClicked: result.text = ELocale.texts.CurrentVersion10
                 }
                 EText {
                     id: result
 
-                    text: "点击链接查看信息"
+                    text: ELocale.texts.ClickTheLinkToViewInformation
                 }
             }
         }
@@ -458,15 +458,15 @@ Column {
                     justify: "space-between"
 
                     EButton {
-                        text: "操作 A"
+                        text: ELocale.texts.ActionA
                     }
                     EButton {
-                        text: "主要操作"
                         size: EStyle.Large
                         styleType: EStyle.Primary
+                        text: ELocale.texts.PrimaryAction
                     }
                     EButton {
-                        text: "操作 B"
+                        text: ELocale.texts.ActionB
                     }
                 }
             `)
@@ -478,15 +478,15 @@ Column {
                 justify: "space-between"
 
                 EButton {
-                    text: "操作 A"
+                    text: ELocale.texts.ActionA
                 }
                 EButton {
-                    text: "主要操作"
                     size: EStyle.Large
                     styleType: EStyle.Primary
+                    text: ELocale.texts.PrimaryAction
                 }
                 EButton {
-                    text: "操作 B"
+                    text: ELocale.texts.ActionB
                 }
             }
         }
@@ -519,8 +519,8 @@ Column {
 
                             EText {
                                 color: "white"
-                                text: "Responsive"
                                 anchors.centerIn: parent
+                                text: ELocale.texts.ResponsiveLabel
                             }
                         }
                     }
@@ -537,8 +537,8 @@ Column {
 
                             EText {
                                 color: "white"
-                                text: "Responsive"
                                 anchors.centerIn: parent
+                                text: ELocale.texts.ResponsiveLabel
                             }
                         }
                     }
@@ -555,8 +555,8 @@ Column {
 
                             EText {
                                 color: "white"
-                                text: "Responsive"
                                 anchors.centerIn: parent
+                                text: ELocale.texts.ResponsiveLabel
                             }
                         }
                     }
@@ -581,8 +581,8 @@ Column {
 
                         EText {
                             color: "white"
-                            text: "Responsive"
                             anchors.centerIn: parent
+                            text: ELocale.texts.ResponsiveLabel
                         }
                     }
                 }
@@ -599,8 +599,8 @@ Column {
 
                         EText {
                             color: "white"
-                            text: "Responsive"
                             anchors.centerIn: parent
+                            text: ELocale.texts.ResponsiveLabel
                         }
                     }
                 }
@@ -617,8 +617,8 @@ Column {
 
                         EText {
                             color: "white"
-                            text: "Responsive"
                             anchors.centerIn: parent
+                            text: ELocale.texts.ResponsiveLabel
                         }
                     }
                 }
@@ -642,13 +642,13 @@ Column {
                     width: Math.min(480, parent.width)
 
                     EButton {
-                        text: "设计"
+                        text: ELocale.texts.Design
                     }
                     EButton {
-                        text: "开发"
+                        text: ELocale.texts.Engineering
                     }
                     EButton {
-                        text: "发布"
+                        text: ELocale.texts.Publish
                     }
                 }
             `)
@@ -660,13 +660,13 @@ Column {
                 width: Math.min(480, parent.width)
 
                 EButton {
-                    text: "设计"
+                    text: ELocale.texts.Design
                 }
                 EButton {
-                    text: "开发"
+                    text: ELocale.texts.Engineering
                 }
                 EButton {
-                    text: "发布"
+                    text: ELocale.texts.Publish
                 }
             }
         }
@@ -697,7 +697,7 @@ Column {
                         text: "C++"
                     }
                     ETag {
-                        text: "Design"
+                        text: ELocale.texts.Design
                     }
                     ETag {
                         text: "Windows"
@@ -724,7 +724,7 @@ Column {
                     text: "C++"
                 }
                 ETag {
-                    text: "Design"
+                    text: ELocale.texts.Design
                 }
                 ETag {
                     text: "Windows"
@@ -752,13 +752,13 @@ Column {
                     width: Math.min(480, parent.width)
 
                     EButton {
-                        text: "设计"
+                        text: ELocale.texts.Design
                     }
                     EButton {
-                        text: "开发"
+                        text: ELocale.texts.Engineering
                     }
                     EButton {
-                        text: "发布"
+                        text: ELocale.texts.Publish
                     }
                 }
             `)
@@ -770,13 +770,13 @@ Column {
                 width: Math.min(480, parent.width)
 
                 EButton {
-                    text: "设计"
+                    text: ELocale.texts.Design
                 }
                 EButton {
-                    text: "开发"
+                    text: ELocale.texts.Engineering
                 }
                 EButton {
-                    text: "发布"
+                    text: ELocale.texts.Publish
                 }
             }
         }
@@ -793,21 +793,21 @@ Column {
 
                 EAppBar {
                     showClose: false
-                    title: "EUI 工作台"
                     showMaximize: false
                     showMinimize: false
                     width: parent.width
                     iconSource: EIcons.PALETTE
+                    title: ELocale.texts.EUIWorkspace
                 }
             `)
 
             EAppBar {
                 showClose: false
-                title: "EUI 工作台"
                 showMaximize: false
                 showMinimize: false
                 width: parent.width
                 iconSource: EIcons.PALETTE
+                title: ELocale.texts.EUIWorkspace
             }
         }
     }
@@ -823,23 +823,23 @@ Column {
 
                 EAppBar {
                     showClose: false
-                    title: "EUI 工作台"
                     showMaximize: false
                     showMinimize: false
                     width: parent.width
                     textColor: "#E7F0FF"
                     backgroundColor: "#173958"
+                    title: ELocale.texts.EUIWorkspace
                 }
             `)
 
             EAppBar {
                 showClose: false
-                title: "EUI 工作台"
                 showMaximize: false
                 showMinimize: false
                 width: parent.width
                 textColor: "#E7F0FF"
                 backgroundColor: "#173958"
+                title: ELocale.texts.EUIWorkspace
             }
         }
     }
@@ -855,26 +855,26 @@ Column {
 
                 EAppBar {
                     showClose: false
-                    title: "EUI 工作台"
                     showMaximize: false
                     showMinimize: false
                     width: parent.width
+                    title: ELocale.texts.EUIWorkspace
 
                     ETextButton {
-                        text: "帮助"
+                        text: ELocale.texts.Help
                     }
                 }
             `)
 
             EAppBar {
                 showClose: false
-                title: "EUI 工作台"
                 showMaximize: false
                 showMinimize: false
                 width: parent.width
+                title: ELocale.texts.EUIWorkspace
 
                 ETextButton {
-                    text: "帮助"
+                    text: ELocale.texts.Help
                 }
             }
         }
@@ -894,7 +894,7 @@ Column {
                     showMaximize: false
                     showMinimize: false
                     width: parent.width
-                    title: "EUI Design System / 一个需要在窄窗口下正确省略的项目名称"
+                    title: ELocale.texts.EUIDesignSystemAProjectNameThatShould
                 }
             `)
 
@@ -903,7 +903,7 @@ Column {
                 showMaximize: false
                 showMinimize: false
                 width: parent.width
-                title: "EUI Design System / 一个需要在窄窗口下正确省略的项目名称"
+                title: ELocale.texts.EUIDesignSystemAProjectNameThatShould
             }
         }
     }
@@ -926,16 +926,16 @@ Column {
                         size: "40%"
 
                         ECard {
-                            header: "资源"
                             anchors.fill: parent
+                            header: ELocale.texts.Resources
                         }
                     }
                     ESplitterPanel {
                         min: 80
 
                         ECard {
-                            header: "工作区"
                             anchors.fill: parent
+                            header: ELocale.texts.Workspace
                         }
                     }
                 }
@@ -950,16 +950,16 @@ Column {
                     size: "40%"
 
                     ECard {
-                        header: "资源"
                         anchors.fill: parent
+                        header: ELocale.texts.Resources
                     }
                 }
                 ESplitterPanel {
                     min: 80
 
                     ECard {
-                        header: "工作区"
                         anchors.fill: parent
+                        header: ELocale.texts.Workspace
                     }
                 }
             }
@@ -985,16 +985,16 @@ Column {
                         size: "35%"
 
                         ECard {
-                            header: "资源"
                             anchors.fill: parent
+                            header: ELocale.texts.Resources
                         }
                     }
                     ESplitterPanel {
                         min: 80
 
                         ECard {
-                            header: "工作区"
                             anchors.fill: parent
+                            header: ELocale.texts.Workspace
                         }
                     }
                 }
@@ -1010,16 +1010,16 @@ Column {
                     size: "35%"
 
                     ECard {
-                        header: "资源"
                         anchors.fill: parent
+                        header: ELocale.texts.Resources
                     }
                 }
                 ESplitterPanel {
                     min: 80
 
                     ECard {
-                        header: "工作区"
                         anchors.fill: parent
+                        header: ELocale.texts.Workspace
                     }
                 }
             }
@@ -1040,7 +1040,7 @@ Column {
                     width: parent.width
 
                     EButton {
-                        text: "折叠 / 恢复"
+                        text: ELocale.texts.CollapseRestore
 
                         onClicked: firstPanel.setCollapsed(!firstPanel.collapsed)
                     }
@@ -1055,16 +1055,16 @@ Column {
                             collapsible: true
 
                             ECard {
-                                header: "资源"
                                 anchors.fill: parent
+                                header: ELocale.texts.Resources
                             }
                         }
                         ESplitterPanel {
                             min: 80
 
                             ECard {
-                                header: "工作区"
                                 anchors.fill: parent
+                                header: ELocale.texts.Workspace
                             }
                         }
                     }
@@ -1076,7 +1076,7 @@ Column {
                 width: parent.width
 
                 EButton {
-                    text: "折叠 / 恢复"
+                    text: ELocale.texts.CollapseRestore
 
                     onClicked: firstPanel.setCollapsed(!firstPanel.collapsed)
                 }
@@ -1091,16 +1091,16 @@ Column {
                         collapsible: true
 
                         ECard {
-                            header: "资源"
                             anchors.fill: parent
+                            header: ELocale.texts.Resources
                         }
                     }
                     ESplitterPanel {
                         min: 80
 
                         ECard {
-                            header: "工作区"
                             anchors.fill: parent
+                            header: ELocale.texts.Workspace
                         }
                     }
                 }
@@ -1132,11 +1132,11 @@ Column {
 
                         EText {
                             height: 600
-                            text: "滚动内容\\n\\n\\n\\n\\n\\n底部"
+                            text: ELocale.texts.ScrollableContentSample
                         }
                     }
                     EButton {
-                        text: "滚到末尾"
+                        text: ELocale.texts.ScrollToTheEnd
 
                         onClicked: scroll.setScrollTop(400)
                     }
@@ -1158,11 +1158,11 @@ Column {
 
                     EText {
                         height: 600
-                        text: "滚动内容\n\n\n\n\n\n底部"
+                        text: ELocale.texts.ScrollableContentSample
                     }
                 }
                 EButton {
-                    text: "滚到末尾"
+                    text: ELocale.texts.ScrollToTheEnd
 
                     onClicked: scroll.setScrollTop(400)
                 }
@@ -1190,7 +1190,7 @@ Column {
                     EText {
                         width: 900
                         font.pixelSize: 24
-                        text: "Design                         Develop                         Deploy"
+                        text: ELocale.texts.DesignDevelopDeploy
                     }
                 }
             `)
@@ -1206,7 +1206,7 @@ Column {
                 EText {
                     width: 900
                     font.pixelSize: 24
-                    text: "Design                         Develop                         Deploy"
+                    text: ELocale.texts.DesignDevelopDeploy
                 }
             }
         }
@@ -1235,11 +1235,11 @@ Column {
 
                         EText {
                             height: 500
-                            text: "滚动查看当前位置"
+                            text: ELocale.texts.ScrollToSeeTheCurrentPosition
                         }
                     }
                     EText {
-                        text: "滚动位置：" + Math.round(scroll.scrollTop)
+                        text: ELocale.texts.ScrollPosition2 + Math.round(scroll.scrollTop)
                     }
                 }
             `)
@@ -1258,11 +1258,11 @@ Column {
 
                     EText {
                         height: 500
-                        text: "滚动查看当前位置"
+                        text: ELocale.texts.ScrollToSeeTheCurrentPosition
                     }
                 }
                 EText {
-                    text: "滚动位置：" + Math.round(scroll.scrollTop)
+                    text: ELocale.texts.ScrollPosition2 + Math.round(scroll.scrollTop)
                 }
             }
         }
@@ -1283,16 +1283,16 @@ Column {
 
                     EHeader {
                         EText {
-                            text: "工作台顶栏"
                             width: parent.width
                             wrapMode: Text.WordWrap
+                            text: ELocale.texts.WorkspaceHeader
                         }
                     }
                     EMain {
                         EText {
-                            text: "主内容区域"
                             width: parent.width
                             wrapMode: Text.WordWrap
+                            text: ELocale.texts.MainContentArea
                         }
                     }
                 }
@@ -1304,16 +1304,16 @@ Column {
 
                 EHeader {
                     EText {
-                        text: "工作台顶栏"
                         width: parent.width
                         wrapMode: Text.WordWrap
+                        text: ELocale.texts.WorkspaceHeader
                     }
                 }
                 EMain {
                     EText {
-                        text: "主内容区域"
                         width: parent.width
                         wrapMode: Text.WordWrap
+                        text: ELocale.texts.MainContentArea
                     }
                 }
             }
@@ -1337,16 +1337,16 @@ Column {
                         implicitWidth: 120
 
                         EText {
-                            text: "资源目录"
                             width: parent.width
                             wrapMode: Text.WordWrap
+                            text: ELocale.texts.ResourceDirectory
                         }
                     }
                     EMain {
                         EText {
-                            text: "项目内容"
                             width: parent.width
                             wrapMode: Text.WordWrap
+                            text: ELocale.texts.ProjectContent
                         }
                     }
                 }
@@ -1360,16 +1360,16 @@ Column {
                     implicitWidth: 120
 
                     EText {
-                        text: "资源目录"
                         width: parent.width
                         wrapMode: Text.WordWrap
+                        text: ELocale.texts.ResourceDirectory
                     }
                 }
                 EMain {
                     EText {
-                        text: "项目内容"
                         width: parent.width
                         wrapMode: Text.WordWrap
+                        text: ELocale.texts.ProjectContent
                     }
                 }
             }
@@ -1391,16 +1391,16 @@ Column {
 
                     EMain {
                         EText {
-                            text: "主工作区"
                             width: parent.width
                             wrapMode: Text.WordWrap
+                            text: ELocale.texts.MainWorkspace
                         }
                     }
                     EFooter {
                         EText {
-                            text: "状态栏"
                             width: parent.width
                             wrapMode: Text.WordWrap
+                            text: ELocale.texts.StatusBar
                         }
                     }
                 }
@@ -1412,16 +1412,16 @@ Column {
 
                 EMain {
                     EText {
-                        text: "主工作区"
                         width: parent.width
                         wrapMode: Text.WordWrap
+                        text: ELocale.texts.MainWorkspace
                     }
                 }
                 EFooter {
                     EText {
-                        text: "状态栏"
                         width: parent.width
                         wrapMode: Text.WordWrap
+                        text: ELocale.texts.StatusBar
                     }
                 }
             }
@@ -1443,9 +1443,9 @@ Column {
 
                     EHeader {
                         EText {
-                            text: "项目名称"
                             width: parent.width
                             wrapMode: Text.WordWrap
+                            text: ELocale.texts.ProjectName
                         }
                     }
                     EContainer {
@@ -1455,24 +1455,24 @@ Column {
                             implicitWidth: 120
 
                             EText {
-                                text: "目录"
                                 width: parent.width
                                 wrapMode: Text.WordWrap
+                                text: ELocale.texts.Directory
                             }
                         }
                         EMain {
                             EText {
-                                text: "画布"
                                 width: parent.width
                                 wrapMode: Text.WordWrap
+                                text: ELocale.texts.Canvas
                             }
                         }
                     }
                     EFooter {
                         EText {
-                            text: "已保存"
                             width: parent.width
                             wrapMode: Text.WordWrap
+                            text: ELocale.texts.Saved2
                         }
                     }
                 }
@@ -1484,9 +1484,9 @@ Column {
 
                 EHeader {
                     EText {
-                        text: "项目名称"
                         width: parent.width
                         wrapMode: Text.WordWrap
+                        text: ELocale.texts.ProjectName
                     }
                 }
                 EContainer {
@@ -1496,24 +1496,24 @@ Column {
                         implicitWidth: 120
 
                         EText {
-                            text: "目录"
                             width: parent.width
                             wrapMode: Text.WordWrap
+                            text: ELocale.texts.Directory
                         }
                     }
                     EMain {
                         EText {
-                            text: "画布"
                             width: parent.width
                             wrapMode: Text.WordWrap
+                            text: ELocale.texts.Canvas
                         }
                     }
                 }
                 EFooter {
                     EText {
-                        text: "已保存"
                         width: parent.width
                         wrapMode: Text.WordWrap
+                        text: ELocale.texts.Saved2
                     }
                 }
             }
@@ -1535,27 +1535,27 @@ Column {
 
                     ETypography {
                         level: 1
-                        text: "标题"
+                        text: ELocale.texts.Title
                     }
                     ETypography {
                         level: 2
-                        text: "标题"
+                        text: ELocale.texts.Title
                     }
                     ETypography {
                         level: 3
-                        text: "标题"
+                        text: ELocale.texts.Title
                     }
                     ETypography {
                         level: 4
-                        text: "标题"
+                        text: ELocale.texts.Title
                     }
                     ETypography {
                         level: 5
-                        text: "标题"
+                        text: ELocale.texts.Title
                     }
                     ETypography {
                         level: 6
-                        text: "标题"
+                        text: ELocale.texts.Title
                     }
                 }
             `)
@@ -1566,27 +1566,27 @@ Column {
 
                 ETypography {
                     level: 1
-                    text: "标题"
+                    text: ELocale.texts.Title
                 }
                 ETypography {
                     level: 2
-                    text: "标题"
+                    text: ELocale.texts.Title
                 }
                 ETypography {
                     level: 3
-                    text: "标题"
+                    text: ELocale.texts.Title
                 }
                 ETypography {
                     level: 4
-                    text: "标题"
+                    text: ELocale.texts.Title
                 }
                 ETypography {
                     level: 5
-                    text: "标题"
+                    text: ELocale.texts.Title
                 }
                 ETypography {
                     level: 6
-                    text: "标题"
+                    text: ELocale.texts.Title
                 }
             }
         }
@@ -1605,7 +1605,7 @@ Column {
                     level: 0
                     lineHeight: 1.65
                     width: Math.min(480, parent.width)
-                    text: "为组件提供清晰的阅读层级。正文保持舒适的行距，在窄窗口下自动换行，让中英文内容都易于阅读。"
+                    text: ELocale.texts.GiveComponentsAClearReadingHierarchyComfortableLine
                 }
             `)
 
@@ -1613,7 +1613,7 @@ Column {
                 level: 0
                 lineHeight: 1.65
                 width: Math.min(480, parent.width)
-                text: "为组件提供清晰的阅读层级。正文保持舒适的行距，在窄窗口下自动换行，让中英文内容都易于阅读。"
+                text: ELocale.texts.GiveComponentsAClearReadingHierarchyComfortableLine
             }
         }
     }
@@ -1633,11 +1633,11 @@ Column {
 
                     ETypography {
                         level: 3
-                        text: "项目详情"
+                        text: ELocale.texts.ProjectDetails
                     }
                     ETypography {
-                        text: "更新时间：今天 · 状态：已发布"
                         width: Math.min(480, parent.width)
+                        text: ELocale.texts.UpdatedTodayStatusPublished
                         color: EPaletteManager.ThemePalette.textSecondary(ETheme.dark)
                     }
                 }
@@ -1649,11 +1649,11 @@ Column {
 
                 ETypography {
                     level: 3
-                    text: "项目详情"
+                    text: ELocale.texts.ProjectDetails
                 }
                 ETypography {
-                    text: "更新时间：今天 · 状态：已发布"
                     width: Math.min(480, parent.width)
+                    text: ELocale.texts.UpdatedTodayStatusPublished
                     color: EPaletteManager.ThemePalette.textSecondary(ETheme.dark)
                 }
             }
@@ -1672,14 +1672,14 @@ Column {
                 ETypography {
                     level: 2
                     width: Math.min(480, parent.width)
-                    text: "EUI Design System：跨平台组件演示工作台"
+                    text: ELocale.texts.EUIDesignSystemCrossPlatformComponentPlayground
                 }
             `)
 
             ETypography {
                 level: 2
                 width: Math.min(480, parent.width)
-                text: "EUI Design System：跨平台组件演示工作台"
+                text: ELocale.texts.EUIDesignSystemCrossPlatformComponentPlayground
             }
         }
     }
@@ -1702,16 +1702,16 @@ Column {
                         size: "40%"
 
                         ECard {
-                            header: "资源"
                             anchors.fill: parent
+                            header: ELocale.texts.Resources
                         }
                     }
                     ESplitterPanel {
                         min: 80
 
                         ECard {
-                            header: "工作区"
                             anchors.fill: parent
+                            header: ELocale.texts.Workspace
                         }
                     }
                 }
@@ -1726,16 +1726,16 @@ Column {
                     size: "40%"
 
                     ECard {
-                        header: "资源"
                         anchors.fill: parent
+                        header: ELocale.texts.Resources
                     }
                 }
                 ESplitterPanel {
                     min: 80
 
                     ECard {
-                        header: "工作区"
                         anchors.fill: parent
+                        header: ELocale.texts.Workspace
                     }
                 }
             }
@@ -1761,16 +1761,16 @@ Column {
                         size: "35%"
 
                         ECard {
-                            header: "资源"
                             anchors.fill: parent
+                            header: ELocale.texts.Resources
                         }
                     }
                     ESplitterPanel {
                         min: 80
 
                         ECard {
-                            header: "工作区"
                             anchors.fill: parent
+                            header: ELocale.texts.Workspace
                         }
                     }
                 }
@@ -1786,16 +1786,16 @@ Column {
                     size: "35%"
 
                     ECard {
-                        header: "资源"
                         anchors.fill: parent
+                        header: ELocale.texts.Resources
                     }
                 }
                 ESplitterPanel {
                     min: 80
 
                     ECard {
-                        header: "工作区"
                         anchors.fill: parent
+                        header: ELocale.texts.Workspace
                     }
                 }
             }
@@ -1816,7 +1816,7 @@ Column {
                     width: parent.width
 
                     EButton {
-                        text: "折叠 / 恢复"
+                        text: ELocale.texts.CollapseRestore
 
                         onClicked: firstPanel.setCollapsed(!firstPanel.collapsed)
                     }
@@ -1831,16 +1831,16 @@ Column {
                             collapsible: true
 
                             ECard {
-                                header: "资源"
                                 anchors.fill: parent
+                                header: ELocale.texts.Resources
                             }
                         }
                         ESplitterPanel {
                             min: 80
 
                             ECard {
-                                header: "工作区"
                                 anchors.fill: parent
+                                header: ELocale.texts.Workspace
                             }
                         }
                     }
@@ -1852,7 +1852,7 @@ Column {
                 width: parent.width
 
                 EButton {
-                    text: "折叠 / 恢复"
+                    text: ELocale.texts.CollapseRestore
 
                     onClicked: firstPanel.setCollapsed(!firstPanel.collapsed)
                 }
@@ -1867,16 +1867,16 @@ Column {
                         collapsible: true
 
                         ECard {
-                            header: "资源"
                             anchors.fill: parent
+                            header: ELocale.texts.Resources
                         }
                     }
                     ESplitterPanel {
                         min: 80
 
                         ECard {
-                            header: "工作区"
                             anchors.fill: parent
+                            header: ELocale.texts.Workspace
                         }
                     }
                 }
@@ -1902,16 +1902,16 @@ Column {
                         resizable: false
 
                         ECard {
-                            header: "固定资源栏"
                             anchors.fill: parent
+                            header: ELocale.texts.FixedResourceSidebar
                         }
                     }
                     ESplitterPanel {
                         min: 80
 
                         ECard {
-                            header: "自适应工作区"
                             anchors.fill: parent
+                            header: ELocale.texts.AdaptiveWorkspace
                         }
                     }
                 }
@@ -1926,16 +1926,16 @@ Column {
                     resizable: false
 
                     ECard {
-                        header: "固定资源栏"
                         anchors.fill: parent
+                        header: ELocale.texts.FixedResourceSidebar
                     }
                 }
                 ESplitterPanel {
                     min: 80
 
                     ECard {
-                        header: "自适应工作区"
                         anchors.fill: parent
+                        header: ELocale.texts.AdaptiveWorkspace
                     }
                 }
             }
@@ -1967,7 +1967,7 @@ Column {
                             EText {
                                 color: "white"
                                 anchors.centerIn: parent
-                                text: "Panel " + (index + 1)
+                                text: ELocale.texts.PanelNumber.arg(index + 1)
                             }
                         }
                     }
@@ -1990,7 +1990,7 @@ Column {
                         EText {
                             color: "white"
                             anchors.centerIn: parent
-                            text: "Panel " + (index + 1)
+                            text: ELocale.texts.PanelNumber.arg(index + 1)
                         }
                     }
                 }
@@ -2023,7 +2023,7 @@ Column {
                             EText {
                                 color: "white"
                                 anchors.centerIn: parent
-                                text: "Panel " + (index + 1)
+                                text: ELocale.texts.PanelNumber.arg(index + 1)
                             }
                         }
                     }
@@ -2046,7 +2046,7 @@ Column {
                         EText {
                             color: "white"
                             anchors.centerIn: parent
-                            text: "Panel " + (index + 1)
+                            text: ELocale.texts.PanelNumber.arg(index + 1)
                         }
                     }
                 }
@@ -2079,7 +2079,7 @@ Column {
                             EText {
                                 color: "white"
                                 anchors.centerIn: parent
-                                text: "Panel " + (index + 1)
+                                text: ELocale.texts.PanelNumber.arg(index + 1)
                             }
                         }
                     }
@@ -2102,7 +2102,7 @@ Column {
                         EText {
                             color: "white"
                             anchors.centerIn: parent
-                            text: "Panel " + (index + 1)
+                            text: ELocale.texts.PanelNumber.arg(index + 1)
                         }
                     }
                 }
@@ -2135,7 +2135,7 @@ Column {
                             EText {
                                 color: "white"
                                 anchors.centerIn: parent
-                                text: "Panel " + (index + 1)
+                                text: ELocale.texts.PanelNumber.arg(index + 1)
                             }
                         }
                     }
@@ -2158,7 +2158,7 @@ Column {
                         EText {
                             color: "white"
                             anchors.centerIn: parent
-                            text: "Panel " + (index + 1)
+                            text: ELocale.texts.PanelNumber.arg(index + 1)
                         }
                     }
                 }

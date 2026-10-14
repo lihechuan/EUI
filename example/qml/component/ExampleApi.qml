@@ -21,7 +21,18 @@ Column {
         })
     }
 
-    spacing: 24
+    function defaultSummary(entry) {
+        const value = String(entry.defaultValue || "").trim()
+        const component = value.match(/^([\w.]+)\s*\{/)
+        if (entry.type === "Component" && component)
+            return component[1] + " { \u2026 }"
+        if (!entry.readonly && value.length > 48
+            && value.replace(/\s+/g, "") === String(entry.binding || "").replace(/\s+/g, ""))
+            return ELocale.texts.ApiDynamicDefault
+        return value || "—"
+    }
+
+    spacing: 32
     visible: sections.length > 0
     objectName: "galleryApiDocumentation"
 
@@ -34,170 +45,121 @@ Column {
             readonly property var documentation: modelData.api
             readonly property string componentName: modelData.name
 
-            spacing: 12
+            spacing: 16
             width: control.width
             objectName: "galleryApiSection"
 
-            EText {
+            Column {
+                spacing: 8
                 width: parent.width
-                wrapMode: Text.WordWrap
-                color: GalleryStyle.text
-                font.weight: Font.DemiBold
-                objectName: "galleryApiTitle"
-                font.pixelSize: GalleryStyle.sectionSize
-                text: section.componentName + " " + ELocale.texts.ApiAttributes
-            }
-            EText {
-                width: parent.width
-                wrapMode: Text.WordWrap
-                color: GalleryStyle.muted
-                text: ELocale.texts.ApiPropertiesNote
-                lineHeight: GalleryStyle.bodyLineHeight
-                font.pixelSize: GalleryStyle.captionSize
-            }
-            Flickable {
-                id: tableViewport
 
-                clip: true
-                width: parent.width
-                contentWidth: table.width
-                contentHeight: table.height
-                objectName: "galleryApiTableViewport"
-                ScrollBar.horizontal: ScrollHandle { }
-                boundsBehavior: Flickable.StopAtBounds
-                flickableDirection: Flickable.HorizontalFlick
-                height: table.height + (contentWidth > width ? ScrollBar.horizontal.height : 0)
+                Flow {
+                    spacing: 12
+                    width: parent.width
 
-                Column {
-                    id: table
-
-                    width: Math.max(820, tableViewport.width)
-
-                    Rectangle {
-                        height: 42
-                        width: parent.width
-                        color: GalleryStyle.hover
-                        objectName: "galleryApiTableHeader"
-
-                        Row {
-                            width: parent.width
-                            height: parent.height
-
-                            Repeater {
-                                model: [ELocale.texts.ApiName, ELocale.texts.ApiDescription,
-                                    ELocale.texts.ApiType, ELocale.texts.ApiDefault]
-
-                                EText {
-                                    leftPadding: 16
-                                    text: modelData
-                                    rightPadding: 16
-                                    height: parent.height
-                                    color: GalleryStyle.text
-                                    font.weight: Font.DemiBold
-                                    verticalAlignment: Text.AlignVCenter
-                                    font.pixelSize: GalleryStyle.captionSize
-                                    width: table.width * [0.22, 0.38, 0.15, 0.25][index]
-                                }
-                            }
-                        }
+                    EText {
+                        height: 32
+                        font.pixelSize: 22
+                        color: GalleryStyle.text
+                        font.weight: Font.DemiBold
+                        objectName: "galleryApiTitle"
+                        text: ELocale.texts.ApiAttributes
+                        verticalAlignment: Text.AlignVCenter
+                        font.family: EDefaultConfig.primaryFontFamily
                     }
-                    Repeater {
-                        model: section.documentation.properties || []
+                    EText {
+                        height: 32
+                        font.pixelSize: 14
+                        color: GalleryStyle.muted
+                        text: section.componentName
+                        verticalAlignment: Text.AlignVCenter
+                        objectName: "galleryApiComponentName"
+                        font.family: EDefaultConfig.primaryFontFamily
+                    }
+                    EText {
+                        height: 32
+                        font.pixelSize: 14
+                        color: GalleryStyle.muted
+                        verticalAlignment: Text.AlignVCenter
+                        objectName: "galleryApiPropertyCount"
+                        font.family: EDefaultConfig.primaryFontFamily
+                        text: ELocale.texts.ApiPropertyCount.arg((section.documentation.properties || []).length)
+                    }
+                }
+                EText {
+                    font.pixelSize: 14
+                    width: parent.width
+                    wrapMode: Text.WordWrap
+                    color: GalleryStyle.muted
+                    text: ELocale.texts.ApiPropertiesNote
+                    lineHeight: GalleryStyle.bodyLineHeight
+                    font.family: EDefaultConfig.primaryFontFamily
+                }
+            }
+            Rectangle {
+                radius: 12
+                border.width: 1
+                width: parent.width
+                color: GalleryStyle.surface
+                border.color: GalleryStyle.line
+                height: tableViewport.height + 2
+                objectName: "galleryApiTableFrame"
+
+                Flickable {
+                    id: tableViewport
+
+                    x: 1
+                    y: 1
+                    clip: true
+                    width: parent.width - 2
+                    contentWidth: table.width
+                    contentHeight: table.height
+                    objectName: "galleryApiTableViewport"
+                    ScrollBar.horizontal: ScrollHandle { }
+                    boundsBehavior: Flickable.StopAtBounds
+                    flickableDirection: Flickable.HorizontalFlick
+                    height: table.height + (contentWidth > width ? ScrollBar.horizontal.height : 0)
+
+                    Column {
+                        id: table
+
+                        readonly property var columnWidths: [220, width - 720, 260, 240]
+
+                        width: Math.max(960, tableViewport.width)
 
                         Rectangle {
-                            id: row
+                            height: 48
+                            radius: 11
+                            width: parent.width
+                            color: GalleryStyle.preview
+                            objectName: "galleryApiTableHeader"
 
-                            readonly property var entry: modelData
-
-                            width: table.width
-                            color: GalleryStyle.surface
-                            objectName: "galleryApiRow"
-                            height: Math.max(64, nameColumn.implicitHeight + 28,
-                                descriptionLabel.implicitHeight + 28, typeLabel.implicitHeight + 28,
-                                defaultColumn.implicitHeight + 28)
-
-                            Column {
-                                id: nameColumn
-
-                                x: 16
-                                y: 14
-                                spacing: 5
-                                width: table.width * 0.22 - 32
-
-                                TextEdit {
-                                    readOnly: true
-                                    selectByMouse: true
-                                    width: parent.width
-                                    text: row.entry.name
-                                    color: GalleryStyle.text
-                                    wrapMode: TextEdit.WrapAnywhere
-                                    font.family: GalleryStyle.codeFamily
-                                    font.pixelSize: GalleryStyle.captionSize
-                                }
-                                EText {
-                                    width: parent.width
-                                    color: GalleryStyle.muted
-                                    wrapMode: Text.WrapAnywhere
-                                    font.pixelSize: GalleryStyle.smallSize
-                                    text: row.entry.owner + (row.entry.readonly ? " · " + ELocale.texts.ApiReadOnly : "")
-                                }
+                            Rectangle {
+                                height: 12
+                                color: parent.color
+                                width: parent.width
+                                anchors.bottom: parent.bottom
                             }
-                            TextEdit {
-                                id: descriptionLabel
+                            Row {
+                                width: parent.width
+                                height: parent.height
 
-                                y: 14
-                                readOnly: true
-                                selectByMouse: true
-                                color: GalleryStyle.text
-                                x: table.width * 0.22 + 16
-                                text: row.entry.description
-                                wrapMode: TextEdit.WordWrap
-                                width: table.width * 0.38 - 32
-                                font.pixelSize: GalleryStyle.captionSize
-                            }
-                            TextEdit {
-                                id: typeLabel
+                                Repeater {
+                                    model: [ELocale.texts.ApiName, ELocale.texts.ApiDescription,
+                                        ELocale.texts.ApiDetails, ELocale.texts.ApiDefault]
 
-                                y: 14
-                                readOnly: true
-                                selectByMouse: true
-                                text: row.entry.type
-                                x: table.width * 0.6 + 16
-                                color: GalleryStyle.accent
-                                width: table.width * 0.15 - 32
-                                wrapMode: TextEdit.WrapAnywhere
-                                font.family: GalleryStyle.codeFamily
-                                font.pixelSize: GalleryStyle.captionSize
-                            }
-                            Column {
-                                id: defaultColumn
-
-                                y: 14
-                                spacing: 6
-                                x: table.width * 0.75 + 16
-                                width: table.width * 0.25 - 32
-
-                                TextEdit {
-                                    readOnly: true
-                                    selectByMouse: true
-                                    width: parent.width
-                                    color: GalleryStyle.text
-                                    text: row.entry.defaultValue
-                                    wrapMode: TextEdit.WrapAnywhere
-                                    font.family: GalleryStyle.codeFamily
-                                    font.pixelSize: GalleryStyle.smallSize
-                                }
-                                ETextButton {
-                                    minHeight: 24
-                                    leftPadding: 0
-                                    rightPadding: 0
-                                    text: ELocale.texts.ApiDefaultBinding
-                                    font.pixelSize: GalleryStyle.smallSize
-                                    objectName: "galleryApiDefaultBinding"
-                                    visible: !row.entry.readonly && row.entry.binding.length > 0
-                                        && row.entry.defaultValue.indexOf(row.entry.binding) < 0
-
-                                    onClicked: bindingDialog.openBinding(section.componentName, row.entry)
+                                    EText {
+                                        leftPadding: 16
+                                        text: modelData
+                                        rightPadding: 16
+                                        font.pixelSize: 14
+                                        height: parent.height
+                                        color: GalleryStyle.text
+                                        font.weight: Font.Medium
+                                        width: table.columnWidths[index]
+                                        verticalAlignment: Text.AlignVCenter
+                                        font.family: EDefaultConfig.primaryFontFamily
+                                    }
                                 }
                             }
                             Rectangle {
@@ -207,55 +169,179 @@ Column {
                                 anchors.bottom: parent.bottom
                             }
                         }
+                        Repeater {
+                            model: section.documentation.properties || []
+
+                            Item {
+                                id: row
+
+                                readonly property var entry: modelData
+                                readonly property string defaultText: control.defaultSummary(entry)
+
+                                width: table.width
+                                objectName: "galleryApiRow"
+                                height: Math.max(76, nameColumn.implicitHeight + 32,
+                                    descriptionLabel.implicitHeight + 32, detailsLabel.implicitHeight + 32,
+                                    defaultColumn.implicitHeight + 32)
+
+                                Rectangle {
+                                    radius: 11
+                                    anchors.fill: parent
+                                    color: rowHover.hovered ? GalleryStyle.preview : "transparent"
+
+                                    Rectangle {
+                                        height: 11
+                                        color: parent.color
+                                        width: parent.width
+                                    }
+                                    Rectangle {
+                                        height: 11
+                                        color: parent.color
+                                        width: parent.width
+                                        anchors.bottom: parent.bottom
+                                        visible: index < (section.documentation.properties || []).length - 1
+                                    }
+                                }
+                                HoverHandler { id: rowHover }
+                                Column {
+                                    id: nameColumn
+
+                                    x: 16
+                                    y: 16
+                                    spacing: 6
+                                    width: table.columnWidths[0] - 32
+
+                                    TextEdit {
+                                        readOnly: true
+                                        font.pixelSize: 14
+                                        selectByMouse: true
+                                        width: parent.width
+                                        text: row.entry.name
+                                        wrapMode: TextEdit.Wrap
+                                        color: GalleryStyle.text
+                                        font.weight: Font.Medium
+                                        objectName: "galleryApiPropertyName"
+                                        selectedTextColor: GalleryStyle.text
+                                        selectionColor: GalleryStyle.accentSoft
+                                        font.family: EDefaultConfig.primaryFontFamily
+                                    }
+                                    Flow {
+                                        spacing: 6
+                                        width: parent.width
+
+                                        TextEdit {
+                                            readOnly: true
+                                            font.pixelSize: 13
+                                            selectByMouse: true
+                                            text: row.entry.type
+                                            width: implicitWidth
+                                            height: implicitHeight
+                                            color: GalleryStyle.muted
+                                            objectName: "galleryApiPropertyType"
+                                            selectedTextColor: GalleryStyle.text
+                                            selectionColor: GalleryStyle.accentSoft
+                                            font.family: EDefaultConfig.primaryFontFamily
+                                        }
+                                        EText {
+                                            height: 18
+                                            font.pixelSize: 13
+                                            text: row.entry.owner
+                                            color: GalleryStyle.muted
+                                            verticalAlignment: Text.AlignVCenter
+                                            objectName: "galleryApiPropertyOwner"
+                                            font.family: EDefaultConfig.primaryFontFamily
+                                        }
+                                        Rectangle {
+                                            radius: 4
+                                            height: 18
+                                            border.width: 1
+                                            color: "transparent"
+                                            visible: row.entry.readonly
+                                            border.color: GalleryStyle.line
+                                            width: readonlyLabel.implicitWidth + 12
+
+                                            EText {
+                                                id: readonlyLabel
+
+                                                font.pixelSize: 11
+                                                anchors.centerIn: parent
+                                                color: GalleryStyle.muted
+                                                text: ELocale.texts.ApiReadOnly
+                                                font.family: EDefaultConfig.primaryFontFamily
+                                            }
+                                        }
+                                    }
+                                }
+                                TextEdit {
+                                    id: descriptionLabel
+
+                                    y: 16
+                                    readOnly: true
+                                    font.pixelSize: 14
+                                    selectByMouse: true
+                                    wrapMode: TextEdit.Wrap
+                                    color: GalleryStyle.text
+                                    text: row.entry.description
+                                    x: table.columnWidths[0] + 16
+                                    width: table.columnWidths[1] - 32
+                                    objectName: "galleryApiDescription"
+                                    selectedTextColor: GalleryStyle.text
+                                    selectionColor: GalleryStyle.accentSoft
+                                    font.family: EDefaultConfig.primaryFontFamily
+                                }
+                                TextEdit {
+                                    id: detailsLabel
+
+                                    y: 16
+                                    readOnly: true
+                                    font.pixelSize: 14
+                                    selectByMouse: true
+                                    wrapMode: TextEdit.WordWrap
+                                    text: row.entry.details || "—"
+                                    objectName: "galleryApiDetails"
+                                    width: table.columnWidths[2] - 32
+                                    selectedTextColor: GalleryStyle.text
+                                    selectionColor: GalleryStyle.accentSoft
+                                    font.family: EDefaultConfig.primaryFontFamily
+                                    x: table.columnWidths[0] + table.columnWidths[1] + 16
+                                    color: row.entry.details ? GalleryStyle.text : GalleryStyle.muted
+                                }
+                                Column {
+                                    id: defaultColumn
+
+                                    y: 16
+                                    spacing: 8
+                                    width: table.columnWidths[3] - 32
+                                    x: table.width - table.columnWidths[3] + 16
+
+                                    TextEdit {
+                                        id: defaultLabel
+
+                                        readOnly: true
+                                        font.pixelSize: 14
+                                        selectByMouse: true
+                                        width: parent.width
+                                        text: row.defaultText
+                                        wrapMode: TextEdit.Wrap
+                                        objectName: "galleryApiDefaultValue"
+                                        selectedTextColor: GalleryStyle.text
+                                        selectionColor: GalleryStyle.accentSoft
+                                        font.family: EDefaultConfig.primaryFontFamily
+                                        color: row.entry.readonly ? GalleryStyle.muted : GalleryStyle.text
+                                    }
+                                }
+                                Rectangle {
+                                    height: 1
+                                    color: GalleryStyle.line
+                                    width: parent.width - 32
+                                    anchors.bottom: parent.bottom
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    visible: index < (section.documentation.properties || []).length - 1
+                                }
+                            }
+                        }
                     }
                 }
-            }
-        }
-    }
-    Dialog {
-        id: bindingDialog
-
-        property string binding: ""
-        property string sourceFile: ""
-
-        function openBinding(componentName, entry) {
-            title = componentName + "." + entry.name
-            binding = entry.binding
-            sourceFile = entry.source
-            open()
-        }
-
-        focus: true
-        modal: true
-        standardButtons: Dialog.Close
-        anchors.centerIn: Overlay.overlay
-        objectName: "galleryApiBindingDialog"
-        width: Math.min(640, Overlay.overlay ? Overlay.overlay.width - 48 : 640)
-        background: Rectangle {
-            radius: 8
-            border.width: 1
-            color: GalleryStyle.surface
-            border.color: GalleryStyle.line
-        }
-        contentItem: Column {
-            spacing: 12
-
-            TextEdit {
-                readOnly: true
-                selectByMouse: true
-                width: parent.width
-                color: GalleryStyle.text
-                text: bindingDialog.binding
-                wrapMode: TextEdit.WrapAnywhere
-                font.family: GalleryStyle.codeFamily
-                font.pixelSize: GalleryStyle.captionSize
-            }
-            EText {
-                width: parent.width
-                color: GalleryStyle.muted
-                wrapMode: Text.WrapAnywhere
-                text: bindingDialog.sourceFile
-                font.pixelSize: GalleryStyle.smallSize
             }
         }
     }

@@ -22,8 +22,8 @@ Column {
                     EInput {
                         id: source
 
-                        placeholderText: "输入本地文件地址或媒体 URL"
                         width: Math.min(480, parent.width)
+                        placeholderText: ELocale.texts.EnterALocalFilePathOrMediaURL
                     }
                     EMediaPlayer {
                         id: player
@@ -38,18 +38,18 @@ Column {
                         width: parent.width
 
                         EButton {
-                            text: "播放"
+                            text: ELocale.texts.Play
                             enabled: source.text.length > 0
 
                             onClicked: player.play()
                         }
                         EButton {
-                            text: "暂停"
+                            text: ELocale.texts.Pause
 
                             onClicked: player.pause()
                         }
                         EButton {
-                            text: "停止"
+                            text: ELocale.texts.Stop
 
                             onClicked: player.stop()
                         }
@@ -64,8 +64,8 @@ Column {
                 EInput {
                     id: source
 
-                    placeholderText: "输入本地文件地址或媒体 URL"
                     width: Math.min(480, parent.width)
+                    placeholderText: ELocale.texts.EnterALocalFilePathOrMediaURL
                 }
                 EMediaPlayer {
                     id: player
@@ -80,18 +80,18 @@ Column {
                     width: parent.width
 
                     EButton {
-                        text: "播放"
+                        text: ELocale.texts.Play
                         enabled: source.text.length > 0
 
                         onClicked: player.play()
                     }
                     EButton {
-                        text: "暂停"
+                        text: ELocale.texts.Pause
 
                         onClicked: player.pause()
                     }
                     EButton {
-                        text: "停止"
+                        text: ELocale.texts.Stop
 
                         onClicked: player.stop()
                     }
@@ -116,8 +116,8 @@ Column {
                     EInput {
                         id: source
 
-                        placeholderText: "输入本地文件地址或媒体 URL"
                         width: Math.min(480, parent.width)
+                        placeholderText: ELocale.texts.EnterALocalFilePathOrMediaURL
                     }
                     EMediaPlayer {
                         id: player
@@ -141,7 +141,7 @@ Column {
                             onMoved: player.volume = value
                         }
                         ESwitch {
-                            text: "静音"
+                            text: ELocale.texts.Mute
 
                             onCheckedChanged: player.muted = checked
                         }
@@ -156,8 +156,8 @@ Column {
                 EInput {
                     id: source
 
-                    placeholderText: "输入本地文件地址或媒体 URL"
                     width: Math.min(480, parent.width)
+                    placeholderText: ELocale.texts.EnterALocalFilePathOrMediaURL
                 }
                 EMediaPlayer {
                     id: player
@@ -181,7 +181,7 @@ Column {
                         onMoved: player.volume = value
                     }
                     ESwitch {
-                        text: "静音"
+                        text: ELocale.texts.Mute
 
                         onCheckedChanged: player.muted = checked
                     }
@@ -206,8 +206,8 @@ Column {
                     EInput {
                         id: source
 
-                        placeholderText: "输入本地文件地址或媒体 URL"
                         width: Math.min(480, parent.width)
+                        placeholderText: ELocale.texts.EnterALocalFilePathOrMediaURL
                     }
                     EMediaPlayer {
                         id: player
@@ -237,8 +237,8 @@ Column {
                 EInput {
                     id: source
 
-                    placeholderText: "输入本地文件地址或媒体 URL"
                     width: Math.min(480, parent.width)
+                    placeholderText: ELocale.texts.EnterALocalFilePathOrMediaURL
                 }
                 EMediaPlayer {
                     id: player
@@ -278,8 +278,8 @@ Column {
                     EInput {
                         id: source
 
-                        placeholderText: "输入本地文件地址或媒体 URL"
                         width: Math.min(480, parent.width)
+                        placeholderText: ELocale.texts.EnterALocalFilePathOrMediaURL
                     }
                     EMediaPlayer {
                         id: player
@@ -292,7 +292,7 @@ Column {
                     EText {
                         width: parent.width
                         wrapMode: Text.WordWrap
-                        text: player.errorString.length > 0 ? player.errorString : "等待媒体地址"
+                        text: player.errorString.length > 0 ? player.errorString : ELocale.texts.WaitingForAMediaURL
                     }
                 }
             `)
@@ -304,8 +304,8 @@ Column {
                 EInput {
                     id: source
 
-                    placeholderText: "输入本地文件地址或媒体 URL"
                     width: Math.min(480, parent.width)
+                    placeholderText: ELocale.texts.EnterALocalFilePathOrMediaURL
                 }
                 EMediaPlayer {
                     id: player
@@ -318,7 +318,7 @@ Column {
                 EText {
                     width: parent.width
                     wrapMode: Text.WordWrap
-                    text: player.errorString.length > 0 ? player.errorString : "等待媒体地址"
+                    text: player.errorString.length > 0 ? player.errorString : ELocale.texts.WaitingForAMediaURL
                 }
             }
         }

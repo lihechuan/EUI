@@ -62,6 +62,7 @@ ESwitch {
                 easing.bezierCurve: [0.645, 0.045, 0.355, 1, 1, 1]
             }
         }
+
         ERectangle {
             id: thumb
 
@@ -89,6 +90,7 @@ ESwitch {
                     easing.bezierCurve: [0.645, 0.045, 0.355, 1, 1, 1]
                 }
             }
+
             EIcon {
                 anchors.fill: parent
                 iconSource: EIcons.SUN
@@ -271,6 +273,7 @@ ESwitch {
         anchors.fill: parent
         parent: control.transitionRoot
         active: inside.transitionRunning
+        objectName: "themeTransitionLayer"
         sourceComponent: transitionLayerComponent
     }
     Component {

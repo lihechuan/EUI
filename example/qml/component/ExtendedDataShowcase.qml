@@ -107,7 +107,7 @@ Column {
                         model: [{label: "Mon", value: 30}, {label: "Tue", value: 55}, {label: "Wed", value: 42}, {label: "Thu", value: 80}]
                     }
                     EButton {
-                        text: "更新数据"
+                        text: ELocale.texts.UpdateData
 
                         onClicked: chart.model = [{label: "Mon", value: 80}, {label: "Tue", value: 30}, {label: "Wed", value: 65}, {label: "Thu", value: 45}]
                     }
@@ -126,7 +126,7 @@ Column {
                     model: [{label: "Mon", value: 30}, {label: "Tue", value: 55}, {label: "Wed", value: 42}, {label: "Thu", value: 80}]
                 }
                 EButton {
-                    text: "更新数据"
+                    text: ELocale.texts.UpdateData
 
                     onClicked: chart.model = [{label: "Mon", value: 80}, {label: "Tue", value: 30}, {label: "Wed", value: 65}, {label: "Thu", value: 45}]
                 }
@@ -206,16 +206,16 @@ Column {
                 EImage {
                     width: 240
                     height: 140
-                    errorText: "图片不可用"
                     source: "qrc:/example/missing-image.png"
+                    errorText: ELocale.texts.ImageUnavailable
                 }
             `)
 
             EImage {
                 width: 240
                 height: 140
-                errorText: "图片不可用"
                 source: "qrc:/example/missing-image.png"
+                errorText: ELocale.texts.ImageUnavailable
             }
         }
     }
@@ -270,7 +270,7 @@ Column {
                     EButton {
                         id: target
 
-                        text: "开始引导"
+                        text: ELocale.texts.StartTour
 
                         onClicked: tour.open()
                     }
@@ -278,7 +278,7 @@ Column {
                         id: tour
 
                         gap: ({offset: 8, radius: 12})
-                        steps: [{target: target, title: "创建项目", description: "从这里开始工作。"}, {title: "准备就绪", description: "可以继续浏览组件。"}]
+                        steps: [{target: target, title: ELocale.texts.CreateProject, description: ELocale.texts.StartYourWorkHere}, {title: ELocale.texts.Ready2, description: ELocale.texts.ContinueExploringTheComponents}]
                     }
                 }
             `)
@@ -290,7 +290,7 @@ Column {
                 EButton {
                     id: target
 
-                    text: "开始引导"
+                    text: ELocale.texts.StartTour
 
                     onClicked: tour.open()
                 }
@@ -298,7 +298,7 @@ Column {
                     id: tour
 
                     gap: ({offset: 8, radius: 12})
-                    steps: [{target: target, title: "创建项目", description: "从这里开始工作。"}, {title: "准备就绪", description: "可以继续浏览组件。"}]
+                    steps: [{target: target, title: ELocale.texts.CreateProject, description: ELocale.texts.StartYourWorkHere}, {title: ELocale.texts.Ready2, description: ELocale.texts.ContinueExploringTheComponents}]
                 }
             }
         }
@@ -320,7 +320,7 @@ Column {
                     EButton {
                         id: target
 
-                        text: "显示提示"
+                        text: ELocale.texts.ShowHint
 
                         onClicked: tour.open()
                     }
@@ -330,7 +330,7 @@ Column {
                         mask: false
                         type: "primary"
                         placement: "right"
-                        steps: [{target: target, title: "操作提示", description: "轻量引导保留页面上下文。"}]
+                        steps: [{target: target, title: ELocale.texts.ActionHint, description: ELocale.texts.ALightweightTourPreservesThePageContext}]
                     }
                 }
             `)
@@ -342,7 +342,7 @@ Column {
                 EButton {
                     id: target
 
-                    text: "显示提示"
+                    text: ELocale.texts.ShowHint
 
                     onClicked: tour.open()
                 }
@@ -352,7 +352,7 @@ Column {
                     mask: false
                     type: "primary"
                     placement: "right"
-                    steps: [{target: target, title: "操作提示", description: "轻量引导保留页面上下文。"}]
+                    steps: [{target: target, title: ELocale.texts.ActionHint, description: ELocale.texts.ALightweightTourPreservesThePageContext}]
                 }
             }
         }
@@ -374,7 +374,7 @@ Column {
                     EButton {
                         id: target
 
-                        text: "开始引导"
+                        text: ELocale.texts.StartTour
 
                         onClicked: tour.open()
                     }
@@ -385,7 +385,7 @@ Column {
                         showArrow: false
                         maskColor: "#B30B1423"
                         closeOnPressEscape: true
-                        steps: [{target: target, title: "工作台", description: "按 Escape 可结束引导。"}]
+                        steps: [{target: target, title: ELocale.texts.Workspace2, description: ELocale.texts.PressEscapeToEndTheTour}]
                     }
                 }
             `)
@@ -397,7 +397,7 @@ Column {
                 EButton {
                     id: target
 
-                    text: "开始引导"
+                    text: ELocale.texts.StartTour
 
                     onClicked: tour.open()
                 }
@@ -408,7 +408,7 @@ Column {
                     showArrow: false
                     maskColor: "#B30B1423"
                     closeOnPressEscape: true
-                    steps: [{target: target, title: "工作台", description: "按 Escape 可结束引导。"}]
+                    steps: [{target: target, title: ELocale.texts.Workspace2, description: ELocale.texts.PressEscapeToEndTheTour}]
                 }
             }
         }
@@ -424,25 +424,25 @@ Column {
                 import QtQuick 2.15
 
                 EResult {
-                    title: "保存成功"
-                    subTitle: "项目已经更新。"
                     styleType: EStyle.Success
                     width: Math.min(480, parent.width)
+                    title: ELocale.texts.CoreSampleSaved
+                    subTitle: ELocale.texts.TheProjectHasBeenUpdated
 
                     EButton {
-                        text: "返回项目"
+                        text: ELocale.texts.BackToProject
                     }
                 }
             `)
 
             EResult {
-                title: "保存成功"
-                subTitle: "项目已经更新。"
                 styleType: EStyle.Success
                 width: Math.min(480, parent.width)
+                title: ELocale.texts.CoreSampleSaved
+                subTitle: ELocale.texts.TheProjectHasBeenUpdated
 
                 EButton {
-                    text: "返回项目"
+                    text: ELocale.texts.BackToProject
                 }
             }
         }
@@ -462,22 +462,22 @@ Column {
                     width: parent.width
 
                     EResult {
-                        title: "操作结果"
-                        subTitle: "请查看详细说明。"
                         styleType: EStyle.Warning
+                        title: ELocale.texts.ActionResult
                         width: Math.min(300, parent.width)
+                        subTitle: ELocale.texts.ViewTheDetailedDescription
                     }
                     EResult {
-                        title: "操作结果"
-                        subTitle: "请查看详细说明。"
                         styleType: EStyle.Danger
+                        title: ELocale.texts.ActionResult
                         width: Math.min(300, parent.width)
+                        subTitle: ELocale.texts.ViewTheDetailedDescription
                     }
                     EResult {
-                        title: "操作结果"
-                        subTitle: "请查看详细说明。"
                         styleType: EStyle.Info
+                        title: ELocale.texts.ActionResult
                         width: Math.min(300, parent.width)
+                        subTitle: ELocale.texts.ViewTheDetailedDescription
                     }
                 }
             `)
@@ -487,22 +487,22 @@ Column {
                 width: parent.width
 
                 EResult {
-                    title: "操作结果"
-                    subTitle: "请查看详细说明。"
                     styleType: EStyle.Warning
+                    title: ELocale.texts.ActionResult
                     width: Math.min(300, parent.width)
+                    subTitle: ELocale.texts.ViewTheDetailedDescription
                 }
                 EResult {
-                    title: "操作结果"
-                    subTitle: "请查看详细说明。"
                     styleType: EStyle.Danger
+                    title: ELocale.texts.ActionResult
                     width: Math.min(300, parent.width)
+                    subTitle: ELocale.texts.ViewTheDetailedDescription
                 }
                 EResult {
-                    title: "操作结果"
-                    subTitle: "请查看详细说明。"
                     styleType: EStyle.Info
+                    title: ELocale.texts.ActionResult
                     width: Math.min(300, parent.width)
+                    subTitle: ELocale.texts.ViewTheDetailedDescription
                 }
             }
         }
@@ -518,9 +518,9 @@ Column {
                 import QtQuick 2.15
 
                 EResult {
-                    title: "准备就绪"
-                    subTitle: "自定义图标和说明。"
+                    title: ELocale.texts.Ready2
                     width: Math.min(480, parent.width)
+                    subTitle: ELocale.texts.CustomIconAndDescription
                     iconDelegate: Component {
                         EIcon {
                             iconSize: 56
@@ -532,9 +532,9 @@ Column {
             `)
 
             EResult {
-                title: "准备就绪"
-                subTitle: "自定义图标和说明。"
+                title: ELocale.texts.Ready2
                 width: Math.min(480, parent.width)
+                subTitle: ELocale.texts.CustomIconAndDescription
                 iconDelegate: Component {
                     EIcon {
                         iconSize: 56
@@ -614,8 +614,8 @@ Column {
                     height: 180
                     quietZone: 6
                     color: "#173958"
-                    text: "EUI Design System"
                     backgroundColor: "#E7F0FF"
+                    text: ELocale.texts.EuiDesignSystem
                 }
             `)
 
@@ -624,8 +624,8 @@ Column {
                 height: 180
                 quietZone: 6
                 color: "#173958"
-                text: "EUI Design System"
                 backgroundColor: "#E7F0FF"
+                text: ELocale.texts.EuiDesignSystem
             }
         }
     }
@@ -841,7 +841,7 @@ Column {
                     autoplay: false
                     indicatorPosition: "outside"
                     width: Math.min(480, parent.width)
-                    model: [{title: "设计", color: "#226DCA"}, {title: "开发", color: "#007D83"}, {title: "发布", color: "#6F51C5"}]
+                    model: [{title: ELocale.texts.Design, color: "#226DCA"}, {title: ELocale.texts.Engineering, color: "#007D83"}, {title: ELocale.texts.Publish, color: "#6F51C5"}]
                     delegate: Component {
                         ERectangle {
                             radius: 12
@@ -864,7 +864,7 @@ Column {
                 autoplay: false
                 indicatorPosition: "outside"
                 width: Math.min(480, parent.width)
-                model: [{title: "设计", color: "#226DCA"}, {title: "开发", color: "#007D83"}, {title: "发布", color: "#6F51C5"}]
+                model: [{title: ELocale.texts.Design, color: "#226DCA"}, {title: ELocale.texts.Engineering, color: "#007D83"}, {title: ELocale.texts.Publish, color: "#6F51C5"}]
                 delegate: Component {
                     ERectangle {
                         radius: 12
@@ -898,7 +898,7 @@ Column {
                     initialIndex: 1
                     direction: "vertical"
                     width: Math.min(480, parent.width)
-                    model: [{title: "第一屏"}, {title: "第二屏"}, {title: "第三屏"}]
+                    model: [{title: ELocale.texts.FirstSlide}, {title: ELocale.texts.SecondSlide}, {title: ELocale.texts.ThirdSlide}]
                     delegate: Component {
                         ERectangle {
                             radius: 12
@@ -922,7 +922,7 @@ Column {
                 initialIndex: 1
                 direction: "vertical"
                 width: Math.min(480, parent.width)
-                model: [{title: "第一屏"}, {title: "第二屏"}, {title: "第三屏"}]
+                model: [{title: ELocale.texts.FirstSlide}, {title: ELocale.texts.SecondSlide}, {title: ELocale.texts.ThirdSlide}]
                 delegate: Component {
                     ERectangle {
                         radius: 12
@@ -959,7 +959,7 @@ Column {
                         height: 220
                         autoplay: false
                         width: Math.min(480, parent.width)
-                        model: [{title: "设计"}, {title: "开发"}, {title: "发布"}]
+                        model: [{title: ELocale.texts.Design}, {title: ELocale.texts.Engineering}, {title: ELocale.texts.Publish}]
                         delegate: Component {
                             ERectangle {
                                 radius: 12
@@ -979,17 +979,17 @@ Column {
                         width: parent.width
 
                         EButton {
-                            text: "上一项"
+                            text: ELocale.texts.PreviousItem
 
                             onClicked: carousel.previous()
                         }
                         EButton {
-                            text: "下一项"
+                            text: ELocale.texts.NextItem
 
                             onClicked: carousel.next()
                         }
                         EText {
-                            text: "当前项：" + (carousel.currentIndex + 1)
+                            text: ELocale.texts.CurrentItem + (carousel.currentIndex + 1)
                         }
                     }
                 }
@@ -1005,7 +1005,7 @@ Column {
                     height: 220
                     autoplay: false
                     width: Math.min(480, parent.width)
-                    model: [{title: "设计"}, {title: "开发"}, {title: "发布"}]
+                    model: [{title: ELocale.texts.Design}, {title: ELocale.texts.Engineering}, {title: ELocale.texts.Publish}]
                     delegate: Component {
                         ERectangle {
                             radius: 12
@@ -1025,17 +1025,17 @@ Column {
                     width: parent.width
 
                     EButton {
-                        text: "上一项"
+                        text: ELocale.texts.PreviousItem
 
                         onClicked: carousel.previous()
                     }
                     EButton {
-                        text: "下一项"
+                        text: ELocale.texts.NextItem
 
                         onClicked: carousel.next()
                     }
                     EText {
-                        text: "当前项：" + (carousel.currentIndex + 1)
+                        text: ELocale.texts.CurrentItem + (carousel.currentIndex + 1)
                     }
                 }
             }
@@ -1054,14 +1054,14 @@ Column {
                 ETimeline {
                     mode: "alternate"
                     width: Math.min(480, parent.width)
-                    model: [{timestamp: "09:00", content: "创建项目", styleType: EStyle.Primary}, {timestamp: "10:30", content: "完成设计", styleType: EStyle.Success}, {timestamp: "12:00", content: "等待审核", styleType: EStyle.Warning}]
+                    model: [{timestamp: "09:00", content: ELocale.texts.CreateProject, styleType: EStyle.Primary}, {timestamp: "10:30", content: ELocale.texts.DesignCompleted, styleType: EStyle.Success}, {timestamp: "12:00", content: ELocale.texts.AwaitingReview, styleType: EStyle.Warning}]
                 }
             `)
 
             ETimeline {
                 mode: "alternate"
                 width: Math.min(480, parent.width)
-                model: [{timestamp: "09:00", content: "创建项目", styleType: EStyle.Primary}, {timestamp: "10:30", content: "完成设计", styleType: EStyle.Success}, {timestamp: "12:00", content: "等待审核", styleType: EStyle.Warning}]
+                model: [{timestamp: "09:00", content: ELocale.texts.CreateProject, styleType: EStyle.Primary}, {timestamp: "10:30", content: ELocale.texts.DesignCompleted, styleType: EStyle.Success}, {timestamp: "12:00", content: ELocale.texts.AwaitingReview, styleType: EStyle.Warning}]
             }
         }
     }
@@ -1078,14 +1078,14 @@ Column {
                 ETimeline {
                     reverse: true
                     width: Math.min(480, parent.width)
-                    model: [{content: "待审核", timestamp: "12:00", hollow: true, size: "large", styleType: EStyle.Warning}, {content: "已保存", timestamp: "11:00", icon: EIcons.CHECK, styleType: EStyle.Success}]
+                    model: [{content: ELocale.texts.PendingReview, timestamp: "12:00", hollow: true, size: "large", styleType: EStyle.Warning}, {content: ELocale.texts.Saved2, timestamp: "11:00", icon: EIcons.CHECK, styleType: EStyle.Success}]
                 }
             `)
 
             ETimeline {
                 reverse: true
                 width: Math.min(480, parent.width)
-                model: [{content: "待审核", timestamp: "12:00", hollow: true, size: "large", styleType: EStyle.Warning}, {content: "已保存", timestamp: "11:00", icon: EIcons.CHECK, styleType: EStyle.Success}]
+                model: [{content: ELocale.texts.PendingReview, timestamp: "12:00", hollow: true, size: "large", styleType: EStyle.Warning}, {content: ELocale.texts.Saved2, timestamp: "11:00", icon: EIcons.CHECK, styleType: EStyle.Success}]
             }
         }
     }
@@ -1108,7 +1108,7 @@ Column {
                             iconSource: EIcons.CHECK
                         }
                     }
-                    model: [{timestamp: "09:00", content: "创建项目", styleType: EStyle.Primary}, {timestamp: "10:30", content: "完成设计", styleType: EStyle.Success}, {timestamp: "12:00", content: "等待审核", styleType: EStyle.Warning}]
+                    model: [{timestamp: "09:00", content: ELocale.texts.CreateProject, styleType: EStyle.Primary}, {timestamp: "10:30", content: ELocale.texts.DesignCompleted, styleType: EStyle.Success}, {timestamp: "12:00", content: ELocale.texts.AwaitingReview, styleType: EStyle.Warning}]
                 }
             `)
 
@@ -1121,7 +1121,7 @@ Column {
                         iconSource: EIcons.CHECK
                     }
                 }
-                model: [{timestamp: "09:00", content: "创建项目", styleType: EStyle.Primary}, {timestamp: "10:30", content: "完成设计", styleType: EStyle.Success}, {timestamp: "12:00", content: "等待审核", styleType: EStyle.Warning}]
+                model: [{timestamp: "09:00", content: ELocale.texts.CreateProject, styleType: EStyle.Primary}, {timestamp: "10:30", content: ELocale.texts.DesignCompleted, styleType: EStyle.Success}, {timestamp: "12:00", content: ELocale.texts.AwaitingReview, styleType: EStyle.Warning}]
             }
         }
     }
@@ -1139,7 +1139,7 @@ Column {
                     accordion: true
                     activeNames: ["design"]
                     width: Math.min(480, parent.width)
-                    model: [{name: "design", title: "设计规范", content: "字体、颜色和间距"}, {name: "dev", title: "开发规范", content: "QML 与 C++"}, {name: "locked", title: "归档", disabled: true}]
+                    model: [{name: "design", title: ELocale.texts.DesignGuidelines, content: ELocale.texts.FontsColorsAndSpacing}, {name: "dev", title: ELocale.texts.DevelopmentGuidelines, content: ELocale.texts.QMLAndC}, {name: "locked", title: ELocale.texts.Archived, disabled: true}]
                 }
             `)
 
@@ -1147,7 +1147,7 @@ Column {
                 accordion: true
                 activeNames: ["design"]
                 width: Math.min(480, parent.width)
-                model: [{name: "design", title: "设计规范", content: "字体、颜色和间距"}, {name: "dev", title: "开发规范", content: "QML 与 C++"}, {name: "locked", title: "归档", disabled: true}]
+                model: [{name: "design", title: ELocale.texts.DesignGuidelines, content: ELocale.texts.FontsColorsAndSpacing}, {name: "dev", title: ELocale.texts.DevelopmentGuidelines, content: ELocale.texts.QMLAndC}, {name: "locked", title: ELocale.texts.Archived, disabled: true}]
             }
         }
     }
@@ -1165,7 +1165,7 @@ Column {
                     activeNames: ["a", "b"]
                     expandIconPosition: "left"
                     width: Math.min(480, parent.width)
-                    model: [{name: "a", title: "基本信息", content: "项目名称与描述"}, {name: "b", title: "高级设置", content: "组件主题与配置"}]
+                    model: [{name: "a", title: ELocale.texts.BasicInformation, content: ELocale.texts.ProjectNameAndDescription}, {name: "b", title: ELocale.texts.AdvancedSettings, content: ELocale.texts.ComponentThemeAndConfiguration}]
                 }
             `)
 
@@ -1173,7 +1173,7 @@ Column {
                 activeNames: ["a", "b"]
                 expandIconPosition: "left"
                 width: Math.min(480, parent.width)
-                model: [{name: "a", title: "基本信息", content: "项目名称与描述"}, {name: "b", title: "高级设置", content: "组件主题与配置"}]
+                model: [{name: "a", title: ELocale.texts.BasicInformation, content: ELocale.texts.ProjectNameAndDescription}, {name: "b", title: ELocale.texts.AdvancedSettings, content: ELocale.texts.ComponentThemeAndConfiguration}]
             }
         }
     }
@@ -1194,13 +1194,13 @@ Column {
                     ESwitch {
                         id: allow
 
-                        text: "允许展开"
                         checked: true
+                        text: ELocale.texts.AllowExpansion
                     }
                     ECollapse {
                         width: Math.min(480, parent.width)
                         beforeCollapse: function() { return allow.checked }
-                        model: [{name: "a", title: "高级设置", content: "展开前先验证权限。"}]
+                        model: [{name: "a", title: ELocale.texts.AdvancedSettings, content: ELocale.texts.CheckPermissionsBeforeExpanding}]
                     }
                 }
             `)
@@ -1212,13 +1212,13 @@ Column {
                 ESwitch {
                     id: allow
 
-                    text: "允许展开"
                     checked: true
+                    text: ELocale.texts.AllowExpansion
                 }
                 ECollapse {
                     width: Math.min(480, parent.width)
                     beforeCollapse: function() { return allow.checked }
-                    model: [{name: "a", title: "高级设置", content: "展开前先验证权限。"}]
+                    model: [{name: "a", title: ELocale.texts.AdvancedSettings, content: ELocale.texts.CheckPermissionsBeforeExpanding}]
                 }
             }
         }
@@ -1236,18 +1236,18 @@ Column {
                 EStatistic {
                     prefix: "$"
                     precision: 2
-                    title: "累计金额"
                     value: 1234567.89
                     groupSeparator: ","
+                    title: ELocale.texts.TotalAmount
                 }
             `)
 
             EStatistic {
                 prefix: "$"
                 precision: 2
-                title: "累计金额"
                 value: 1234567.89
                 groupSeparator: ","
+                title: ELocale.texts.TotalAmount
             }
         }
     }
@@ -1262,15 +1262,15 @@ Column {
                 import QtQuick 2.15
 
                 EStatistic {
-                    title: "总访问量"
                     value: 2560000
+                    title: ELocale.texts.TotalVisits
                     formatter: function(value) { return (value / 1000000).toFixed(2) + " M" }
                 }
             `)
 
             EStatistic {
-                title: "总访问量"
                 value: 2560000
+                title: ELocale.texts.TotalVisits
                 formatter: function(value) { return (value / 1000000).toFixed(2) + " M" }
             }
         }
@@ -1289,7 +1289,7 @@ Column {
                     suffix: "%"
                     value: 98.6
                     precision: 1
-                    title: "完成率"
+                    title: ELocale.texts.CompletionRate
                     prefixDelegate: Component {
                         EIcon {
                             iconSize: 24
@@ -1304,7 +1304,7 @@ Column {
                 suffix: "%"
                 value: 98.6
                 precision: 1
-                title: "完成率"
+                title: ELocale.texts.CompletionRate
                 prefixDelegate: Component {
                     EIcon {
                         iconSize: 24
@@ -1326,16 +1326,16 @@ Column {
                 import QtQuick 2.15
 
                 ECountdown {
-                    title: "倒计时"
                     format: "mm:ss"
                     value: Date.now() + 120000
+                    title: ELocale.texts.Countdown
                 }
             `)
 
             ECountdown {
-                title: "倒计时"
                 format: "mm:ss"
                 value: Date.now() + 120000
+                title: ELocale.texts.Countdown
             }
         }
     }
@@ -1357,15 +1357,15 @@ Column {
                         id: timer
 
                         format: "ss"
-                        title: "等待时间"
                         value: Date.now() + 15000
+                        title: ELocale.texts.WaitingTime
 
-                        onFinish: result.text = "已到期"
+                        onFinish: result.text = ELocale.texts.Expired
                     }
                     EText {
                         id: result
 
-                        text: "等待计时结束"
+                        text: ELocale.texts.WaitingForTheCountdownToFinish
                     }
                 }
             `)
@@ -1378,15 +1378,15 @@ Column {
                     id: timer
 
                     format: "ss"
-                    title: "等待时间"
                     value: Date.now() + 15000
+                    title: ELocale.texts.WaitingTime
 
-                    onFinish: result.text = "已到期"
+                    onFinish: result.text = ELocale.texts.Expired
                 }
                 EText {
                     id: result
 
-                    text: "等待计时结束"
+                    text: ELocale.texts.WaitingForTheCountdownToFinish
                 }
             }
         }
@@ -1412,7 +1412,7 @@ Column {
                         value: Date.now() + 60000
                     }
                     EButton {
-                        text: "重新计时"
+                        text: ELocale.texts.RestartCountdown2
 
                         onClicked: timer.value = Date.now() + 60000
                     }
@@ -1430,7 +1430,7 @@ Column {
                     value: Date.now() + 60000
                 }
                 EButton {
-                    text: "重新计时"
+                    text: ELocale.texts.RestartCountdown2
 
                     onClicked: timer.value = Date.now() + 60000
                 }
@@ -1448,16 +1448,16 @@ Column {
                 import QtQuick 2.15
 
                 ECountdown {
-                    title: "距发布还有"
-                    format: "DD [天] HH:mm:ss"
                     value: Date.now() + 93600000
+                    format: ELocale.texts.DDDaysHHMmSs
+                    title: ELocale.texts.TimeUntilRelease
                 }
             `)
 
             ECountdown {
-                title: "距发布还有"
-                format: "DD [天] HH:mm:ss"
                 value: Date.now() + 93600000
+                format: ELocale.texts.DDDaysHHMmSs
+                title: ELocale.texts.TimeUntilRelease
             }
         }
     }
@@ -1570,14 +1570,14 @@ Column {
                 EStatusView {
                     height: 220
                     state: "normal"
-                    errorTitle: "暂时无法加载"
-                    errorText: "请检查数据后重试。"
                     width: Math.min(480, parent.width)
+                    errorTitle: ELocale.texts.UnableToLoadRightNow
+                    errorText: ELocale.texts.CheckTheDataAndTryAgain
 
                     EText {
-                        text: "项目内容已经就绪。"
                         width: parent.width
                         wrapMode: Text.WordWrap
+                        text: ELocale.texts.TheProjectContentIsReady
                     }
                 }
             `)
@@ -1585,14 +1585,14 @@ Column {
             EStatusView {
                 height: 220
                 state: "normal"
-                errorTitle: "暂时无法加载"
-                errorText: "请检查数据后重试。"
                 width: Math.min(480, parent.width)
+                errorTitle: ELocale.texts.UnableToLoadRightNow
+                errorText: ELocale.texts.CheckTheDataAndTryAgain
 
                 EText {
-                    text: "项目内容已经就绪。"
                     width: parent.width
                     wrapMode: Text.WordWrap
+                    text: ELocale.texts.TheProjectContentIsReady
                 }
             }
         }
@@ -1610,14 +1610,14 @@ Column {
                 EStatusView {
                     height: 220
                     state: "loading"
-                    errorTitle: "暂时无法加载"
-                    errorText: "请检查数据后重试。"
                     width: Math.min(480, parent.width)
+                    errorTitle: ELocale.texts.UnableToLoadRightNow
+                    errorText: ELocale.texts.CheckTheDataAndTryAgain
 
                     EText {
-                        text: "项目内容已经就绪。"
                         width: parent.width
                         wrapMode: Text.WordWrap
+                        text: ELocale.texts.TheProjectContentIsReady
                     }
                 }
             `)
@@ -1625,14 +1625,14 @@ Column {
             EStatusView {
                 height: 220
                 state: "loading"
-                errorTitle: "暂时无法加载"
-                errorText: "请检查数据后重试。"
                 width: Math.min(480, parent.width)
+                errorTitle: ELocale.texts.UnableToLoadRightNow
+                errorText: ELocale.texts.CheckTheDataAndTryAgain
 
                 EText {
-                    text: "项目内容已经就绪。"
                     width: parent.width
                     wrapMode: Text.WordWrap
+                    text: ELocale.texts.TheProjectContentIsReady
                 }
             }
         }
@@ -1650,14 +1650,14 @@ Column {
                 EStatusView {
                     height: 220
                     state: "empty"
-                    errorTitle: "暂时无法加载"
-                    errorText: "请检查数据后重试。"
                     width: Math.min(480, parent.width)
+                    errorTitle: ELocale.texts.UnableToLoadRightNow
+                    errorText: ELocale.texts.CheckTheDataAndTryAgain
 
                     EText {
-                        text: "项目内容已经就绪。"
                         width: parent.width
                         wrapMode: Text.WordWrap
+                        text: ELocale.texts.TheProjectContentIsReady
                     }
                 }
             `)
@@ -1665,14 +1665,14 @@ Column {
             EStatusView {
                 height: 220
                 state: "empty"
-                errorTitle: "暂时无法加载"
-                errorText: "请检查数据后重试。"
                 width: Math.min(480, parent.width)
+                errorTitle: ELocale.texts.UnableToLoadRightNow
+                errorText: ELocale.texts.CheckTheDataAndTryAgain
 
                 EText {
-                    text: "项目内容已经就绪。"
                     width: parent.width
                     wrapMode: Text.WordWrap
+                    text: ELocale.texts.TheProjectContentIsReady
                 }
             }
         }
@@ -1690,16 +1690,16 @@ Column {
                 EStatusView {
                     height: 220
                     state: "error"
-                    errorTitle: "暂时无法加载"
-                    errorText: "请检查数据后重试。"
                     width: Math.min(480, parent.width)
+                    errorTitle: ELocale.texts.UnableToLoadRightNow
+                    errorText: ELocale.texts.CheckTheDataAndTryAgain
 
                     onRetry: state = "normal"
 
                     EText {
-                        text: "项目内容已经就绪。"
                         width: parent.width
                         wrapMode: Text.WordWrap
+                        text: ELocale.texts.TheProjectContentIsReady
                     }
                 }
             `)
@@ -1707,16 +1707,16 @@ Column {
             EStatusView {
                 height: 220
                 state: "error"
-                errorTitle: "暂时无法加载"
-                errorText: "请检查数据后重试。"
                 width: Math.min(480, parent.width)
+                errorTitle: ELocale.texts.UnableToLoadRightNow
+                errorText: ELocale.texts.CheckTheDataAndTryAgain
 
                 onRetry: state = "normal"
 
                 EText {
-                    text: "项目内容已经就绪。"
                     width: parent.width
                     wrapMode: Text.WordWrap
+                    text: ELocale.texts.TheProjectContentIsReady
                 }
             }
         }
@@ -1736,7 +1736,7 @@ Column {
                     width: parent.width
 
                     EButton {
-                        text: "查看图片"
+                        text: ELocale.texts.ViewImages
 
                         onClicked: viewer.openPreview(viewer.initialIndex)
                     }
@@ -1754,7 +1754,7 @@ Column {
                 width: parent.width
 
                 EButton {
-                    text: "查看图片"
+                    text: ELocale.texts.ViewImages
 
                     onClicked: viewer.openPreview(viewer.initialIndex)
                 }
@@ -1782,7 +1782,7 @@ Column {
                     width: parent.width
 
                     EButton {
-                        text: "从第二张开始"
+                        text: ELocale.texts.StartFromTheSecondImage
 
                         onClicked: viewer.openPreview(viewer.initialIndex)
                     }
@@ -1802,7 +1802,7 @@ Column {
                 width: parent.width
 
                 EButton {
-                    text: "从第二张开始"
+                    text: ELocale.texts.StartFromTheSecondImage
 
                     onClicked: viewer.openPreview(viewer.initialIndex)
                 }
@@ -1832,7 +1832,7 @@ Column {
                     width: parent.width
 
                     EButton {
-                        text: "查看预览"
+                        text: ELocale.texts.ViewPreview
 
                         onClicked: viewer.openPreview(viewer.initialIndex)
                     }
@@ -1854,7 +1854,7 @@ Column {
                 width: parent.width
 
                 EButton {
-                    text: "查看预览"
+                    text: ELocale.texts.ViewPreview
 
                     onClicked: viewer.openPreview(viewer.initialIndex)
                 }
@@ -1886,7 +1886,7 @@ Column {
                     width: parent.width
 
                     EButton {
-                        text: "查看图片"
+                        text: ELocale.texts.ViewImages
 
                         onClicked: viewer.openPreview(viewer.initialIndex)
                     }
@@ -1906,7 +1906,7 @@ Column {
                 width: parent.width
 
                 EButton {
-                    text: "查看图片"
+                    text: ELocale.texts.ViewImages
 
                     onClicked: viewer.openPreview(viewer.initialIndex)
                 }
@@ -1933,19 +1933,19 @@ Column {
 
                 EDescriptions {
                     columns: 2
-                    title: "项目资料"
                     width: parent.width
                     direction: "vertical"
-                    model: [{label: "名称", value: "EUI"}, {label: "版本", value: "1.0"}, {label: "平台", value: "Windows / macOS", span: 2}]
+                    title: ELocale.texts.ProjectDetails2
+                    model: [{label: ELocale.texts.Name2, value: "EUI"}, {label: ELocale.texts.Version, value: "1.0"}, {label: ELocale.texts.Platform, value: "Windows / macOS", span: 2}]
                 }
             `)
 
             EDescriptions {
                 columns: 2
-                title: "项目资料"
                 width: parent.width
                 direction: "vertical"
-                model: [{label: "名称", value: "EUI"}, {label: "版本", value: "1.0"}, {label: "平台", value: "Windows / macOS", span: 2}]
+                title: ELocale.texts.ProjectDetails2
+                model: [{label: ELocale.texts.Name2, value: "EUI"}, {label: ELocale.texts.Version, value: "1.0"}, {label: ELocale.texts.Platform, value: "Windows / macOS", span: 2}]
             }
         }
     }
@@ -1965,7 +1965,7 @@ Column {
                     labelWidth: 80
                     size: EStyle.Small
                     width: parent.width
-                    model: [{label: "名称", value: "EUI"}, {label: "版本", value: "1.0"}, {label: "平台", value: "Windows / macOS", span: 2}]
+                    model: [{label: ELocale.texts.Name2, value: "EUI"}, {label: ELocale.texts.Version, value: "1.0"}, {label: ELocale.texts.Platform, value: "Windows / macOS", span: 2}]
                 }
             `)
 
@@ -1975,7 +1975,7 @@ Column {
                 labelWidth: 80
                 size: EStyle.Small
                 width: parent.width
-                model: [{label: "名称", value: "EUI"}, {label: "版本", value: "1.0"}, {label: "平台", value: "Windows / macOS", span: 2}]
+                model: [{label: ELocale.texts.Name2, value: "EUI"}, {label: ELocale.texts.Version, value: "1.0"}, {label: ELocale.texts.Platform, value: "Windows / macOS", span: 2}]
             }
         }
     }
@@ -1991,19 +1991,19 @@ Column {
 
                 EDescriptions {
                     columns: 2
-                    extra: "已发布"
-                    title: "项目资料"
                     width: parent.width
-                    model: [{label: "项目", value: "EUI", rowspan: 2}, {label: "版本", value: "1.0"}, {label: "平台", value: "Qt Quick"}]
+                    extra: ELocale.texts.Published
+                    title: ELocale.texts.ProjectDetails2
+                    model: [{label: ELocale.texts.Project, value: "EUI", rowspan: 2}, {label: ELocale.texts.Version, value: "1.0"}, {label: ELocale.texts.Platform, value: "Qt Quick"}]
                 }
             `)
 
             EDescriptions {
                 columns: 2
-                extra: "已发布"
-                title: "项目资料"
                 width: parent.width
-                model: [{label: "项目", value: "EUI", rowspan: 2}, {label: "版本", value: "1.0"}, {label: "平台", value: "Qt Quick"}]
+                extra: ELocale.texts.Published
+                title: ELocale.texts.ProjectDetails2
+                model: [{label: ELocale.texts.Project, value: "EUI", rowspan: 2}, {label: ELocale.texts.Version, value: "1.0"}, {label: ELocale.texts.Platform, value: "Qt Quick"}]
             }
         }
     }
@@ -2022,9 +2022,9 @@ Column {
                     distance: 32
                     immediate: false
                     width: Math.min(480, parent.width)
-                    model: ["项目 1", "项目 2", "项目 3", "项目 4", "项目 5", "项目 6"]
+                    model: [ELocale.texts.ProjectNumber.arg(1), ELocale.texts.ProjectNumber.arg(2), ELocale.texts.ProjectNumber.arg(3), ELocale.texts.ProjectNumber.arg(4), ELocale.texts.ProjectNumber.arg(5), ELocale.texts.ProjectNumber.arg(6)]
 
-                    onLoadMore: { model = model.concat(["新增项目 " + (count + 1)])
+                    onLoadMore: { model = model.concat([ELocale.texts.NewProject2 + (count + 1)])
                         finishLoad(count >= 12) }
                 }
             `)
@@ -2034,9 +2034,9 @@ Column {
                 distance: 32
                 immediate: false
                 width: Math.min(480, parent.width)
-                model: ["项目 1", "项目 2", "项目 3", "项目 4", "项目 5", "项目 6"]
+                model: [ELocale.texts.ProjectNumber.arg(1), ELocale.texts.ProjectNumber.arg(2), ELocale.texts.ProjectNumber.arg(3), ELocale.texts.ProjectNumber.arg(4), ELocale.texts.ProjectNumber.arg(5), ELocale.texts.ProjectNumber.arg(6)]
 
-                onLoadMore: { model = model.concat(["新增项目 " + (count + 1)])
+                onLoadMore: { model = model.concat([ELocale.texts.NewProject2 + (count + 1)])
                     finishLoad(count >= 12) }
             }
         }
@@ -2054,16 +2054,16 @@ Column {
                 EInfiniteScroll {
                     height: 200
                     finished: true
-                    model: ["项目 1", "项目 2", "项目 3"]
                     width: Math.min(480, parent.width)
+                    model: [ELocale.texts.ProjectNumber.arg(1), ELocale.texts.ProjectNumber.arg(2), ELocale.texts.ProjectNumber.arg(3)]
                 }
             `)
 
             EInfiniteScroll {
                 height: 200
                 finished: true
-                model: ["项目 1", "项目 2", "项目 3"]
                 width: Math.min(480, parent.width)
+                model: [ELocale.texts.ProjectNumber.arg(1), ELocale.texts.ProjectNumber.arg(2), ELocale.texts.ProjectNumber.arg(3)]
             }
         }
     }
@@ -2083,7 +2083,7 @@ Column {
                     distance: 64
                     loading: true
                     width: Math.min(480, parent.width)
-                    model: ["项目 1", "项目 2", "项目 3", "项目 4"]
+                    model: [ELocale.texts.ProjectNumber.arg(1), ELocale.texts.ProjectNumber.arg(2), ELocale.texts.ProjectNumber.arg(3), ELocale.texts.ProjectNumber.arg(4)]
                 }
             `)
 
@@ -2093,7 +2093,7 @@ Column {
                 distance: 64
                 loading: true
                 width: Math.min(480, parent.width)
-                model: ["项目 1", "项目 2", "项目 3", "项目 4"]
+                model: [ELocale.texts.ProjectNumber.arg(1), ELocale.texts.ProjectNumber.arg(2), ELocale.texts.ProjectNumber.arg(3), ELocale.texts.ProjectNumber.arg(4)]
             }
         }
     }

@@ -35,8 +35,8 @@ Column {
                         }
                         EText {
                             color: "#E7F0FF"
-                            text: "EUI Surface"
                             anchors.centerIn: parent
+                            text: ELocale.texts.EuiSurface
                         }
                     }
                 }
@@ -62,8 +62,8 @@ Column {
                     }
                     EText {
                         color: "#E7F0FF"
-                        text: "EUI Surface"
                         anchors.centerIn: parent
+                        text: ELocale.texts.EuiSurface
                     }
                 }
             }
@@ -99,8 +99,8 @@ Column {
                         }
                         EText {
                             color: "#E7F0FF"
-                            text: "EUI Surface"
                             anchors.centerIn: parent
+                            text: ELocale.texts.EuiSurface
                         }
                     }
                 }
@@ -126,8 +126,8 @@ Column {
                     }
                     EText {
                         color: "#E7F0FF"
-                        text: "EUI Surface"
                         anchors.centerIn: parent
+                        text: ELocale.texts.EuiSurface
                     }
                 }
             }
@@ -163,8 +163,8 @@ Column {
                         }
                         EText {
                             color: "#E7F0FF"
-                            text: "EUI Surface"
                             anchors.centerIn: parent
+                            text: ELocale.texts.EuiSurface
                         }
                     }
                 }
@@ -190,8 +190,8 @@ Column {
                     }
                     EText {
                         color: "#E7F0FF"
-                        text: "EUI Surface"
                         anchors.centerIn: parent
+                        text: ELocale.texts.EuiSurface
                     }
                 }
             }
@@ -295,10 +295,10 @@ Column {
                         width: parent.width * 0.75
 
                         EText {
-                            text: "Acrylic"
                             color: "#E7F0FF"
                             font.pixelSize: 20
                             anchors.centerIn: parent
+                            text: ELocale.texts.AcrylicLabel
                         }
                     }
                 }
@@ -340,10 +340,10 @@ Column {
                     width: parent.width * 0.75
 
                     EText {
-                        text: "Acrylic"
                         color: "#E7F0FF"
                         font.pixelSize: 20
                         anchors.centerIn: parent
+                        text: ELocale.texts.AcrylicLabel
                     }
                 }
             }
@@ -396,10 +396,10 @@ Column {
                         width: parent.width * 0.75
 
                         EText {
-                            text: "Acrylic"
                             color: "#E7F0FF"
                             font.pixelSize: 20
                             anchors.centerIn: parent
+                            text: ELocale.texts.AcrylicLabel
                         }
                     }
                 }
@@ -442,10 +442,10 @@ Column {
                     width: parent.width * 0.75
 
                     EText {
-                        text: "Acrylic"
                         color: "#E7F0FF"
                         font.pixelSize: 20
                         anchors.centerIn: parent
+                        text: ELocale.texts.AcrylicLabel
                     }
                 }
             }
@@ -498,10 +498,10 @@ Column {
                         width: parent.width * 0.75
 
                         EText {
-                            text: "Acrylic"
                             color: "#E7F0FF"
                             font.pixelSize: 20
                             anchors.centerIn: parent
+                            text: ELocale.texts.AcrylicLabel
                         }
                     }
                 }
@@ -544,10 +544,10 @@ Column {
                     width: parent.width * 0.75
 
                     EText {
-                        text: "Acrylic"
                         color: "#E7F0FF"
                         font.pixelSize: 20
                         anchors.centerIn: parent
+                        text: ELocale.texts.AcrylicLabel
                     }
                 }
             }
@@ -588,7 +588,7 @@ Column {
                         }
                     }
                     EButton {
-                        text: "切换背景并刷新"
+                        text: ELocale.texts.ChangeBackgroundAndRefresh
 
                         onClicked: { backdrop.color = backdrop.color === "#226dca" ? "#007D83" : "#226DCA"
                             glass.refresh() }
@@ -621,7 +621,7 @@ Column {
                     }
                 }
                 EButton {
-                    text: "切换背景并刷新"
+                    text: ELocale.texts.ChangeBackgroundAndRefresh
 
                     onClicked: { backdrop.color = backdrop.color === "#226dca" ? "#007D83" : "#226DCA"
                         glass.refresh() }
@@ -873,7 +873,7 @@ Column {
                         EText {
                             height: 64
                             color: "#E7F0FF"
-                            text: "内容区域 " + (index + 1)
+                            text: ELocale.texts.ContentArea + (index + 1)
                         }
                     }
                 }
@@ -903,7 +903,7 @@ Column {
                     EText {
                         height: 64
                         color: "#E7F0FF"
-                        text: "内容区域 " + (index + 1)
+                        text: ELocale.texts.ContentArea + (index + 1)
                     }
                 }
             }
@@ -943,7 +943,7 @@ Column {
                         EText {
                             height: 64
                             color: "#E7F0FF"
-                            text: "内容区域 " + (index + 1)
+                            text: ELocale.texts.ContentArea + (index + 1)
                         }
                     }
                 }
@@ -973,7 +973,7 @@ Column {
                     EText {
                         height: 64
                         color: "#E7F0FF"
-                        text: "内容区域 " + (index + 1)
+                        text: ELocale.texts.ContentArea + (index + 1)
                     }
                 }
             }
@@ -1013,7 +1013,7 @@ Column {
                         EText {
                             height: 64
                             color: "#E7F0FF"
-                            text: "内容区域 " + (index + 1)
+                            text: ELocale.texts.ContentArea + (index + 1)
                         }
                     }
                 }
@@ -1043,7 +1043,7 @@ Column {
                     EText {
                         height: 64
                         color: "#E7F0FF"
-                        text: "内容区域 " + (index + 1)
+                        text: ELocale.texts.ContentArea + (index + 1)
                     }
                 }
             }
@@ -1083,7 +1083,7 @@ Column {
                         EText {
                             height: 64
                             color: "#E7F0FF"
-                            text: "内容区域 " + (index + 1)
+                            text: ELocale.texts.ContentArea + (index + 1)
                         }
                     }
                 }
@@ -1113,7 +1113,7 @@ Column {
                     EText {
                         height: 64
                         color: "#E7F0FF"
-                        text: "内容区域 " + (index + 1)
+                        text: ELocale.texts.ContentArea + (index + 1)
                     }
                 }
             }

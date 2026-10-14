@@ -27,14 +27,17 @@ ExamplePage {
 
                     EForm {
                         id: form
+
                         width: parent.width
                         model: ({amount: 1.25})
+
                         onSubmitted: console.log(valid, model.amount)
+
                         EFormItem {
-                            width: parent.width
                             prop: "amount"
-                            label: "金额"
                             required: true
+                            width: parent.width
+                            label: ELocale.texts.Amount
                             rules: [{type: "number", min: 0.25, max: 10}]
                             labelComponent: Component {
                                 EText {
@@ -48,20 +51,23 @@ ExamplePage {
                                     color: EPaletteManager.StatePalette.validationColor(EValidationState.Error)
                                 }
                             }
+
                             ESpinBox {
-                                editable: true
-                                precision: 2
                                 numberTo: 10
+                                precision: 2
+                                editable: true
                                 numberStep: 0.25
                                 numberValue: 1.25
                             }
                         }
                     }
                     EButton {
-                        text: "提交校验"
+                        text: ELocale.texts.ValidateSubmission
+
                         onClicked: form.submit()
                     }
-                }`)
+                }
+`)
 
             Column {
                 spacing: 12
@@ -134,12 +140,13 @@ ExamplePage {
                     spacing: 16
 
                     ECheckBox {
-                        trueValue: "yes"
-                        falseValue: "no"
                         value: "no"
-                        text: "接收通知"
+                        falseValue: "no"
+                        trueValue: "yes"
+                        text: ELocale.texts.ReceiveNotifications
                     }
-                }`)
+                }
+`)
 
             ECheckBox {
                 value: "no"
@@ -167,15 +174,16 @@ ExamplePage {
                         value: "off"
                         activeValue: "on"
                         inactiveValue: "off"
-                        activeText: "已开启"
-                        inactiveText: "已关闭"
-                        activeIcon: EIcons.CHECK
-                        inactiveIcon: EIcons.XMARK
                         activeColor: "#14b8a6"
+                        activeIcon: EIcons.CHECK
                         inactiveColor: "#858b96"
+                        inactiveIcon: EIcons.XMARK
+                        activeText: ELocale.texts.Enabled2
+                        inactiveText: ELocale.texts.Disabled3
                         beforeChange: function() { return Promise.resolve(true) }
                     }
-                }`)
+                }
+`)
 
             Column {
                 spacing: 16
@@ -321,39 +329,40 @@ ExamplePage {
                     EInput {
                         text: "$128"
                         clearable: true
-                        parser: function(value) { return value.replace(/\\$/g, "") }
-                        formatter: function(value) { return value ? "$" + value : "" }
                         prependComponent: Component {
                             EText {
                                 padding: 8
                                 text: "USD"
                             }
                         }
+                        parser: function(value) { return value.replace(/\\$/g, "") }
+                        formatter: function(value) { return value ? "$" + value : "" }
                         appendComponent: Component {
                             EText {
                                 padding: 8
-                                text: "每月"
+                                text: ELocale.texts.Month2
                             }
                         }
                     }
                     EInput {
+                        clearable: true
                         maximumLength: 40
                         showWordLimit: true
-                        clearable: true
+                        suffixComponent: Component {
+                            EText {
+                                text: "QML"
+                                font.pixelSize: 12
+                            }
+                        }
                         prefixComponent: Component {
                             EIcon {
                                 iconSize: 14
                                 iconSource: EIcons.MAGNIFIER
                             }
                         }
-                        suffixComponent: Component {
-                            EText {
-                                font.pixelSize: 12
-                                text: "QML"
-                            }
-                        }
                     }
-                }`)
+                }
+`)
 
             Column {
                 spacing: 16

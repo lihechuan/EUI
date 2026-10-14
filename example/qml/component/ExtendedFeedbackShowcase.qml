@@ -20,9 +20,9 @@ Column {
                     width: parent.width
 
                     EButton {
-                        text: "打开消息框"
+                        text: ELocale.texts.OpenMessageBox
 
-                        onClicked: panel.alert("项目已经保存", "完成")
+                        onClicked: panel.alert(ELocale.texts.TheProjectHasBeenSaved, ELocale.texts.Done)
                     }
                     EMessageBox {
                         id: panel
@@ -30,7 +30,7 @@ Column {
                     EText {
                         id: result
 
-                        text: "等待操作"
+                        text: ELocale.texts.WaitingForAnAction
                     }
                 }
             `)
@@ -40,9 +40,9 @@ Column {
                 width: parent.width
 
                 EButton {
-                    text: "打开消息框"
+                    text: ELocale.texts.OpenMessageBox
 
-                    onClicked: panel.alert("项目已经保存", "完成")
+                    onClicked: panel.alert(ELocale.texts.TheProjectHasBeenSaved, ELocale.texts.Done)
                 }
                 EMessageBox {
                     id: panel
@@ -50,7 +50,7 @@ Column {
                 EText {
                     id: result
 
-                    text: "等待操作"
+                    text: ELocale.texts.WaitingForAnAction
                 }
             }
         }
@@ -70,9 +70,9 @@ Column {
                     width: parent.width
 
                     EButton {
-                        text: "打开消息框"
+                        text: ELocale.texts.OpenMessageBox
 
-                        onClicked: panel.confirm("继续当前操作？", "确认")
+                        onClicked: panel.confirm(ELocale.texts.ContinueTheCurrentAction, ELocale.texts.Confirm2)
                     }
                     EMessageBox {
                         id: panel
@@ -82,7 +82,7 @@ Column {
                     EText {
                         id: result
 
-                        text: "等待操作"
+                        text: ELocale.texts.WaitingForAnAction
                     }
                 }
             `)
@@ -92,9 +92,9 @@ Column {
                 width: parent.width
 
                 EButton {
-                    text: "打开消息框"
+                    text: ELocale.texts.OpenMessageBox
 
-                    onClicked: panel.confirm("继续当前操作？", "确认")
+                    onClicked: panel.confirm(ELocale.texts.ContinueTheCurrentAction, ELocale.texts.Confirm2)
                 }
                 EMessageBox {
                     id: panel
@@ -104,7 +104,7 @@ Column {
                 EText {
                     id: result
 
-                    text: "等待操作"
+                    text: ELocale.texts.WaitingForAnAction
                 }
             }
         }
@@ -124,22 +124,22 @@ Column {
                     width: parent.width
 
                     EButton {
-                        text: "打开消息框"
+                        text: ELocale.texts.OpenMessageBox
 
-                        onClicked: panel.prompt("输入项目名称", "新建项目", "EUI")
+                        onClicked: panel.prompt(ELocale.texts.EnterAProjectName, ELocale.texts.NewProject, "EUI")
                     }
                     EMessageBox {
                         id: panel
 
                         inputPattern: /^.{3,20}$/
-                        inputErrorMessage: "请输入 3 到 20 个字符"
+                        inputErrorMessage: ELocale.texts.Enter3To20Characters
 
                         onConfirmed: result.text = value
                     }
                     EText {
                         id: result
 
-                        text: "等待操作"
+                        text: ELocale.texts.WaitingForAnAction
                     }
                 }
             `)
@@ -149,22 +149,22 @@ Column {
                 width: parent.width
 
                 EButton {
-                    text: "打开消息框"
+                    text: ELocale.texts.OpenMessageBox
 
-                    onClicked: panel.prompt("输入项目名称", "新建项目", "EUI")
+                    onClicked: panel.prompt(ELocale.texts.EnterAProjectName, ELocale.texts.NewProject, "EUI")
                 }
                 EMessageBox {
                     id: panel
 
                     inputPattern: /^.{3,20}$/
-                    inputErrorMessage: "请输入 3 到 20 个字符"
+                    inputErrorMessage: ELocale.texts.Enter3To20Characters
 
                     onConfirmed: result.text = value
                 }
                 EText {
                     id: result
 
-                    text: "等待操作"
+                    text: ELocale.texts.WaitingForAnAction
                 }
             }
         }
@@ -184,9 +184,9 @@ Column {
                     width: parent.width
 
                     EButton {
-                        text: "打开消息框"
+                        text: ELocale.texts.OpenMessageBox
 
-                        onClicked: panel.confirm("准备发布项目？", "发布")
+                        onClicked: panel.confirm(ELocale.texts.ReadyToPublishTheProject, ELocale.texts.Publish)
                     }
                     EMessageBox {
                         id: panel
@@ -198,7 +198,7 @@ Column {
                     EText {
                         id: result
 
-                        text: "等待操作"
+                        text: ELocale.texts.WaitingForAnAction
                     }
                 }
             `)
@@ -208,9 +208,9 @@ Column {
                 width: parent.width
 
                 EButton {
-                    text: "打开消息框"
+                    text: ELocale.texts.OpenMessageBox
 
-                    onClicked: panel.confirm("准备发布项目？", "发布")
+                    onClicked: panel.confirm(ELocale.texts.ReadyToPublishTheProject, ELocale.texts.Publish)
                 }
                 EMessageBox {
                     id: panel
@@ -222,7 +222,7 @@ Column {
                 EText {
                     id: result
 
-                    text: "等待操作"
+                    text: ELocale.texts.WaitingForAnAction
                 }
             }
         }

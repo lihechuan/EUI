@@ -97,19 +97,20 @@ ExamplePage {
 
                     ECircleProgress {
                         percentage: 75
-                        dashboard: true
                         showText: true
+                        dashboard: true
                         strokeWidth: 10
                         status: "warning"
-                        format: function(value) { return value + " 分" }
+                        format: function(value) { return value + ELocale.texts.Points }
                     }
                     ECircleProgress {
-                        percentage: 100
                         showText: true
+                        percentage: 100
                         status: "success"
                         strokeLinecap: "square"
                     }
-                }`)
+                }
+`)
 
             Row {
                 spacing: 28

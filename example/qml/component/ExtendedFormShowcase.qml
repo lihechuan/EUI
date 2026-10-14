@@ -79,7 +79,7 @@ Column {
                         options: [{label: "QML", value: "qml"}, {label: "Qt", value: "qt"}, {label: "C++", value: "cpp", disabled: true}]
                     }
                     EText {
-                        text: choices.value === undefined ? "未选择" : JSON.stringify(choices.value)
+                        text: choices.value === undefined ? ELocale.texts.NotSelected : JSON.stringify(choices.value)
                     }
                 }
             `)
@@ -94,7 +94,7 @@ Column {
                     options: [{label: "QML", value: "qml"}, {label: "Qt", value: "qt"}, {label: "C++", value: "cpp", disabled: true}]
                 }
                 EText {
-                    text: choices.value === undefined ? "未选择" : JSON.stringify(choices.value)
+                    text: choices.value === undefined ? ELocale.texts.NotSelected : JSON.stringify(choices.value)
                 }
             }
         }
@@ -335,16 +335,16 @@ Column {
 
                 EMention {
                     prefix: ["@", "#"]
-                    placeholderText: "输入 @ 或 # 选择技术"
                     width: Math.min(480, parent.width)
+                    placeholderText: ELocale.texts.TypeOrToChooseATechnology
                     options: [{label: "QML", value: "qml"}, {label: "Qt", value: "qt"}, {label: "C++", value: "cpp", disabled: true}]
                 }
             `)
 
             EMention {
                 prefix: ["@", "#"]
-                placeholderText: "输入 @ 或 # 选择技术"
                 width: Math.min(480, parent.width)
+                placeholderText: ELocale.texts.TypeOrToChooseATechnology
                 options: [{label: "QML", value: "qml"}, {label: "Qt", value: "qt"}, {label: "C++", value: "cpp", disabled: true}]
             }
         }
@@ -362,8 +362,8 @@ Column {
                 EMention {
                     height: 120
                     type: "textarea"
-                    placeholderText: "在多行说明中输入 @"
                     width: Math.min(480, parent.width)
+                    placeholderText: ELocale.texts.TypeInTheMultilineDescription
                     options: [{label: "QML", value: "qml"}, {label: "Qt", value: "qt"}, {label: "C++", value: "cpp", disabled: true}]
                 }
             `)
@@ -371,8 +371,8 @@ Column {
             EMention {
                 height: 120
                 type: "textarea"
-                placeholderText: "在多行说明中输入 @"
                 width: Math.min(480, parent.width)
+                placeholderText: ELocale.texts.TypeInTheMultilineDescription
                 options: [{label: "QML", value: "qml"}, {label: "Qt", value: "qt"}, {label: "C++", value: "cpp", disabled: true}]
             }
         }
@@ -508,7 +508,7 @@ Column {
                         width: 200
                     }
                     EButton {
-                        text: "换一张"
+                        text: ELocale.texts.RefreshImage
 
                         onClicked: captcha.refresh()
                     }
@@ -526,7 +526,7 @@ Column {
                     width: 200
                 }
                 EButton {
-                    text: "换一张"
+                    text: ELocale.texts.RefreshImage
 
                     onClicked: captcha.refresh()
                 }
@@ -556,18 +556,18 @@ Column {
                     EInput {
                         id: field
 
-                        placeholderText: "输入验证码"
                         width: Math.min(480, parent.width)
+                        placeholderText: ELocale.texts.EnterTheVerificationCode
                     }
                     EButton {
-                        text: "验证"
+                        text: ELocale.texts.Verify
 
-                        onClicked: result.text = captcha.verify(field.text) ? "验证成功" : "请重新输入"
+                        onClicked: result.text = captcha.verify(field.text) ? ELocale.texts.VerificationSuccessful : ELocale.texts.PleaseTryAgain
                     }
                     EText {
                         id: result
 
-                        text: "验证码区分大小写"
+                        text: ELocale.texts.TheVerificationCodeIsCaseSensitive
                     }
                 }
             `)
@@ -585,18 +585,18 @@ Column {
                 EInput {
                     id: field
 
-                    placeholderText: "输入验证码"
                     width: Math.min(480, parent.width)
+                    placeholderText: ELocale.texts.EnterTheVerificationCode
                 }
                 EButton {
-                    text: "验证"
+                    text: ELocale.texts.Verify
 
-                    onClicked: result.text = captcha.verify(field.text) ? "验证成功" : "请重新输入"
+                    onClicked: result.text = captcha.verify(field.text) ? ELocale.texts.VerificationSuccessful : ELocale.texts.PleaseTryAgain
                 }
                 EText {
                     id: result
 
-                    text: "验证码区分大小写"
+                    text: ELocale.texts.TheVerificationCodeIsCaseSensitive
                 }
             }
         }
@@ -613,10 +613,10 @@ Column {
 
                 ETransfer {
                     value: ["qt"]
-                    leftTitle: "可用技术"
-                    rightTitle: "项目技术"
                     targetOrder: "push"
                     width: Math.min(640, parent.width)
+                    rightTitle: ELocale.texts.ProjectTechnologies
+                    leftTitle: ELocale.texts.AvailableTechnologies
                     props: ({key: "value", label: "label", disabled: "disabled"})
                     data: [{label: "QML", value: "qml"}, {label: "Qt", value: "qt"}, {label: "C++", value: "cpp", disabled: true}]
                 }
@@ -624,10 +624,10 @@ Column {
 
             ETransfer {
                 value: ["qt"]
-                leftTitle: "可用技术"
-                rightTitle: "项目技术"
                 targetOrder: "push"
                 width: Math.min(640, parent.width)
+                rightTitle: ELocale.texts.ProjectTechnologies
+                leftTitle: ELocale.texts.AvailableTechnologies
                 props: ({key: "value", label: "label", disabled: "disabled"})
                 data: [{label: "QML", value: "qml"}, {label: "Qt", value: "qt"}, {label: "C++", value: "cpp", disabled: true}]
             }
@@ -701,7 +701,7 @@ Column {
                     clearable: true
                     emitPath: false
                     width: Math.min(480, parent.width)
-                    options: [{id: "design", value: "design", label: "设计", children: [{id: "icon", value: "icon", label: "图标"}, {id: "theme", value: "theme", label: "主题"}]}, {id: "dev", value: "dev", label: "开发", children: [{id: "qml", value: "qml", label: "QML"}, {id: "cpp", value: "cpp", label: "C++"}]}]
+                    options: [{id: "design", value: "design", label: ELocale.texts.Design, children: [{id: "icon", value: "icon", label: ELocale.texts.Icon}, {id: "theme", value: "theme", label: ELocale.texts.Theme}]}, {id: "dev", value: "dev", label: ELocale.texts.Engineering, children: [{id: "qml", value: "qml", label: "QML"}, {id: "cpp", value: "cpp", label: "C++"}]}]
                 }
             `)
 
@@ -709,7 +709,7 @@ Column {
                 clearable: true
                 emitPath: false
                 width: Math.min(480, parent.width)
-                options: [{id: "design", value: "design", label: "设计", children: [{id: "icon", value: "icon", label: "图标"}, {id: "theme", value: "theme", label: "主题"}]}, {id: "dev", value: "dev", label: "开发", children: [{id: "qml", value: "qml", label: "QML"}, {id: "cpp", value: "cpp", label: "C++"}]}]
+                options: [{id: "design", value: "design", label: ELocale.texts.Design, children: [{id: "icon", value: "icon", label: ELocale.texts.Icon}, {id: "theme", value: "theme", label: ELocale.texts.Theme}]}, {id: "dev", value: "dev", label: ELocale.texts.Engineering, children: [{id: "qml", value: "qml", label: "QML"}, {id: "cpp", value: "cpp", label: "C++"}]}]
             }
         }
     }
@@ -728,7 +728,7 @@ Column {
                     collapseTags: true
                     maxCollapseTags: 1
                     width: Math.min(480, parent.width)
-                    options: [{id: "design", value: "design", label: "设计", children: [{id: "icon", value: "icon", label: "图标"}, {id: "theme", value: "theme", label: "主题"}]}, {id: "dev", value: "dev", label: "开发", children: [{id: "qml", value: "qml", label: "QML"}, {id: "cpp", value: "cpp", label: "C++"}]}]
+                    options: [{id: "design", value: "design", label: ELocale.texts.Design, children: [{id: "icon", value: "icon", label: ELocale.texts.Icon}, {id: "theme", value: "theme", label: ELocale.texts.Theme}]}, {id: "dev", value: "dev", label: ELocale.texts.Engineering, children: [{id: "qml", value: "qml", label: "QML"}, {id: "cpp", value: "cpp", label: "C++"}]}]
                 }
             `)
 
@@ -737,7 +737,7 @@ Column {
                 collapseTags: true
                 maxCollapseTags: 1
                 width: Math.min(480, parent.width)
-                options: [{id: "design", value: "design", label: "设计", children: [{id: "icon", value: "icon", label: "图标"}, {id: "theme", value: "theme", label: "主题"}]}, {id: "dev", value: "dev", label: "开发", children: [{id: "qml", value: "qml", label: "QML"}, {id: "cpp", value: "cpp", label: "C++"}]}]
+                options: [{id: "design", value: "design", label: ELocale.texts.Design, children: [{id: "icon", value: "icon", label: ELocale.texts.Icon}, {id: "theme", value: "theme", label: ELocale.texts.Theme}]}, {id: "dev", value: "dev", label: ELocale.texts.Engineering, children: [{id: "qml", value: "qml", label: "QML"}, {id: "cpp", value: "cpp", label: "C++"}]}]
             }
         }
     }
@@ -756,7 +756,7 @@ Column {
                     separator: " → "
                     checkStrictly: true
                     width: Math.min(480, parent.width)
-                    options: [{id: "design", value: "design", label: "设计", children: [{id: "icon", value: "icon", label: "图标"}, {id: "theme", value: "theme", label: "主题"}]}, {id: "dev", value: "dev", label: "开发", children: [{id: "qml", value: "qml", label: "QML"}, {id: "cpp", value: "cpp", label: "C++"}]}]
+                    options: [{id: "design", value: "design", label: ELocale.texts.Design, children: [{id: "icon", value: "icon", label: ELocale.texts.Icon}, {id: "theme", value: "theme", label: ELocale.texts.Theme}]}, {id: "dev", value: "dev", label: ELocale.texts.Engineering, children: [{id: "qml", value: "qml", label: "QML"}, {id: "cpp", value: "cpp", label: "C++"}]}]
                 }
             `)
 
@@ -765,7 +765,7 @@ Column {
                 separator: " → "
                 checkStrictly: true
                 width: Math.min(480, parent.width)
-                options: [{id: "design", value: "design", label: "设计", children: [{id: "icon", value: "icon", label: "图标"}, {id: "theme", value: "theme", label: "主题"}]}, {id: "dev", value: "dev", label: "开发", children: [{id: "qml", value: "qml", label: "QML"}, {id: "cpp", value: "cpp", label: "C++"}]}]
+                options: [{id: "design", value: "design", label: ELocale.texts.Design, children: [{id: "icon", value: "icon", label: ELocale.texts.Icon}, {id: "theme", value: "theme", label: ELocale.texts.Theme}]}, {id: "dev", value: "dev", label: ELocale.texts.Engineering, children: [{id: "qml", value: "qml", label: "QML"}, {id: "cpp", value: "cpp", label: "C++"}]}]
             }
         }
     }
@@ -785,7 +785,7 @@ Column {
                     collapseTags: true
                     maxCollapseTags: 2
                     width: Math.min(480, parent.width)
-                    value: ["QML", "Qt", "C++", "Design"]
+                    value: ["QML", "Qt", "C++", ELocale.texts.Design]
                 }
             `)
 
@@ -795,7 +795,7 @@ Column {
                 collapseTags: true
                 maxCollapseTags: 2
                 width: Math.min(480, parent.width)
-                value: ["QML", "Qt", "C++", "Design"]
+                value: ["QML", "Qt", "C++", ELocale.texts.Design]
             }
         }
     }
@@ -812,8 +812,8 @@ Column {
                 EInputTag {
                     enabled: false
                     closable: false
-                    value: ["桌面端", "网页端"]
                     width: Math.min(480, parent.width)
+                    value: [ELocale.texts.Desktop, ELocale.texts.Web]
                     prefixComponent: Component {
                         EIcon {
                             iconSize: 16
@@ -826,8 +826,8 @@ Column {
             EInputTag {
                 enabled: false
                 closable: false
-                value: ["桌面端", "网页端"]
                 width: Math.min(480, parent.width)
+                value: [ELocale.texts.Desktop, ELocale.texts.Web]
                 prefixComponent: Component {
                     EIcon {
                         iconSize: 16
@@ -850,18 +850,18 @@ Column {
                 EInputTag {
                     delimiter: ","
                     draggable: true
-                    placeholderText: "输入逗号完成标签"
                     value: ["QML", "Qt", "C++"]
                     width: Math.min(480, parent.width)
+                    placeholderText: ELocale.texts.TypeACommaToCompleteATag
                 }
             `)
 
             EInputTag {
                 delimiter: ","
                 draggable: true
-                placeholderText: "输入逗号完成标签"
                 value: ["QML", "Qt", "C++"]
                 width: Math.min(480, parent.width)
+                placeholderText: ELocale.texts.TypeACommaToCompleteATag
             }
         }
     }
@@ -990,7 +990,7 @@ Column {
                         numericOnly: true
                     }
                     EText {
-                        text: otp.value.length === 4 ? "输入完成：" + otp.value : "等待完整验证码"
+                        text: otp.value.length === 4 ? ELocale.texts.InputComplete + otp.value : ELocale.texts.WaitingForTheCompleteVerificationCode
                     }
                 }
             `)
@@ -1006,7 +1006,7 @@ Column {
                     numericOnly: true
                 }
                 EText {
-                    text: otp.value.length === 4 ? "输入完成：" + otp.value : "等待完整验证码"
+                    text: otp.value.length === 4 ? ELocale.texts.InputComplete + otp.value : ELocale.texts.WaitingForTheCompleteVerificationCode
                 }
             }
         }
@@ -1112,7 +1112,7 @@ Column {
                     leavesOnly: true
                     defaultExpandAll: true
                     width: Math.min(480, parent.width)
-                    data: [{id: "design", value: "design", label: "设计", children: [{id: "icon", value: "icon", label: "图标"}, {id: "theme", value: "theme", label: "主题"}]}, {id: "dev", value: "dev", label: "开发", children: [{id: "qml", value: "qml", label: "QML"}, {id: "cpp", value: "cpp", label: "C++"}]}]
+                    data: [{id: "design", value: "design", label: ELocale.texts.Design, children: [{id: "icon", value: "icon", label: ELocale.texts.Icon}, {id: "theme", value: "theme", label: ELocale.texts.Theme}]}, {id: "dev", value: "dev", label: ELocale.texts.Engineering, children: [{id: "qml", value: "qml", label: "QML"}, {id: "cpp", value: "cpp", label: "C++"}]}]
                 }
             `)
 
@@ -1121,7 +1121,7 @@ Column {
                 leavesOnly: true
                 defaultExpandAll: true
                 width: Math.min(480, parent.width)
-                data: [{id: "design", value: "design", label: "设计", children: [{id: "icon", value: "icon", label: "图标"}, {id: "theme", value: "theme", label: "主题"}]}, {id: "dev", value: "dev", label: "开发", children: [{id: "qml", value: "qml", label: "QML"}, {id: "cpp", value: "cpp", label: "C++"}]}]
+                data: [{id: "design", value: "design", label: ELocale.texts.Design, children: [{id: "icon", value: "icon", label: ELocale.texts.Icon}, {id: "theme", value: "theme", label: ELocale.texts.Theme}]}, {id: "dev", value: "dev", label: ELocale.texts.Engineering, children: [{id: "qml", value: "qml", label: "QML"}, {id: "cpp", value: "cpp", label: "C++"}]}]
             }
         }
     }
@@ -1141,7 +1141,7 @@ Column {
                     checkStrictly: true
                     defaultExpandAll: true
                     width: Math.min(480, parent.width)
-                    data: [{id: "design", value: "design", label: "设计", children: [{id: "icon", value: "icon", label: "图标"}, {id: "theme", value: "theme", label: "主题"}]}, {id: "dev", value: "dev", label: "开发", children: [{id: "qml", value: "qml", label: "QML"}, {id: "cpp", value: "cpp", label: "C++"}]}]
+                    data: [{id: "design", value: "design", label: ELocale.texts.Design, children: [{id: "icon", value: "icon", label: ELocale.texts.Icon}, {id: "theme", value: "theme", label: ELocale.texts.Theme}]}, {id: "dev", value: "dev", label: ELocale.texts.Engineering, children: [{id: "qml", value: "qml", label: "QML"}, {id: "cpp", value: "cpp", label: "C++"}]}]
                 }
             `)
 
@@ -1151,7 +1151,7 @@ Column {
                 checkStrictly: true
                 defaultExpandAll: true
                 width: Math.min(480, parent.width)
-                data: [{id: "design", value: "design", label: "设计", children: [{id: "icon", value: "icon", label: "图标"}, {id: "theme", value: "theme", label: "主题"}]}, {id: "dev", value: "dev", label: "开发", children: [{id: "qml", value: "qml", label: "QML"}, {id: "cpp", value: "cpp", label: "C++"}]}]
+                data: [{id: "design", value: "design", label: ELocale.texts.Design, children: [{id: "icon", value: "icon", label: ELocale.texts.Icon}, {id: "theme", value: "theme", label: ELocale.texts.Theme}]}, {id: "dev", value: "dev", label: ELocale.texts.Engineering, children: [{id: "qml", value: "qml", label: "QML"}, {id: "cpp", value: "cpp", label: "C++"}]}]
             }
         }
     }
@@ -1170,7 +1170,7 @@ Column {
                     enabled: false
                     expandedKeys: ["design"]
                     width: Math.min(480, parent.width)
-                    data: [{id: "design", value: "design", label: "设计", children: [{id: "icon", value: "icon", label: "图标"}, {id: "theme", value: "theme", label: "主题"}]}, {id: "dev", value: "dev", label: "开发", children: [{id: "qml", value: "qml", label: "QML"}, {id: "cpp", value: "cpp", label: "C++"}]}]
+                    data: [{id: "design", value: "design", label: ELocale.texts.Design, children: [{id: "icon", value: "icon", label: ELocale.texts.Icon}, {id: "theme", value: "theme", label: ELocale.texts.Theme}]}, {id: "dev", value: "dev", label: ELocale.texts.Engineering, children: [{id: "qml", value: "qml", label: "QML"}, {id: "cpp", value: "cpp", label: "C++"}]}]
                 }
             `)
 
@@ -1179,7 +1179,7 @@ Column {
                 enabled: false
                 expandedKeys: ["design"]
                 width: Math.min(480, parent.width)
-                data: [{id: "design", value: "design", label: "设计", children: [{id: "icon", value: "icon", label: "图标"}, {id: "theme", value: "theme", label: "主题"}]}, {id: "dev", value: "dev", label: "开发", children: [{id: "qml", value: "qml", label: "QML"}, {id: "cpp", value: "cpp", label: "C++"}]}]
+                data: [{id: "design", value: "design", label: ELocale.texts.Design, children: [{id: "icon", value: "icon", label: ELocale.texts.Icon}, {id: "theme", value: "theme", label: ELocale.texts.Theme}]}, {id: "dev", value: "dev", label: ELocale.texts.Engineering, children: [{id: "qml", value: "qml", label: "QML"}, {id: "cpp", value: "cpp", label: "C++"}]}]
             }
         }
     }
@@ -1307,8 +1307,8 @@ Column {
                     first.value: 20
                     second.value: 70
                     width: Math.min(480, parent.width)
-                    marks: ({0: "最低", 25: "推荐", 75: "较高", 100: "最高"})
                     formatTooltip: function(value) { return Math.round(value) + "%" }
+                    marks: ({0: ELocale.texts.Lowest, 25: ELocale.texts.Recommended, 75: ELocale.texts.Higher, 100: ELocale.texts.Highest})
                 }
             `)
 
@@ -1318,8 +1318,8 @@ Column {
                 first.value: 20
                 second.value: 70
                 width: Math.min(480, parent.width)
-                marks: ({0: "最低", 25: "推荐", 75: "较高", 100: "最高"})
                 formatTooltip: function(value) { return Math.round(value) + "%" }
+                marks: ({0: ELocale.texts.Lowest, 25: ELocale.texts.Recommended, 75: ELocale.texts.Higher, 100: ELocale.texts.Highest})
             }
         }
     }
@@ -1393,7 +1393,7 @@ Column {
                         width: Math.min(480, parent.width)
                     }
                     EText {
-                        text: shortcut.sequence.length > 0 ? shortcut.sequence : "点击后录入快捷键"
+                        text: shortcut.sequence.length > 0 ? shortcut.sequence : ELocale.texts.ClickToRecordAShortcut
                     }
                 }
             `)
@@ -1408,7 +1408,7 @@ Column {
                     width: Math.min(480, parent.width)
                 }
                 EText {
-                    text: shortcut.sequence.length > 0 ? shortcut.sequence : "点击后录入快捷键"
+                    text: shortcut.sequence.length > 0 ? shortcut.sequence : ELocale.texts.ClickToRecordAShortcut
                 }
             }
         }
@@ -1458,7 +1458,7 @@ Column {
                         width: Math.min(480, parent.width)
                     }
                     EButton {
-                        text: "清除快捷键"
+                        text: ELocale.texts.ClearShortcut
 
                         onClicked: shortcut.sequence = ""
                     }
@@ -1476,7 +1476,7 @@ Column {
                     width: Math.min(480, parent.width)
                 }
                 EButton {
-                    text: "清除快捷键"
+                    text: ELocale.texts.ClearShortcut
 
                     onClicked: shortcut.sequence = ""
                 }
@@ -1495,17 +1495,17 @@ Column {
 
                 EDateTimePicker {
                     isRange: true
-                    endPlaceholder: "结束时间"
-                    startPlaceholder: "开始时间"
                     width: Math.min(480, parent.width)
+                    endPlaceholder: ELocale.texts.EndTime
+                    startPlaceholder: ELocale.texts.StartTime
                 }
             `)
 
             EDateTimePicker {
                 isRange: true
-                endPlaceholder: "结束时间"
-                startPlaceholder: "开始时间"
                 width: Math.min(480, parent.width)
+                endPlaceholder: ELocale.texts.EndTime
+                startPlaceholder: ELocale.texts.StartTime
             }
         }
     }

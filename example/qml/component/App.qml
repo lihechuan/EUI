@@ -85,11 +85,18 @@ EApplicationWindow {
     title: ELocale.texts.EuiComponentGallery
     flags: Qt.Window | Qt.FramelessWindowHint
     appBar: EAppBar {
+        id: appBar
+
         objectName: "galleryAppBar"
         textColor: GalleryStyle.muted
         backgroundColor: GalleryStyle.sidebar
 
+        UpdateControl {
+            anchors.verticalCenter: parent.verticalCenter
+        }
         ETextButton {
+            id: repositoryButton
+
             text: ""
             width: 32
             iconSize: 22
@@ -98,14 +105,28 @@ EApplicationWindow {
             objectName: "galleryRepositoryLink"
             anchors.verticalCenter: parent.verticalCenter
             iconSource: ETheme.dark ? EIcons.GITHUB_DARK : EIcons.GITHUB_LIGHT
+            background: ERectangle {
+                radius: 4
+                color: !repositoryButton.enabled ? "transparent"
+                    : repositoryButton.pressed ? appBar.buttonPressedColor
+                    : repositoryButton.hovered ? appBar.buttonHoverColor : "transparent"
+            }
 
             onClicked: Qt.openUrlExternally("https://github.com/lihechuan/EUI")
         }
         ETextButton {
+            id: languageButton
+
             minHeight: 28
             font.bold: false
             objectName: "galleryLanguageSwitch"
             text: ELocale.language === "en" ? ELocale.texts.SimplifiedChinese : ELocale.texts.English
+            background: ERectangle {
+                radius: 4
+                color: !languageButton.enabled ? "transparent"
+                    : languageButton.pressed ? appBar.buttonPressedColor
+                    : languageButton.hovered ? appBar.buttonHoverColor : "transparent"
+            }
 
             onClicked: ELocale.language = ELocale.language === "en" ? "zh" : "en"
         }
@@ -147,6 +168,7 @@ EApplicationWindow {
                     easing.type: Easing.InOutCubic
                 }
             }
+
             Row {
                 x: 16
                 y: 22
@@ -355,14 +377,8 @@ EApplicationWindow {
                                             width: parent.width
                                             Accessible.selected: selected
                                             objectName: "galleryNavEntry"
-                                            contentItem: EText {
-                                                font.bold: false
-                                                elide: Text.ElideRight
-                                                text: entryButton.text
-                                                color: GalleryStyle.text
-                                                verticalAlignment: Text.AlignVCenter
-                                                font.pixelSize: GalleryStyle.bodySize
-                                            }
+                                            Accessible.description: entry.isNew ? ELocale.texts.ComponentNewVersion.arg(entry.introducedIn)
+                                                : entry.demo ? ELocale.texts.GalleryDemoDescription : ""
                                             background: ERectangle {
                                                 radius: 5
                                                 color: entryButton.selected ? GalleryStyle.selection
@@ -378,8 +394,61 @@ EApplicationWindow {
                                                     anchors.verticalCenter: parent.verticalCenter
                                                 }
                                             }
+                                            contentItem: Item {
+                                                EText {
+                                                    font.bold: false
+                                                    height: parent.height
+                                                    elide: Text.ElideRight
+                                                    text: entryButton.text
+                                                    color: GalleryStyle.text
+                                                    verticalAlignment: Text.AlignVCenter
+                                                    font.pixelSize: GalleryStyle.bodySize
+                                                    width: Math.max(0, parent.width - (demoBadge.visible ? demoBadge.width + 8 : 0)
+                                                        - (newBadge.visible ? newBadge.width + 8 : 0))
+                                                }
+                                                ETag {
+                                                    id: newBadge
+
+                                                    leftPadding: 6
+                                                    rightPadding: 6
+                                                    size: EStyle.Small
+                                                    styleType: EStyle.Success
+                                                    anchors.right: parent.right
+                                                    objectName: "galleryNavNewBadge"
+                                                    text: ELocale.texts.ComponentNew
+                                                    visible: entryButton.entry.isNew
+                                                    anchors.verticalCenter: parent.verticalCenter
+
+                                                    onClicked: window.showComponent(entryButton.entry)
+                                                }
+                                                ETag {
+                                                    id: demoBadge
+
+                                                    leftPadding: 6
+                                                    rightPadding: 6
+                                                    size: EStyle.Small
+                                                    styleType: EStyle.Warning
+                                                    anchors.right: parent.right
+                                                    visible: entryButton.entry.demo
+                                                    objectName: "galleryNavDemoBadge"
+                                                    text: ELocale.texts.GalleryDemoLabel
+                                                    anchors.verticalCenter: parent.verticalCenter
+
+                                                    onClicked: window.showComponent(entryButton.entry)
+                                                }
+                                            }
 
                                             onClicked: window.showComponent(entry)
+
+                                            EToolTip {
+                                                showAfter: 500
+                                                showArrow: false
+                                                placement: EPlacement.Right
+                                                objectName: "galleryNavDemoTooltip"
+                                                text: ELocale.texts.GalleryDemoDescription
+                                                visible: entryButton.entry.demo && entryButton.hovered
+                                                    && entryButton.Window.window && entryButton.Window.window.visible
+                                            }
                                         }
                                     }
                                 }
@@ -396,43 +465,49 @@ EApplicationWindow {
                     }
                 }
             }
-            Row {
+            Column {
                 id: sidebarFooter
 
                 x: 12
-                height: 36
                 spacing: 10
                 anchors.bottomMargin: 16
+                width: parent.width - 24
                 anchors.bottom: parent.bottom
 
-                ETextButton {
-                    width: 36
+                Row {
                     height: 36
-                    minHeight: 36
-                    iconSource: EIcons.BARS
-                    objectName: "galleryNavigationToggle"
-                    background: ERectangle {
-                        radius: 5
-                        color: GalleryStyle.hover
-                    }
-                    accessibleName: window.navigationExpanded ? ELocale.texts.CollapseNavigation : ELocale.texts.ExpandNavigation
+                    spacing: 10
 
-                    onClicked: window.navigationExpanded = !window.navigationExpanded
-                }
-                Column {
-                    spacing: 3
-                    visible: window.navigationExpanded
-                    anchors.verticalCenter: parent.verticalCenter
+                    ETextButton {
+                        width: 36
+                        height: 36
+                        minHeight: 36
+                        iconSource: EIcons.BARS
+                        objectName: "galleryNavigationToggle"
+                        background: ERectangle {
+                            radius: 5
+                            color: GalleryStyle.hover
+                        }
+                        accessibleName: window.navigationExpanded ? ELocale.texts.CollapseNavigation : ELocale.texts.ExpandNavigation
 
-                    EText {
-                        text: "Qt Quick · QML"
-                        color: GalleryStyle.text
-                        font.pixelSize: GalleryStyle.bodySize
+                        onClicked: window.navigationExpanded = !window.navigationExpanded
                     }
-                    EText {
-                        text: "EUI 1.0"
-                        color: GalleryStyle.muted
-                        font.pixelSize: GalleryStyle.captionSize
+                    Column {
+                        spacing: 3
+                        visible: window.navigationExpanded
+                        anchors.verticalCenter: parent.verticalCenter
+
+                        EText {
+                            color: GalleryStyle.text
+                            text: "Qt Quick \u00b7 QML"
+                            font.pixelSize: GalleryStyle.bodySize
+                        }
+                        EText {
+                            color: GalleryStyle.muted
+                            objectName: "galleryVersion"
+                            font.pixelSize: GalleryStyle.captionSize
+                            text: "EUI " + exampleUpdater.currentVersion
+                        }
                     }
                 }
             }

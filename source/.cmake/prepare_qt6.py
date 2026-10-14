@@ -65,6 +65,37 @@ def prepare(source, destination):
         text = replace(text, before, after)
     upload.write_text(text, encoding='utf-8')
 
+    picker = module / 'controls/form/EFilePicker.qml'
+    text = picker.read_text(encoding='utf-8')
+    for before, after in (
+        ('import QtQuick.Dialogs 1.3', 'import QtQuick.Dialogs'),
+        ('fileDialogComponent.createObject(control)',
+         '(mode === "folder" ? folderDialogComponent : fileDialogComponent).createObject(control)'),
+        ('folder: control.folder', 'currentFolder: control.folder'),
+        ('            selectFolder: control.mode === "folder"\n', ''),
+        ('            selectExisting: control.mode !== "save"\n', ''),
+        ('selectMultiple: control.multiple && control.mode === "open"',
+         'fileMode: control.mode === "save" ? FileDialog.SaveFile\n'
+         '                : control.multiple ? FileDialog.OpenFiles : FileDialog.OpenFile'),
+        ('control.acceptSelection(fileUrls)', 'control.acceptSelection(selectedFiles)'),
+    ):
+        text = replace(text, before, after)
+    text = text.rstrip()[:-1] + '''
+    Component {
+        id: folderDialogComponent
+
+        FolderDialog {
+            currentFolder: control.folder
+            title: control.dialogTitle
+
+            onRejected: control.rejected()
+            onAccepted: control.acceptSelection([selectedFolder])
+        }
+    }
+}
+'''
+    picker.write_text(text, encoding='utf-8')
+
     shaders = destination / 'shaders'
     shaders.mkdir(exist_ok=True)
     for path, name in (

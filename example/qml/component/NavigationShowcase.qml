@@ -24,7 +24,7 @@ Column {
                         stretch: true
                         tabPosition: "bottom"
                         width: Math.min(480, parent.width)
-                        model: [{name: "overview", label: "概览", contentComponent: pane}, {name: "activity", label: "活动", contentComponent: pane}, {name: "settings", label: "设置", contentComponent: pane}, {name: "locked", label: "归档", disabled: true}]
+                        model: [{name: "overview", label: ELocale.texts.Overview, contentComponent: pane}, {name: "activity", label: ELocale.texts.Activity, contentComponent: pane}, {name: "settings", label: ELocale.texts.Settings, contentComponent: pane}, {name: "locked", label: ELocale.texts.Archived, disabled: true}]
                     }
                     Component {
                         id: pane
@@ -32,7 +32,7 @@ Column {
                         EText {
                             width: parent.width
                             wrapMode: Text.WordWrap
-                            text: parent.entry.label + "：独立的标签内容"
+                            text: parent.entry.label + ELocale.texts.IndependentTabContent
                         }
                     }
                 }
@@ -47,7 +47,7 @@ Column {
                     stretch: true
                     tabPosition: "bottom"
                     width: Math.min(480, parent.width)
-                    model: [{name: "overview", label: "概览", contentComponent: pane}, {name: "activity", label: "活动", contentComponent: pane}, {name: "settings", label: "设置", contentComponent: pane}, {name: "locked", label: "归档", disabled: true}]
+                    model: [{name: "overview", label: ELocale.texts.Overview, contentComponent: pane}, {name: "activity", label: ELocale.texts.Activity, contentComponent: pane}, {name: "settings", label: ELocale.texts.Settings, contentComponent: pane}, {name: "locked", label: ELocale.texts.Archived, disabled: true}]
                 }
                 Component {
                     id: pane
@@ -55,7 +55,7 @@ Column {
                     EText {
                         width: parent.width
                         wrapMode: Text.WordWrap
-                        text: parent.entry.label + "：独立的标签内容"
+                        text: parent.entry.label + ELocale.texts.IndependentTabContent
                     }
                 }
             }
@@ -81,7 +81,7 @@ Column {
                         tabPosition: "left"
                         navigationWidth: 120
                         width: Math.min(480, parent.width)
-                        model: [{name: "overview", label: "概览", contentComponent: pane}, {name: "activity", label: "活动", contentComponent: pane}, {name: "settings", label: "设置", contentComponent: pane}, {name: "locked", label: "归档", disabled: true}]
+                        model: [{name: "overview", label: ELocale.texts.Overview, contentComponent: pane}, {name: "activity", label: ELocale.texts.Activity, contentComponent: pane}, {name: "settings", label: ELocale.texts.Settings, contentComponent: pane}, {name: "locked", label: ELocale.texts.Archived, disabled: true}]
                     }
                     Component {
                         id: pane
@@ -89,7 +89,7 @@ Column {
                         EText {
                             width: parent.width
                             wrapMode: Text.WordWrap
-                            text: parent.entry.label + "：独立的标签内容"
+                            text: parent.entry.label + ELocale.texts.IndependentTabContent
                         }
                     }
                 }
@@ -105,7 +105,7 @@ Column {
                     tabPosition: "left"
                     navigationWidth: 120
                     width: Math.min(480, parent.width)
-                    model: [{name: "overview", label: "概览", contentComponent: pane}, {name: "activity", label: "活动", contentComponent: pane}, {name: "settings", label: "设置", contentComponent: pane}, {name: "locked", label: "归档", disabled: true}]
+                    model: [{name: "overview", label: ELocale.texts.Overview, contentComponent: pane}, {name: "activity", label: ELocale.texts.Activity, contentComponent: pane}, {name: "settings", label: ELocale.texts.Settings, contentComponent: pane}, {name: "locked", label: ELocale.texts.Archived, disabled: true}]
                 }
                 Component {
                     id: pane
@@ -113,7 +113,7 @@ Column {
                     EText {
                         width: parent.width
                         wrapMode: Text.WordWrap
-                        text: parent.entry.label + "：独立的标签内容"
+                        text: parent.entry.label + ELocale.texts.IndependentTabContent
                     }
                 }
             }
@@ -138,9 +138,9 @@ Column {
                         movable: true
                         closable: true
                         width: Math.min(480, parent.width)
-                        model: [{name: "overview", label: "概览", contentComponent: pane}, {name: "activity", label: "活动", contentComponent: pane}, {name: "settings", label: "设置", contentComponent: pane}, {name: "locked", label: "归档", disabled: true}]
+                        model: [{name: "overview", label: ELocale.texts.Overview, contentComponent: pane}, {name: "activity", label: ELocale.texts.Activity, contentComponent: pane}, {name: "settings", label: ELocale.texts.Settings, contentComponent: pane}, {name: "locked", label: ELocale.texts.Archived, disabled: true}]
 
-                        onTabAddRequested: model = model.concat([{name: "new" + count, label: "新标签 " + count, contentComponent: pane}])
+                        onTabAddRequested: model = model.concat([{name: "new" + count, label: ELocale.texts.NewTab2 + count, contentComponent: pane}])
                     }
                     Component {
                         id: pane
@@ -148,7 +148,7 @@ Column {
                         EText {
                             width: parent.width
                             wrapMode: Text.WordWrap
-                            text: parent.entry.label + "：独立的标签内容"
+                            text: parent.entry.label + ELocale.texts.IndependentTabContent
                         }
                     }
                 }
@@ -163,9 +163,9 @@ Column {
                     movable: true
                     closable: true
                     width: Math.min(480, parent.width)
-                    model: [{name: "overview", label: "概览", contentComponent: pane}, {name: "activity", label: "活动", contentComponent: pane}, {name: "settings", label: "设置", contentComponent: pane}, {name: "locked", label: "归档", disabled: true}]
+                    model: [{name: "overview", label: ELocale.texts.Overview, contentComponent: pane}, {name: "activity", label: ELocale.texts.Activity, contentComponent: pane}, {name: "settings", label: ELocale.texts.Settings, contentComponent: pane}, {name: "locked", label: ELocale.texts.Archived, disabled: true}]
 
-                    onTabAddRequested: model = model.concat([{name: "new" + count, label: "新标签 " + count, contentComponent: pane}])
+                    onTabAddRequested: model = model.concat([{name: "new" + count, label: ELocale.texts.NewTab2 + count, contentComponent: pane}])
                 }
                 Component {
                     id: pane
@@ -173,7 +173,7 @@ Column {
                     EText {
                         width: parent.width
                         wrapMode: Text.WordWrap
-                        text: parent.entry.label + "：独立的标签内容"
+                        text: parent.entry.label + ELocale.texts.IndependentTabContent
                     }
                 }
             }
@@ -194,7 +194,7 @@ Column {
                     clickable: true
                     alignCenter: true
                     width: Math.min(480, parent.width)
-                    model: [{title: "选择", description: "选择工作区"}, {title: "配置", description: "配置项目"}, {title: "完成", description: "准备就绪"}]
+                    model: [{title: ELocale.texts.Selection, description: ELocale.texts.ChooseAWorkspace}, {title: ELocale.texts.Configuration, description: ELocale.texts.ConfigureProject}, {title: ELocale.texts.Done, description: ELocale.texts.Ready2}]
                 }
             `)
 
@@ -203,7 +203,7 @@ Column {
                 clickable: true
                 alignCenter: true
                 width: Math.min(480, parent.width)
-                model: [{title: "选择", description: "选择工作区"}, {title: "配置", description: "配置项目"}, {title: "完成", description: "准备就绪"}]
+                model: [{title: ELocale.texts.Selection, description: ELocale.texts.ChooseAWorkspace}, {title: ELocale.texts.Configuration, description: ELocale.texts.ConfigureProject}, {title: ELocale.texts.Done, description: ELocale.texts.Ready2}]
             }
         }
     }
@@ -221,7 +221,7 @@ Column {
                     active: 1
                     width: 320
                     direction: EOrientation.Vertical
-                    model: [{title: "选择", description: "选择工作区"}, {title: "配置", description: "配置项目"}, {title: "完成", description: "准备就绪"}]
+                    model: [{title: ELocale.texts.Selection, description: ELocale.texts.ChooseAWorkspace}, {title: ELocale.texts.Configuration, description: ELocale.texts.ConfigureProject}, {title: ELocale.texts.Done, description: ELocale.texts.Ready2}]
                 }
             `)
 
@@ -229,7 +229,7 @@ Column {
                 active: 1
                 width: 320
                 direction: EOrientation.Vertical
-                model: [{title: "选择", description: "选择工作区"}, {title: "配置", description: "配置项目"}, {title: "完成", description: "准备就绪"}]
+                model: [{title: ELocale.texts.Selection, description: ELocale.texts.ChooseAWorkspace}, {title: ELocale.texts.Configuration, description: ELocale.texts.ConfigureProject}, {title: ELocale.texts.Done, description: ELocale.texts.Ready2}]
             }
         }
     }
@@ -247,7 +247,7 @@ Column {
                     active: 1
                     simple: true
                     width: Math.min(480, parent.width)
-                    model: [{title: "选择", description: "选择工作区"}, {title: "配置", description: "配置项目"}, {title: "完成", description: "准备就绪"}]
+                    model: [{title: ELocale.texts.Selection, description: ELocale.texts.ChooseAWorkspace}, {title: ELocale.texts.Configuration, description: ELocale.texts.ConfigureProject}, {title: ELocale.texts.Done, description: ELocale.texts.Ready2}]
                 }
             `)
 
@@ -255,7 +255,7 @@ Column {
                 active: 1
                 simple: true
                 width: Math.min(480, parent.width)
-                model: [{title: "选择", description: "选择工作区"}, {title: "配置", description: "配置项目"}, {title: "完成", description: "准备就绪"}]
+                model: [{title: ELocale.texts.Selection, description: ELocale.texts.ChooseAWorkspace}, {title: ELocale.texts.Configuration, description: ELocale.texts.ConfigureProject}, {title: ELocale.texts.Done, description: ELocale.texts.Ready2}]
             }
         }
     }
@@ -279,10 +279,10 @@ Column {
                         processStatus: "error"
                         finishStatus: "success"
                         width: Math.min(480, parent.width)
-                        model: [{title: "选择", description: "选择工作区"}, {title: "配置", description: "配置项目"}, {title: "完成", description: "准备就绪"}]
+                        model: [{title: ELocale.texts.Selection, description: ELocale.texts.ChooseAWorkspace}, {title: ELocale.texts.Configuration, description: ELocale.texts.ConfigureProject}, {title: ELocale.texts.Done, description: ELocale.texts.Ready2}]
                     }
                     EButton {
-                        text: "下一步"
+                        text: ELocale.texts.Next
 
                         onClicked: sample.active = (sample.active + 1) % 4
                     }
@@ -299,10 +299,10 @@ Column {
                     processStatus: "error"
                     finishStatus: "success"
                     width: Math.min(480, parent.width)
-                    model: [{title: "选择", description: "选择工作区"}, {title: "配置", description: "配置项目"}, {title: "完成", description: "准备就绪"}]
+                    model: [{title: ELocale.texts.Selection, description: ELocale.texts.ChooseAWorkspace}, {title: ELocale.texts.Configuration, description: ELocale.texts.ConfigureProject}, {title: ELocale.texts.Done, description: ELocale.texts.Ready2}]
                 }
                 EButton {
-                    text: "下一步"
+                    text: ELocale.texts.Next
 
                     onClicked: sample.active = (sample.active + 1) % 4
                 }
@@ -325,14 +325,14 @@ Column {
 
                     EMenuBar {
                         width: Math.min(480, parent.width)
-                        model: [{text: "文件", children: [{index: "new", text: "新建", shortcut: "Ctrl+N"}, {index: "save", text: "保存", shortcut: "Ctrl+S"}, {index: "close", text: "关闭", divided: true}]}, {text: "编辑", children: [{index: "copy", text: "复制"}]}]
+                        model: [{text: ELocale.texts.File, children: [{index: "new", text: ELocale.texts.New, shortcut: "Ctrl+N"}, {index: "save", text: ELocale.texts.CoreSampleSave, shortcut: "Ctrl+S"}, {index: "close", text: ELocale.texts.Close, divided: true}]}, {text: ELocale.texts.Edit, children: [{index: "copy", text: ELocale.texts.Copy}]}]
 
                         onCommand: result.text = index
                     }
                     EText {
                         id: result
 
-                        text: "选择一个命令"
+                        text: ELocale.texts.ChooseACommand
                     }
                 }
             `)
@@ -343,14 +343,14 @@ Column {
 
                 EMenuBar {
                     width: Math.min(480, parent.width)
-                    model: [{text: "文件", children: [{index: "new", text: "新建", shortcut: "Ctrl+N"}, {index: "save", text: "保存", shortcut: "Ctrl+S"}, {index: "close", text: "关闭", divided: true}]}, {text: "编辑", children: [{index: "copy", text: "复制"}]}]
+                    model: [{text: ELocale.texts.File, children: [{index: "new", text: ELocale.texts.New, shortcut: "Ctrl+N"}, {index: "save", text: ELocale.texts.CoreSampleSave, shortcut: "Ctrl+S"}, {index: "close", text: ELocale.texts.Close, divided: true}]}, {text: ELocale.texts.Edit, children: [{index: "copy", text: ELocale.texts.Copy}]}]
 
                     onCommand: result.text = index
                 }
                 EText {
                     id: result
 
-                    text: "选择一个命令"
+                    text: ELocale.texts.ChooseACommand
                 }
             }
         }
@@ -371,14 +371,14 @@ Column {
 
                     EMenuBar {
                         width: Math.min(480, parent.width)
-                        model: [{text: "项目", children: [{index: "open", text: "打开"}, {index: "locked", text: "归档", disabled: true}]}]
+                        model: [{text: ELocale.texts.Project, children: [{index: "open", text: ELocale.texts.Open}, {index: "locked", text: ELocale.texts.Archived, disabled: true}]}]
 
                         onCommand: result.text = index
                     }
                     EText {
                         id: result
 
-                        text: "选择一个命令"
+                        text: ELocale.texts.ChooseACommand
                     }
                 }
             `)
@@ -389,14 +389,14 @@ Column {
 
                 EMenuBar {
                     width: Math.min(480, parent.width)
-                    model: [{text: "项目", children: [{index: "open", text: "打开"}, {index: "locked", text: "归档", disabled: true}]}]
+                    model: [{text: ELocale.texts.Project, children: [{index: "open", text: ELocale.texts.Open}, {index: "locked", text: ELocale.texts.Archived, disabled: true}]}]
 
                     onCommand: result.text = index
                 }
                 EText {
                     id: result
 
-                    text: "选择一个命令"
+                    text: ELocale.texts.ChooseACommand
                 }
             }
         }
@@ -417,14 +417,14 @@ Column {
 
                     EMenuBar {
                         width: Math.min(480, parent.width)
-                        model: [{text: "工具", children: [{text: "导出", children: [{index: "png", text: "PNG"}, {index: "svg", text: "SVG"}]}]}]
+                        model: [{text: ELocale.texts.Tools, children: [{text: ELocale.texts.TableExport, children: [{index: "png", text: "PNG"}, {index: "svg", text: "SVG"}]}]}]
 
                         onCommand: result.text = index
                     }
                     EText {
                         id: result
 
-                        text: "选择一个命令"
+                        text: ELocale.texts.ChooseACommand
                     }
                 }
             `)
@@ -435,14 +435,14 @@ Column {
 
                 EMenuBar {
                     width: Math.min(480, parent.width)
-                    model: [{text: "工具", children: [{text: "导出", children: [{index: "png", text: "PNG"}, {index: "svg", text: "SVG"}]}]}]
+                    model: [{text: ELocale.texts.Tools, children: [{text: ELocale.texts.TableExport, children: [{index: "png", text: "PNG"}, {index: "svg", text: "SVG"}]}]}]
 
                     onCommand: result.text = index
                 }
                 EText {
                     id: result
 
-                    text: "选择一个命令"
+                    text: ELocale.texts.ChooseACommand
                 }
             }
         }
@@ -463,14 +463,14 @@ Column {
 
                     EMenuBar {
                         width: Math.min(480, parent.width)
-                        model: [{text: "视图", children: [{index: "light", text: "浅色"}, {index: "dark", text: "深色"}]}]
+                        model: [{text: ELocale.texts.View2, children: [{index: "light", text: ELocale.texts.Light2}, {index: "dark", text: ELocale.texts.Dark3}]}]
 
                         onCommand: result.text = index
                     }
                     EText {
                         id: result
 
-                        text: "选择一个命令"
+                        text: ELocale.texts.ChooseACommand
                     }
                 }
             `)
@@ -481,14 +481,14 @@ Column {
 
                 EMenuBar {
                     width: Math.min(480, parent.width)
-                    model: [{text: "视图", children: [{index: "light", text: "浅色"}, {index: "dark", text: "深色"}]}]
+                    model: [{text: ELocale.texts.View2, children: [{index: "light", text: ELocale.texts.Light2}, {index: "dark", text: ELocale.texts.Dark3}]}]
 
                     onCommand: result.text = index
                 }
                 EText {
                     id: result
 
-                    text: "选择一个命令"
+                    text: ELocale.texts.ChooseACommand
                 }
             }
         }
@@ -508,16 +508,16 @@ Column {
                     width: parent.width
 
                     EDropdown {
-                        text: "项目操作"
                         splitButton: true
-                        model: [{text: "编辑", command: "edit", iconSource: EIcons.PENCIL}, {text: "复制", command: "copy"}, {text: "删除", command: "delete", divided: true, disabled: true}]
+                        text: ELocale.texts.ProjectActions
+                        model: [{text: ELocale.texts.Edit, command: "edit", iconSource: EIcons.PENCIL}, {text: ELocale.texts.Copy, command: "copy"}, {text: ELocale.texts.Delete, command: "delete", divided: true, disabled: true}]
 
                         onCommand: result.text = String(value)
                     }
                     EText {
                         id: result
 
-                        text: "等待操作"
+                        text: ELocale.texts.WaitingForAnAction
                     }
                 }
             `)
@@ -527,16 +527,16 @@ Column {
                 width: parent.width
 
                 EDropdown {
-                    text: "项目操作"
                     splitButton: true
-                    model: [{text: "编辑", command: "edit", iconSource: EIcons.PENCIL}, {text: "复制", command: "copy"}, {text: "删除", command: "delete", divided: true, disabled: true}]
+                    text: ELocale.texts.ProjectActions
+                    model: [{text: ELocale.texts.Edit, command: "edit", iconSource: EIcons.PENCIL}, {text: ELocale.texts.Copy, command: "copy"}, {text: ELocale.texts.Delete, command: "delete", divided: true, disabled: true}]
 
                     onCommand: result.text = String(value)
                 }
                 EText {
                     id: result
 
-                    text: "等待操作"
+                    text: ELocale.texts.WaitingForAnAction
                 }
             }
         }
@@ -556,18 +556,18 @@ Column {
                     width: parent.width
 
                     EDropdown {
-                        text: "项目操作"
                         hideTimeout: 300
                         showTimeout: 150
                         trigger: "hover"
-                        model: [{text: "编辑", command: "edit", iconSource: EIcons.PENCIL}, {text: "复制", command: "copy"}, {text: "删除", command: "delete", divided: true, disabled: true}]
+                        text: ELocale.texts.ProjectActions
+                        model: [{text: ELocale.texts.Edit, command: "edit", iconSource: EIcons.PENCIL}, {text: ELocale.texts.Copy, command: "copy"}, {text: ELocale.texts.Delete, command: "delete", divided: true, disabled: true}]
 
                         onCommand: result.text = String(value)
                     }
                     EText {
                         id: result
 
-                        text: "等待操作"
+                        text: ELocale.texts.WaitingForAnAction
                     }
                 }
             `)
@@ -577,18 +577,18 @@ Column {
                 width: parent.width
 
                 EDropdown {
-                    text: "项目操作"
                     hideTimeout: 300
                     showTimeout: 150
                     trigger: "hover"
-                    model: [{text: "编辑", command: "edit", iconSource: EIcons.PENCIL}, {text: "复制", command: "copy"}, {text: "删除", command: "delete", divided: true, disabled: true}]
+                    text: ELocale.texts.ProjectActions
+                    model: [{text: ELocale.texts.Edit, command: "edit", iconSource: EIcons.PENCIL}, {text: ELocale.texts.Copy, command: "copy"}, {text: ELocale.texts.Delete, command: "delete", divided: true, disabled: true}]
 
                     onCommand: result.text = String(value)
                 }
                 EText {
                     id: result
 
-                    text: "等待操作"
+                    text: ELocale.texts.WaitingForAnAction
                 }
             }
         }
@@ -608,18 +608,18 @@ Column {
                     width: parent.width
 
                     EDropdown {
-                        text: "项目操作"
                         maxHeight: 140
                         menuWidth: 240
                         showArrow: true
-                        model: [{text: "编辑", command: "edit", iconSource: EIcons.PENCIL}, {text: "复制", command: "copy"}, {text: "删除", command: "delete", divided: true, disabled: true}]
+                        text: ELocale.texts.ProjectActions
+                        model: [{text: ELocale.texts.Edit, command: "edit", iconSource: EIcons.PENCIL}, {text: ELocale.texts.Copy, command: "copy"}, {text: ELocale.texts.Delete, command: "delete", divided: true, disabled: true}]
 
                         onCommand: result.text = String(value)
                     }
                     EText {
                         id: result
 
-                        text: "等待操作"
+                        text: ELocale.texts.WaitingForAnAction
                     }
                 }
             `)
@@ -629,18 +629,18 @@ Column {
                 width: parent.width
 
                 EDropdown {
-                    text: "项目操作"
                     maxHeight: 140
                     menuWidth: 240
                     showArrow: true
-                    model: [{text: "编辑", command: "edit", iconSource: EIcons.PENCIL}, {text: "复制", command: "copy"}, {text: "删除", command: "delete", divided: true, disabled: true}]
+                    text: ELocale.texts.ProjectActions
+                    model: [{text: ELocale.texts.Edit, command: "edit", iconSource: EIcons.PENCIL}, {text: ELocale.texts.Copy, command: "copy"}, {text: ELocale.texts.Delete, command: "delete", divided: true, disabled: true}]
 
                     onCommand: result.text = String(value)
                 }
                 EText {
                     id: result
 
-                    text: "等待操作"
+                    text: ELocale.texts.WaitingForAnAction
                 }
             }
         }
@@ -660,16 +660,16 @@ Column {
                     width: parent.width
 
                     EDropdown {
-                        text: "项目操作"
                         hideOnClick: false
-                        model: [{text: "编辑", command: "edit", iconSource: EIcons.PENCIL}, {text: "复制", command: "copy"}, {text: "删除", command: "delete", divided: true, disabled: true}]
+                        text: ELocale.texts.ProjectActions
+                        model: [{text: ELocale.texts.Edit, command: "edit", iconSource: EIcons.PENCIL}, {text: ELocale.texts.Copy, command: "copy"}, {text: ELocale.texts.Delete, command: "delete", divided: true, disabled: true}]
 
                         onCommand: result.text = String(value)
                     }
                     EText {
                         id: result
 
-                        text: "等待操作"
+                        text: ELocale.texts.WaitingForAnAction
                     }
                 }
             `)
@@ -679,16 +679,16 @@ Column {
                 width: parent.width
 
                 EDropdown {
-                    text: "项目操作"
                     hideOnClick: false
-                    model: [{text: "编辑", command: "edit", iconSource: EIcons.PENCIL}, {text: "复制", command: "copy"}, {text: "删除", command: "delete", divided: true, disabled: true}]
+                    text: ELocale.texts.ProjectActions
+                    model: [{text: ELocale.texts.Edit, command: "edit", iconSource: EIcons.PENCIL}, {text: ELocale.texts.Copy, command: "copy"}, {text: ELocale.texts.Delete, command: "delete", divided: true, disabled: true}]
 
                     onCommand: result.text = String(value)
                 }
                 EText {
                     id: result
 
-                    text: "等待操作"
+                    text: ELocale.texts.WaitingForAnAction
                 }
             }
         }
@@ -705,13 +705,13 @@ Column {
 
                 EBreadcrumb {
                     separatorIcon: EIcons.CHEVRON_RIGHT
-                    model: [{text: "工作台"}, {text: "项目"}, {text: "详情"}]
+                    model: [{text: ELocale.texts.Workspace2}, {text: ELocale.texts.Project}, {text: ELocale.texts.Details}]
                 }
             `)
 
             EBreadcrumb {
                 separatorIcon: EIcons.CHEVRON_RIGHT
-                model: [{text: "工作台"}, {text: "项目"}, {text: "详情"}]
+                model: [{text: ELocale.texts.Workspace2}, {text: ELocale.texts.Project}, {text: ELocale.texts.Details}]
             }
         }
     }
@@ -727,13 +727,13 @@ Column {
 
                 EBreadcrumb {
                     separator: "→"
-                    model: [{text: "工作台"}, {text: "项目"}, {text: "详情"}]
+                    model: [{text: ELocale.texts.Workspace2}, {text: ELocale.texts.Project}, {text: ELocale.texts.Details}]
                 }
             `)
 
             EBreadcrumb {
                 separator: "→"
-                model: [{text: "工作台"}, {text: "项目"}, {text: "详情"}]
+                model: [{text: ELocale.texts.Workspace2}, {text: ELocale.texts.Project}, {text: ELocale.texts.Details}]
             }
         }
     }
@@ -749,13 +749,13 @@ Column {
 
                 EBreadcrumb {
                     clickableLast: true
-                    model: [{text: "工作台"}, {text: "项目"}, {text: "详情"}]
+                    model: [{text: ELocale.texts.Workspace2}, {text: ELocale.texts.Project}, {text: ELocale.texts.Details}]
                 }
             `)
 
             EBreadcrumb {
                 clickableLast: true
-                model: [{text: "工作台"}, {text: "项目"}, {text: "详情"}]
+                model: [{text: ELocale.texts.Workspace2}, {text: ELocale.texts.Project}, {text: ELocale.texts.Details}]
             }
         }
     }
@@ -771,13 +771,13 @@ Column {
 
                 EBreadcrumb {
                     enabled: false
-                    model: [{text: "工作台"}, {text: "项目"}, {text: "详情"}]
+                    model: [{text: ELocale.texts.Workspace2}, {text: ELocale.texts.Project}, {text: ELocale.texts.Details}]
                 }
             `)
 
             EBreadcrumb {
                 enabled: false
-                model: [{text: "工作台"}, {text: "项目"}, {text: "详情"}]
+                model: [{text: ELocale.texts.Workspace2}, {text: ELocale.texts.Project}, {text: ELocale.texts.Details}]
             }
         }
     }

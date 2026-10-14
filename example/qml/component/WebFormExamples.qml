@@ -20,30 +20,31 @@ ExamplePage {
 
                     ESelect {
                         multiple: true
-                        filterable: true
-                        allowCreate: true
                         clearable: true
-                        textRole: "label"
-                        valueRole: "value"
+                        filterable: true
                         multipleLimit: 3
+                        allowCreate: true
+                        textRole: "label"
                         collapseTags: true
-                        model: [{label: "Desktop", options: [{label: "Qt", value: "qt"}, {label: "QML", value: "qml"}]},
-                            {label: "Web", options: [{label: "Vue", value: "vue"}, {label: "TypeScript", value: "ts"}]}]
+                        valueRole: "value"
+                        popupFooter: Component {
+                            EText {
+                                padding: 8
+                                text: ELocale.texts.ChooseUpToThreeItems
+                            }
+                        }
                         tagDelegate: Component {
                             ETag {
                                 closable: true
                                 size: EStyle.Small
                                 text: parent.label
                                 styleType: EStyle.Success
+
                                 onClosed: parent.remove()
                             }
                         }
-                        popupFooter: Component {
-                            EText {
-                                padding: 8
-                                text: "最多选择三项"
-                            }
-                        }
+                        model: [{label: "Desktop", options: [{label: "Qt", value: "qt"}, {label: "QML", value: "qml"}]},
+                            {label: "Web", options: [{label: "Vue", value: "vue"}, {label: "TypeScript", value: "ts"}]}]
                     }
                     ESelect {
                         remote: true
@@ -55,7 +56,8 @@ ExamplePage {
                                 .filter(function(item) { return item.label.toLowerCase().indexOf(query.toLowerCase()) >= 0 }))
                         }
                     }
-                }`)
+                }
+`)
 
             Flow {
                 spacing: 16
@@ -129,19 +131,20 @@ ExamplePage {
                         multiple: true
                         filterable: true
                         showCheckbox: true
-                        checkStrictly: false
                         value: ["archived"]
-                        cacheData: [{value: "archived", label: "归档项目"}]
-                        data: [{label: "研发", value: "engineering", children: [
-                            {label: "桌面端", value: "desktop"}, {label: "网页端", value: "web"},
-                            {label: "移动端", value: "mobile", disabled: true}]}]
+                        checkStrictly: false
                         nodeDelegate: Component {
                             EText {
                                 text: parent.node.label
                             }
                         }
+                        cacheData: [{value: "archived", label: ELocale.texts.ArchivedItem}]
+                        data: [{label: ELocale.texts.Engineering2, value: "engineering", children: [
+                            {label: ELocale.texts.Desktop, value: "desktop"}, {label: ELocale.texts.Web, value: "web"},
+                            {label: ELocale.texts.Mobile, value: "mobile", disabled: true}]}]
                     }
-                }`)
+                }
+`)
 
             Column {
                 spacing: 12
@@ -196,21 +199,22 @@ ExamplePage {
                     spacing: 16
 
                     ECascader {
+                        emitPath: true
                         multiple: true
                         filterable: true
-                        emitPath: true
                         collapseTags: true
                         maxCollapseTags: 2
-                        options: [{label: "中国", value: "cn", children: [
-                            {label: "浙江", value: "zj", children: [{label: "杭州", value: "hz"}, {label: "宁波", value: "nb"}]},
-                            {label: "上海", value: "sh"}]}]
                         nodeDelegate: Component {
                             EText {
                                 text: parent.node.label
                             }
                         }
+                        options: [{label: ELocale.texts.China, value: "cn", children: [
+                            {label: ELocale.texts.Zhejiang, value: "zj", children: [{label: ELocale.texts.Hangzhou, value: "hz"}, {label: ELocale.texts.Ningbo, value: "nb"}]},
+                            {label: ELocale.texts.Shanghai, value: "sh"}]}]
                     }
-                }`)
+                }
+`)
 
             ECascader {
                 multiple: true
@@ -410,7 +414,10 @@ ExamplePage {
                         method: "POST"
                         beforeUpload: function(file) { return file.size <= 5 * 1024 * 1024 }
                     }
-                    EButton { text: "Upload queue"; onClicked: webFormUpload.submit() }
+                    EButton {
+                        text: "Upload queue"
+                        onClicked: webFormUpload.submit()
+                    }
                 }`)
 
             Column {
@@ -515,39 +522,40 @@ ExamplePage {
                     EInput {
                         text: "$128"
                         clearable: true
-                        parser: function(value) { return value.replace(/\\$/g, "") }
-                        formatter: function(value) { return value ? "$" + value : "" }
                         prependComponent: Component {
                             EText {
                                 padding: 8
                                 text: "USD"
                             }
                         }
+                        parser: function(value) { return value.replace(/\\$/g, "") }
+                        formatter: function(value) { return value ? "$" + value : "" }
                         appendComponent: Component {
                             EText {
                                 padding: 8
-                                text: "每月"
+                                text: ELocale.texts.Month2
                             }
                         }
                     }
                     EInput {
+                        clearable: true
                         maximumLength: 40
                         showWordLimit: true
-                        clearable: true
+                        suffixComponent: Component {
+                            EText {
+                                text: "QML"
+                                font.pixelSize: 12
+                            }
+                        }
                         prefixComponent: Component {
                             EIcon {
                                 iconSize: 14
                                 iconSource: EIcons.MAGNIFIER
                             }
                         }
-                        suffixComponent: Component {
-                            EText {
-                                font.pixelSize: 12
-                                text: "QML"
-                            }
-                        }
                     }
-                }`)
+                }
+`)
 
             Column {
                 spacing: 16
@@ -797,15 +805,16 @@ ExamplePage {
                         value: "off"
                         activeValue: "on"
                         inactiveValue: "off"
-                        activeText: "已开启"
-                        inactiveText: "已关闭"
-                        activeIcon: EIcons.CHECK
-                        inactiveIcon: EIcons.XMARK
                         activeColor: "#14b8a6"
+                        activeIcon: EIcons.CHECK
                         inactiveColor: "#858b96"
+                        inactiveIcon: EIcons.XMARK
+                        activeText: ELocale.texts.Enabled2
+                        inactiveText: ELocale.texts.Disabled3
                         beforeChange: function() { return Promise.resolve(true) }
                     }
-                }`)
+                }
+`)
 
             Column {
                 spacing: 16
@@ -856,7 +865,12 @@ ExamplePage {
                         texts: [ELocale.texts.Poor, ELocale.texts.Fair, ELocale.texts.Good, ELocale.texts.Great, ELocale.texts.Excellent]
                         colors: ["#909399", "#E6A23C", "#E6A23C", "#F5B301", "#F5B301"]
                     }
-                    ERate { value: 4.5; readOnly: true; showScore: true; scoreTemplate: "{value}/5" }
+                    ERate {
+                        value: 4.5
+                        readOnly: true
+                        showScore: true
+                        scoreTemplate: "{value}/5"
+                    }
                 }`)
 
             Flow {
@@ -963,19 +977,20 @@ ExamplePage {
                     ETransfer {
                         targetOrder: "push"
                         props: ({key: "id", label: "name", disabled: "locked"})
-                        data: [{id: "desktop", name: "桌面端"}, {id: "web", name: "网页端"},
-                            {id: "mobile", name: "移动端", locked: true}, {id: "embedded", name: "嵌入式"}]
                         filterMethod: function(query, item) { return item.name.toLowerCase().indexOf(query.toLowerCase()) >= 0 }
                         leftFooter: Component {
                             EText {
                                 padding: 8
                                 width: parent.width
                                 wrapMode: Text.WordWrap
-                                text: "选择项目后点击箭头移动"
+                                text: ELocale.texts.SelectEntriesThenMoveWithTheArrow
                             }
                         }
+                        data: [{id: "desktop", name: ELocale.texts.Desktop}, {id: "web", name: ELocale.texts.Web},
+                            {id: "mobile", name: ELocale.texts.Mobile, locked: true}, {id: "embedded", name: ELocale.texts.Embedded}]
                     }
-                }`)
+                }
+`)
 
             ETransfer {
                 targetOrder: "push"
@@ -1046,12 +1061,13 @@ ExamplePage {
                     spacing: 16
 
                     ECheckBox {
-                        trueValue: "yes"
-                        falseValue: "no"
                         value: "no"
-                        text: "接收通知"
+                        falseValue: "no"
+                        trueValue: "yes"
+                        text: ELocale.texts.ReceiveNotifications
                     }
-                }`)
+                }
+`)
 
             ECheckBox {
                 value: "no"
@@ -1076,14 +1092,15 @@ ExamplePage {
                     spacing: 16
 
                     ECheckBoxGroup {
-                        buttonStyle: true
-                        min: 1
                         max: 2
+                        min: 1
                         value: [1]
+                        buttonStyle: true
                         props: ({value: "id", label: "name", disabled: "locked"})
-                        options: [{id: 1, name: "桌面端"}, {id: 2, name: "网页端"}, {id: 3, name: "移动端", locked: true}]
+                        options: [{id: 1, name: ELocale.texts.Desktop}, {id: 2, name: ELocale.texts.Web}, {id: 3, name: ELocale.texts.Mobile, locked: true}]
                     }
-                }`)
+                }
+`)
 
             ECheckBoxGroup {
                 max: 2
@@ -1112,12 +1129,13 @@ ExamplePage {
                     spacing: 16
 
                     ERadioGroup {
-                        buttonStyle: true
                         value: "desktop"
+                        buttonStyle: true
                         props: ({value: "id", label: "name"})
-                        options: [{id: "desktop", name: "桌面端"}, {id: "web", name: "网页端"}]
+                        options: [{id: "desktop", name: ELocale.texts.Desktop}, {id: "web", name: ELocale.texts.Web}]
                     }
-                }`)
+                }
+`)
 
             ERadioGroup {
                 value: "desktop"
@@ -1144,14 +1162,17 @@ ExamplePage {
 
                     EForm {
                         id: form
+
                         width: parent.width
                         model: ({amount: 1.25})
+
                         onSubmitted: console.log(valid, model.amount)
+
                         EFormItem {
-                            width: parent.width
                             prop: "amount"
-                            label: "金额"
                             required: true
+                            width: parent.width
+                            label: ELocale.texts.Amount
                             rules: [{type: "number", min: 0.25, max: 10}]
                             labelComponent: Component {
                                 EText {
@@ -1165,20 +1186,23 @@ ExamplePage {
                                     color: EPaletteManager.StatePalette.validationColor(EValidationState.Error)
                                 }
                             }
+
                             ESpinBox {
-                                editable: true
-                                precision: 2
                                 numberTo: 10
+                                precision: 2
+                                editable: true
                                 numberStep: 0.25
                                 numberValue: 1.25
                             }
                         }
                     }
                     EButton {
-                        text: "提交校验"
+                        text: ELocale.texts.ValidateSubmission
+
                         onClicked: form.submit()
                     }
-                }`)
+                }
+`)
 
             Column {
                 spacing: 12

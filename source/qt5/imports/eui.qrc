@@ -1,5 +1,12 @@
 <RCC>
   <qresource prefix="/qt/qml">
+    <file alias="EUI/controls/form/EFilePicker.qml">eui/controls/form/EFilePicker.qml</file>
+    <file alias="EUI/controls/form/EFolderPicker.qml">eui/controls/form/EFolderPicker.qml</file>
+    <file alias="EUI/controls/basic/EToolBar.qml">eui/controls/basic/EToolBar.qml</file>
+    <file alias="EUI/controls/data/ECodeView.qml">eui/controls/data/ECodeView.qml</file>
+    <file alias="EUI/controls/navigation/ECommandPalette.qml">eui/controls/navigation/ECommandPalette.qml</file>
+    <file alias="EUI/controls/navigation/EWizard.qml">eui/controls/navigation/EWizard.qml</file>
+    <file alias="EUI/controls/private/CommandUtils.js">eui/controls/private/CommandUtils.js</file>
     <file alias="EUI/i18n/en.json">eui/i18n/en.json</file>
     <file alias="EUI/i18n/zh.json">eui/i18n/zh.json</file>
     <file alias="EUI/font/EFont.ttf">eui/font/EFont.ttf</file>

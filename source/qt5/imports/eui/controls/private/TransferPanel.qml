@@ -1,6 +1,6 @@
 import EUI 1.0
 import EUI.Private 1.0
-import "../Form" as FormControls
+import "../form" as FormControls
 import "../config/EControlConfig.js" as EControlConfig
 import QtQuick 2.15
 import QtQuick.Controls 2.15

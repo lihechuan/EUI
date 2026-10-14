@@ -19,12 +19,13 @@ ExamplePage {
                     spacing: 16
 
                     ERadioGroup {
-                        buttonStyle: true
                         value: "desktop"
+                        buttonStyle: true
                         props: ({value: "id", label: "name"})
-                        options: [{id: "desktop", name: "桌面端"}, {id: "web", name: "网页端"}]
+                        options: [{id: "desktop", name: ELocale.texts.Desktop}, {id: "web", name: ELocale.texts.Web}]
                     }
-                }`)
+                }
+`)
 
             ERadioGroup {
                 value: "desktop"
@@ -50,14 +51,15 @@ ExamplePage {
                     spacing: 16
 
                     ECheckBoxGroup {
-                        buttonStyle: true
-                        min: 1
                         max: 2
+                        min: 1
                         value: [1]
+                        buttonStyle: true
                         props: ({value: "id", label: "name", disabled: "locked"})
-                        options: [{id: 1, name: "桌面端"}, {id: 2, name: "网页端"}, {id: 3, name: "移动端", locked: true}]
+                        options: [{id: 1, name: ELocale.texts.Desktop}, {id: 2, name: ELocale.texts.Web}, {id: 3, name: ELocale.texts.Mobile, locked: true}]
                     }
-                }`)
+                }
+`)
 
             ECheckBoxGroup {
                 max: 2
@@ -119,19 +121,20 @@ ExamplePage {
                     ETransfer {
                         targetOrder: "push"
                         props: ({key: "id", label: "name", disabled: "locked"})
-                        data: [{id: "desktop", name: "桌面端"}, {id: "web", name: "网页端"},
-                            {id: "mobile", name: "移动端", locked: true}, {id: "embedded", name: "嵌入式"}]
                         filterMethod: function(query, item) { return item.name.toLowerCase().indexOf(query.toLowerCase()) >= 0 }
                         leftFooter: Component {
                             EText {
                                 padding: 8
                                 width: parent.width
                                 wrapMode: Text.WordWrap
-                                text: "选择项目后点击箭头移动"
+                                text: ELocale.texts.SelectEntriesThenMoveWithTheArrow
                             }
                         }
+                        data: [{id: "desktop", name: ELocale.texts.Desktop}, {id: "web", name: ELocale.texts.Web},
+                            {id: "mobile", name: ELocale.texts.Mobile, locked: true}, {id: "embedded", name: ELocale.texts.Embedded}]
                     }
-                }`)
+                }
+`)
 
             ETransfer {
                 targetOrder: "push"
@@ -330,7 +333,10 @@ ExamplePage {
                         method: "POST"
                         beforeUpload: function(file) { return file.size <= 5 * 1024 * 1024 }
                     }
-                    EButton { text: "Upload queue"; onClicked: webFormUpload.submit() }
+                    EButton {
+                        text: "Upload queue"
+                        onClicked: webFormUpload.submit()
+                    }
                 }`)
 
             Column {
@@ -426,21 +432,22 @@ ExamplePage {
                     spacing: 16
 
                     ECascader {
+                        emitPath: true
                         multiple: true
                         filterable: true
-                        emitPath: true
                         collapseTags: true
                         maxCollapseTags: 2
-                        options: [{label: "中国", value: "cn", children: [
-                            {label: "浙江", value: "zj", children: [{label: "杭州", value: "hz"}, {label: "宁波", value: "nb"}]},
-                            {label: "上海", value: "sh"}]}]
                         nodeDelegate: Component {
                             EText {
                                 text: parent.node.label
                             }
                         }
+                        options: [{label: ELocale.texts.China, value: "cn", children: [
+                            {label: ELocale.texts.Zhejiang, value: "zj", children: [{label: ELocale.texts.Hangzhou, value: "hz"}, {label: ELocale.texts.Ningbo, value: "nb"}]},
+                            {label: ELocale.texts.Shanghai, value: "sh"}]}]
                     }
-                }`)
+                }
+`)
 
             ECascader {
                 multiple: true
@@ -480,19 +487,20 @@ ExamplePage {
                         multiple: true
                         filterable: true
                         showCheckbox: true
-                        checkStrictly: false
                         value: ["archived"]
-                        cacheData: [{value: "archived", label: "归档项目"}]
-                        data: [{label: "研发", value: "engineering", children: [
-                            {label: "桌面端", value: "desktop"}, {label: "网页端", value: "web"},
-                            {label: "移动端", value: "mobile", disabled: true}]}]
+                        checkStrictly: false
                         nodeDelegate: Component {
                             EText {
                                 text: parent.node.label
                             }
                         }
+                        cacheData: [{value: "archived", label: ELocale.texts.ArchivedItem}]
+                        data: [{label: ELocale.texts.Engineering2, value: "engineering", children: [
+                            {label: ELocale.texts.Desktop, value: "desktop"}, {label: ELocale.texts.Web, value: "web"},
+                            {label: ELocale.texts.Mobile, value: "mobile", disabled: true}]}]
                     }
-                }`)
+                }
+`)
 
             Column {
                 spacing: 12

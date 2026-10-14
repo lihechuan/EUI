@@ -70,18 +70,18 @@ Column {
                 import QtQuick 2.15
 
                 EButton {
-                    text: "编辑项目"
                     leftIcon: true
                     iconSource: EIcons.PENCIL
                     styleType: EStyle.Primary
+                    text: ELocale.texts.EditProject
                 }
             `)
 
             EButton {
-                text: "编辑项目"
                 leftIcon: true
                 iconSource: EIcons.PENCIL
                 styleType: EStyle.Primary
+                text: ELocale.texts.EditProject
             }
         }
     }
@@ -158,13 +158,13 @@ Column {
                     EText {
                         truncated: true
                         width: Math.min(480, parent.width)
-                        text: "一段超过容器宽度的长文本，用于验证单行省略与完整内容的可读性。"
+                        text: ELocale.texts.ALongTextThatExceedsTheContainerWidth
                     }
                     EText {
                         lineClamp: 2
                         wrapMode: Text.WordWrap
                         width: Math.min(480, parent.width)
-                        text: "多行文字可以限制展示行数。较长的说明会自动换行，并在达到指定行数后省略其余内容。调整窗口宽度可以查看排版变化。"
+                        text: ELocale.texts.MultilineTextCanBeLimitedToASet
                     }
                 }
             `)
@@ -176,13 +176,13 @@ Column {
                 EText {
                     truncated: true
                     width: Math.min(480, parent.width)
-                    text: "一段超过容器宽度的长文本，用于验证单行省略与完整内容的可读性。"
+                    text: ELocale.texts.ALongTextThatExceedsTheContainerWidth
                 }
                 EText {
                     lineClamp: 2
                     wrapMode: Text.WordWrap
                     width: Math.min(480, parent.width)
-                    text: "多行文字可以限制展示行数。较长的说明会自动换行，并在达到指定行数后省略其余内容。调整窗口宽度可以查看排版变化。"
+                    text: ELocale.texts.MultilineTextCanBeLimitedToASet
                 }
             }
         }
@@ -203,15 +203,15 @@ Column {
 
                     EText {
                         size: EStyle.Small
-                        text: "Qt Quick · 清晰阅读"
+                        text: ELocale.texts.QtQuickClearReading
                     }
                     EText {
                         size: EStyle.Medium
-                        text: "Qt Quick · 清晰阅读"
+                        text: ELocale.texts.QtQuickClearReading
                     }
                     EText {
                         size: EStyle.Large
-                        text: "Qt Quick · 清晰阅读"
+                        text: ELocale.texts.QtQuickClearReading
                     }
                 }
             `)
@@ -222,15 +222,15 @@ Column {
 
                 EText {
                     size: EStyle.Small
-                    text: "Qt Quick · 清晰阅读"
+                    text: ELocale.texts.QtQuickClearReading
                 }
                 EText {
                     size: EStyle.Medium
-                    text: "Qt Quick · 清晰阅读"
+                    text: ELocale.texts.QtQuickClearReading
                 }
                 EText {
                     size: EStyle.Large
-                    text: "Qt Quick · 清晰阅读"
+                    text: ELocale.texts.QtQuickClearReading
                 }
             }
         }
@@ -250,24 +250,24 @@ Column {
                     width: parent.width
 
                     EText {
-                        text: "状态信息"
                         type: "primary"
+                        text: ELocale.texts.StatusInformation
                     }
                     EText {
-                        text: "状态信息"
                         type: "success"
+                        text: ELocale.texts.StatusInformation
                     }
                     EText {
-                        text: "状态信息"
                         type: "warning"
+                        text: ELocale.texts.StatusInformation
                     }
                     EText {
-                        text: "状态信息"
                         type: "danger"
+                        text: ELocale.texts.StatusInformation
                     }
                     EText {
-                        text: "状态信息"
                         type: "info"
+                        text: ELocale.texts.StatusInformation
                     }
                 }
             `)
@@ -277,24 +277,24 @@ Column {
                 width: parent.width
 
                 EText {
-                    text: "状态信息"
                     type: "primary"
+                    text: ELocale.texts.StatusInformation
                 }
                 EText {
-                    text: "状态信息"
                     type: "success"
+                    text: ELocale.texts.StatusInformation
                 }
                 EText {
-                    text: "状态信息"
                     type: "warning"
+                    text: ELocale.texts.StatusInformation
                 }
                 EText {
-                    text: "状态信息"
                     type: "danger"
+                    text: ELocale.texts.StatusInformation
                 }
                 EText {
-                    text: "状态信息"
                     type: "info"
+                    text: ELocale.texts.StatusInformation
                 }
             }
         }
@@ -313,7 +313,7 @@ Column {
                     wrapMode: Text.WordWrap
                     textFormat: Text.RichText
                     width: Math.min(480, parent.width)
-                    text: "<b>标题</b> · <i>说明</i><br/>Qt Quick &amp; QML"
+                    text: ELocale.texts.BTitleBIDescriptionIBrQt
                 }
             `)
 
@@ -321,7 +321,7 @@ Column {
                 wrapMode: Text.WordWrap
                 textFormat: Text.RichText
                 width: Math.min(480, parent.width)
-                text: "<b>标题</b> · <i>说明</i><br/>Qt Quick &amp; QML"
+                text: ELocale.texts.BTitleBIDescriptionIBrQt
             }
         }
     }
@@ -341,23 +341,23 @@ Column {
 
                     EButton {
                         plain: true
-                        text: "Action"
                         styleType: EStyle.Primary
+                        text: ELocale.texts.Action
                     }
                     EButton {
                         plain: true
-                        text: "Action"
                         styleType: EStyle.Success
+                        text: ELocale.texts.Action
                     }
                     EButton {
                         plain: true
-                        text: "Action"
                         styleType: EStyle.Warning
+                        text: ELocale.texts.Action
                     }
                     EButton {
                         plain: true
-                        text: "Action"
                         styleType: EStyle.Danger
+                        text: ELocale.texts.Action
                     }
                 }
             `)
@@ -368,23 +368,23 @@ Column {
 
                 EButton {
                     plain: true
-                    text: "Action"
                     styleType: EStyle.Primary
+                    text: ELocale.texts.Action
                 }
                 EButton {
                     plain: true
-                    text: "Action"
                     styleType: EStyle.Success
+                    text: ELocale.texts.Action
                 }
                 EButton {
                     plain: true
-                    text: "Action"
                     styleType: EStyle.Warning
+                    text: ELocale.texts.Action
                 }
                 EButton {
                     plain: true
-                    text: "Action"
                     styleType: EStyle.Danger
+                    text: ELocale.texts.Action
                 }
             }
         }
@@ -410,12 +410,12 @@ Column {
 
                         enabled: count < 3
                         styleType: EStyle.Primary
-                        text: "提交 (" + count + "/3)"
+                        text: ELocale.texts.SubmitCount.arg(count).arg(3)
 
                         onClicked: ++count
                     }
                     EButton {
-                        text: "重置"
+                        text: ELocale.texts.Reset
 
                         onClicked: sample.count = 0
                     }
@@ -433,12 +433,12 @@ Column {
 
                     enabled: count < 3
                     styleType: EStyle.Primary
-                    text: "提交 (" + count + "/3)"
+                    text: ELocale.texts.SubmitCount.arg(count).arg(3)
 
                     onClicked: ++count
                 }
                 EButton {
-                    text: "重置"
+                    text: ELocale.texts.Reset
 
                     onClicked: sample.count = 0
                 }
@@ -639,8 +639,8 @@ Column {
 
                     EText {
                         color: "#E7F0FF"
-                        text: "EUI / WORKSPACE"
                         anchors.centerIn: parent
+                        text: ELocale.texts.WorkspaceLabel
                     }
                 }
             `)
@@ -653,8 +653,8 @@ Column {
 
                 EText {
                     color: "#E7F0FF"
-                    text: "EUI / WORKSPACE"
                     anchors.centerIn: parent
+                    text: ELocale.texts.WorkspaceLabel
                 }
             }
         }
@@ -675,20 +675,20 @@ Column {
 
                     ETextArea {
                         rows: 3
-                        text: "第一行\\n第二行"
                         size: EStyle.Small
+                        text: ELocale.texts.TwoLineSample
                         width: Math.min(220, parent.width)
                     }
                     ETextArea {
                         rows: 3
-                        text: "第一行\\n第二行"
                         size: EStyle.Medium
+                        text: ELocale.texts.TwoLineSample
                         width: Math.min(220, parent.width)
                     }
                     ETextArea {
                         rows: 3
-                        text: "第一行\\n第二行"
                         size: EStyle.Large
+                        text: ELocale.texts.TwoLineSample
                         width: Math.min(220, parent.width)
                     }
                 }
@@ -700,20 +700,20 @@ Column {
 
                 ETextArea {
                     rows: 3
-                    text: "第一行\n第二行"
                     size: EStyle.Small
+                    text: ELocale.texts.TwoLineSample
                     width: Math.min(220, parent.width)
                 }
                 ETextArea {
                     rows: 3
-                    text: "第一行\n第二行"
                     size: EStyle.Medium
+                    text: ELocale.texts.TwoLineSample
                     width: Math.min(220, parent.width)
                 }
                 ETextArea {
                     rows: 3
-                    text: "第一行\n第二行"
                     size: EStyle.Large
+                    text: ELocale.texts.TwoLineSample
                     width: Math.min(220, parent.width)
                 }
             }
@@ -736,15 +736,15 @@ Column {
                     ETextArea {
                         rows: 3
                         readOnly: true
-                        text: "第一行\\n第二行"
                         enabled: readOnly
+                        text: ELocale.texts.TwoLineSample
                         width: Math.min(220, parent.width)
                     }
                     ETextArea {
                         rows: 3
                         readOnly: false
-                        text: "第一行\\n第二行"
                         enabled: readOnly
+                        text: ELocale.texts.TwoLineSample
                         width: Math.min(220, parent.width)
                     }
                 }
@@ -757,15 +757,15 @@ Column {
                 ETextArea {
                     rows: 3
                     readOnly: true
-                    text: "第一行\n第二行"
                     enabled: readOnly
+                    text: ELocale.texts.TwoLineSample
                     width: Math.min(220, parent.width)
                 }
                 ETextArea {
                     rows: 3
                     readOnly: false
-                    text: "第一行\n第二行"
                     enabled: readOnly
+                    text: ELocale.texts.TwoLineSample
                     width: Math.min(220, parent.width)
                 }
             }
@@ -787,24 +787,24 @@ Column {
 
                     ETextArea {
                         rows: 3
-                        text: "第一行\\n第二行"
-                        validationMessage: "校验信息"
+                        text: ELocale.texts.TwoLineSample
                         width: Math.min(220, parent.width)
                         validationState: EValidationState.Success
+                        validationMessage: ELocale.texts.ValidationMessage
                     }
                     ETextArea {
                         rows: 3
-                        text: "第一行\\n第二行"
-                        validationMessage: "校验信息"
+                        text: ELocale.texts.TwoLineSample
                         width: Math.min(220, parent.width)
                         validationState: EValidationState.Warning
+                        validationMessage: ELocale.texts.ValidationMessage
                     }
                     ETextArea {
                         rows: 3
-                        text: "第一行\\n第二行"
-                        validationMessage: "校验信息"
+                        text: ELocale.texts.TwoLineSample
                         width: Math.min(220, parent.width)
                         validationState: EValidationState.Error
+                        validationMessage: ELocale.texts.ValidationMessage
                     }
                 }
             `)
@@ -815,24 +815,24 @@ Column {
 
                 ETextArea {
                     rows: 3
-                    text: "第一行\n第二行"
-                    validationMessage: "校验信息"
+                    text: ELocale.texts.TwoLineSample
                     width: Math.min(220, parent.width)
                     validationState: EValidationState.Success
+                    validationMessage: ELocale.texts.ValidationMessage
                 }
                 ETextArea {
                     rows: 3
-                    text: "第一行\n第二行"
-                    validationMessage: "校验信息"
+                    text: ELocale.texts.TwoLineSample
                     width: Math.min(220, parent.width)
                     validationState: EValidationState.Warning
+                    validationMessage: ELocale.texts.ValidationMessage
                 }
                 ETextArea {
                     rows: 3
-                    text: "第一行\n第二行"
-                    validationMessage: "校验信息"
+                    text: ELocale.texts.TwoLineSample
                     width: Math.min(220, parent.width)
                     validationState: EValidationState.Error
+                    validationMessage: ELocale.texts.ValidationMessage
                 }
             }
         }
@@ -850,18 +850,18 @@ Column {
                 ETextArea {
                     maximumLength: 80
                     showWordLimit: true
-                    placeholderText: "最多 80 个字符"
                     width: Math.min(480, parent.width)
                     autosize: ({minRows: 2, maxRows: 5})
+                    placeholderText: ELocale.texts.UpTo80Characters
                 }
             `)
 
             ETextArea {
                 maximumLength: 80
                 showWordLimit: true
-                placeholderText: "最多 80 个字符"
                 width: Math.min(480, parent.width)
                 autosize: ({minRows: 2, maxRows: 5})
+                placeholderText: ELocale.texts.UpTo80Characters
             }
         }
     }
@@ -880,19 +880,19 @@ Column {
                     width: parent.width
 
                     ETextButton {
-                        text: "查看详情"
                         size: EStyle.Small
                         styleType: EStyle.Primary
+                        text: ELocale.texts.CoreSampleDetails
                     }
                     ETextButton {
-                        text: "查看详情"
                         size: EStyle.Medium
                         styleType: EStyle.Primary
+                        text: ELocale.texts.CoreSampleDetails
                     }
                     ETextButton {
-                        text: "查看详情"
                         size: EStyle.Large
                         styleType: EStyle.Primary
+                        text: ELocale.texts.CoreSampleDetails
                     }
                 }
             `)
@@ -902,19 +902,19 @@ Column {
                 width: parent.width
 
                 ETextButton {
-                    text: "查看详情"
                     size: EStyle.Small
                     styleType: EStyle.Primary
+                    text: ELocale.texts.CoreSampleDetails
                 }
                 ETextButton {
-                    text: "查看详情"
                     size: EStyle.Medium
                     styleType: EStyle.Primary
+                    text: ELocale.texts.CoreSampleDetails
                 }
                 ETextButton {
-                    text: "查看详情"
                     size: EStyle.Large
                     styleType: EStyle.Primary
+                    text: ELocale.texts.CoreSampleDetails
                 }
             }
         }
@@ -934,19 +934,19 @@ Column {
                     width: parent.width
 
                     ETextButton {
-                        text: "操作"
                         leftIcon: true
                         iconSource: EIcons.PENCIL
+                        text: ELocale.texts.Action
                     }
                     ETextButton {
-                        text: "操作"
                         leftIcon: true
                         iconSource: EIcons.CHECK
+                        text: ELocale.texts.Action
                     }
                     ETextButton {
-                        text: "操作"
                         leftIcon: true
                         iconSource: EIcons.DELETE
+                        text: ELocale.texts.Action
                     }
                 }
             `)
@@ -956,19 +956,19 @@ Column {
                 width: parent.width
 
                 ETextButton {
-                    text: "操作"
                     leftIcon: true
                     iconSource: EIcons.PENCIL
+                    text: ELocale.texts.Action
                 }
                 ETextButton {
-                    text: "操作"
                     leftIcon: true
                     iconSource: EIcons.CHECK
+                    text: ELocale.texts.Action
                 }
                 ETextButton {
-                    text: "操作"
                     leftIcon: true
                     iconSource: EIcons.DELETE
+                    text: ELocale.texts.Action
                 }
             }
         }
@@ -988,16 +988,16 @@ Column {
                     width: parent.width
 
                     ETextButton {
-                        text: "项目操作"
                         enabled: true
                         styleType: EStyle.Primary
                         isOpenBackgroundColor: true
+                        text: ELocale.texts.ProjectActions
                     }
                     ETextButton {
-                        text: "项目操作"
                         enabled: false
                         styleType: EStyle.Primary
                         isOpenBackgroundColor: true
+                        text: ELocale.texts.ProjectActions
                     }
                 }
             `)
@@ -1007,16 +1007,16 @@ Column {
                 width: parent.width
 
                 ETextButton {
-                    text: "项目操作"
                     enabled: true
                     styleType: EStyle.Primary
                     isOpenBackgroundColor: true
+                    text: ELocale.texts.ProjectActions
                 }
                 ETextButton {
-                    text: "项目操作"
                     enabled: false
                     styleType: EStyle.Primary
                     isOpenBackgroundColor: true
+                    text: ELocale.texts.ProjectActions
                 }
             }
         }
@@ -1036,21 +1036,21 @@ Column {
                     width: parent.width
 
                     ETextButton {
-                        text: "状态"
                         round: true
                         styleType: EStyle.Success
+                        text: ELocale.texts.Status
                         isOpenBackgroundColor: true
                     }
                     ETextButton {
-                        text: "状态"
                         round: true
                         styleType: EStyle.Warning
+                        text: ELocale.texts.Status
                         isOpenBackgroundColor: true
                     }
                     ETextButton {
-                        text: "状态"
                         round: true
                         styleType: EStyle.Danger
+                        text: ELocale.texts.Status
                         isOpenBackgroundColor: true
                     }
                 }
@@ -1061,21 +1061,21 @@ Column {
                 width: parent.width
 
                 ETextButton {
-                    text: "状态"
                     round: true
                     styleType: EStyle.Success
+                    text: ELocale.texts.Status
                     isOpenBackgroundColor: true
                 }
                 ETextButton {
-                    text: "状态"
                     round: true
                     styleType: EStyle.Warning
+                    text: ELocale.texts.Status
                     isOpenBackgroundColor: true
                 }
                 ETextButton {
-                    text: "状态"
                     round: true
                     styleType: EStyle.Danger
+                    text: ELocale.texts.Status
                     isOpenBackgroundColor: true
                 }
             }
@@ -1158,8 +1158,8 @@ Column {
                     ESwitch {
                         id: active
 
-                        text: "运行动画"
                         checked: true
+                        text: ELocale.texts.RunAnimation
                     }
                     ERotatingIcon {
                         iconSize: 32
@@ -1176,8 +1176,8 @@ Column {
                 ESwitch {
                     id: active
 
-                    text: "运行动画"
                     checked: true
+                    text: ELocale.texts.RunAnimation
                 }
                 ERotatingIcon {
                     iconSize: 32
@@ -1256,14 +1256,14 @@ Column {
                 ECopyableText {
                     wrapMode: Text.WordWrap
                     width: Math.min(480, parent.width)
-                    text: "选中这段长文本并使用 Ctrl+C 或 Command+C 复制。窗口变窄时，内容会自动换行。"
+                    text: ELocale.texts.SelectableCopyParagraph
                 }
             `)
 
             ECopyableText {
                 wrapMode: Text.WordWrap
                 width: Math.min(480, parent.width)
-                text: "选中这段长文本并使用 Ctrl+C 或 Command+C 复制。窗口变窄时，内容会自动换行。"
+                text: ELocale.texts.SelectableCopyParagraph
             }
         }
     }
@@ -1332,7 +1332,7 @@ Column {
                     EText {
                         width: parent.width
                         wrapMode: Text.WordWrap
-                        text: "拖动选择文字，保留标准快捷键复制。"
+                        text: ELocale.texts.DragToSelectTextAndUseTheStandard
                     }
                     ECopyableText {
                         font.underline: true
@@ -1348,7 +1348,7 @@ Column {
                 EText {
                     width: parent.width
                     wrapMode: Text.WordWrap
-                    text: "拖动选择文字，保留标准快捷键复制。"
+                    text: ELocale.texts.DragToSelectTextAndUseTheStandard
                 }
                 ECopyableText {
                     font.underline: true
@@ -1547,8 +1547,8 @@ Column {
 
                     EText {
                         color: "#E7F0FF"
-                        text: "EUI / PANEL"
                         anchors.centerIn: parent
+                        text: ELocale.texts.PanelLabel
                     }
                 }
             `)
@@ -1561,8 +1561,8 @@ Column {
 
                 EText {
                     color: "#E7F0FF"
-                    text: "EUI / PANEL"
                     anchors.centerIn: parent
+                    text: ELocale.texts.PanelLabel
                 }
             }
         }
