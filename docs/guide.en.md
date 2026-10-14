@@ -2,7 +2,7 @@
 
 [简体中文](guide.zh-CN.md) | English · [Back to the project](../README.md)
 
-This guide uses **Windows, the Qt 5.15.2 MSVC 2019 64-bit Kit, C++17, and Ninja**. Choose one path when starting:
+The default commands use **Windows, the Qt 5.15.2 MSVC 2019 64-bit Kit, C++17, and Ninja**. With only Qt 6 installed, build using [section 2.3](#23-build-with-only-qt-6-installed), then continue with application integration. Choose one path when starting:
 
 | Goal | Follow in order | Success looks like |
 | --- | --- | --- |
@@ -10,7 +10,7 @@ This guide uses **Windows, the Qt 5.15.2 MSVC 2019 64-bit Kit, C++17, and Ninja*
 | Create your application | Section 1 → Section 2.2 → Section 3 | Clicking a button increases a counter and shows a message |
 | Integrate an existing Qt Quick project | Section 1 → Section 2.2 → Section 3.5 | Your existing window can use `import EUI 1.0` |
 
-For a short introduction and an interactive QML example, see the [project page](../README.md). To create release packages yourself, see [section 6.3](#63-build-a-windows-installer-and-portable-package).
+For a short introduction and an interactive QML example, see the [project page](../README.md). To create release packages yourself, see [section 6.3](#63-github-packages-and-downloads).
 
 ## Contents
 
@@ -72,6 +72,8 @@ cmake --build build/local
 
 The executable is at `$euiRoot/bin/Release/example.exe`, with the component module in the adjacent `EUI/` directory. Building also copies the module to `$qtKit/qml/EUI/`; this SDK directory must be writable.
 
+On Windows x64 with Qt 5.15.2, the Gallery uses the QML interpreter and synchronous page loading to avoid JIT unwind-table writes and nested asynchronous creation crashes in that Kit. Examples within each page still load when they approach the viewport. The interpreter adds JavaScript execution overhead; all 127 navigation entries opened their first view in under one second in local regression tests. The Qt 6 Gallery retains asynchronous page loading, and the component library does not apply either compatibility policy to host applications.
+
 ### 2.2 Build the library for your application
 
 **Working directory: the EUI repository root.**
@@ -84,6 +86,29 @@ cmake --install build/library --prefix build/eui-install
 ```
 
 **Success:** `$euiRoot/build/eui-install/imports/EUI/` contains `qmldir`, `euiplugin.dll`, and the remaining module files. Copy this complete directory in the next section. These commands build Release; use the same Qt Kit and Release configuration for your application.
+
+### 2.3 Build with only Qt 6 installed
+
+Qt 5 does not need to be installed. `source/qt5` contains the shared QML source. CMake adapts it with Python into `source/qt6` inside the current build directory, then compiles the plugin and Gallery using Qt 6. The script preserves the source files, and `import EUI 1.0` stays unchanged.
+
+Prepare a Qt 6.5 or newer desktop Kit, its matching C++ compiler, CMake, Ninja, and Python 3. Qt 6.8.3 is the locally verified version. In addition to the library's base modules, install **Core5Compat, ShaderTools, Multimedia, and SVG**; the Gallery needs **WebEngineQuick and WebChannel**. **Quick3D and QuickTimeline** enable the native 3D example with Qt 6.8+. File selection uses Qt Quick Dialogs, calendars use Qt Quick Controls, masking uses Qt5Compat.GraphicalEffects, and shaders are compiled into `.qsb` files during the build.
+
+Run these commands in the matching compiler's Developer PowerShell, replacing `$qtKit` with your Qt 6 Kit:
+
+```powershell
+$euiRoot = 'D:/code/EUI'
+$qtKit = 'D:/Qt/6.8.3/msvc2022_64'
+$env:PATH = "$qtKit/bin;" + $env:PATH
+Set-Location $euiRoot
+
+cmake -S . -B build/qt6 -G Ninja -DCMAKE_BUILD_TYPE=Release "-DCMAKE_PREFIX_PATH=$qtKit" "-DQT_DIR=$qtKit/lib/cmake/Qt6" "-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=$euiRoot/build/qt6/bin" -DEUI_BUILD_EXAMPLES=ON -DEUI_BUILD_TESTS=OFF
+cmake --build build/qt6
+& ./build/qt6/bin/example.exe
+```
+
+To build only the library, set both `EUI_BUILD_*` options to `OFF`, then run `cmake --install build/qt6 --prefix build/eui-install-qt6`. When following section 3, keep the same `$qtKit` and copy the module from `build/eui-install-qt6/imports/EUI`. Use separate build, installation, and application directories for Qt 5 and Qt 6; their `euiplugin.dll` files are not interchangeable.
+
+Qt 6 builds require matching Qt 6 runtime libraries. After deployment with that Kit's `windeployqt` as described in section 6, the target computer does not need a Qt SDK. Existing Qt 5 executables still require Qt 5 runtime libraries; Qt 6 DLLs cannot replace them.
 
 ## 3. Integrate a Qt Quick application
 
@@ -124,10 +149,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-find_package(Qt5 5.15 REQUIRED COMPONENTS Quick Qml)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Quick Qml)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Quick Qml)
 
 add_executable(MyEuiApp main.cpp resources.qrc)
-target_link_libraries(MyEuiApp PRIVATE Qt5::Quick Qt5::Qml)
+target_link_libraries(MyEuiApp PRIVATE Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::Qml)
 ```
 
 **`main.cpp`: create the QML engine, add the module search directory, and load the window.**
@@ -581,6 +607,29 @@ These are separate examples; `card` and `input` are existing visual item IDs. An
 
 Animations control visual appearance; application logic manages `visible`, `enabled`, and layout occupancy. Transparent items can still receive input. The Gallery's Visual Effects → Animation page offers eight categories plus an all-effects filter, parameter controls, previews, invocation copying, and complete example source.
 
+### 4.8 Desktop components introduced in 1.2.0
+
+Keep using `import EUI 1.0`; `1.2.0` is the software version. Gallery navigation shows a green **New** badge, component details show the introduction version, and the overview lists new components together. The catalog compares each component's `introducedIn` value with the build version, so old components lose the current-version badge after an upgrade.
+
+| Component | Purpose | Main API |
+| --- | --- | --- |
+| `EFilePicker` | Open files or choose a save location | `mode: "open" / "save"`, `multiple`, `nameFilters`, `folder`, `value`, `picked(value)` |
+| `EFolderPicker` | Choose an existing folder | `folder`, `value`, `picked(value)`; presets `mode: "folder"` |
+| `EToolBar` | Reusable actions with overflow | `model`, `showText`, `size`, `spacing`, `alignment`, `command(value, item)` |
+| `ECodeView` | Read-only source highlighting and copying | `code`, `language`, `highlight`, `showLineNumbers`, `showCopy`, `copy()` |
+| `ECommandPalette` | Search and execute application commands | `model`, `shortcut`, `query`, `open()`, `closeOnTrigger` |
+| `EWizard` | Multi-step configuration | `model`, `currentIndex`, `beforeLeave`, `next()`, `previous()`, `finish()`, `reset()` |
+
+Pickers use the platform dialog. `value` is a URL string for single-file, save, and folder selection, and an array of URLs for multiple-file selection. `open()`, `close()`, and `clear()` control selection. `acceptSelection(urls)` validates an external selection, preserving the old value and emitting `selectionRejected(reason)` on failure. Save mode selects a destination; the application writes the file.
+
+Toolbar and command-palette model entries support `text`, `command`, `iconSource`, `enabled`, `visible`, `handler(item)`, and a Qt Quick Controls `Action` in `action`. Toolbar entries also support `separator`, `checkable`, `checked`, and `shortcut`; palette entries support `description` and `keywords`. Both emit `command(value, item)` after execution and `failed(message)` for exceptions. The palette defaults to `Ctrl+Shift+P`; set `shortcut: ""` to disable it.
+
+`ECodeView` highlights `qml`, `javascript`, and `js`; other languages use plain text colors. Source is escaped before display. `copy()` preserves original source and tabs; selected display text uses four spaces for each tab.
+
+Wizard model entries use `{title, description, disabled, component}`, with a QML `Component` for each page. Pages are loaded on first visit and retained. `beforeLeave(from, to)` may return a boolean or Promise; false rejects navigation, and `busy` is true while a Promise is pending. Finishing uses the model length as `to`. After `completed()`, call `reset()` to start again. The application handles `canceled()`. `allowJump` enables clicking steps, still subject to `beforeLeave`.
+
+Each new component has five runnable examples in the Gallery.
+
 ## 5. Learn components with the Gallery
 
 The Gallery offers category navigation and name search on the left; `Ctrl+K` focuses search. The upper-right controls change language and theme. Component pages contain interactive examples, source actions, and API documentation below the examples.
@@ -595,6 +644,12 @@ Recommended workflow:
 4. Read the API section for defaults, signal parameters, and method purposes.
 5. Implement and verify your application's models, submission logic, and network requests.
 
+### Gallery software updates
+
+Every launch checks GitHub for the latest stable release. The top dock bar provides the update action; the bottom-left corner retains the actual build version. Clicking the update button opens the status and progress panel. Update now downloads the matching package, verifies SHA-256, prepares installation, replaces the program, and restarts it. During an update, the dock button shows the percentage; click it again to reopen the progress panel. Completion appears only after the new version renders its window. Verification failures preserve the current version; replacement or startup failures restore it. Retry check repeats a failed network request.
+
+Windows installed and portable releases update in their original directory. The Qt 6 3D window also updates the original Gallery installation. Uninstaller information and user settings are retained. The adjacent `.before-.eui-update-*` directory preserves the previous installation; remove it after confirming the new version works. Updating requires write access to the installation and its parent, plus sufficient free space. macOS uses a complete `.app` package matching the architecture; replacement and startup cannot be tested from this Windows environment. Development builds can check releases but cannot update in place. Missing platform or architecture assets are reported without installing a different package.
+
 ## 6. Deploy your application
 
 ### 6.1 Deploy this chapter's MyEuiApp
@@ -607,19 +662,13 @@ Complete section 3 and close the application. Run this in the terminal from sect
 
 `--qmldir` points to the QML source directory; `--qmlimport` points to the parent directory containing your current `EUI/` module. The deployment tool places Qt libraries, QML runtime modules, and platform plugins in the application directory. Keep the complete `EUI/` directory copied in section 3.3, and distribute all of `$appRoot/build/`. Run `MyEuiApp.exe` on the target computer. Check that the window, button, and messages work on a target without the development environment. For other applications, replace the arguments with their source directories, module parent directories, and executables.
 
-### 6.2 Deploy the Gallery or additional components
-
-To deploy the Gallery from section 2.1, run:
-
-```powershell
-& "$qtKit/bin/windeployqt.exe" --release --qmldir "$euiRoot/example/qml" --qmlimport "$euiRoot/bin/Release" "$euiRoot/bin/Release/example.exe"
-```
-
-Distribute all of `$euiRoot/bin/Release/`, including its `EUI/` directory and the runtime files generated by the deployment tool.
+### 6.2 Deploy additional components
 
 For `EECharts`, include Qt WebEngine / WebChannel, `QtWebEngineProcess`, Chromium resource files, and `qtwebengine_locales`, retaining your Qt Kit's directory layout. Media controls require Qt Multimedia; SVG icons require the SVG image-format plugin.
 
-### 6.3 Build a Windows installer and portable package
+### 6.3 GitHub packages and downloads
+
+[GitHub Actions](https://github.com/lihechuan/EUI/actions/workflows/build-windows.yml) builds and packages the Gallery, then verifies runtime files and background startup. To get a recent build:
 
 The workflow targets these packages. Use the actual Release attachments for published downloads; existing versions do not automatically receive new platform assets.
 
@@ -632,33 +681,11 @@ The workflow targets these packages. Use the actual Release attachments for publ
 
 Windows uses Qt 5.15.2; macOS uses Qt 6.8.3. Drag the macOS DMG application into Applications, or extract the ZIP and run its `.app`. macOS packages use ad-hoc signing without Apple Developer ID signing or notarization. Packages include runtime libraries and license notices, and retain existing per-user settings storage.
 
-The repository provides [package-windows.ps1](../packaging/package-windows.ps1) for the current Gallery. It targets Windows 10 / 11 x64 using a Qt 5.15 MSVC x64 Kit.
+1. Open the workflow page and select a successful run for the desired commit.
+2. Download the required platform's attachment from **Artifacts** at the bottom of the page. Build artifacts are retained for 14 days.
+3. Extract the attachment and use the installer or portable package. Verify SHA-256 against `SHA256SUMS.txt`. For the Windows portable package, extract the complete directory and run `EUI-Gallery.exe`, keeping all DLLs and subdirectories.
 
-Prepare an x64 Visual Studio Developer PowerShell, CMake, Ninja, and [Inno Setup 6.5 or newer](https://jrsoftware.org/isdl.php). OpenSSL must be a Qt-compatible **1.1.1 x64** runtime containing `libssl-1_1-x64.dll` and `libcrypto-1_1-x64.dll`; OpenSSL 3 cannot replace these DLLs. The [FireDaemon 1.1.1w ZIP](https://download.firedaemon.com/FireDaemon-OpenSSL/openssl-1.1.1w.zip) has the publisher's SHA-256 `1870B15BF6749E65FFBBADF52CDFF3EE0E9F02943550BF4395574BB432AF3EB8`.
-
-From the repository root, replace these tool paths with your local paths:
-
-```powershell
-./packaging/package-windows.ps1 `
-    -QtDir 'D:/Qt/5.15.2/msvc2019_64' `
-    -IsccPath 'C:/Program Files (x86)/Inno Setup 6/ISCC.exe' `
-    -OpenSslDir 'D:/OpenSSL/openssl-1.1/x64/bin'
-```
-
-`QtDir` is inferred from `qmake.exe` on PATH by default. `IsccPath` is discovered on PATH, in common installation directories, or at `build/packaging-tools/inno/ISCC.exe`. `OpenSslDir` is discovered in the Qt Kit's `bin/`, Qt's `Tools/OpenSSL/Win_x64/bin/`, or `build/packaging-tools/openssl/openssl-1.1/x64/bin/`. If these tools are already configured, run `./packaging/package-windows.ps1` directly.
-
-The script rebuilds the Release Gallery and collects EUI, Qt QML modules, WebEngine resources and subprocess, Multimedia, SVG, MSVC runtime DLLs, and OpenSSL DLLs, with EUI and third-party license notices. The version comes from the root `CMakeLists.txt`; version `1.1.0` produces:
-
-| Output | Usage |
-| --- | --- |
-| `dist/EUI-Gallery-1.1.0-windows-x64-setup.exe` | Installs per user without administrator privileges; includes a Start menu entry, optional desktop shortcut, and uninstall support |
-| `dist/EUI-Gallery-1.1.0-windows-x64-portable.zip` | Extract the complete directory and run `EUI-Gallery.exe` |
-| `dist/EUI-Gallery/` | Deployed application directory; regenerated by the next packaging run, so do not store personal files here |
-| `dist/SHA256SUMS.txt` | SHA-256 checksums for the installer and portable ZIP |
-
-The target computer does not need Qt or Visual Studio. Keep all DLLs and subdirectories in the portable package; settings such as table layouts retain the application's existing per-user storage behavior. The script does not sign executables. Run `python packaging/check_windows_package.py` to check package contents and startup on an isolated desktop with development tools removed from PATH. Before delivery, test charts, media, uploads, and printing on the actual target computer.
-
-The [Windows workflow](https://github.com/lihechuan/EUI/actions/workflows/build-windows.yml) runs the same packaging and verification commands on Windows Server 2022 with MSVC v142, Qt 5.15.2, CMake, Ninja, and Inno Setup. Its startup check sets `QT_OPENGL_DLL=opengl32sw.dll` to use the packaged software OpenGL library without a runner GPU. It retains the installer, portable ZIP, checksums, and `BUILD-INFO.txt` for 14 days. Changing the root `CMakeLists.txt` version and pushing to `master` automatically publishes verified packages and checksums to the matching [Release](https://github.com/lihechuan/EUI/releases) for long-term download. An unchanged version does not publish a new release. See the [release process](../CONTRIBUTING.md#正式发布--releases) for details and failed-job retries.
+For long-term downloads, see the [published releases](https://github.com/lihechuan/EUI/releases). A version change reaching `master` automatically publishes verified installers, portable packages, and checksums. See the [release process](../CONTRIBUTING.md#正式发布--releases) for publication and failed-job retries. Test charts, media, uploads, and printing on actual target systems before delivery.
 
 ## 7. Troubleshooting
 

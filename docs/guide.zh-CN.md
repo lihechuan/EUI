@@ -2,7 +2,7 @@
 
 简体中文 | [English](guide.en.md) · [返回首页](README.zh-CN.md)
 
-本指南使用 **Windows、Qt 5.15.2 MSVC 2019 64 位 Kit、C++17 和 Ninja**。第一次使用时，先选择一条流程：
+本指南的默认命令使用 **Windows、Qt 5.15.2 MSVC 2019 64 位 Kit、C++17 和 Ninja**。只安装 Qt 6 时，按[第 2.3 节](#23-只安装-qt-6-时构建)构建，再继续接入应用。第一次使用时，先选择一条流程：
 
 | 目标 | 按顺序完成 | 完成标志 |
 | --- | --- | --- |
@@ -10,7 +10,7 @@
 | 创建自己的应用 | 第 1 节 → 第 2.2 节 → 第 3 节 | 点击按钮后计数增加，并出现消息 |
 | 接入已有 Qt Quick 项目 | 第 1 节 → 第 2.2 节 → 第 3.5 节 | 现有窗口中可以使用 `import EUI 1.0` |
 
-项目介绍和可交互的 QML 示例见[首页](README.zh-CN.md)。自行生成发布包见[第 6.3 节](#63-生成-windows-安装包和免安装版)。
+项目介绍和可交互的 QML 示例见[首页](README.zh-CN.md)。自行生成发布包见[第 6.3 节](#63-github-自动打包与下载)。
 
 ## 目录
 
@@ -72,6 +72,8 @@ cmake --build build/local
 
 程序在 `$euiRoot/bin/Release/example.exe`，组件模块在旁边的 `EUI/`。构建还会将模块复制到 `$qtKit/qml/EUI/`，这个 SDK 目录需要可写。
 
+Windows x64 的 Qt 5.15.2 Gallery 使用 QML 解释器和同步页面加载，规避该 Kit 的 JIT 异常表写入及嵌套异步创建崩溃；页面内的示例仍按可视区域延迟创建。解释器会增加 JavaScript 执行开销，本机回归中 127 个导航入口的首屏打开均小于 1 秒。Qt 6 Gallery 保持异步页面加载，组件库不会替宿主应用设置这两项兼容策略。
+
 ### 2.2 为自己的应用构建组件库
 
 **执行位置：EUI 仓库根目录。**
@@ -84,6 +86,29 @@ cmake --install build/library --prefix build/eui-install
 ```
 
 **完成标志：** `$euiRoot/build/eui-install/imports/EUI/` 中有 `qmldir`、`euiplugin.dll` 和其余模块文件。后续复制这个完整目录。以上使用 Release 配置，应用也使用同一 Qt Kit 和 Release 配置。
+
+### 2.3 只安装 Qt 6 时构建
+
+无需安装 Qt 5。`source/qt5` 是共享 QML 源码目录；CMake 使用 Python 将其适配到当前构建目录的 `source/qt6`，再使用 Qt 6 编译插件和 Gallery。源文件不会被转换脚本覆盖，`import EUI 1.0` 保持不变。
+
+准备 Qt 6.5 或更高版本的桌面 Kit、匹配的 C++ 编译器、CMake、Ninja 和 Python 3。Qt 6.8.3 是本机验证版本。除了组件库基础模块，还需要 **Core5Compat、ShaderTools、Multimedia、SVG**；Gallery 需要 **WebEngineQuick、WebChannel**。Qt 6.8+ 安装 **Quick3D、QuickTimeline** 后可使用原生 3D 示例。文件选择使用 Qt Quick Dialogs，日历使用 Qt Quick Controls，遮罩使用 Qt5Compat.GraphicalEffects，Shader 在构建时生成 `.qsb`。
+
+在对应编译器的 Developer PowerShell 中执行，将 `$qtKit` 改成自己的 Qt 6 Kit：
+
+```powershell
+$euiRoot = 'D:/code/EUI'
+$qtKit = 'D:/Qt/6.8.3/msvc2022_64'
+$env:PATH = "$qtKit/bin;" + $env:PATH
+Set-Location $euiRoot
+
+cmake -S . -B build/qt6 -G Ninja -DCMAKE_BUILD_TYPE=Release "-DCMAKE_PREFIX_PATH=$qtKit" "-DQT_DIR=$qtKit/lib/cmake/Qt6" "-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=$euiRoot/build/qt6/bin" -DEUI_BUILD_EXAMPLES=ON -DEUI_BUILD_TESTS=OFF
+cmake --build build/qt6
+& ./build/qt6/bin/example.exe
+```
+
+只构建组件库时，将两个 `EUI_BUILD_*` 选项设为 `OFF`，再执行 `cmake --install build/qt6 --prefix build/eui-install-qt6`。接入第 3 节的应用时，使用相同的 `$qtKit`，并将复制来源改为 `build/eui-install-qt6/imports/EUI`。Qt 5 和 Qt 6 使用不同的构建、安装和程序目录，不混用两者的 `euiplugin.dll`。
+
+运行 Qt 6 构建产物只需要匹配的 Qt 6 运行库；按第 6 节使用该 Kit 的 `windeployqt` 部署后，目标电脑无需安装 Qt SDK。Qt 5 编译的现有程序仍需要 Qt 5 运行库，不能直接使用 Qt 6 DLL 替代。
 
 ## 3. 接入自己的 Qt Quick 应用
 
@@ -124,10 +149,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-find_package(Qt5 5.15 REQUIRED COMPONENTS Quick Qml)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Quick Qml)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Quick Qml)
 
 add_executable(MyEuiApp main.cpp resources.qrc)
-target_link_libraries(MyEuiApp PRIVATE Qt5::Quick Qt5::Qml)
+target_link_libraries(MyEuiApp PRIVATE Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::Qml)
 ```
 
 **`main.cpp`：创建 QML 引擎，添加组件搜索目录，加载窗口。**
@@ -581,6 +607,72 @@ EAnimation.play(card, "slideInUp", { duration: 300, distance: 24 })
 
 动画只控制视觉效果，不改变 `visible`、`enabled` 或布局占位；透明控件仍可能接收输入，应由业务逻辑管理交互状态。Gallery 的“视觉效果 → 动画”页面提供 8 个分类及全部效果的筛选预览、参数调整、一行调用代码和完整示例源码。
 
+### 4.8 1.2.0 桌面应用组件
+
+`import EUI 1.0` 保持不变，`1.2.0` 是组件库的软件版本。Gallery 导航显示绿色“新增”标签，详情显示引入版本，总览集中列出当前版本的新组件。标记来自组件目录的 `introducedIn` 字段，与构建版本匹配时显示，后续升级时旧组件不再标为当前版本新增。
+
+| 组件 | 用途 | 关键接口 |
+| --- | --- | --- |
+| `EFilePicker` | 打开文件或选择保存位置 | `mode: "open" / "save"`、`multiple`、`nameFilters`、`folder`、`value`、`picked(value)` |
+| `EFolderPicker` | 选择已有目录 | `folder`、`value`、`picked(value)`；预设 `mode: "folder"` |
+| `EToolBar` | 统一操作栏，宽度不足时使用溢出菜单 | `model`、`showText`、`size`、`spacing`、`alignment`、`command(value, item)` |
+| `ECodeView` | 只读源码展示与复制 | `code`、`language`、`highlight`、`showLineNumbers`、`showCopy`、`copy()` |
+| `ECommandPalette` | 搜索和执行应用命令 | `model`、`shortcut`、`query`、`open()`、`closeOnTrigger`、`command(value, item)` |
+| `EWizard` | 分步骤配置或导入流程 | `model`、`currentIndex`、`beforeLeave`、`next()`、`previous()`、`finish()`、`reset()` |
+
+文件选择使用平台对话框。`EFilePicker.value` 在单选、保存和目录模式下为 URL 字符串，多选打开时为 URL 数组；显示文字会转换为本地路径。`open()` 打开对话框，`close()` 关闭，`clear()` 清空。`acceptSelection(urls)` 用于提交外部选择，校验失败发送 `selectionRejected(reason)` 并保留原值。保存模式只选择位置，不写入文件；实际写入由应用完成。
+
+```qml
+EFilePicker {
+    width: 360
+    mode: "open"
+    multiple: true
+    nameFilters: ["Text files (*.txt *.qml)", "All files (*)"]
+
+    onPicked: console.log(value)
+}
+```
+
+工具栏和命令面板的模型项支持 `text`、`command`、`iconSource`、`enabled`、`visible` 和 `handler(item)`，也可设置 `action` 为 Qt Quick Controls `Action`。工具栏还支持 `separator`、`checkable`、`checked`、`shortcut`；命令面板支持 `description`、`keywords`。执行后发送 `command(value, item)`，异常发送 `failed(message)`。命令面板默认使用 `Ctrl+Shift+P`，设为 `""` 可禁用该快捷键。
+
+```qml
+EToolBar {
+    width: 360
+    model: [{text: "打开", command: "open", iconSource: EIcons.FOLDER},
+        {text: "保存", command: "save", iconSource: EIcons.COPY}]
+
+    onCommand: console.log(value)
+}
+```
+
+`ECodeView` 高亮 `qml`、`javascript` 或 `js`，其他语言按纯文本颜色展示；不会解析或执行源码中的 HTML。`copy()` 复制原始源码，包括制表符；文本选择复制则使用显示文本，制表符展示为四个空格。
+
+向导模型项使用 `{title, description, disabled, component}`，其中 `component` 是页面的 `Component`。默认首次进入才加载并保留页面内容。`beforeLeave(from, to)` 返回 `false` 阻止导航，返回 Promise 时等待完成，`busy` 为 true；完成操作的 `to` 为模型长度。`completed()` 后可调用 `reset()` 重新开始，`canceled()` 由应用决定如何关闭或清理。`allowJump` 允许点击步骤条跳转，仍执行离开校验。
+
+```qml
+EWizard {
+    id: wizard
+
+    width: 520
+    model: [{title: "基本信息", component: firstPage},
+        {title: "确认", component: reviewPage}]
+    beforeLeave: function(from, to) {
+        return to <= from || from !== 0 || wizard.currentPage.text.length > 0
+    }
+
+    Component {
+        id: firstPage
+
+        EInput { placeholderText: "输入名称" }
+    }
+    Component {
+        id: reviewPage
+
+        EText { text: "确认后点击完成" }
+    }
+}
+```
+
 ## 5. 使用 Gallery 学习组件
 
 Gallery 左侧提供分类导航和名称搜索；`Ctrl+K` 聚焦搜索框。右上角切换语言和主题。每个组件页面包含可操作的示例卡片、源码按钮及页面下方的 API 文档。
@@ -595,6 +687,12 @@ Gallery 左侧提供分类导航和名称搜索；`Ctrl+K` 聚焦搜索框。右
 4. 阅读页面下方的 API，确认默认值、信号参数和方法用途。
 5. 为自己的业务模型、提交或网络请求编写逻辑，并验证实际结果。
 
+### Gallery 软件更新
+
+每次启动 Gallery 会检查 GitHub 的最新正式版本，顶部 dock 栏提供更新入口，左下角保留当前构建版本。点击更新按钮可展开检查结果和进度面板；发现新版后点击“立即更新”，进度依次覆盖下载、SHA-256 校验和安装准备，然后自动关闭旧进程、替换程序并重启。更新期间 dock 栏按钮显示百分比，关闭面板后可再次点击查看进度。新版本成功渲染窗口后才显示“更新完成”；校验失败时保留当前版本，替换或启动失败时恢复旧目录。网络失败可点击“重新检查”。
+
+Windows 安装版和免安装版在原目录更新；Qt 6 的 3D 窗口仍更新原 Gallery 安装目录。安装版保留卸载信息，用户设置不变。旧目录保留为相邻的 `.before-.eui-update-*` 备份，确认新版本正常后可手动删除。更新需要安装目录及其父目录的写入权限和足够空间。macOS 使用匹配架构的完整 `.app` 更新包；当前 Windows 环境无法验证 macOS 实际替换和启动。开发构建显示版本检查结果，但不能覆盖更新；尚未发布匹配系统和架构的完整附件时会显示原因。
+
 ## 6. 部署应用
 
 ### 6.1 部署本章的 MyEuiApp
@@ -607,19 +705,13 @@ Gallery 左侧提供分类导航和名称搜索；`Ctrl+K` 聚焦搜索框。右
 
 `--qmldir` 指向 QML 源文件目录，`--qmlimport` 指向包含当前 `EUI/` 的父目录。部署工具将 Qt 动态库、QML 运行模块和平台插件放到程序目录。保留第 3.3 节已复制的完整 `EUI/`，将整个 `$appRoot/build/` 目录交给目标电脑运行，其中的 `MyEuiApp.exe` 是入口。先在没有开发环境的目标机器上检查程序能打开、按钮和消息能工作；其他应用将参数替换为自己的源码目录、模块父目录和可执行文件。
 
-### 6.2 部署 Gallery 或额外组件
-
-部署第 2.1 节的 Gallery 时执行：
-
-```powershell
-& "$qtKit/bin/windeployqt.exe" --release --qmldir "$euiRoot/example/qml" --qmlimport "$euiRoot/bin/Release" "$euiRoot/bin/Release/example.exe"
-```
-
-分发整个 `$euiRoot/bin/Release/` 目录，包括旁边的 `EUI/` 和部署工具生成的运行文件。
+### 6.2 部署额外组件
 
 使用 `EECharts` 时还需部署 Qt WebEngine / WebChannel、`QtWebEngineProcess`、Chromium 资源文件和 `qtwebengine_locales`，保持所用 Qt Kit 的目录结构。使用媒体组件时部署 Qt Multimedia；使用 SVG 图标时部署 SVG 图片格式插件。
 
-### 6.3 生成 Windows 安装包和免安装版
+### 6.3 GitHub 自动打包与下载
+
+Gallery 由 [GitHub Actions](https://github.com/lihechuan/EUI/actions/workflows/build-windows.yml) 自动构建、打包并验证运行文件和后台启动。获取最新构建产物时：
 
 工作流的目标产物如下；正式下载以 Release 实际附件为准，既有版本不会自动补充新平台附件。
 
@@ -632,33 +724,11 @@ Gallery 左侧提供分类导航和名称搜索；`Ctrl+K` 聚焦搜索框。右
 
 Windows 使用 Qt 5.15.2，macOS 使用 Qt 6.8.3。macOS DMG 将应用拖入 Applications，ZIP 解压后运行 `.app`。macOS 包使用临时签名，未进行 Apple Developer ID 签名和公证。各平台都附带运行库和许可声明，并保留应用原有的用户配置存储方式。
 
-仓库提供 [package-windows.ps1](../packaging/package-windows.ps1)，用于打包当前 Gallery。目标平台为 Windows 10 / 11 x64，使用 Qt 5.15 MSVC x64 Kit。
+1. 打开工作流页面，选择对应提交且已成功完成的运行记录。
+2. 在页面底部的 **Artifacts** 下载所需平台的附件；构建产物保留 14 天。
+3. 解压附件，使用其中的安装包或免安装包，并按 `SHA256SUMS.txt` 核对 SHA-256。Windows 免安装版解压后运行 `EUI-Gallery.exe`，保留全部 DLL 和子目录。
 
-准备 x64 Visual Studio Developer PowerShell、CMake、Ninja，以及 [Inno Setup 6.5 或更新版本](https://jrsoftware.org/isdl.php)。OpenSSL 需要与当前 Qt 兼容的 **1.1.1 x64** 运行库，包含 `libssl-1_1-x64.dll` 和 `libcrypto-1_1-x64.dll`；OpenSSL 3 不能替代这两个 DLL。可使用 [FireDaemon 的 1.1.1w ZIP](https://download.firedaemon.com/FireDaemon-OpenSSL/openssl-1.1.1w.zip)，发布方公布的 SHA-256 为 `1870B15BF6749E65FFBBADF52CDFF3EE0E9F02943550BF4395574BB432AF3EB8`。
-
-在仓库根目录执行，将工具路径改为本机实际路径：
-
-```powershell
-./packaging/package-windows.ps1 `
-    -QtDir 'D:/Qt/5.15.2/msvc2019_64' `
-    -IsccPath 'C:/Program Files (x86)/Inno Setup 6/ISCC.exe' `
-    -OpenSslDir 'D:/OpenSSL/openssl-1.1/x64/bin'
-```
-
-`QtDir` 默认从 PATH 中的 `qmake.exe` 推断；`IsccPath` 可从 PATH、常用安装位置或 `build/packaging-tools/inno/ISCC.exe` 自动查找；`OpenSslDir` 可从 Qt Kit 的 `bin/`、Qt 的 `Tools/OpenSSL/Win_x64/bin/` 或 `build/packaging-tools/openssl/openssl-1.1/x64/bin/` 自动查找。当前机器已准备好这些工具时，只需执行 `./packaging/package-windows.ps1`。
-
-脚本重新构建 Release Gallery，收集 EUI、Qt QML 模块、WebEngine 资源和子进程、Multimedia、SVG、MSVC DLL 与 OpenSSL DLL，并附带 EUI 和第三方许可声明。版本从根目录 `CMakeLists.txt` 读取；当前 `1.1.0` 对应以下产物：
-
-| 产物 | 用法 |
-| --- | --- |
-| `dist/EUI-Gallery-1.1.0-windows-x64-setup.exe` | 安装到当前用户目录，无需管理员权限；提供开始菜单入口、可选桌面快捷方式和卸载支持 |
-| `dist/EUI-Gallery-1.1.0-windows-x64-portable.zip` | 解压完整目录，双击其中的 `EUI-Gallery.exe` |
-| `dist/EUI-Gallery/` | 已部署的程序目录，可直接运行；再次打包会重新生成这个目录，请勿在此保存个人文件 |
-| `dist/SHA256SUMS.txt` | 安装包和免安装 ZIP 的 SHA-256 校验值 |
-
-目标电脑不需要安装 Qt 或 Visual Studio。免安装版需要保留全部 DLL 和子目录；表格布局等设置仍使用应用原有的用户配置存储方式。脚本不执行代码签名。可运行 `python packaging/check_windows_package.py` 检查包内容，并在去除开发工具路径后以后台模式验证启动；交付前仍应在目标电脑检查图表、媒体、上传和打印等实际功能。
-
-GitHub 的 [Windows 工作流](https://github.com/lihechuan/EUI/actions/workflows/build-windows.yml) 在 Windows Server 2022 上使用 MSVC v142、Qt 5.15.2、CMake、Ninja 和 Inno Setup，执行相同的打包与验证命令。CI 启动检查通过 `QT_OPENGL_DLL=opengl32sw.dll` 使用包内的软件 OpenGL，不依赖运行机显卡。工作流生成的安装版、免安装 ZIP、校验文件和 `BUILD-INFO.txt` 保留 14 天。根目录 `CMakeLists.txt` 的版本号变化并推送到 `master` 后，验证通过的安装包、免安装 ZIP 和校验文件会自动发布到对应版本的 [Release](https://github.com/lihechuan/EUI/releases)，供长期下载；版本号不变时不发布新版本。正式流程及失败重跑方式见[贡献指南](../CONTRIBUTING.md#正式发布--releases)。
+长期下载入口见[发行版页面](https://github.com/lihechuan/EUI/releases)。版本号变化并进入 `master` 后，工作流会自动发布通过验证的安装包、免安装包和校验文件；正式发布及失败重跑方式见[贡献指南](../CONTRIBUTING.md#正式发布--releases)。交付前仍应在目标电脑检查图表、媒体、上传和打印等实际功能。
 
 ## 7. 常见问题
 

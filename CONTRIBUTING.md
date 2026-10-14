@@ -18,9 +18,9 @@ cmake --build build/local --target example --parallel
 git diff --check
 ```
 
-修改打包流程时，按[中文打包指南](docs/guide.zh-CN.md#63-生成-windows-安装包和免安装版)或 [English packaging guide](docs/guide.en.md#63-build-a-windows-installer-and-portable-package) 准备 Inno Setup 与 OpenSSL，执行打包后运行 `python packaging/check_windows_package.py`。验证脚本在隔离桌面启动程序，不显示到当前桌面。
+Gallery 的打包和运行验证由 [GitHub Actions](https://github.com/lihechuan/EUI/actions/workflows/build-windows.yml) 执行。修改工作流或 `packaging/` 下的脚本后，通过 PR 检查或手动运行工作流验证结果。成功运行的构建产物保留 14 天，下载方式见[中文指南](docs/guide.zh-CN.md#63-github-自动打包与下载)或 [English guide](docs/guide.en.md#63-github-packages-and-downloads)。
 
-For packaging changes, follow the packaging guide, build the packages, and run `python packaging/check_windows_package.py`. The check launches the application on an isolated desktop. GitHub Actions builds and packages the public sources, checks ZIP/runtime files and background startup, and retains the installer, portable ZIP, and checksums for 14 days. These checks do not replace target-machine testing of charts, media, uploads, or printing.
+Gallery packaging and runtime checks run in GitHub Actions. After changing the workflow or scripts in `packaging/`, verify the PR checks or run the workflow manually. Successful build artifacts are retained for 14 days; see the guides above for downloads. These checks do not replace target-machine testing of charts, media, uploads, or printing.
 
 ## 修改范围与 PR / Changes and pull requests
 
@@ -40,7 +40,7 @@ Keep changes focused and follow existing style and semantic ordering. Update exa
 
 Change `project(EUI VERSION X.Y.Z)` in the root `CMakeLists.txt` and push to `master`. The desktop workflow builds Windows x86, Windows x64, macOS Intel, and Apple Silicon. Once every platform passes packaging and verification, it creates the matching tag and GitHub Release with eight installer or portable packages and `SHA256SUMS.txt`. Windows retains Qt 5.15.2; macOS uses Qt 6.8.3. No manual tag or extra token is required. Regular commits, PRs, and manual runs retain build artifacts for 14 days without publishing a new release. Matching version tags can also trigger publication. Assets are uploaded to a draft and downloaded for SHA-256 verification before publication. Rerun failed jobs to resume; published versions are preserved.
 
-1. 更新根目录 `CMakeLists.txt` 的版本、`CHANGELOG.md`、中英文下载链接和打包示例中的版本。用户文档只展示当前仓库所属平台的入口，不并列展示不同托管平台。
+1. 更新根目录 `CMakeLists.txt` 的版本、`CHANGELOG.md` 和中英文下载链接。用户文档只展示当前仓库所属平台的入口，不并列展示不同托管平台。
 2. 提交并同步源码，确认 GitHub 的全部平台打包与自动发布作业通过；发布包只能来自已验证的干净源码。
 3. GitHub 由工作流完成标签、发行版和附件发布；如另有要求发布的托管平台，为对应源码创建相同的 `vVERSION` 标签和发行版，并上传同次构建生成的附件，保持文件名和内容一致。
 4. Release 说明只用简短的编号列表列出本次新增、修改和修复的功能。使用方式、兼容环境、验证结果和已知限制放在用户文档中，不加入发行说明。

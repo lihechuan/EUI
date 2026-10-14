@@ -7,7 +7,9 @@ English | [简体中文](docs/README.zh-CN.md)
 
 EUI is a UI component library for Qt Quick / QML desktop applications. It provides controls for forms, data tables, navigation, charts, and application feedback, with shared light and dark themes.
 
-The **EUI Gallery** brings together **120 components** with interactive examples, copyable QML source, and API references. Use it to explore a control's behavior before adding it to your application.
+The **EUI Gallery** brings together **126 components** with interactive examples, copyable QML source, and API references. Use it to explore a control's behavior before adding it to your application.
+
+Current source version: **1.2.0**. Adds file/folder pickers, a toolbar, code view, command palette, and wizard. The Gallery marks components introduced in this version. Windows packages include a Qt 6 runtime for the Littlest Tokyo 3D example, and the Gallery supports verified updates.
 
 ![EUI Gallery: component navigation, search, and interactive previews](docs/screenshots/overview-en.png)
 

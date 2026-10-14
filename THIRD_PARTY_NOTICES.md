@@ -8,6 +8,7 @@ The root [LICENSE](LICENSE) applies to EUI's own code and documentation. Third-p
 | --- | --- | --- |
 | Apache ECharts 6.1.0 | `source/thirdparty/echarts/` | [LICENSE](source/thirdparty/echarts/LICENSE)、[NOTICE](source/thirdparty/echarts/NOTICE) 和[来源记录 / source](source/thirdparty/echarts/README.md) |
 | QR Code generator 1.8.0 | `source/thirdparty/qrcodegen/` | MIT；完整许可保留在 [qrcodegen.hpp](source/thirdparty/qrcodegen/qrcodegen.hpp) 和 `.cpp` 文件头 / full license in the source headers |
+| Littlest Tokyo 3D model | `example/quick3d/littlest-tokyo/assets/` | Glen Fox / glenatron；CC BY 4.0；[署名、来源及转换说明 / attribution, source and conversion](example/quick3d/littlest-tokyo/assets/ATTRIBUTION.md) |
 | Skill Icons 品牌 SVG | `source/qt5/imports/eui/font/icons/` | [MIT](source/qt5/imports/eui/font/icons/LICENSE)；[来源和修改说明 / source and modifications](source/qt5/imports/eui/font/icons/README.md) |
 | Qt 5.15.2 运行库 / runtime | Windows 安装版和免安装版 / Windows packages | [LGPL-3.0](packaging/licenses/Qt-LGPL-3.0.txt)、[GPL-3.0](packaging/licenses/Qt-GPL-3.0.txt)；具体模块与商业授权见 [Qt licensing](https://www.qt.io/licensing/) |
 | Qt 6.8.3 运行库 / runtime | macOS 安装版与免安装版 / macOS packages | [LGPL-3.0](packaging/licenses/Qt-LGPL-3.0.txt)、[GPL-3.0](packaging/licenses/Qt-GPL-3.0.txt)；构建时生成 Qt 6 兼容 QML 和预编译 Shader / Qt 6 QML and shaders are generated at build time |
