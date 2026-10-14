@@ -1,8 +1,12 @@
 import argparse
 import ctypes
+import hashlib
+import json
 import msvcrt
 import os
 import struct
+import subprocess
+import sys
 import tempfile
 import zipfile
 from ctypes import wintypes
@@ -30,6 +34,7 @@ class ProcessInfo(ctypes.Structure):
 parser = argparse.ArgumentParser(description='Verify Windows runtime files, architecture, and background startup.')
 parser.add_argument('package', nargs='?', type=Path)
 parser.add_argument('--arch', choices=('x86', 'x64'), default='x64')
+parser.add_argument('--archive', type=Path, help='Portable ZIP to compare with the runtime directory')
 arguments = parser.parse_args()
 root = Path(__file__).resolve().parents[1]
 package = arguments.package.resolve() if arguments.package else root / "dist" / "EUI-Gallery"
@@ -45,6 +50,11 @@ required = [
     "licenses/EUI-LICENSE.txt", "licenses/THIRD_PARTY_NOTICES.md",
     "licenses/ECharts-LICENSE.txt", "licenses/ECharts-NOTICE.txt",
     "licenses/QR-Code-generator-LICENSE.txt", "licenses/Skill-Icons-LICENSE.txt",
+    "quick3d-runtime/manifest.json", "quick3d-runtime/EUI-Gallery-Qt6.exe",
+    "quick3d-runtime/Qt6Core.dll", "quick3d-runtime/Qt6Quick3D.dll",
+    "quick3d-runtime/Qt6QuickTimeline.dll", "quick3d-runtime/platforms/qwindows.dll",
+    "quick3d-runtime/qml/QtQuick3D/qmldir", "quick3d-runtime/qml/QtQuick/Timeline/qmldir",
+    "quick3d-runtime/qt.conf", "quick3d-runtime/licenses/LittlestTokyo-ATTRIBUTION.md",
 ]
 suffix = '-x64' if arguments.arch == 'x64' else ''
 required += [f'libssl-1_1{suffix}.dll', f'libcrypto-1_1{suffix}.dll']
@@ -62,13 +72,25 @@ assert binary[pe:pe + 4] == b"PE\0\0", "Invalid executable"
 machine = 0x8664 if arguments.arch == 'x64' else 0x14c
 assert struct.unpack_from("<H", binary, pe + 4)[0] == machine, f"Expected {arguments.arch} executable"
 assert struct.unpack_from("<H", binary, pe + 24 + 68)[0] == 2, "Expected Windows GUI subsystem"
-for path in package.rglob('*.dll'):
+for path in list(package.rglob('*.dll')) + list(package.rglob('*.exe')):
     content = path.read_bytes()
     offset = struct.unpack_from('<I', content, 0x3c)[0]
     assert content[offset:offset + 4] == b'PE\0\0', f'Invalid runtime DLL: {path.name}'
-    assert struct.unpack_from('<H', content, offset + 4)[0] == machine, f'Wrong runtime architecture: {path.name}'
+    expected = 0x8664 if path.relative_to(package).parts[0] == 'quick3d-runtime' else machine
+    assert struct.unpack_from('<H', content, offset + 4)[0] == expected, f'Wrong runtime architecture: {path}'
 
-archives = list((root / "dist").glob(f"EUI-Gallery-*-windows-{arguments.arch}-portable.zip"))
+manifest = json.loads((package / 'quick3d-runtime/manifest.json').read_text(encoding='utf-8'))
+assert manifest['schema'] == 1 and manifest['architecture'] == 'x64', 'Invalid Qt 6 runtime manifest'
+for record in manifest['files']:
+    path = package / 'quick3d-runtime' / record['path']
+    assert path.resolve().is_relative_to((package / 'quick3d-runtime').resolve()), 'Unsafe runtime path'
+    assert path.stat().st_size == record['size'], f'Runtime size mismatch: {path}'
+    with path.open('rb') as stream:
+        assert hashlib.file_digest(stream, 'sha256').hexdigest() == record['sha256'], f'Runtime checksum mismatch: {path}'
+    required.append('quick3d-runtime/' + record['path'])
+
+archives = [arguments.archive.resolve()] if arguments.archive else list(
+    (root / "dist").glob(f"EUI-Gallery-*-windows-{arguments.arch}-portable.zip"))
 assert archives, "Portable ZIP was not generated"
 archive = max(archives, key=lambda path: path.stat().st_mtime)
 with zipfile.ZipFile(archive) as zipped:
@@ -159,3 +181,4 @@ finally:
         kernel32.CloseHandle(process.hProcess)
     user32.CloseDesktop(desktop)
 print(f"PASS: {arguments.arch} GUI executable, runtime files, ZIP integrity, and a visible window with no developer PATH")
+subprocess.run([sys.executable, root / 'packaging/check_quick3d_handoff.py', exe], check=True)

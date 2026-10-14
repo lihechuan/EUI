@@ -3,6 +3,7 @@ param(
     [string]$QtDir,
     [string]$IsccPath,
     [string]$OpenSslDir,
+    [string]$Quick3DRuntimeDir,
     [ValidateSet('x86', 'x64')]
     [string]$Architecture = 'x64'
 )
@@ -20,6 +21,16 @@ function Invoke-Checked {
 }
 
 $euiRoot = Split-Path $PSScriptRoot -Parent
+if (-not $Quick3DRuntimeDir) { $Quick3DRuntimeDir = Join-Path $euiRoot 'build/quick3d-runtime' }
+if (-not (Test-Path -LiteralPath (Join-Path $Quick3DRuntimeDir 'manifest.json') -PathType Leaf)) {
+    throw 'Prepare the bundled Qt 6 runtime with prepare-quick3d-runtime.ps1 before packaging.'
+}
+$runtimeManifest = Get-Content (Join-Path $Quick3DRuntimeDir 'manifest.json') -Raw | ConvertFrom-Json
+if ($runtimeManifest.schema -ne 1 -or $runtimeManifest.architecture -ne 'x64' -or
+    $runtimeManifest.PSObject.Properties.Name -notcontains 'galleryVersion' -or
+    $runtimeManifest.PSObject.Properties.Name -notcontains 'galleryRevision') {
+    throw 'Invalid Qt 6 runtime manifest.'
+}
 $buildDir = Join-Path $euiRoot "build\windows-$Architecture-package"
 $outputDir = Join-Path $euiRoot 'dist'
 $packageDir = Join-Path $outputDir 'EUI-Gallery'
@@ -100,11 +111,17 @@ try {
     Invoke-Checked 'cmake.exe' @(
         '-S', $euiRoot, '-B', $buildDir, '-G', 'Ninja',
         '-DCMAKE_BUILD_TYPE=Release', "-DCMAKE_PREFIX_PATH=$QtDir",
+        "-DQT_DIR=$QtDir/lib/cmake/Qt5",
         "-DQt5_DIR=$QtDir/lib/cmake/Qt5", '-DEUI_BUILD_EXAMPLES=ON',
         '-DEUI_BUILD_STATIC_LIB=OFF', '-DEUI_BUILD_TESTS=OFF',
         '-DQML_PLUGIN_DUMP:FILEPATH=OFF'
     )
     Invoke-Checked 'cmake.exe' @('--build', $buildDir, '--target', 'example', '--parallel')
+    $galleryBuild = Get-Content (Join-Path $buildDir 'gallery-build.json') -Raw | ConvertFrom-Json
+    if ($runtimeManifest.galleryVersion -ne $galleryBuild.galleryVersion -or
+        $runtimeManifest.galleryRevision -ne $galleryBuild.galleryRevision) {
+        throw 'The Qt 6 runtime must be rebuilt from the same Gallery sources before packaging.'
+    }
 
     New-Item -ItemType Directory -Force -Path $outputDir | Out-Null
     if ((Get-Item -LiteralPath $outputDir).Attributes -band [IO.FileAttributes]::ReparsePoint) {
@@ -121,7 +138,7 @@ try {
     }
     New-Item -ItemType Directory -Path $packageDir | Out-Null
     Copy-Item -LiteralPath (Join-Path $euiRoot 'bin\Release\example.exe') -Destination (Join-Path $packageDir 'EUI-Gallery.exe')
-    Copy-Item -LiteralPath (Join-Path $euiRoot 'source\Qt5\imports\EUI') -Destination $packageDir -Recurse
+    Copy-Item -LiteralPath (Join-Path $euiRoot 'source\qt5\imports\eui') -Destination (Join-Path $packageDir 'EUI') -Recurse
     Copy-Item -LiteralPath (Join-Path $buildDir 'source\euiplugin.dll') -Destination (Join-Path $packageDir 'EUI')
     Invoke-Checked $deployTool @(
         '--release', '--no-compiler-runtime', '--no-virtualkeyboard',
@@ -134,16 +151,17 @@ try {
         Copy-Item -LiteralPath (Join-Path $OpenSslDir $library) -Destination $packageDir
     }
     Set-Content -LiteralPath (Join-Path $packageDir 'qt.conf') -Encoding ASCII -Value "[Paths]`nPrefix=.`nPlugins=.`nQml2Imports=.`nTranslations=translations`nData=."
+    Copy-Item -LiteralPath $Quick3DRuntimeDir -Destination (Join-Path $packageDir 'quick3d-runtime') -Recurse
 
     $licensesDir = Join-Path $packageDir 'licenses'
     New-Item -ItemType Directory -Path $licensesDir | Out-Null
     Copy-Item -LiteralPath (Join-Path $euiRoot 'LICENSE') -Destination (Join-Path $licensesDir 'EUI-LICENSE.txt')
     Copy-Item -LiteralPath (Join-Path $euiRoot 'THIRD_PARTY_NOTICES.md') -Destination $licensesDir
     Copy-Item -Path (Join-Path $PSScriptRoot 'licenses\*') -Destination $licensesDir
-    Copy-Item -LiteralPath (Join-Path $euiRoot 'source\Qt5\imports\EUI\Font\Icons\LICENSE') -Destination (Join-Path $licensesDir 'Skill-Icons-LICENSE.txt')
-    Copy-Item -LiteralPath (Join-Path $euiRoot 'source\ThirdParty\echarts\LICENSE') -Destination (Join-Path $licensesDir 'ECharts-LICENSE.txt')
-    Copy-Item -LiteralPath (Join-Path $euiRoot 'source\ThirdParty\echarts\NOTICE') -Destination (Join-Path $licensesDir 'ECharts-NOTICE.txt')
-    $qrSource = Get-Content (Join-Path $euiRoot 'source\ThirdParty\qrcodegen\qrcodegen.hpp') -Raw
+    Copy-Item -LiteralPath (Join-Path $euiRoot 'source\qt5\imports\eui\font\icons\LICENSE') -Destination (Join-Path $licensesDir 'Skill-Icons-LICENSE.txt')
+    Copy-Item -LiteralPath (Join-Path $euiRoot 'source\thirdparty\echarts\LICENSE') -Destination (Join-Path $licensesDir 'ECharts-LICENSE.txt')
+    Copy-Item -LiteralPath (Join-Path $euiRoot 'source\thirdparty\echarts\NOTICE') -Destination (Join-Path $licensesDir 'ECharts-NOTICE.txt')
+    $qrSource = Get-Content (Join-Path $euiRoot 'source\thirdparty\qrcodegen\qrcodegen.hpp') -Raw
     Set-Content -LiteralPath (Join-Path $licensesDir 'QR-Code-generator-LICENSE.txt') -Encoding UTF8 -Value ([regex]::Match($qrSource, '(?s)^/\*.*?\*/').Value)
     $requirements = if ($Architecture -eq 'x64') { 'Windows 10 / 11 64 位' } else { 'Windows 10 32 位或 Windows 10 / 11 64 位' }
     $requirementsEn = if ($Architecture -eq 'x64') { 'Windows 10 / 11 x64' } else { 'Windows 10 x86 or Windows 10 / 11 x64' }

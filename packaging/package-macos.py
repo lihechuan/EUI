@@ -19,6 +19,7 @@ def licenses(root, destination):
     for source, name in (
         (root / 'LICENSE', 'EUI-LICENSE.txt'),
         (root / 'THIRD_PARTY_NOTICES.md', 'THIRD_PARTY_NOTICES.md'),
+        (root / 'example/quick3d/littlest-tokyo/assets/ATTRIBUTION.md', 'LittlestTokyo-ATTRIBUTION.md'),
         (root / 'source/qt5/imports/eui/font/icons/LICENSE', 'Skill-Icons-LICENSE.txt'),
         (root / 'source/thirdparty/echarts/LICENSE', 'ECharts-LICENSE.txt'),
         (root / 'source/thirdparty/echarts/NOTICE', 'ECharts-NOTICE.txt'),
@@ -56,7 +57,7 @@ def package_macos(root, stage, output, qt, version, arch):
         shutil.copy2(file, destination)
         executables.append('-executable=' + str(destination))
     run(qt / 'bin/macdeployqt', app, '-always-overwrite', '-no-plugins',
-        '-qmldir=' + str(root / 'example/qml'), '-qmlimport=' + str(imports), '-codesign=-', *executables)
+        '-qmldir=' + str(root / 'example'), '-qmlimport=' + str(imports), '-codesign=-', *executables)
     run('codesign', '--verify', '--deep', '--strict', app)
     executable = app / 'Contents/MacOS/example'
     run('lipo', executable, '-verify_arch', 'arm64' if arch == 'arm64' else 'x86_64')

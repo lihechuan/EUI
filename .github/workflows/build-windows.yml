@@ -27,7 +27,7 @@ jobs:
           - arch: x86
             qt-arch: win32_msvc2019
     runs-on: windows-2022
-    timeout-minutes: 45
+    timeout-minutes: 75
     outputs:
       version: ${{ steps.version.outputs.version }}
       publish: ${{ steps.version.outputs.publish }}
@@ -52,6 +52,23 @@ jobs:
       - name: Detect version change
         id: version
         run: python packaging/github_release.py plan
+
+      - name: Set up MSVC for the Qt 6 x64 runtime
+        uses: ilammy/msvc-dev-cmd@0b201ec74fa43914dc39ae48a89fd1d8cb592756 # v1
+        with:
+          arch: x64
+
+      - name: Install Qt 6 for the 3D runtime
+        uses: jurplel/install-qt-action@a9c63c7c123f3069cff414e7e482d95dfa9d8125 # v4
+        with:
+          version: '6.8.3'
+          arch: win64_msvc2022_64
+          modules: qtwebengine qtwebchannel qtpositioning qt5compat qtshadertools qtmultimedia qtquick3d qtquicktimeline
+          cache: true
+          setup-python: false
+
+      - name: Prepare the bundled Qt 6 Gallery
+        run: ./packaging/prepare-quick3d-runtime.ps1 -QtDir $env:QT_ROOT_DIR
 
       - name: Set up MSVC 2019 toolset
         uses: ilammy/msvc-dev-cmd@0b201ec74fa43914dc39ae48a89fd1d8cb592756 # v1
