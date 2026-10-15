@@ -614,5 +614,7 @@ void Example3DRuntime::launch()
     m_timer.start(100);
     const auto entry = QJsonDocument::fromJson(m_manifest).object().value(QStringLiteral("entry")).toString();
     m_child->start(m_destination + QLatin1Char('/') + entry, arguments);
-    m_deadline.start(45000);
+    // WARP can spend more than 45 seconds preparing the first 3D frame on CI CPUs.
+    m_deadline.start(QCoreApplication::arguments().contains(QStringLiteral("--quick3d-runtime-check"))
+        ? 120000 : 45000);
 }
