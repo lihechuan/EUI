@@ -106,7 +106,7 @@ Item {
         enabled: tableRow.itemEnabled && !tableRow.spanOverlay
 
         onDoubleClicked: tableRow.owner.rowDoubleClicked(tableRow.entry.row, tableRow.entry.index)
-        onClicked: {
+        onClicked: function(mouse) {
             tableRow.forceActiveFocus()
             if (mouse.button === Qt.RightButton)
                 tableRow.owner.rowContextMenu(tableRow.entry.row, tableRow.entry.index)
@@ -195,15 +195,17 @@ Item {
                     })
                     tableRow.owner.cellMouseLeft(tableRow.entry.row, cell.column, tableRow.entry.index)
                 }
-                onPressed: if (mouse.button === Qt.LeftButton && tableRow.owner.rangeSelection)
-                    tableRow.owner.selectCell(tableRow.displayIndex, cell.columnIndex, Boolean(mouse.modifiers & Qt.ShiftModifier), Boolean(mouse.modifiers & Qt.ControlModifier))
+                onPressed: function(mouse) {
+                    if (mouse.button === Qt.LeftButton && tableRow.owner.rangeSelection)
+                        tableRow.owner.selectCell(tableRow.displayIndex, cell.columnIndex, Boolean(mouse.modifiers & Qt.ShiftModifier), Boolean(mouse.modifiers & Qt.ControlModifier))
+                }
                 onDoubleClicked: {
                     if (tableRow.owner.editConfig.trigger === "dblclick")
                         tableRow.owner.editCell(tableRow.entry.row, cell.column)
                     tableRow.owner.cellDoubleClicked(tableRow.entry.row, cell.column, tableRow.entry.index)
                     tableRow.owner.rowDoubleClicked(tableRow.entry.row, tableRow.entry.index)
                 }
-                onClicked: {
+                onClicked: function(mouse) {
                     tableRow.forceActiveFocus()
                     if (tableRow.entry.group) { tableRow.owner.toggleGroup(tableRow.entry.key)
                      return }

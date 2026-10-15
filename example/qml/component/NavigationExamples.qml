@@ -223,4 +223,5 @@ ExamplePage {
         }
     }
     NavigationShowcase { }
+    PrimeShowcase { names: ["EDropdown"] }
 }

@@ -528,5 +528,32 @@
     <file alias="EUI/controls/effects/EBorderBeam.qml">eui/controls/effects/EBorderBeam.qml</file>
     <file alias="EUI/controls/basic/EFloatButton.qml">eui/controls/basic/EFloatButton.qml</file>
     <file alias="EUI/controls/basic/EFloatButtonGroup.qml">eui/controls/basic/EFloatButtonGroup.qml</file>
+    <file alias="EUI/controls/form/ELabel.qml">eui/controls/form/ELabel.qml</file>
+    <file alias="EUI/controls/form/EFloatLabel.qml">eui/controls/form/EFloatLabel.qml</file>
+    <file alias="EUI/controls/form/EIftaLabel.qml">eui/controls/form/EIftaLabel.qml</file>
+    <file alias="EUI/controls/form/EInputGroup.qml">eui/controls/form/EInputGroup.qml</file>
+    <file alias="EUI/controls/data/EDeferred.qml">eui/controls/data/EDeferred.qml</file>
+    <file alias="EUI/controls/effects/EAnimateOnScroll.qml">eui/controls/effects/EAnimateOnScroll.qml</file>
+    <file alias="EUI/controls/basic/EFieldset.qml">eui/controls/basic/EFieldset.qml</file>
+    <file alias="EUI/controls/data/EInplace.qml">eui/controls/data/EInplace.qml</file>
+    <file alias="EUI/controls/effects/ERipple.qml">eui/controls/effects/ERipple.qml</file>
+    <file alias="EUI/controls/basic/EFocusTrap.qml">eui/controls/basic/EFocusTrap.qml</file>
+    <file alias="EUI/controls/form/EKnob.qml">eui/controls/form/EKnob.qml</file>
+    <file alias="EUI/controls/data/ECompare.qml">eui/controls/data/ECompare.qml</file>
+    <file alias="EUI/controls/data/EMeterGroup.qml">eui/controls/data/EMeterGroup.qml</file>
+    <file alias="EUI/controls/form/EListbox.qml">eui/controls/form/EListbox.qml</file>
+    <file alias="EUI/controls/data/EOrderList.qml">eui/controls/data/EOrderList.qml</file>
+    <file alias="EUI/controls/navigation/EDock.qml">eui/controls/navigation/EDock.qml</file>
+    <file alias="EUI/controls/navigation/EMegaMenu.qml">eui/controls/navigation/EMegaMenu.qml</file>
+    <file alias="EUI/controls/data/EOrgChart.qml">eui/controls/data/EOrgChart.qml</file>
+    <file alias="EUI/controls/data/ETerminal.qml">eui/controls/data/ETerminal.qml</file>
+    <file alias="EUI/controls/indicator/EDynamicDialog.qml">eui/controls/indicator/EDynamicDialog.qml</file>
+    <file alias="EUI/controls/indicator/EDialogService.qml">eui/controls/indicator/EDialogService.qml</file>
+    <file alias="EUI/controls/navigation/ESidebar.qml">eui/controls/navigation/ESidebar.qml</file>
+    <file alias="EUI/controls/data/EChip.qml">eui/controls/data/EChip.qml</file>
+    <file alias="EUI/controls/data/EScheduler.qml">eui/controls/data/EScheduler.qml</file>
+    <file alias="EUI/controls/data/ETaskBoard.qml">eui/controls/data/ETaskBoard.qml</file>
+    <file alias="EUI/controls/form/ETextEditor.qml">eui/controls/form/ETextEditor.qml</file>
+    <file alias="EUI/controls/private/DragGesture.qml">eui/controls/private/DragGesture.qml</file>
   </qresource>
 </RCC>

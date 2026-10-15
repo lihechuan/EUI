@@ -8,8 +8,10 @@ Control {
 
     property bool hit: false
     property string text: ""
+    property int iconSource: 0
     property bool round: false
     property bool checked: false
+    property url avatarSource: ""
     property bool closable: false
     property bool checkable: false
     property string effect: "light"
@@ -27,23 +29,51 @@ Control {
     leftPadding: 8
     rightPadding: 8
     bottomPadding: 0
-    implicitWidth: label.implicitWidth + leftPadding + rightPadding
     implicitHeight: size === EStyle.Small ? 20 : size === EStyle.Large ? 32 : 24
+    implicitWidth: label.implicitWidth + leftPadding + rightPadding
+        + (avatarSource.toString().length || iconSource > 0 ? implicitHeight : 0)
     background: ERectangle {
         border.color: inside.borderColor
         border.width: control.hit ? 2 : 1
         radius: control.round ? height / 2 : 4
         color: control.color.a > 0 ? control.color : inside.backgroundColor
     }
-    contentItem: EText {
-        id: label
+    contentItem: Item {
+        Loader {
+            id: avatar
 
-        text: control.text
-        elide: Text.ElideRight
-        color: inside.textColor
-        verticalAlignment: Text.AlignVCenter
-        rightPadding: control.closable ? 20 : 0
-        font.pixelSize: control.size === EStyle.Small ? 12 : 14
+            height: width
+            visible: active
+            objectName: "tagAvatarLoader"
+            width: control.implicitHeight - 4
+            anchors.verticalCenter: parent.verticalCenter
+            active: control.avatarSource.toString().length > 0
+            sourceComponent: EAvatar {
+                source: control.avatarSource
+            }
+        }
+        EIcon {
+            id: icon
+
+            color: inside.textColor
+            iconSource: control.iconSource
+            iconSize: control.implicitHeight - 8
+            visible: !avatar.visible && iconSource > 0
+            anchors.verticalCenter: parent.verticalCenter
+        }
+        EText {
+            id: label
+
+            text: control.text
+            height: parent.height
+            elide: Text.ElideRight
+            color: inside.textColor
+            verticalAlignment: Text.AlignVCenter
+            width: Math.max(0, parent.width - x)
+            rightPadding: control.closable ? 20 : 0
+            font.pixelSize: control.size === EStyle.Small ? 12 : 14
+            x: avatar.visible || icon.visible ? control.implicitHeight : 0
+        }
     }
 
     MouseArea {

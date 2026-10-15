@@ -1363,7 +1363,9 @@ Control {
         }
     }
 
-    Keys.onPressed: handleCellKey(event)
+    Keys.onPressed: function(event) {
+        handleCellKey(event)
+    }
     onEffectiveTotalChanged: if (currentPage > pageCount)
         currentPage = pageCount
     onCurrentRowChanged: {

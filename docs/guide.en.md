@@ -609,7 +609,7 @@ Animations control visual appearance; application logic manages `visible`, `enab
 
 ### 4.8 Desktop components introduced in 1.2.0
 
-Keep using `import EUI 1.0`; `1.2.0` is the software version. Gallery navigation shows a green **New** badge, component details show the introduction version, and the overview lists new components together. The catalog compares each component's `introducedIn` value with the build version, so old components lose the current-version badge after an upgrade.
+Keep using `import EUI 1.0`; the desktop components below were introduced in software version `1.2.0`, which is maintained separately from the QML module version. Gallery navigation shows a green **New** badge, component details show the introduction version, and the overview lists new components together. The catalog compares each component's `introducedIn` value with the build version, so old components lose the current-version badge after an upgrade.
 
 | Component | Purpose | Main API |
 | --- | --- | --- |
@@ -629,6 +629,11 @@ Toolbar and command-palette model entries support `text`, `command`, `iconSource
 Wizard model entries use `{title, description, disabled, component}`, with a QML `Component` for each page. Pages are loaded on first visit and retained. `beforeLeave(from, to)` may return a boolean or Promise; false rejects navigation, and `busy` is true while a Promise is pending. Finishing uses the model length as `to`. After `completed()`, call `reset()` to start again. The application handles `canceled()`. `allowJump` enables clicking steps, still subject to `beforeLeave`.
 
 Each new component has five runnable examples in the Gallery.
+
+### 4.9 Comparison, navigation, work components and interaction extensions in 1.3.0
+
+The library adds 26 public types, including ECompare, EScheduler, ETaskBoard and ETextEditor, plus password rules, transfer drag/reordering, dynamic dialogs, pointer-positioned context menus, image thumbnails/flip/save and tag avatars. Gallery includes 149 additional runnable scenarios and localized property documentation. See the [component and interaction reference](primevue-completion.md) for models, methods and scope.
+
 
 ## 5. Learn components with the Gallery
 

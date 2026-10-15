@@ -899,4 +899,5 @@ ExamplePage {
         }
     }
     ExtendedDataShowcase { }
+    PrimeShowcase { names: ["EImage", "EImageViewer"] }
 }

@@ -819,7 +819,7 @@ ExamplePage {
 
                     EBadge {
                         value: 12
-                        color: "#6D5CE7"
+                        color: "#409eff"
                         offset: Qt.point(4, 2)
 
                         EButton { text: ELocale.texts.Messages }
@@ -838,7 +838,7 @@ ExamplePage {
 
                 EBadge {
                     value: 12
-                    color: "#6D5CE7"
+                    color: "#409eff"
                     offset: Qt.point(4, 2)
 
                     EButton { text: ELocale.texts.Messages }

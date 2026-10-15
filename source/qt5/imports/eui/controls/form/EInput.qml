@@ -23,6 +23,7 @@ TextField {
     property Component prefixComponent: null
     property Component suffixComponent: null
     property Component prependComponent: null
+    property bool showPasswordStrength: false
     property int clearIcon: EIcons.CIRCLE_XMARK
     property string accessibleName: placeholderText
     property int size: EControlConfig.sizeFor(control)
@@ -32,9 +33,32 @@ TextField {
             .setDark(ETheme.dark)
             .setEnabled(control.enabled)
     )
+    property var passwordRules: [
+        {label: ELocale.texts.PasswordLength, minLength: 8},
+        {label: ELocale.texts.PasswordUppercase, pattern: /[A-Z]/},
+        {label: ELocale.texts.PasswordLowercase, pattern: /[a-z]/},
+        {label: ELocale.texts.PasswordNumber, pattern: /[0-9]/},
+        {label: ELocale.texts.PasswordSymbol, pattern: /[^A-Za-z0-9]/}
+    ]
 
     readonly property int wordCount: text.length
     readonly property bool hasValidationError: validationState === EValidationState.Error
+    readonly property real passwordStrength: passwordRequirements.length
+        ? passwordRequirements.filter(function(rule) { return rule.passed }).length / passwordRequirements.length : 0
+    readonly property var passwordRequirements: Array.isArray(passwordRules) ? passwordRules.map(function(rule) {
+        let passed = false
+        try {
+            if (rule && rule.minLength !== undefined)
+                passed = text.length >= Number(rule.minLength)
+            else if (rule && rule.pattern) {
+                const expression = new RegExp(rule.pattern)
+                passed = expression.test(text)
+            }
+        } catch (error) {
+            passed = false
+        }
+        return {label: rule && rule.label ? String(rule.label) : "", passed: passed}
+    }) : []
 
     signal cleared()
     signal formatFailed(string message)
@@ -49,11 +73,14 @@ TextField {
         }
     }
 
+    topPadding: 0
+    bottomPadding: 0
     hoverEnabled: true
     selectByMouse: true
     renderType: Text.QtRendering
     Accessible.name: control.accessibleName
     Accessible.role: Accessible.EditableText
+    verticalAlignment: TextInput.AlignVCenter
     selectionColor: EPaletteManager.BasePalette.blue
     Accessible.description: control.validationMessage
     selectedTextColor: EPaletteManager.BasePalette.white
@@ -70,7 +97,7 @@ TextField {
         validationState: control.validationState
     }
     leftPadding: EDefaultConfig.horizontalPadding(control.size)
-        + prependLoader.width + (prefixLoader.active ? prefixLoader.width + 6 : 0)
+        + prependSlot.width + (prefixLoader.active ? prefixLoader.width + 6 : 0)
         + (prefixIconItem.visible ? prefixIconItem.width + 6 : 0)
     color: EPaletteManager.StatePalette.computeEffectiveTextColor(
         EPaletteManager.createStateObject(this, EStyle.Color)
@@ -80,13 +107,56 @@ TextField {
             .setColor(textColor)
     )
     rightPadding: EDefaultConfig.horizontalPadding(control.size)
-        + appendLoader.width + (suffixLoader.active ? suffixLoader.width + 6 : 0)
+        + appendSlot.width + (suffixLoader.active ? suffixLoader.width + 6 : 0)
         + (suffixIconItem.visible ? suffixIconItem.width + 6 : 0)
         + (wordLimit.visible ? wordLimit.implicitWidth + 6 : 0)
 
     onEditingFinished: if (typeof formatter === "function" || typeof parser === "function")
         text = formatInput(text)
 
+    Popup {
+        x: 0
+        padding: 12
+        focus: false
+        y: control.height + 6
+        closePolicy: Popup.NoAutoClose
+        objectName: "passwordStrengthPopup"
+        width: Math.max(240, control.width)
+        visible: control.enabled && control.showPassword && control.showPasswordStrength && control.activeFocus
+        background: ERectangle {
+            radius: 4
+            border.width: 1
+            color: EPaletteManager.ThemePalette.surfaceComponent(ETheme.dark)
+            border.color: EPaletteManager.ThemePalette.borderDefault(ETheme.dark)
+        }
+        contentItem: Column {
+            spacing: 8
+
+            ERectangle {
+                height: 6
+                radius: 3
+                width: parent.width
+                color: EPaletteManager.ThemePalette.borderDefault(ETheme.dark)
+
+                ERectangle {
+                    radius: 3
+                    height: parent.height
+                    width: parent.width * control.passwordStrength
+                    color: EPaletteManager.ThemePalette.fetchColorForStyle(
+                        control.passwordStrength >= 1 ? EStyle.Success : EStyle.Warning)
+                }
+            }
+            Repeater {
+                model: control.passwordRequirements
+
+                EText {
+                    text: (modelData.passed ? "✓  " : "○  ") + modelData.label
+                    color: EPaletteManager.ThemePalette.fetchColorForStyle(
+                        modelData.passed ? EStyle.Success : EStyle.Warning)
+                }
+            }
+        }
+    }
     IndicatorControls.EToolTip {
         delay: 300
         triggerKeys: []
@@ -102,7 +172,7 @@ TextField {
     EAdvancedRectangle {
         borderWidth: 1
         height: control.height
-        width: prependLoader.width
+        width: prependSlot.width
         visible: prependLoader.active
         color: EPaletteManager.ThemePalette.surfaceHover(ETheme.dark)
         borderColor: control.background ? control.background.border.color : "transparent"
@@ -111,38 +181,48 @@ TextField {
     EAdvancedRectangle {
         borderWidth: 1
         height: control.height
-        width: appendLoader.width
+        width: appendSlot.width
         anchors.right: control.right
         visible: appendLoader.active
         color: EPaletteManager.ThemePalette.surfaceHover(ETheme.dark)
         borderColor: control.background ? control.background.border.color : "transparent"
         radius: control.background ? [0, control.background.radius, control.background.radius, 0] : 0
     }
-    Loader {
-        id: prependLoader
+    Item {
+        id: prependSlot
 
-        readonly property var input: control
-        readonly property real contentWidth: active && item ? item.implicitWidth + 16 : 0
-
-        width: contentWidth
         height: control.height
         anchors.left: control.left
-        objectName: "inputPrepend"
-        active: control.prependComponent !== null
-        sourceComponent: control.prependComponent
+        width: prependLoader.active ? prependLoader.width + 16 : 0
+
+        Loader {
+            id: prependLoader
+
+            readonly property var input: control
+
+            anchors.centerIn: parent
+            objectName: "inputPrepend"
+            active: control.prependComponent !== null
+            sourceComponent: control.prependComponent
+        }
     }
-    Loader {
-        id: appendLoader
+    Item {
+        id: appendSlot
 
-        readonly property var input: control
-        readonly property real contentWidth: active && item ? item.implicitWidth + 16 : 0
-
-        width: contentWidth
         height: control.height
-        objectName: "inputAppend"
         anchors.right: control.right
-        active: control.appendComponent !== null
-        sourceComponent: control.appendComponent
+        width: appendLoader.active ? appendLoader.width + 16 : 0
+
+        Loader {
+            id: appendLoader
+
+            readonly property var input: control
+
+            anchors.centerIn: parent
+            objectName: "inputAppend"
+            active: control.appendComponent !== null
+            sourceComponent: control.appendComponent
+        }
     }
     Loader {
         id: prefixLoader
@@ -157,7 +237,7 @@ TextField {
         y: (control.height - height) / 2
         active: control.prefixComponent !== null
         sourceComponent: control.prefixComponent
-        x: prependLoader.width + EDefaultConfig.horizontalPadding(control.size)
+        x: prependSlot.width + EDefaultConfig.horizontalPadding(control.size)
     }
     Loader {
         id: suffixLoader
@@ -172,7 +252,7 @@ TextField {
         y: (control.height - height) / 2
         active: control.suffixComponent !== null
         sourceComponent: control.suffixComponent
-        x: control.width - appendLoader.width - EDefaultConfig.horizontalPadding(control.size) - width
+        x: control.width - appendSlot.width - EDefaultConfig.horizontalPadding(control.size) - width
     }
     EText {
         id: wordLimit
@@ -183,7 +263,7 @@ TextField {
         color: EPaletteManager.ThemePalette.textSecondary(ETheme.dark)
         visible: control.showWordLimit && control.length > 0 && !control.activeFocus
         text: control.wordCount + (control.maximumLength < 32767 ? "/" + control.maximumLength : "")
-        anchors.rightMargin: EDefaultConfig.horizontalPadding(control.size) + appendLoader.width
+        anchors.rightMargin: EDefaultConfig.horizontalPadding(control.size) + appendSlot.width
             + (suffixLoader.active ? suffixLoader.width + 6 : 0)
             + (suffixIconItem.visible ? suffixIconItem.width + 6 : 0)
     }
@@ -198,7 +278,7 @@ TextField {
         visible: control.prefixIcon > 0
         width: EDefaultConfig.iconSize(control.size)
         anchors.verticalCenter: control.verticalCenter
-        anchors.leftMargin: EDefaultConfig.horizontalPadding(control.size) + prependLoader.width
+        anchors.leftMargin: EDefaultConfig.horizontalPadding(control.size) + prependSlot.width
             + (prefixLoader.active ? prefixLoader.width + 6 : 0)
     }
     EIcon {
@@ -214,7 +294,7 @@ TextField {
         width: EDefaultConfig.iconSize(control.size)
         visible: actionable || control.suffixIcon > 0
         anchors.verticalCenter: control.verticalCenter
-        anchors.rightMargin: EDefaultConfig.horizontalPadding(control.size) + appendLoader.width
+        anchors.rightMargin: EDefaultConfig.horizontalPadding(control.size) + appendSlot.width
             + (suffixLoader.active ? suffixLoader.width + 6 : 0)
         iconSource: control.showPassword
             ? (control.passwordVisible ? EIcons.EYE : EIcons.EYE_SLASH)

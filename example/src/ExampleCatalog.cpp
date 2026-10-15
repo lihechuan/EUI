@@ -40,12 +40,14 @@ constexpr Entry ConfigItems[] = {
 
 constexpr Entry VisualItems[] = {
     {"EShadow", "VisualEffectsExamples.qml", "阴影", "Shadow"},
+    {"EAnimation", "AnimationExamples.qml", "动画", "Animation"},
     {"EAcrylic", "VisualEffectsExamples.qml", "亚克力", "Acrylic"},
     {"EClip", "VisualEffectsExamples.qml", "圆角裁剪", "Rounded clip"},
-    {"EAnimation", "AnimationExamples.qml", "动画", "Animation"},
     {"EBorderBeam", "AntDesignExamples.qml", "边框流光", "Border beam"},
-    {"EParallaxView", "VisualEffectsExamples.qml", "视差滚动", "Parallax view"},
+    {"ERipple", "PrimeVueExamples.qml", "涟漪", "Ripple", false, "1.3.0"},
     {"TokyoScene", "Quick3DExamples.qml", "3D 动画", "3D animation", true},
+    {"EParallaxView", "VisualEffectsExamples.qml", "视差滚动", "Parallax view"},
+    {"EAnimateOnScroll", "PrimeVueExamples.qml", "滚动动画", "Animate on scroll", false, "1.3.0"},
 };
 
 constexpr Entry FeedbackItems[] = {
@@ -59,6 +61,8 @@ constexpr Entry FeedbackItems[] = {
     {"EPopconfirm", "OverlayExamples.qml", "气泡确认", "Popconfirm"},
     {"ENotification", "OverlayExamples.qml", "通知", "Notification"},
     {"EMessageBox", "ExtendedFeedbackExamples.qml", "消息弹窗", "Message box"},
+    {"EDialogService", "PrimeVueExamples.qml", "弹窗服务", "Dialog service", false, "1.3.0"},
+    {"EDynamicDialog", "PrimeVueExamples.qml", "动态弹窗", "Dynamic dialog", false, "1.3.0"},
 };
 
 constexpr Entry NavigationItems[] = {
@@ -70,9 +74,12 @@ constexpr Entry NavigationItems[] = {
     {"EDropdown", "NavigationExamples.qml", "下拉菜单", "Dropdown"},
     {"EAnchor", "ExtendedNavigationExamples.qml", "锚点", "Anchor"},
     {"EBreadcrumb", "NavigationExamples.qml", "面包屑", "Breadcrumb"},
+    {"EDock", "PrimeVueExamples.qml", "停靠栏", "Dock", false, "1.3.0"},
     {"EBacktop", "ExtendedNavigationExamples.qml", "回到顶部", "Backtop"},
     {"EWizard", "DesktopExamples.qml", "步骤向导", "Wizard", false, "1.2.0"},
     {"EPageHeader", "ExtendedNavigationExamples.qml", "页头", "Page header"},
+    {"ESidebar", "PrimeVueExamples.qml", "侧边导航", "Sidebar", false, "1.3.0"},
+    {"EMegaMenu", "PrimeVueExamples.qml", "多列菜单", "Mega menu", false, "1.3.0"},
     {"ECommandPalette", "DesktopExamples.qml", "命令面板", "Command palette", false, "1.2.0"},
 };
 
@@ -93,6 +100,8 @@ constexpr Entry BasicItems[] = {
     {"ESplitterPanel", "LayoutExamples.qml", "分隔面板项", "Splitter panel"},
     {"EToolBar", "DesktopExamples.qml", "工具栏", "Toolbar", false, "1.2.0"},
     {"EStaggeredLayout", "LayoutExamples.qml", "瀑布布局", "Staggered layout"},
+    {"EFieldset", "PrimeVueExamples.qml", "字段分组", "Fieldset", false, "1.3.0"},
+    {"EFocusTrap", "PrimeVueExamples.qml", "焦点约束", "Focus trap", false, "1.3.0"},
 };
 
 constexpr Entry ExtensionsItems[] = {
@@ -130,18 +139,25 @@ constexpr Entry FormItems[] = {
     {"ETransfer", "ExtendedFormExamples.qml", "穿梭框", "Transfer"},
     {"ECascader", "ExtendedFormExamples.qml", "级联选择", "Cascader"},
     {"EInputTag", "ExtendedFormExamples.qml", "标签输入", "Input tag"},
+    {"EKnob", "PrimeVueExamples.qml", "旋钮", "Knob", false, "1.3.0"},
     {"EDatePicker", "SelectionExamples.qml", "日期选择", "Date picker"},
     {"EInputOtp", "ExtendedFormExamples.qml", "验证码输入", "Input OTP"},
     {"ETimePicker", "SelectionExamples.qml", "时间选择", "Time picker"},
+    {"ELabel", "PrimeVueExamples.qml", "关联标签", "Label", false, "1.3.0"},
     {"ETimeSelect", "ExtendedFormExamples.qml", "时间下拉", "Time select"},
     {"ETreeSelect", "ExtendedFormExamples.qml", "树形选择", "Tree select"},
     {"EAutocomplete", "SelectionExamples.qml", "自动补全", "Autocomplete"},
     {"EColorPicker", "ExtendedFormExamples.qml", "颜色选择", "Color picker"},
     {"ERangeSlider", "ExtendedFormExamples.qml", "范围滑块", "Range slider"},
+    {"EListbox", "PrimeVueExamples.qml", "列表框", "Listbox", false, "1.3.0"},
     {"EDatePickerPanel", "SelectionExamples.qml", "日期面板", "Date picker panel"},
     {"EShortcutPicker", "ExtendedFormExamples.qml", "快捷键", "Shortcut picker"},
     {"EDateTimePicker", "ExtendedFormExamples.qml", "日期时间", "Date time picker"},
+    {"EIftaLabel", "PrimeVueExamples.qml", "内嵌标签", "Ifta label", false, "1.3.0"},
     {"EFilePicker", "DesktopExamples.qml", "文件选择", "File picker", false, "1.2.0"},
+    {"EFloatLabel", "PrimeVueExamples.qml", "浮动标签", "Float label", false, "1.3.0"},
+    {"EInputGroup", "PrimeVueExamples.qml", "输入组合", "Input group", false, "1.3.0"},
+    {"ETextEditor", "PrimeVueExamples.qml", "富文本编辑", "Text editor", false, "1.3.0"},
     {"EColorPickerPanel", "ExtendedFormExamples.qml", "颜色面板", "Color picker panel"},
     {"EFolderPicker", "DesktopExamples.qml", "目录选择", "Folder picker", false, "1.2.0"},
 };
@@ -173,13 +189,23 @@ constexpr Entry DataItems[] = {
     {"EMediaPlayer", "MediaExamples.qml", "媒体播放器", "Media player"},
     {"EStatistic", "ExtendedDataExamples.qml", "统计", "Statistic"},
     {"ECountdown", "ExtendedDataExamples.qml", "倒计时", "Countdown"},
+    {"EChip", "PrimeVueExamples.qml", "胶囊标签", "Chip", false, "1.3.0"},
     {"ESegmented", "ExtendedDataExamples.qml", "分段控制", "Segmented"},
     {"EStatusView", "ExtendedDataExamples.qml", "状态视图", "Status view"},
+    {"ECompare", "PrimeVueExamples.qml", "对比", "Compare", false, "1.3.0"},
     {"EImageViewer", "ExtendedDataExamples.qml", "图片预览", "Image viewer"},
     {"EDescriptions", "ExtendedDataExamples.qml", "描述列表", "Descriptions"},
+    {"EInplace", "PrimeVueExamples.qml", "原位编辑", "Inplace", false, "1.3.0"},
+    {"ETerminal", "PrimeVueExamples.qml", "终端", "Terminal", false, "1.3.0"},
     {"ECodeView", "DesktopExamples.qml", "代码展示", "Code view", false, "1.2.0"},
     {"EECharts", "EEChartsExamples.qml", "Apache ECharts", "Apache ECharts"},
+    {"EOrgChart", "PrimeVueExamples.qml", "组织图", "Org chart", false, "1.3.0"},
+    {"EDeferred", "PrimeVueExamples.qml", "延迟加载", "Deferred", false, "1.3.0"},
+    {"EScheduler", "PrimeVueExamples.qml", "排程", "Scheduler", false, "1.3.0"},
     {"EInfiniteScroll", "ExtendedDataExamples.qml", "无限滚动", "Infinite scroll"},
+    {"EOrderList", "PrimeVueExamples.qml", "排序列表", "Order list", false, "1.3.0"},
+    {"ETaskBoard", "PrimeVueExamples.qml", "任务看板", "Task board", false, "1.3.0"},
+    {"EMeterGroup", "PrimeVueExamples.qml", "分段计量", "Meter group", false, "1.3.0"},
 };
 
 constexpr Group Groups[] = {

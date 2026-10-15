@@ -67,7 +67,7 @@ Control {
                         return control.value.charAt(index)
                     })
                 }
-                Keys.onPressed: {
+                Keys.onPressed: function(event) {
                     if (event.key === Qt.Key_Backspace && text.length === 0 && index > 0) {
                         cells.itemAt(index - 1).forceActiveFocus()
                         event.accepted = true

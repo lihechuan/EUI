@@ -13,11 +13,13 @@ Item {
 
     readonly property bool euiApp: true
     readonly property alias modal: modalManager
+    readonly property alias dialog: dialogManager
     readonly property alias message: messageManager
     readonly property alias notification: notificationManager
 
     function useApp() {
         return {
+            "dialog": dialogManager,
             "message": messageManager,
             "modal": modalManager,
             "notification": notificationManager
@@ -41,6 +43,9 @@ Item {
         }
         EMessageBox {
             id: modalManager
+        }
+        EDialogService {
+            id: dialogManager
         }
     }
 }

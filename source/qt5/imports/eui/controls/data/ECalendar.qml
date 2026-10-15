@@ -240,7 +240,9 @@ EDatePickerPanel {
         }
     }
 
-    onPicked: dateSelected(value)
+    onPicked: function(value) {
+        dateSelected(value)
+    }
     onRangeChanged: {
         if (validatedRange.length === 2) {
             year = validatedRange[0].getFullYear()

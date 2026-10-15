@@ -536,7 +536,7 @@ Column {
                 EMenu {
                     currentIndex: "design"
                     openedIndexes: ["work"]
-                    activeTextColor: "#21B6A8"
+                    activeTextColor: "#67c23a"
                     width: Math.min(480, parent.width)
                     model: [{index: "home", text: ELocale.texts.Overview, iconSource: EIcons.HOUSE}, {index: "work", text: ELocale.texts.Workspace, children: [{index: "design", text: ELocale.texts.Design}, {index: "dev", text: ELocale.texts.Engineering}]}, {index: "locked", text: ELocale.texts.Archived, disabled: true}]
                 }
@@ -545,7 +545,7 @@ Column {
             EMenu {
                 currentIndex: "design"
                 openedIndexes: ["work"]
-                activeTextColor: "#21B6A8"
+                activeTextColor: "#67c23a"
                 width: Math.min(480, parent.width)
                 model: [{index: "home", text: ELocale.texts.Overview, iconSource: EIcons.HOUSE}, {index: "work", text: ELocale.texts.Workspace, children: [{index: "design", text: ELocale.texts.Design}, {index: "dev", text: ELocale.texts.Engineering}]}, {index: "locked", text: ELocale.texts.Archived, disabled: true}]
             }

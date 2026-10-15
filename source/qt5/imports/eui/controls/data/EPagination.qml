@@ -227,7 +227,9 @@ Control {
             objectName: "paginationSizes"
             currentIndex: Array.isArray(control.pageSizes) ? control.pageSizes.indexOf(control.pageSize) : -1
 
-            onActivated: control.setPageSize(control.pageSizes[index])
+            onActivated: function(index) {
+                control.setPageSize(control.pageSizes[index])
+            }
         }
     }
     Component {

@@ -144,7 +144,7 @@ ExamplePage {
 
                         ERectangle {
                             radius: 8
-                            color: "#3568d4"
+                            color: "#409eff"
                             anchors.fill: parent
 
                             EText {
@@ -162,7 +162,7 @@ ExamplePage {
 
                         ERectangle {
                             radius: 8
-                            color: "#386aa0"
+                            color: "#67c23a"
                             anchors.fill: parent
 
                             EText {
@@ -180,7 +180,7 @@ ExamplePage {
 
                         ERectangle {
                             radius: 8
-                            color: "#547482"
+                            color: "#909399"
                             anchors.fill: parent
 
                             EText {
@@ -206,7 +206,7 @@ ExamplePage {
 
                     ERectangle {
                         radius: 8
-                        color: "#3568d4"
+                        color: "#409eff"
                         anchors.fill: parent
 
                         EText {
@@ -224,7 +224,7 @@ ExamplePage {
 
                     ERectangle {
                         radius: 8
-                        color: "#386aa0"
+                        color: "#67c23a"
                         anchors.fill: parent
 
                         EText {
@@ -242,7 +242,7 @@ ExamplePage {
 
                     ERectangle {
                         radius: 8
-                        color: "#547482"
+                        color: "#909399"
                         anchors.fill: parent
 
                         EText {

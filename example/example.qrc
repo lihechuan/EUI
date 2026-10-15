@@ -253,5 +253,8 @@
         <file alias="images/48/monsters/voidgrubs.png">../assets/images/48/monsters/voidgrubs.png</file>
         <file>qml/component/AntDesignExamples.qml</file>
         <file>qml/component/AntDesignSamples.js</file>
+        <file>qml/component/PrimeVueExamples.qml</file>
+        <file>qml/component/PrimeShowcase.qml</file>
+        <file>qml/component/PrimeSamples.js</file>
     </qresource>
 </RCC>

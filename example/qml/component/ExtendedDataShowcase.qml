@@ -18,7 +18,7 @@ Column {
                 EChart {
                     type: 2
                     height: 220
-                    color: "#21B6A8"
+                    color: "#67c23a"
                     width: Math.min(640, parent.width)
                     model: [{label: "Mon", value: 30}, {label: "Tue", value: 55}, {label: "Wed", value: 42}, {label: "Thu", value: 80}]
                 }
@@ -27,7 +27,7 @@ Column {
             EChart {
                 type: 2
                 height: 220
-                color: "#21B6A8"
+                color: "#67c23a"
                 width: Math.min(640, parent.width)
                 model: [{label: "Mon", value: 30}, {label: "Tue", value: 55}, {label: "Wed", value: 42}, {label: "Thu", value: 80}]
             }
@@ -46,7 +46,7 @@ Column {
                 EChart {
                     type: 1
                     height: 220
-                    color: "#A78BFA"
+                    color: "#e6a23c"
                     width: Math.min(640, parent.width)
                     model: [{label: "Mon", value: 30}, {label: "Tue", value: 55}, {label: "Wed", value: 42}, {label: "Thu", value: 80}]
                 }
@@ -55,7 +55,7 @@ Column {
             EChart {
                 type: 1
                 height: 220
-                color: "#A78BFA"
+                color: "#e6a23c"
                 width: Math.min(640, parent.width)
                 model: [{label: "Mon", value: 30}, {label: "Tue", value: 55}, {label: "Wed", value: 42}, {label: "Thu", value: 80}]
             }
@@ -524,7 +524,7 @@ Column {
                     iconDelegate: Component {
                         EIcon {
                             iconSize: 56
-                            color: "#21B6A8"
+                            color: "#67c23a"
                             iconSource: EIcons.PALETTE
                         }
                     }
@@ -538,7 +538,7 @@ Column {
                 iconDelegate: Component {
                     EIcon {
                         iconSize: 56
-                        color: "#21B6A8"
+                        color: "#67c23a"
                         iconSource: EIcons.PALETTE
                     }
                 }
@@ -807,7 +807,7 @@ Column {
                         EText {
                             text: parent.date.getDate()
                             horizontalAlignment: Text.AlignHCenter
-                            color: parent.isSelected ? "#21B6A8" : EPaletteManager.ThemePalette.textRegular(ETheme.dark)
+                            color: parent.isSelected ? "#67c23a" : EPaletteManager.ThemePalette.textRegular(ETheme.dark)
                         }
                     }
                 }
@@ -819,7 +819,7 @@ Column {
                     EText {
                         text: parent.date.getDate()
                         horizontalAlignment: Text.AlignHCenter
-                        color: parent.isSelected ? "#21B6A8" : EPaletteManager.ThemePalette.textRegular(ETheme.dark)
+                        color: parent.isSelected ? "#67c23a" : EPaletteManager.ThemePalette.textRegular(ETheme.dark)
                     }
                 }
             }
@@ -841,11 +841,11 @@ Column {
                     autoplay: false
                     indicatorPosition: "outside"
                     width: Math.min(480, parent.width)
-                    model: [{title: ELocale.texts.Design, color: "#226DCA"}, {title: ELocale.texts.Engineering, color: "#007D83"}, {title: ELocale.texts.Publish, color: "#6F51C5"}]
+                    model: [{title: ELocale.texts.Design, color: "#409eff"}, {title: ELocale.texts.Engineering, color: "#67c23a"}, {title: ELocale.texts.Publish, color: "#f56c6c"}]
                     delegate: Component {
                         ERectangle {
                             radius: 12
-                            color: parent.modelData.color || "#226DCA"
+                            color: parent.modelData.color || "#409eff"
 
                             EText {
                                 color: "white"
@@ -864,11 +864,11 @@ Column {
                 autoplay: false
                 indicatorPosition: "outside"
                 width: Math.min(480, parent.width)
-                model: [{title: ELocale.texts.Design, color: "#226DCA"}, {title: ELocale.texts.Engineering, color: "#007D83"}, {title: ELocale.texts.Publish, color: "#6F51C5"}]
+                model: [{title: ELocale.texts.Design, color: "#409eff"}, {title: ELocale.texts.Engineering, color: "#67c23a"}, {title: ELocale.texts.Publish, color: "#f56c6c"}]
                 delegate: Component {
                     ERectangle {
                         radius: 12
-                        color: parent.modelData.color || "#226DCA"
+                        color: parent.modelData.color || "#409eff"
 
                         EText {
                             color: "white"
@@ -902,7 +902,7 @@ Column {
                     delegate: Component {
                         ERectangle {
                             radius: 12
-                            color: parent.modelData.color || "#226DCA"
+                            color: parent.modelData.color || "#409eff"
 
                             EText {
                                 color: "white"
@@ -926,7 +926,7 @@ Column {
                 delegate: Component {
                     ERectangle {
                         radius: 12
-                        color: parent.modelData.color || "#226DCA"
+                        color: parent.modelData.color || "#409eff"
 
                         EText {
                             color: "white"
@@ -963,7 +963,7 @@ Column {
                         delegate: Component {
                             ERectangle {
                                 radius: 12
-                                color: parent.modelData.color || "#226DCA"
+                                color: parent.modelData.color || "#409eff"
 
                                 EText {
                                     color: "white"
@@ -1009,7 +1009,7 @@ Column {
                     delegate: Component {
                         ERectangle {
                             radius: 12
-                            color: parent.modelData.color || "#226DCA"
+                            color: parent.modelData.color || "#409eff"
 
                             EText {
                                 color: "white"
@@ -1104,7 +1104,7 @@ Column {
                     dotDelegate: Component {
                         EIcon {
                             iconSize: 20
-                            color: "#21B6A8"
+                            color: "#67c23a"
                             iconSource: EIcons.CHECK
                         }
                     }
@@ -1117,7 +1117,7 @@ Column {
                 dotDelegate: Component {
                     EIcon {
                         iconSize: 20
-                        color: "#21B6A8"
+                        color: "#67c23a"
                         iconSource: EIcons.CHECK
                     }
                 }
@@ -1293,7 +1293,7 @@ Column {
                     prefixDelegate: Component {
                         EIcon {
                             iconSize: 24
-                            color: "#21B6A8"
+                            color: "#67c23a"
                             iconSource: EIcons.CHECK
                         }
                     }
@@ -1308,7 +1308,7 @@ Column {
                 prefixDelegate: Component {
                     EIcon {
                         iconSize: 24
-                        color: "#21B6A8"
+                        color: "#67c23a"
                         iconSource: EIcons.CHECK
                     }
                 }

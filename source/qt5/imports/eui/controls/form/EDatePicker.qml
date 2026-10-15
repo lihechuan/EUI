@@ -233,7 +233,7 @@ FormControls.EInput {
         commitInput(text)
     onActiveFocusChanged: if (activeFocus && automaticDropdown)
         open()
-    Keys.onPressed: {
+    Keys.onPressed: function(event) {
         if (event.key === Qt.Key_Down
             || readOnly && (event.key === Qt.Key_Return || event.key === Qt.Key_Space)) {
             open()
@@ -325,10 +325,16 @@ FormControls.EInput {
                     prevMonthIcon: control.prevMonthIcon
                     showWeekNumber: control.showWeekNumber
 
-                    onPicked: control.commitDate(value)
-                    onCalendarChanged: control.panelSelection(value)
+                    onPicked: function(value) {
+                        control.commitDate(value)
+                    }
                     onHoverValueChanged: secondPanel.hoverValue = hoverValue
-                    onPanelChanged: control.linkPanels(datePanel, date, mode)
+                    onCalendarChanged: function(value) {
+                        control.panelSelection(value)
+                    }
+                    onPanelChanged: function(date, mode) {
+                        control.linkPanels(datePanel, date, mode)
+                    }
                 }
                 FormControls.EDatePickerPanel {
                     id: secondPanel
@@ -348,10 +354,16 @@ FormControls.EInput {
                     showWeekNumber: control.showWeekNumber
                     visible: control.isRange && !control.singlePanel
 
-                    onPicked: control.commitDate(value)
-                    onCalendarChanged: control.panelSelection(value)
+                    onPicked: function(value) {
+                        control.commitDate(value)
+                    }
                     onHoverValueChanged: datePanel.hoverValue = hoverValue
-                    onPanelChanged: control.linkPanels(secondPanel, date, mode)
+                    onCalendarChanged: function(value) {
+                        control.panelSelection(value)
+                    }
+                    onPanelChanged: function(date, mode) {
+                        control.linkPanels(secondPanel, date, mode)
+                    }
                 }
             }
             EButton {

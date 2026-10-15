@@ -11,8 +11,10 @@ Control {
     property var model: []
     property string title: ""
     property var checkedKeys: []
+    property bool draggable: false
     property bool filterable: true
     property var filterMethod: null
+    property bool reorderable: false
     property Component optionDelegate: null
     property Component footerComponent: null
 
@@ -31,8 +33,10 @@ Control {
             : String(item.label).toLowerCase().indexOf(filter.text.toLowerCase()) >= 0
     })
 
+    signal moveSelection(int delta)
     signal toggled(var key, bool checked)
     signal allToggled(var keys, bool checked)
+    signal dragFinished(var key, real x, real y)
 
     padding: 1
     implicitHeight: 280
@@ -123,13 +127,16 @@ Control {
             sourceComponent: control.footerComponent
         }
         ListView {
+            id: list
+
             clip: true
             width: parent.width
             objectName: "transferList"
             model: control.filteredItems
             ScrollBar.vertical: ScrollHandle {}
-            height: Math.max(0, parent.height - y - 6 - footerLoader.height)
             y: control.filterable ? filter.y + filter.height + 12 : header.height + 6
+            height: Math.max(0, parent.height - y - 6 - footerLoader.height
+                - (control.reorderable ? 36 : 0))
             delegate: ECheckBox {
                 id: checkBox
 
@@ -170,6 +177,16 @@ Control {
                     sourceComponent: control.optionDelegate
                     anchors.leftMargin: checkBox.indicator.width + checkBox.spacing + 10
                 }
+                DragGesture {
+                    anchors.fill: parent
+                    enabled: control.draggable && !modelData.disabled
+
+                    onTapped: control.toggled(modelData.key, !checkBox.checked)
+                    onDropped: function(x, y) {
+                        const position = mapToItem(control, x, y)
+                        control.dragFinished(modelData.key, position.x, position.y)
+                    }
+                }
             }
 
             EText {
@@ -177,6 +194,26 @@ Control {
                 visible: control.filteredItems.length === 0
                 color: EPaletteManager.ThemePalette.textSecondary(ETheme.dark)
                 text: EControlConfig.textFor(control, "NoOptions", ELocale.texts)
+            }
+        }
+        Row {
+            height: 32
+            spacing: 6
+            visible: control.reorderable
+            y: parent.height - footerLoader.height - height
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            ETextButton {
+                text: "↑"
+                enabled: control.checkedKeys.length > 0
+
+                onClicked: control.moveSelection(-1)
+            }
+            ETextButton {
+                text: "↓"
+                enabled: control.checkedKeys.length > 0
+
+                onClicked: control.moveSelection(1)
             }
         }
     }

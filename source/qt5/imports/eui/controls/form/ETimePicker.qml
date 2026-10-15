@@ -409,8 +409,8 @@ FormControls.EInput {
                 ELocale.texts
             )
 
-            onChanged: {
-                control.setDraft(parent.part, value, parent.timeRole, 0)
+            onChanged: function(selectedValue) {
+                control.setDraft(parent.part, selectedValue, parent.timeRole, 0)
                 value = Qt.binding(function() {
                     return parent ? parent.timeParts[parent.part] : 0
                 })

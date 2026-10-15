@@ -7,6 +7,7 @@
 #include "enum/EStyle.h"
 #include "config/ELocale.h"
 #include "layout/ELayout.h"
+#include "utils/EImageIO.h"
 #include "utils/ETableIO.h"
 #include "enum/EPlacement.h"
 #include "utils/EAnimation.h"
@@ -16,6 +17,7 @@
 #include "utils/RandomUtils.h"
 #include "config/EValueUtils.h"
 #include "style/theme/ETheme.h"
+#include "utils/ETextDocument.h"
 #include "config/EDefaultConfig.h"
 #include "enum/EValidationState.h"
 #include "utils/EFilePickerUtils.h"
@@ -43,6 +45,7 @@ struct QmlType
 
 const QmlType PrivateTypes[] = {
     {"ColorSquare", "controls/private/ColorSquare.qml"},
+    {"DragGesture", "controls/private/DragGesture.qml"},
     {"MessageCard", "controls/private/MessageCard.qml"},
     {"PickerPopup", "controls/private/PickerPopup.qml"},
     {"SliderTrack", "controls/private/SliderTrack.qml"},
@@ -60,7 +63,9 @@ const QmlType PublicTypes[] = {
     {"ERow", "controls/basic/ERow.qml"},
     {"EApp", "controls/config/EApp.qml"},
     {"ECard", "controls/data/ECard.qml"},
+    {"EChip", "controls/data/EChip.qml"},
     {"EForm", "controls/form/EForm.qml"},
+    {"EKnob", "controls/form/EKnob.qml"},
     {"EList", "controls/data/EList.qml"},
     {"ERate", "controls/form/ERate.qml"},
     {"ETour", "controls/data/ETour.qml"},
@@ -75,6 +80,7 @@ const QmlType PublicTypes[] = {
     {"EEmpty", "controls/data/EEmpty.qml"},
     {"EImage", "controls/data/EImage.qml"},
     {"EInput", "controls/form/EInput.qml"},
+    {"ELabel", "controls/form/ELabel.qml"},
     {"EListy", "controls/data/EListy.qml"},
     {"ERadio", "controls/form/ERadio.qml"},
     {"ETable", "controls/data/ETable.qml"},
@@ -93,12 +99,17 @@ const QmlType PublicTypes[] = {
     {"EFooter", "controls/basic/EFooter.qml"},
     {"EHeader", "controls/basic/EHeader.qml"},
     {"ECaptcha", "controls/form/ECaptcha.qml"},
+    {"ECompare", "controls/data/ECompare.qml"},
+    {"EDock", "controls/navigation/EDock.qml"},
     {"EECharts", "controls/data/EECharts.qml"},
+    {"EInplace", "controls/data/EInplace.qml"},
+    {"EListbox", "controls/form/EListbox.qml"},
     {"EMention", "controls/form/EMention.qml"},
     {"EMenu", "controls/navigation/EMenu.qml"},
     {"ESpinBox", "controls/form/ESpinBox.qml"},
     {"ETabs", "controls/navigation/ETabs.qml"},
     {"EAlert", "controls/indicator/EAlert.qml"},
+    {"ERipple", "controls/effects/ERipple.qml"},
     {"EShadow", "controls/effects/EShadow.qml"},
     {"EToolBar", "controls/basic/EToolBar.qml"},
     {"EAffix", "controls/navigation/EAffix.qml"},
@@ -108,27 +119,36 @@ const QmlType PublicTypes[] = {
     {"ECheckBox", "controls/form/ECheckBox.qml"},
     {"ECodeView", "controls/data/ECodeView.qml"},
     {"ECollapse", "controls/data/ECollapse.qml"},
+    {"EDeferred", "controls/data/EDeferred.qml"},
     {"EDivider", "controls/others/EDivider.qml"},
     {"EFormItem", "controls/form/EFormItem.qml"},
     {"EInputOtp", "controls/form/EInputOtp.qml"},
     {"EInputTag", "controls/form/EInputTag.qml"},
     {"EListItem", "controls/data/EListItem.qml"},
+    {"EOrgChart", "controls/data/EOrgChart.qml"},
     {"ESkeleton", "controls/data/ESkeleton.qml"},
     {"ESteps", "controls/navigation/ESteps.qml"},
+    {"ETerminal", "controls/data/ETerminal.qml"},
     {"ETimeline", "controls/data/ETimeline.qml"},
     {"ETransfer", "controls/form/ETransfer.qml"},
     {"EAcrylic", "controls/effects/EAcrylic.qml"},
     {"EDialog", "controls/indicator/EDialog.qml"},
     {"EDrawer", "controls/indicator/EDrawer.qml"},
+    {"EFieldset", "controls/basic/EFieldset.qml"},
     {"EFlexItem", "controls/basic/EFlexItem.qml"},
     {"ESplitter", "controls/basic/ESplitter.qml"},
     {"ETextArea", "controls/basic/ETextArea.qml"},
     {"EAnchor", "controls/navigation/EAnchor.qml"},
     {"ECountdown", "controls/data/ECountdown.qml"},
+    {"EIftaLabel", "controls/form/EIftaLabel.qml"},
+    {"EOrderList", "controls/data/EOrderList.qml"},
+    {"EScheduler", "controls/data/EScheduler.qml"},
     {"ESegmented", "controls/data/ESegmented.qml"},
     {"EStatistic", "controls/data/EStatistic.qml"},
+    {"ETaskBoard", "controls/data/ETaskBoard.qml"},
     {"EWizard", "controls/navigation/EWizard.qml"},
     {"EContainer", "controls/basic/EContainer.qml"},
+    {"EFocusTrap", "controls/basic/EFocusTrap.qml"},
     {"ELoading", "controls/indicator/ELoading.qml"},
     {"EMessage", "controls/indicator/EMessage.qml"},
     {"EPopover", "controls/indicator/EPopover.qml"},
@@ -138,10 +158,15 @@ const QmlType PublicTypes[] = {
     {"EBacktop", "controls/navigation/EBacktop.qml"},
     {"EDatePicker", "controls/form/EDatePicker.qml"},
     {"EFilePicker", "controls/form/EFilePicker.qml"},
+    {"EFloatLabel", "controls/form/EFloatLabel.qml"},
+    {"EInputGroup", "controls/form/EInputGroup.qml"},
     {"EMenuBar", "controls/navigation/EMenuBar.qml"},
+    {"EMeterGroup", "controls/data/EMeterGroup.qml"},
     {"EPagination", "controls/data/EPagination.qml"},
     {"ERadioGroup", "controls/form/ERadioGroup.qml"},
+    {"ESidebar", "controls/navigation/ESidebar.qml"},
     {"EStatusView", "controls/data/EStatusView.qml"},
+    {"ETextEditor", "controls/form/ETextEditor.qml"},
     {"ETimePicker", "controls/form/ETimePicker.qml"},
     {"ETimeSelect", "controls/form/ETimeSelect.qml"},
     {"ETreeSelect", "controls/form/ETreeSelect.qml"},
@@ -154,6 +179,7 @@ const QmlType PublicTypes[] = {
     {"EDropdown", "controls/navigation/EDropdown.qml"},
     {"EImageViewer", "controls/data/EImageViewer.qml"},
     {"EMediaPlayer", "controls/data/EMediaPlayer.qml"},
+    {"EMegaMenu", "controls/navigation/EMegaMenu.qml"},
     {"ERadioButton", "controls/form/ERadioButton.qml"},
     {"ERangeSlider", "controls/form/ERangeSlider.qml"},
     {"EThemeSwitch", "controls/form/EThemeSwitch.qml"},
@@ -179,8 +205,11 @@ const QmlType PublicTypes[] = {
     {"ENotification", "controls/indicator/ENotification.qml"},
     {"EConfigProvider", "controls/config/EConfigProvider.qml"},
     {"EDatePickerPanel", "controls/form/EDatePickerPanel.qml"},
+    {"EDialogService", "controls/indicator/EDialogService.qml"},
+    {"EDynamicDialog", "controls/indicator/EDynamicDialog.qml"},
     {"EStaggeredLayout", "controls/basic/EStaggeredLayout.qml"},
     {"EColorPickerPanel", "controls/form/EColorPickerPanel.qml"},
+    {"EAnimateOnScroll", "controls/effects/EAnimateOnScroll.qml"},
     {"ECircleProgress", "controls/indicator/ECircleProgress.qml"},
     {"EFloatButtonGroup", "controls/basic/EFloatButtonGroup.qml"},
     {"ECommandPalette", "controls/navigation/ECommandPalette.qml"},
@@ -202,6 +231,8 @@ void EUI::registerTypes(const char *uri) const
     qmlRegisterType<EAdvancedRectangle>(uri, major, minor, "EAdvancedRectangle");
     qmlRegisterType<ECodeTools>("EUI.Private", major, minor, "CodeTools");
     qmlRegisterType<EFilePickerUtils>("EUI.Private", major, minor, "PickerFileUtils");
+    qmlRegisterType<EImageIO>("EUI.Private", major, minor, "ImageIO");
+    qmlRegisterType<ETextDocument>("EUI.Private", major, minor, "TextDocument");
     qmlRegisterType<EFileUploader>("EUI.Private", major, minor, "FileUploader");
     qmlRegisterType<EShadowRenderer>("EUI.Private", major, minor, "ShadowRenderer");
     qmlRegisterType<EBackdropRenderer>("EUI.Private", major, minor, "BackdropRenderer");

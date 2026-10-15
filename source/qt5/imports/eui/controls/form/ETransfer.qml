@@ -10,8 +10,10 @@ Control {
 
     property var data: []
     property var value: []
+    property bool draggable: false
     property bool filterable: true
     property var filterMethod: null
+    property bool reorderable: false
     property bool validateEvent: true
     property Component leftFooter: null
     property Component rightFooter: null
@@ -44,6 +46,7 @@ Control {
     }
 
     signal changed(var value)
+    signal reordered(bool right)
     signal moved(var value, string direction, var keys)
 
     function keyId(key) {
@@ -61,6 +64,66 @@ Control {
             internal.rightChecked = keys
         else
             internal.leftChecked = keys
+    }
+
+    function finishDrag(right, key, x, y) {
+        if (!enabled || !draggable)
+            return false
+        const source = right ? targetPanel : sourcePanel
+        const target = right ? sourcePanel : targetPanel
+        const position = source.mapToItem(target, x, y)
+        if (position.x >= 0 && position.x <= target.width && position.y >= 0 && position.y <= target.height)
+            return move([key], !right)
+        return false
+    }
+
+    function moveSelection(right, delta) {
+        if (!enabled || !reorderable || (delta !== -1 && delta !== 1))
+            return false
+        const items = right ? targetData : effectiveData.filter(function(item) {
+            return !control.selectedKeys[control.keyId(item.key)]
+        })
+        const keys = right ? internal.rightChecked : internal.leftChecked
+        let moved = false
+        for (let index = delta > 0 ? items.length - 2 : 1; delta > 0 ? index >= 0 : index < items.length;
+            index += delta > 0 ? -1 : 1) {
+            const next = index + delta
+            if (keys.indexOf(items[index].key) >= 0 && keys.indexOf(items[next].key) < 0
+                && reorder(right, index, next)) {
+                const item = items[index]
+                items[index] = items[next]
+                items[next] = item
+                moved = true
+            }
+        }
+        return moved
+    }
+
+    function reorder(right, from, to) {
+        const items = right ? targetData : effectiveData.filter(function(item) {
+            return !control.selectedKeys[control.keyId(item.key)]
+        })
+        if (!enabled || !reorderable || from < 0 || to < 0 || from >= items.length || to >= items.length
+            || Math.floor(from) !== from || Math.floor(to) !== to
+            || items[from].disabled || items[to].disabled || from === to)
+            return false
+        const order = items.slice()
+        order.splice(to, 0, order.splice(from, 1)[0])
+        if (right) {
+            targetOrder = "push"
+            value = order.map(function(item) { return item.key })
+            changed(value)
+        } else {
+            const keys = order.map(function(item) { return item.key })
+            const positions = data.map(function(item, index) {
+                return keys.indexOf(item[props.key || "key"]) >= 0 ? index : -1
+            }).filter(function(index) { return index >= 0 })
+            const updated = data.slice()
+            positions.forEach(function(position, index) { updated[position] = order[index].raw })
+            data = updated
+        }
+        reordered(right)
+        return true
     }
 
     function move(keys, toRight) {
@@ -113,9 +176,13 @@ Control {
         spacing: 12
 
         PrivateControls.TransferPanel {
+            id: sourcePanel
+
             title: control.leftTitle
+            draggable: control.draggable
             filterable: control.filterable
             height: control.availableHeight
+            reorderable: control.reorderable
             checkedKeys: internal.leftChecked
             filterMethod: control.filterMethod
             footerComponent: control.leftFooter
@@ -126,9 +193,13 @@ Control {
             })
 
             onToggled: control.checkKey(key, checked, false)
-            onAllToggled: keys.forEach(function(key) {
-                control.checkKey(key, checked, false)
-            })
+            onMoveSelection: function(delta) { control.moveSelection(false, delta) }
+            onDragFinished: function(key, x, y) { control.finishDrag(false, key, x, y) }
+            onAllToggled: function(keys, checked) {
+                keys.forEach(function(key) {
+                    control.checkKey(key, checked, false)
+                })
+            }
         }
         Column {
             width: 48
@@ -151,10 +222,14 @@ Control {
             }
         }
         PrivateControls.TransferPanel {
+            id: targetPanel
+
             model: control.targetData
             title: control.rightTitle
+            draggable: control.draggable
             filterable: control.filterable
             height: control.availableHeight
+            reorderable: control.reorderable
             checkedKeys: internal.rightChecked
             filterMethod: control.filterMethod
             footerComponent: control.rightFooter
@@ -162,9 +237,13 @@ Control {
             width: Math.max(0, (control.availableWidth - 72) / 2)
 
             onToggled: control.checkKey(key, checked, true)
-            onAllToggled: keys.forEach(function(key) {
-                control.checkKey(key, checked, true)
-            })
+            onMoveSelection: function(delta) { control.moveSelection(true, delta) }
+            onDragFinished: function(key, x, y) { control.finishDrag(true, key, x, y) }
+            onAllToggled: function(keys, checked) {
+                keys.forEach(function(key) {
+                    control.checkKey(key, checked, true)
+                })
+            }
         }
     }
 

@@ -446,7 +446,9 @@ Control {
                 }
             }
 
-            onClicked: control.selectDate(date)
+            onClicked: function(date) {
+                control.selectDate(date)
+            }
         }
         Column {
             x: -24
@@ -522,7 +524,7 @@ Control {
             ? []
             : ""
     }
-    Keys.onPressed: {
+    Keys.onPressed: function(event) {
         let offset = 0
         if (event.key === Qt.Key_Left)
             offset = -1

@@ -372,7 +372,7 @@ Column {
 
                         ERectangle {
                             radius: 8
-                            color: "#226DCA"
+                            color: "#409eff"
                             anchors.fill: parent
 
                             EText {
@@ -388,7 +388,7 @@ Column {
 
                         ERectangle {
                             radius: 8
-                            color: "#007D83"
+                            color: "#67c23a"
                             anchors.fill: parent
 
                             EText {
@@ -412,7 +412,7 @@ Column {
 
                     ERectangle {
                         radius: 8
-                        color: "#226DCA"
+                        color: "#409eff"
                         anchors.fill: parent
 
                         EText {
@@ -428,7 +428,7 @@ Column {
 
                     ERectangle {
                         radius: 8
-                        color: "#007D83"
+                        color: "#67c23a"
                         anchors.fill: parent
 
                         EText {
@@ -514,7 +514,7 @@ Column {
 
                         ERectangle {
                             radius: 8
-                            color: "#226DCA"
+                            color: "#409eff"
                             anchors.fill: parent
 
                             EText {
@@ -532,7 +532,7 @@ Column {
 
                         ERectangle {
                             radius: 8
-                            color: "#007D83"
+                            color: "#67c23a"
                             anchors.fill: parent
 
                             EText {
@@ -550,7 +550,7 @@ Column {
 
                         ERectangle {
                             radius: 8
-                            color: "#6F51C5"
+                            color: "#f56c6c"
                             anchors.fill: parent
 
                             EText {
@@ -576,7 +576,7 @@ Column {
 
                     ERectangle {
                         radius: 8
-                        color: "#226DCA"
+                        color: "#409eff"
                         anchors.fill: parent
 
                         EText {
@@ -594,7 +594,7 @@ Column {
 
                     ERectangle {
                         radius: 8
-                        color: "#007D83"
+                        color: "#67c23a"
                         anchors.fill: parent
 
                         EText {
@@ -612,7 +612,7 @@ Column {
 
                     ERectangle {
                         radius: 8
-                        color: "#6F51C5"
+                        color: "#f56c6c"
                         anchors.fill: parent
 
                         EText {
@@ -1962,7 +1962,7 @@ Column {
                         ERectangle {
                             radius: 12
                             height: modelData
-                            color: index % 2 ? "#007D83" : "#226DCA"
+                            color: index % 2 ? "#67c23a" : "#409eff"
 
                             EText {
                                 color: "white"
@@ -1985,7 +1985,7 @@ Column {
                     ERectangle {
                         radius: 12
                         height: modelData
-                        color: index % 2 ? "#007D83" : "#226DCA"
+                        color: index % 2 ? "#67c23a" : "#409eff"
 
                         EText {
                             color: "white"
@@ -2018,7 +2018,7 @@ Column {
                         ERectangle {
                             radius: 12
                             height: modelData
-                            color: index % 2 ? "#007D83" : "#226DCA"
+                            color: index % 2 ? "#67c23a" : "#409eff"
 
                             EText {
                                 color: "white"
@@ -2041,7 +2041,7 @@ Column {
                     ERectangle {
                         radius: 12
                         height: modelData
-                        color: index % 2 ? "#007D83" : "#226DCA"
+                        color: index % 2 ? "#67c23a" : "#409eff"
 
                         EText {
                             color: "white"
@@ -2074,7 +2074,7 @@ Column {
                         ERectangle {
                             radius: 12
                             height: modelData
-                            color: index % 2 ? "#007D83" : "#226DCA"
+                            color: index % 2 ? "#67c23a" : "#409eff"
 
                             EText {
                                 color: "white"
@@ -2097,7 +2097,7 @@ Column {
                     ERectangle {
                         radius: 12
                         height: modelData
-                        color: index % 2 ? "#007D83" : "#226DCA"
+                        color: index % 2 ? "#67c23a" : "#409eff"
 
                         EText {
                             color: "white"
@@ -2130,7 +2130,7 @@ Column {
                         ERectangle {
                             radius: 12
                             height: modelData
-                            color: index % 2 ? "#007D83" : "#226DCA"
+                            color: index % 2 ? "#67c23a" : "#409eff"
 
                             EText {
                                 color: "white"
@@ -2153,7 +2153,7 @@ Column {
                     ERectangle {
                         radius: 12
                         height: modelData
-                        color: index % 2 ? "#007D83" : "#226DCA"
+                        color: index % 2 ? "#67c23a" : "#409eff"
 
                         EText {
                             color: "white"

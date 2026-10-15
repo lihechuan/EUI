@@ -275,7 +275,7 @@ Item {
     TapHandler {
         gesturePolicy: TapHandler.DragThreshold
 
-        onTapped: {
+        onTapped: function(eventPoint) {
             const point = closeButton.mapFromItem(notification, eventPoint.position.x, eventPoint.position.y)
             if (closeButton.visible && closeButton.contains(point))
                 return

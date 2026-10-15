@@ -307,14 +307,16 @@ ComboBox {
                 delegate: Loader {
                     readonly property var key: modelData
                     readonly property string label: control.labelFor(key)
+                    readonly property real contentWidth: item ? item.implicitWidth : 0
+                    readonly property real contentHeight: item ? item.implicitHeight : 0
 
                     function remove() {
                         return control.removeValue(key)
                     }
 
-                    height: item ? item.implicitHeight : 0
+                    height: contentHeight
+                    width: Math.min(contentWidth, tags.width)
                     sourceComponent: control.tagDelegate || standardTag
-                    width: Math.min(item ? item.implicitWidth : 0, tags.width)
                 }
             }
             ETag {
@@ -351,7 +353,7 @@ ComboBox {
                 placeholderText: control.placeholderText
 
                 onTextEdited: control.query = text
-                Keys.onPressed: {
+                Keys.onPressed: function(event) {
                     if (event.key === Qt.Key_Down) {
                         control.highlightOption(1)
                         event.accepted = true

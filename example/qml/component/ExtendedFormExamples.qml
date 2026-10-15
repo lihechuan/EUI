@@ -178,19 +178,19 @@ ExamplePage {
                         showButtons: true
                         colorFormat: "hsl"
                         commitOnConfirm: true
-                        value: "#3267e8"
-                        predefine: ["#3267e8", "#8b5cf6", "#14b8a6", "#e6a23c", "#f56c6c"]
+                        value: "#409eff"
+                        predefine: ["#409eff", "#909399", "#67c23a", "#e6a23c", "#f56c6c"]
                     }
                 }`)
 
             EColorPickerPanel {
                 showAlpha: true
-                value: "#3267e8"
+                value: "#409eff"
                 showButtons: true
                 colorFormat: "hsl"
                 commitOnConfirm: true
                 objectName: "webFormEColorPickerPanel"
-                predefine: ["#3267e8", "#8b5cf6", "#14b8a6", "#e6a23c", "#f56c6c"]
+                predefine: ["#409eff", "#909399", "#67c23a", "#e6a23c", "#f56c6c"]
             }
         }
     }
@@ -211,18 +211,18 @@ ExamplePage {
                         showAlpha: true
                         colorFormat: "rgb"
                         commitOnConfirm: true
-                        value: "#3267e8"
-                        predefine: ["#3267e8", "#8b5cf6", "#14b8a6", "#e6a23c", "#f56c6c"]
+                        value: "#409eff"
+                        predefine: ["#409eff", "#909399", "#67c23a", "#e6a23c", "#f56c6c"]
                     }
                 }`)
 
             EColorPicker {
                 showAlpha: true
-                value: "#3267e8"
+                value: "#409eff"
                 colorFormat: "rgb"
                 commitOnConfirm: true
                 objectName: "webFormEColorPicker"
-                predefine: ["#3267e8", "#8b5cf6", "#14b8a6", "#e6a23c", "#f56c6c"]
+                predefine: ["#409eff", "#909399", "#67c23a", "#e6a23c", "#f56c6c"]
             }
         }
     }
@@ -1289,4 +1289,5 @@ ExamplePage {
         }
     }
     ExtendedFormShowcase { }
+    PrimeShowcase { names: ["ETransfer"] }
 }

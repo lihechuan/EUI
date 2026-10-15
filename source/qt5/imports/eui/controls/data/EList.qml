@@ -139,7 +139,9 @@ Control {
                 objectName: "listPagination"
                 pageSize: control.effectivePageSize
 
-                onCurrentChange: control.setPage(page)
+                onCurrentChange: function(page) {
+                    control.setPage(page)
+                }
 
                 Binding {
                     target: pager
@@ -183,7 +185,9 @@ Control {
             indexOffset: control.pageOffset
             itemDelegate: control.itemDelegate || defaultItem
 
-            onItemClicked: control.itemClicked(item, index)
+            onItemClicked: function(item, index) {
+                control.itemClicked(item, index)
+            }
         }
     }
     Component {

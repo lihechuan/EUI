@@ -346,11 +346,13 @@ FormControls.EInput {
                         showWeekNumber: control.showWeekNumber
                         type: control.isRange ? "daterange" : "date"
 
-                        onCalendarChanged: control.rangeSelection(value)
                         onPicked: if (!control.showConfirm)
                             control.confirm()
                         onHoverValueChanged: secondPanel.hoverValue = hoverValue
                         onPanelChanged: control.linkPanels(datePanel, date, mode)
+                        onCalendarChanged: function(value) {
+                            control.rangeSelection(value)
+                        }
                     }
                     FormControls.EInput {
                         width: datePanel.width
@@ -428,11 +430,13 @@ FormControls.EInput {
                         prevMonthIcon: control.prevMonthIcon
                         showWeekNumber: control.showWeekNumber
 
-                        onCalendarChanged: control.rangeSelection(value)
                         onPicked: if (!control.showConfirm)
                             control.confirm()
                         onHoverValueChanged: datePanel.hoverValue = hoverValue
                         onPanelChanged: control.linkPanels(secondPanel, date, mode)
+                        onCalendarChanged: function(value) {
+                            control.rangeSelection(value)
+                        }
                     }
                     FormControls.EInput {
                         width: datePanel.width

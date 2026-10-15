@@ -160,8 +160,10 @@ Menu {
             }
         }
 
-        onObjectAdded: menu.insert(index, object)
-        onObjectRemoved: {
+        onObjectAdded: function(index, object) {
+            menu.insert(index, object)
+        }
+        onObjectRemoved: function(index, object) {
             if (object.item && object.inserted) {
                 if (object.hasChildren)
                     menu.removeMenu(object.item)

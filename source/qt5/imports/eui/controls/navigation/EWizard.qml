@@ -127,7 +127,7 @@ Control {
                 return {title: page.title || "", description: page.description || "", disabled: !!page.disabled}
             })
 
-            onStepClicked: {
+            onStepClicked: function(index) {
                 control.navigate(index)
                 active = Qt.binding(function() { return control.complete ? control.pages.length : control.currentIndex })
             }

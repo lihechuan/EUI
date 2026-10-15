@@ -14,7 +14,7 @@ Control {
     property bool collapseAvatars: false
     property bool collapseAvatarsTooltip: false
 
-    readonly property int count: avatars.length
+    readonly property int count: Array.isArray(avatars) ? avatars.length : 0
     readonly property int collapsedCount: collapseAvatars
         ? Math.max(0, count - Math.max(0, maxCollapseAvatars))
         : 0
