@@ -35,12 +35,12 @@ def run(*arguments):
     return subprocess.check_output(arguments, encoding='utf-8').strip()
 
 
-def api(path, data=None, paginate=False):
+def api(path, data=None, paginate=False, method='PATCH'):
     arguments = ['gh', 'api', path]
     if paginate:
         arguments += ['--paginate', '--slurp']
     if data is not None:
-        arguments += ['--method', 'PATCH', '--input', '-']
+        arguments += ['--method', method, '--input', '-']
     return json.loads(subprocess.check_output(
         arguments, input=json.dumps(data) if data is not None else None, encoding='utf-8'
     ))
@@ -117,11 +117,11 @@ def publish_release(root, version, repository, commit):
     files.append(checksums)
 
     if not release:
-        run('gh', 'release', 'create', tag, '--repo', repository, '--draft',
-            '--target', commit, '--title', f'EUI Gallery {version}',
-            '--notes-file', str(root / 'packaging/release-notes.md'))
-        releases = api(prefix + '/releases?per_page=100', paginate=True)
-        release = next(item for page in releases for item in page if item['tag_name'] == tag)
+        release = api(prefix + '/releases', {
+            'tag_name': tag, 'target_commitish': commit, 'draft': True,
+            'name': f'EUI Gallery {version}',
+            'body': (root / 'packaging/release-notes.md').read_text(encoding='utf-8'),
+        }, method='POST')
 
     assets = {asset['name']: asset for asset in release['assets']}
     with tempfile.TemporaryDirectory(prefix='eui-release-verify-') as directory:

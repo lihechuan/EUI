@@ -13,6 +13,8 @@ class ReleaseAutomationTests(unittest.TestCase):
         self.directory = tempfile.TemporaryDirectory(prefix='eui-release-test-')
         self.addCleanup(self.directory.cleanup)
         self.root = Path(self.directory.name)
+        (self.root / 'packaging').mkdir()
+        (self.root / 'packaging/release-notes.md').write_text('1. Test feature.\n', encoding='utf-8')
         self.source = self.root / 'CMakeLists.txt'
         self.source.write_text('project(EUI VERSION 1.0.0)\n', encoding='utf-8')
         subprocess.run(['git', 'init', '--quiet', str(self.root)], check=True)
@@ -48,11 +50,19 @@ class ReleaseAutomationTests(unittest.TestCase):
         self.remote = {}
         self.published = False
 
-    def api(self, path, data=None, paginate=False):
+    def api(self, path, data=None, paginate=False, method='PATCH'):
         item = {'tag_name': 'v1.0.1', 'draft': not self.published, 'target_commitish': self.current,
                 'id': 1, 'assets': [{'name': name} for name in self.remote], 'html_url': 'test release'}
         if paginate:
+            if getattr(self, 'hide_draft_from_list', False):
+                return [[]]
             return [[item]] if self.created else [[]]
+        if method == 'POST':
+            self.assertEqual(path, 'repos/owner/project/releases')
+            self.assertEqual(data, {'tag_name': 'v1.0.1', 'target_commitish': self.current,
+                                   'draft': True, 'name': 'EUI Gallery 1.0.1', 'body': '1. Test feature.\n'})
+            self.created = True
+            return item
         self.assertEqual(set(self.remote), set(self.files))
         self.assertEqual(data, {'draft': False, 'make_latest': 'legacy'})
         self.published = True
@@ -60,10 +70,7 @@ class ReleaseAutomationTests(unittest.TestCase):
         return item
 
     def command(self, *arguments):
-        if arguments[:3] == ('gh', 'release', 'create'):
-            self.assertIn('--draft', arguments)
-            self.created = True
-        elif arguments[:3] == ('gh', 'release', 'upload'):
+        if arguments[:3] == ('gh', 'release', 'upload'):
             self.assertNotIn('--clobber', arguments)
             path = Path(arguments[4])
             self.remote[path.name] = path.read_bytes()
@@ -128,6 +135,13 @@ class ReleaseAutomationTests(unittest.TestCase):
         self.created = True
         name = next(iter(self.files))
         self.remote[name] = self.files[name]
+        self.publish()
+        self.assertTrue(self.published)
+
+    def test_create_draft_when_release_list_is_stale(self):
+        self.packages()
+        self.created = False
+        self.hide_draft_from_list = True
         self.publish()
         self.assertTrue(self.published)
 
