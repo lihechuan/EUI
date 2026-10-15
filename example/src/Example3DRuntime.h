@@ -17,8 +17,8 @@ class Example3DRuntime : public QObject
     Q_PROPERTY(bool busy READ busy NOTIFY changed)
     Q_PROPERTY(bool supported READ supported CONSTANT)
     Q_PROPERTY(QString error READ error NOTIFY changed)
-    Q_PROPERTY(QString stage READ stage NOTIFY changed)
     Q_PROPERTY(QString platform READ platform CONSTANT)
+    Q_PROPERTY(QString stage READ stage NOTIFY changed)
     Q_PROPERTY(qreal progress READ progress NOTIFY changed)
     Q_PROPERTY(bool installed READ installed NOTIFY changed)
 
@@ -30,8 +30,8 @@ public:
     QString error() const;
     QString stage() const;
     bool installed() const;
-    bool supported() const;
     qreal progress() const;
+    bool supported() const;
     QString platform() const;
     Q_INVOKABLE void confirmReady();
     Q_INVOKABLE void install(const QString &language, bool dark);

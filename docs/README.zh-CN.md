@@ -2,9 +2,9 @@
 
 [English](../README.md) | 简体中文
 
-[当前源码版本 **1.2.0**，新增文件/目录选择、工具栏、代码展示、命令面板和步骤向导；Gallery 标记本版本新增组件。Windows 包包含用于 Littlest Tokyo 3D 示例的 Qt 6 运行时，Gallery 支持经过校验的更新安装。
+当前源码版本 **1.2.0**，新增文件/目录选择、工具栏、代码展示、命令面板和步骤向导；Gallery 标记本版本新增组件。Windows 包包含用于 Littlest Tokyo 3D 示例的 Qt 6 运行时，Gallery 支持经过校验的更新安装。
 
-![Windows 构建与打包](https://github.com/lihechuan/EUI/actions/workflows/build-windows.yml/badge.svg)](https://github.com/lihechuan/EUI/actions/workflows/build-windows.yml)
+[![Windows 构建与打包](https://github.com/lihechuan/EUI/actions/workflows/build-windows.yml/badge.svg)](https://github.com/lihechuan/EUI/actions/workflows/build-windows.yml)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](../LICENSE)
 
 EUI 是面向 Qt Quick / QML 桌面应用的 UI 组件库，提供表单、数据表格、导航、图表和消息反馈等控件，并使用统一的明暗主题。
