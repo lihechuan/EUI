@@ -5,8 +5,38 @@ on:
   push:
     branches: [master]
     tags: ['v*']
+    paths:
+      - '.gitattributes'
+      - '.github/workflows/build-windows.yml'
+      - '**/CMakeLists.txt'
+      - '**/*.cmake'
+      - 'CMakePresets.json'
+      - 'assets/**'
+      - 'example/**'
+      - 'packaging/**'
+      - 'source/**'
+      - 'tests/**'
+      - '!**/*.md'
+      - 'LICENSE'
+      - 'THIRD_PARTY_NOTICES.md'
+      - '**/ATTRIBUTION.md'
   pull_request:
     branches: [master]
+    paths:
+      - '.gitattributes'
+      - '.github/workflows/build-windows.yml'
+      - '**/CMakeLists.txt'
+      - '**/*.cmake'
+      - 'CMakePresets.json'
+      - 'assets/**'
+      - 'example/**'
+      - 'packaging/**'
+      - 'source/**'
+      - 'tests/**'
+      - '!**/*.md'
+      - 'LICENSE'
+      - 'THIRD_PARTY_NOTICES.md'
+      - '**/ATTRIBUTION.md'
   workflow_dispatch:
 
 permissions:
@@ -49,8 +79,10 @@ jobs:
       - name: Test release automation
         run: python -m unittest discover -s packaging -p test_github_release.py -v
 
-      - name: Detect version change
+      - name: Check whether the current version needs publication
         id: version
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: python packaging/github_release.py plan
 
       - name: Set up MSVC for the Qt 6 x64 runtime

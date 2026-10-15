@@ -4,7 +4,7 @@
 
 Features, fixes, and compatibility changes for each version.
 
-## 1.2.0 - 开发中 / In development
+## 1.2.0 - 2026-10-15
 
 1. 新增 `EFilePicker`、`EFolderPicker`，支持打开文件、多选、保存位置和目录选择。
 2. 新增 `EToolBar`，支持操作排列、分隔、可切换操作、Qt Action 和溢出菜单。
@@ -16,8 +16,9 @@ Features, fixes, and compatibility changes for each version.
 8. 补齐更新空闲状态的中英文文案，修复数值输入框的按钮边界和开关销毁后的延迟回调；完善 Qt 5 / Qt 6 Gallery 与原生文件对话框回归。
 9. 规避 Qt 5.15.2 Windows x64 的 JIT 异常表写入和嵌套异步创建崩溃，该环境下 Gallery 使用同步页面加载；修复测试退出时的异步创建清理。
 10. 修复 Qt 6 表格按行对象展开和选择器索引同步、抽屉拖动缩放、点击菜单意外关闭及图表加载事件参数兼容问题。
+11. 修复构建失败后同版本无法自动补发 Release 的问题，保留已公开版本及附件；仅修改文档和截图时跳过自动打包。
 
-English: Adds file/folder pickers, a toolbar with overflow and Qt Action support, a reusable code view, a command palette, and a wizard with synchronous/asynchronous navigation validation. Gallery navigation, overview, and detail pages identify components introduced in the current version. Fixes Qt 6 sizing loops and C++ list compatibility in tables, tree selectors, and cascaders; fills the idle update translations, corrects spin-box bounds and deferred switch callbacks, extends Gallery and native file-dialog regression coverage for Qt 5 and Qt 6, and avoids the Qt 5.15.2 Windows x64 JIT unwind-table and nested asynchronous creation crashes by loading Gallery pages synchronously on that platform while ensuring pending creation completes before test shutdown. Also fixes Qt 6 row-object expansion, selector index synchronization, drawer resizing, click-triggered menus closing unexpectedly, and chart loading-event parameters.
+English: Adds file/folder pickers, a toolbar with overflow and Qt Action support, a reusable code view, a command palette, and a wizard with synchronous/asynchronous navigation validation. Gallery navigation, overview, and detail pages identify components introduced in the current version. Fixes Qt 6 sizing loops and C++ list compatibility in tables, tree selectors, and cascaders; fills the idle update translations, corrects spin-box bounds and deferred switch callbacks, extends Gallery and native file-dialog regression coverage for Qt 5 and Qt 6, and avoids the Qt 5.15.2 Windows x64 JIT unwind-table and nested asynchronous creation crashes by loading Gallery pages synchronously on that platform while ensuring pending creation completes before test shutdown. Also fixes Qt 6 row-object expansion, selector index synchronization, drawer resizing, click-triggered menus closing unexpectedly, and chart loading-event parameters. Failed releases can now recover on a later successful push without a version change; published releases and their assets are preserved. Documentation and screenshot changes alone skip automatic packaging.
 
 ## 1.1.0 - 2026-10-13
 

@@ -21,6 +21,9 @@ class ReleaseAutomationTests(unittest.TestCase):
         self.commit()
         (self.root / 'unrelated.txt').write_text('another commit in the same push', encoding='utf-8')
         self.current = self.commit()
+        plan_api = patch.object(release, 'api', return_value=[[]])
+        self.plan_api = plan_api.start()
+        self.addCleanup(plan_api.stop)
 
     def commit(self):
         subprocess.run(['git', 'add', '.'], cwd=self.root, check=True)
@@ -28,8 +31,8 @@ class ReleaseAutomationTests(unittest.TestCase):
                         'commit', '--quiet', '-m', 'test fixture'], cwd=self.root, check=True)
         return subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=self.root, text=True).strip()
 
-    def plan(self, event_name='push', ref='refs/heads/master', before=None):
-        return release.release_plan(self.root, event_name, ref, {'before': before or self.before})
+    def plan(self, event_name='push', ref='refs/heads/master'):
+        return release.release_plan(self.root, event_name, ref, 'owner/project')
 
     def packages(self):
         destination = self.root / 'dist'
@@ -76,24 +79,38 @@ class ReleaseAutomationTests(unittest.TestCase):
         with patch.object(release, 'api', side_effect=self.api), patch.object(release, 'run', side_effect=self.command):
             release.publish_release(self.root, '1.0.1', 'owner/project', self.current)
 
-    def test_version_change_across_multiple_commits(self):
+    def test_retry_unchanged_version_without_published_release(self):
         self.assertEqual(self.plan(), ('1.0.1', True))
-        self.assertEqual(self.plan(before=self.current), ('1.0.1', False))
-        self.assertEqual(self.plan(before='0' * 40), ('1.0.1', True))
+        self.plan_api.assert_called_once_with('repos/owner/project/releases?per_page=100', paginate=True)
+
+    def test_published_release_is_found_across_pages(self):
+        self.plan_api.return_value = [[{'tag_name': 'v1.0.0', 'draft': False}],
+                                      [{'tag_name': 'v1.0.1', 'draft': False}]]
+        self.assertEqual(self.plan(), ('1.0.1', False))
+
+    def test_draft_release_can_resume(self):
+        self.plan_api.return_value = [[{'tag_name': 'v1.0.1', 'draft': True}]]
+        self.assertEqual(self.plan(), ('1.0.1', True))
+
+    def test_release_lookup_failure_stops_the_plan(self):
+        self.plan_api.side_effect = subprocess.CalledProcessError(1, ['gh', 'api'])
+        with self.assertRaises(subprocess.CalledProcessError):
+            self.plan()
 
     def test_equivalent_versions_and_non_release_events(self):
         self.source.write_text('project(EUI VERSION 1.0)\n', encoding='utf-8')
+        self.plan_api.return_value = [[{'tag_name': 'v1.0.0', 'draft': False}]]
         self.assertEqual(self.plan(), ('1.0.0', False))
+        self.plan_api.reset_mock()
         for event, ref in (('pull_request', 'refs/pull/1/merge'), ('workflow_dispatch', 'refs/heads/master'),
                            ('push', 'refs/heads/feature')):
             self.assertFalse(self.plan(event, ref)[1])
+        self.plan_api.assert_not_called()
 
     def test_invalid_versions_and_mismatched_tags(self):
         self.assertEqual(self.plan(ref='refs/tags/v1.0.1'), ('1.0.1', True))
         with self.assertRaises(ValueError):
             self.plan(ref='refs/tags/v9.0.0')
-        with self.assertRaises(ValueError):
-            self.plan(before='not a commit')
         for source in ('project(Other VERSION 1.0.1)', 'project(EUI VERSION 1..0)',
                        'project(EUI VERSION 1.0.1-beta)', 'project(EUI VERSION 1.0.1.0.0)'):
             with self.assertRaises(ValueError):

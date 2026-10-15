@@ -685,7 +685,7 @@ Windows uses Qt 5.15.2; macOS uses Qt 6.8.3. Drag the macOS DMG application into
 2. Download the required platform's attachment from **Artifacts** at the bottom of the page. Build artifacts are retained for 14 days.
 3. Extract the attachment and use the installer or portable package. Verify SHA-256 against `SHA256SUMS.txt`. For the Windows portable package, extract the complete directory and run `EUI-Gallery.exe`, keeping all DLLs and subdirectories.
 
-For long-term downloads, see [GitHub Releases](https://github.com/lihechuan/EUI/releases). A version change reaching `master` automatically publishes verified installers, portable packages, and checksums. See the [release process](../CONTRIBUTING.md#正式发布--releases) for publication and failed-job retries. Test charts, media, uploads, and printing on actual target systems before delivery.
+For long-term downloads, see [GitHub Releases](https://github.com/lihechuan/EUI/releases). Documentation and screenshot changes alone skip automatic packaging. A push to `master` that triggers packaging publishes installers, portable packages, and checksums after every platform passes verification if the current version has no published release. Fixes can recover a failed release without changing the version; published versions are preserved. See the [release process](../CONTRIBUTING.md#正式发布--releases) for publication and failed-job retries. Test charts, media, uploads, and printing on actual target systems before delivery.
 
 ## 7. Troubleshooting
 

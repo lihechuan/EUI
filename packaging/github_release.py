@@ -17,20 +17,13 @@ def read_version(source):
     return value + '.0' if value.count('.') == 1 else value
 
 
-def release_plan(root, event_name, ref, event):
+def release_plan(root, event_name, ref, repository):
     version = read_version((root / 'CMakeLists.txt').read_text(encoding='utf-8'))
     publish = False
     if event_name == 'push' and ref == 'refs/heads/master':
-        before = event['before']
-        if not re.fullmatch(r'[0-9a-f]{40}', before):
-            raise ValueError('Invalid previous push commit.')
-        if before == '0' * 40:
-            publish = True
-        else:
-            previous = subprocess.check_output(
-                ['git', 'show', before + ':CMakeLists.txt'], cwd=root, encoding='utf-8'
-            )
-            publish = version != read_version(previous)
+        releases = api('repos/' + repository + '/releases?per_page=100', paginate=True)
+        publish = not any(item['tag_name'] == 'v' + version and not item['draft']
+                          for page in releases for item in page)
     elif event_name == 'push' and ref.startswith('refs/tags/v'):
         if ref != 'refs/tags/v' + version:
             raise ValueError('The tag must match the version in CMakeLists.txt.')
@@ -153,8 +146,8 @@ def main():
     arguments = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
     if arguments.command == 'plan':
-        event = json.loads(Path(os.environ['GITHUB_EVENT_PATH']).read_text(encoding='utf-8'))
-        version, publish = release_plan(root, os.environ['GITHUB_EVENT_NAME'], os.environ['GITHUB_REF'], event)
+        version, publish = release_plan(root, os.environ['GITHUB_EVENT_NAME'], os.environ['GITHUB_REF'],
+                                        os.environ['GITHUB_REPOSITORY'])
         with Path(os.environ['GITHUB_OUTPUT']).open('a', encoding='utf-8') as output:
             output.write(f'version={version}\npublish={str(publish).lower()}\n')
         print(f'Version: {version}; publish release: {publish}')
