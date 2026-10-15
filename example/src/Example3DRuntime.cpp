@@ -584,6 +584,9 @@ void Example3DRuntime::launch()
     {
         environment.insert(QStringLiteral("QT_FORCE_STDERR_LOGGING"), QStringLiteral("1"));
         environment.insert(QStringLiteral("QSG_INFO"), QStringLiteral("1"));
+#ifdef Q_OS_WIN
+        environment.insert(QStringLiteral("QSG_RHI_PREFER_SOFTWARE_RENDERER"), QStringLiteral("1"));
+#endif
         if (qEnvironmentVariable("QT_QPA_PLATFORM") == QStringLiteral("offscreen"))
             environment.insert(QStringLiteral("QT_QPA_PLATFORM"), QStringLiteral("offscreen"));
         m_child->setProcessChannelMode(QProcess::ForwardedChannels);
