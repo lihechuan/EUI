@@ -440,11 +440,30 @@ ExamplePage {
                     maxCollapseAvatars: 3
                     collapseAvatarsTooltip: true
 
-                    EAvatar { text: "A" }
-                    EAvatar { text: "B" }
-                    EAvatar { text: "C" }
-                    EAvatar { text: "D" }
-                    EAvatar { text: "E" }
+                    EAvatar {
+                        text: "A"
+                        source: "qrc:/example/images/gallery/avatar-01.jpg"
+                    }
+                    EAvatar {
+                        text: "B"
+                        source: "qrc:/example/images/gallery/avatar-02.jpg"
+                    }
+                    EAvatar {
+                        text: "C"
+                        source: "qrc:/example/images/gallery/avatar-03.jpg"
+                    }
+                    EAvatar {
+                        text: "D"
+                        source: "qrc:/example/images/gallery/avatar-04.jpg"
+                    }
+                    EAvatar {
+                        text: "E"
+                        source: "qrc:/example/images/gallery/avatar-05.jpg"
+                    }
+                    EAvatar {
+                        text: "F"
+                        source: "qrc:/example/images/gallery/avatar-06.jpg"
+                    }
                 }`)
 
             EAvatarGroup {
@@ -454,11 +473,30 @@ ExamplePage {
                 maxCollapseAvatars: 3
                 collapseAvatarsTooltip: true
 
-                EAvatar { text: "A" }
-                EAvatar { text: "B" }
-                EAvatar { text: "C" }
-                EAvatar { text: "D" }
-                EAvatar { text: "E" }
+                EAvatar {
+                    text: "A"
+                    source: "qrc:/example/images/gallery/avatar-01.jpg"
+                }
+                EAvatar {
+                    text: "B"
+                    source: "qrc:/example/images/gallery/avatar-02.jpg"
+                }
+                EAvatar {
+                    text: "C"
+                    source: "qrc:/example/images/gallery/avatar-03.jpg"
+                }
+                EAvatar {
+                    text: "D"
+                    source: "qrc:/example/images/gallery/avatar-04.jpg"
+                }
+                EAvatar {
+                    text: "E"
+                    source: "qrc:/example/images/gallery/avatar-05.jpg"
+                }
+                EAvatar {
+                    text: "F"
+                    source: "qrc:/example/images/gallery/avatar-06.jpg"
+                }
             }
         }
     }
@@ -590,7 +628,7 @@ ExamplePage {
                         size: 56
                         shape: "square"
                         fillMode: Image.PreserveAspectFit
-                        source: "qrc:/example/eui-mark.svg"
+                        source: "qrc:/example/images/gallery/avatar-01.jpg"
                     }
                     EAvatar {
                         size: 56
@@ -615,7 +653,7 @@ ExamplePage {
                     size: 56
                     shape: "square"
                     fillMode: Image.PreserveAspectFit
-                    source: "qrc:/example/eui-mark.svg"
+                    source: "qrc:/example/images/gallery/avatar-01.jpg"
                 }
                 EAvatar {
                     size: 56

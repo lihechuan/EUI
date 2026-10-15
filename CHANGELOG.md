@@ -4,6 +4,16 @@
 
 Features, fixes, and compatibility changes for each version.
 
+## 1.3.1 - 2026-10-15
+
+1. 为头像、轮播、图片预览、上传、对比及视觉效果示例接入本地图片资源。
+2. 修复 macOS 从图形界面准备 Qt 6 运行环境时无法找到 CMake 或 Ninja 的问题。
+3. Qt 6 准备阶段使用循环进度条，进入安装后显示实际百分比，并完善中英文提示。
+4. 修复循环进度条到达右端时整体跳回左端的问题，使移出与进入的部分连续衔接。
+5. 图片预览仅在打开并启用缩略图时加载缩略图；错误示例改为点击后触发，避免打开页面时产生缺失图片警告。
+
+English: Adds bundled local images to Gallery examples. Fixes CMake and Ninja discovery when preparing the Qt 6 runtime from macOS GUI applications. Shows indeterminate progress during runtime preparation and measured progress during installation. Makes linear indeterminate progress wrap continuously between the right and left edges. Defers preview thumbnails until needed and triggers the image error example only on request.
+
 ## 1.3.0 - 2026-10-15
 
 1. 新增浮动标签、内嵌标签、关联标签、输入组合、旋钮和列表框。

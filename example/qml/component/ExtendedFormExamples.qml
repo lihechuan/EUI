@@ -867,7 +867,9 @@ ExamplePage {
                         listType: "picture-card"
                         limit: 6
                         accept: "image/*"
-                        fileList: [{url: "qrc:/example/eui-mark.svg", name: "EUI.svg", status: "ready"}]
+                        fileList: [{url: "qrc:/example/images/gallery/lake.jpg", name: "lake.jpg", status: "ready"},
+                            {url: "qrc:/example/images/gallery/tree.jpg", name: "tree.jpg", status: "ready"},
+                            {url: "qrc:/example/images/gallery/ocean.jpg", name: "ocean.jpg", status: "ready"}]
                         httpRequest: function(request) {
                             let cancelled = false
                             Qt.callLater(function() {
@@ -927,7 +929,9 @@ ExamplePage {
                     accept: "image/*"
                     listType: "picture-card"
                     width: Math.min(520, parent.width)
-                    fileList: [{url: "qrc:/example/eui-mark.svg", name: "EUI.svg", status: "ready"}]
+                    fileList: [{url: "qrc:/example/images/gallery/lake.jpg", name: "lake.jpg", status: "ready"},
+                        {url: "qrc:/example/images/gallery/tree.jpg", name: "tree.jpg", status: "ready"},
+                        {url: "qrc:/example/images/gallery/ocean.jpg", name: "ocean.jpg", status: "ready"}]
                     tipDelegate: Component {
                         EText {
                             wrapMode: Text.WordWrap

@@ -439,11 +439,11 @@ const Sample Samples[] = {
     {"ExtendedDataExamplesSample4",
      R"qml(EImage {
     preview: true
-    source: "qrc:/example/eui-mark.svg"
+    source: "qrc:/example/images/gallery/lake.jpg"
 })qml",
      R"qml(EImage {
     preview: true
-    source: "qrc:/example/eui-mark.svg"
+    source: "qrc:/example/images/gallery/lake.jpg"
 })qml"},
     {"LayoutExamplesSample9",
      R"qml(EConfigProvider {
@@ -1330,8 +1330,14 @@ ETextArea {
     speed: 0.35
     width: parent.width
     backgroundComponent: Component {
-        ERectangle {
-            color: EPaletteManager.ThemePalette.surfacePressed(ETheme.dark)
+        Image {
+            source: "qrc:/example/images/gallery/tree.jpg"
+            fillMode: Image.PreserveAspectCrop
+
+            ERectangle {
+                color: "#66000000"
+                anchors.fill: parent
+            }
         }
     }
 
@@ -1340,6 +1346,7 @@ ETextArea {
 
         EText {
             height: 48
+            color: "white"
             text: index + 1
         }
     }
@@ -1349,8 +1356,14 @@ ETextArea {
     speed: 0.35
     width: parent.width
     backgroundComponent: Component {
-        ERectangle {
-            color: EPaletteManager.ThemePalette.surfacePressed(ETheme.dark)
+        Image {
+            source: "qrc:/example/images/gallery/tree.jpg"
+            fillMode: Image.PreserveAspectCrop
+
+            ERectangle {
+                color: "#66000000"
+                anchors.fill: parent
+            }
         }
     }
 
@@ -1359,6 +1372,7 @@ ETextArea {
 
         EText {
             height: 48
+            color: "white"
             text: index + 1
         }
     }
@@ -2376,25 +2390,12 @@ EAdvancedRectangle {
         height: 240
         width: parent.width
 
-        ERectangle {
+        Image {
             id: backdrop
 
             anchors.fill: parent
-            color: EPaletteManager.ThemePalette.fetchColorForStyle(EStyle.Primary)
-
-            ERectangle {
-                height: parent.height
-                width: parent.width / 2
-                anchors.right: parent.right
-                color: EPaletteManager.ThemePalette.fetchColorForStyle(EStyle.Success)
-            }
-            EText {
-                font.bold: true
-                text: qsTr("EUI")
-                font.pixelSize: 64
-                anchors.centerIn: parent
-                color: EPaletteManager.BasePalette.white
-            }
+            fillMode: Image.PreserveAspectCrop
+            source: "qrc:/example/images/gallery/lake.jpg"
         }
         EAcrylic {
             id: acrylic
@@ -2422,25 +2423,12 @@ EAdvancedRectangle {
         height: 240
         width: parent.width
 
-        ERectangle {
+        Image {
             id: backdrop
 
             anchors.fill: parent
-            color: EPaletteManager.ThemePalette.fetchColorForStyle(EStyle.Primary)
-
-            ERectangle {
-                height: parent.height
-                width: parent.width / 2
-                anchors.right: parent.right
-                color: EPaletteManager.ThemePalette.fetchColorForStyle(EStyle.Success)
-            }
-            EText {
-                font.bold: true
-                text: qsTr("EUI")
-                font.pixelSize: 64
-                anchors.centerIn: parent
-                color: EPaletteManager.BasePalette.white
-            }
+            fillMode: Image.PreserveAspectCrop
+            source: "qrc:/example/images/gallery/lake.jpg"
         }
         EAcrylic {
             id: acrylic

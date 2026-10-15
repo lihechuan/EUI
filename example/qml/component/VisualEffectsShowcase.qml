@@ -465,27 +465,12 @@ Column {
                     height: 200
                     width: Math.min(480, parent.width)
 
-                    ERectangle {
+                    Image {
                         id: backdrop
 
                         anchors.fill: parent
-                        gradient: Gradient {
-                            GradientStop {
-                                position: 0
-                                color: "#409eff"
-                            }
-                            GradientStop {
-                                position: 1
-                                color: "#67c23a"
-                            }
-                        }
-
-                        EText {
-                            text: "EUI"
-                            color: "white"
-                            font.pixelSize: 64
-                            anchors.centerIn: parent
-                        }
+                        fillMode: Image.PreserveAspectCrop
+                        source: "qrc:/example/images/gallery/lake.jpg"
                     }
                     EAcrylic {
                         radius: 20
@@ -511,27 +496,12 @@ Column {
                 height: 200
                 width: Math.min(480, parent.width)
 
-                ERectangle {
+                Image {
                     id: backdrop
 
                     anchors.fill: parent
-                    gradient: Gradient {
-                        GradientStop {
-                            position: 0
-                            color: "#409eff"
-                        }
-                        GradientStop {
-                            position: 1
-                            color: "#67c23a"
-                        }
-                    }
-
-                    EText {
-                        text: "EUI"
-                        color: "white"
-                        font.pixelSize: 64
-                        anchors.centerIn: parent
-                    }
+                    fillMode: Image.PreserveAspectCrop
+                    source: "qrc:/example/images/gallery/lake.jpg"
                 }
                 EAcrylic {
                     radius: 20
@@ -821,7 +791,7 @@ Column {
                     EImage {
                         anchors.fill: parent
                         fillMode: Image.PreserveAspectCrop
-                        source: "qrc:/example/eui-mark.svg"
+                        source: "qrc:/example/images/gallery/ocean.jpg"
                     }
                 }
             `)
@@ -834,7 +804,7 @@ Column {
                 EImage {
                     anchors.fill: parent
                     fillMode: Image.PreserveAspectCrop
-                    source: "qrc:/example/eui-mark.svg"
+                    source: "qrc:/example/images/gallery/ocean.jpg"
                 }
             }
         }
@@ -855,14 +825,13 @@ Column {
                     spacing: 20
                     width: Math.min(480, parent.width)
                     backgroundComponent: Component {
-                        ERectangle {
-                            color: "#173958"
+                        Image {
+                            source: "qrc:/example/images/gallery/tree.jpg"
+                            fillMode: Image.PreserveAspectCrop
 
-                            EText {
-                                text: "EUI"
-                                color: "#409EFF"
-                                font.pixelSize: 64
-                                anchors.centerIn: parent
+                            ERectangle {
+                                color: "#66000000"
+                                anchors.fill: parent
                             }
                         }
                     }
@@ -885,14 +854,13 @@ Column {
                 spacing: 20
                 width: Math.min(480, parent.width)
                 backgroundComponent: Component {
-                    ERectangle {
-                        color: "#173958"
+                    Image {
+                        source: "qrc:/example/images/gallery/tree.jpg"
+                        fillMode: Image.PreserveAspectCrop
 
-                        EText {
-                            text: "EUI"
-                            color: "#409EFF"
-                            font.pixelSize: 64
-                            anchors.centerIn: parent
+                        ERectangle {
+                            color: "#66000000"
+                            anchors.fill: parent
                         }
                     }
                 }
@@ -925,14 +893,13 @@ Column {
                     spacing: 20
                     width: Math.min(480, parent.width)
                     backgroundComponent: Component {
-                        ERectangle {
-                            color: "#173958"
+                        Image {
+                            source: "qrc:/example/images/gallery/tree.jpg"
+                            fillMode: Image.PreserveAspectCrop
 
-                            EText {
-                                text: "EUI"
-                                color: "#409EFF"
-                                font.pixelSize: 64
-                                anchors.centerIn: parent
+                            ERectangle {
+                                color: "#66000000"
+                                anchors.fill: parent
                             }
                         }
                     }
@@ -955,14 +922,13 @@ Column {
                 spacing: 20
                 width: Math.min(480, parent.width)
                 backgroundComponent: Component {
-                    ERectangle {
-                        color: "#173958"
+                    Image {
+                        source: "qrc:/example/images/gallery/tree.jpg"
+                        fillMode: Image.PreserveAspectCrop
 
-                        EText {
-                            text: "EUI"
-                            color: "#409EFF"
-                            font.pixelSize: 64
-                            anchors.centerIn: parent
+                        ERectangle {
+                            color: "#66000000"
+                            anchors.fill: parent
                         }
                     }
                 }
@@ -995,14 +961,13 @@ Column {
                     spacing: 20
                     width: Math.min(480, parent.width)
                     backgroundComponent: Component {
-                        ERectangle {
-                            color: "#173958"
+                        Image {
+                            source: "qrc:/example/images/gallery/tree.jpg"
+                            fillMode: Image.PreserveAspectCrop
 
-                            EText {
-                                text: "EUI"
-                                color: "#409EFF"
-                                font.pixelSize: 64
-                                anchors.centerIn: parent
+                            ERectangle {
+                                color: "#66000000"
+                                anchors.fill: parent
                             }
                         }
                     }
@@ -1025,14 +990,13 @@ Column {
                 spacing: 20
                 width: Math.min(480, parent.width)
                 backgroundComponent: Component {
-                    ERectangle {
-                        color: "#173958"
+                    Image {
+                        source: "qrc:/example/images/gallery/tree.jpg"
+                        fillMode: Image.PreserveAspectCrop
 
-                        EText {
-                            text: "EUI"
-                            color: "#409EFF"
-                            font.pixelSize: 64
-                            anchors.centerIn: parent
+                        ERectangle {
+                            color: "#66000000"
+                            anchors.fill: parent
                         }
                     }
                 }
@@ -1065,14 +1029,13 @@ Column {
                     spacing: 20
                     width: Math.min(480, parent.width)
                     backgroundComponent: Component {
-                        ERectangle {
-                            color: "#173958"
+                        Image {
+                            source: "qrc:/example/images/gallery/tree.jpg"
+                            fillMode: Image.PreserveAspectCrop
 
-                            EText {
-                                text: "EUI"
-                                color: "#409EFF"
-                                font.pixelSize: 64
-                                anchors.centerIn: parent
+                            ERectangle {
+                                color: "#66000000"
+                                anchors.fill: parent
                             }
                         }
                     }
@@ -1095,14 +1058,13 @@ Column {
                 spacing: 20
                 width: Math.min(480, parent.width)
                 backgroundComponent: Component {
-                    ERectangle {
-                        color: "#173958"
+                    Image {
+                        source: "qrc:/example/images/gallery/tree.jpg"
+                        fillMode: Image.PreserveAspectCrop
 
-                        EText {
-                            text: "EUI"
-                            color: "#409EFF"
-                            font.pixelSize: 64
-                            anchors.centerIn: parent
+                        ERectangle {
+                            color: "#66000000"
+                            anchors.fill: parent
                         }
                     }
                 }

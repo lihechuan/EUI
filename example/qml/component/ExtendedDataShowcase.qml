@@ -151,19 +151,19 @@ Column {
                         width: 140
                         height: 100
                         fillMode: Image.PreserveAspectFit
-                        source: "qrc:/example/eui-mark.svg"
+                        source: "qrc:/example/images/gallery/tree.jpg"
                     }
                     EImage {
                         width: 140
                         height: 100
                         fillMode: Image.PreserveAspectCrop
-                        source: "qrc:/example/eui-mark.svg"
+                        source: "qrc:/example/images/gallery/tree.jpg"
                     }
                     EImage {
                         width: 140
                         height: 100
                         fillMode: Image.Stretch
-                        source: "qrc:/example/eui-mark.svg"
+                        source: "qrc:/example/images/gallery/tree.jpg"
                     }
                 }
             `)
@@ -176,19 +176,19 @@ Column {
                     width: 140
                     height: 100
                     fillMode: Image.PreserveAspectFit
-                    source: "qrc:/example/eui-mark.svg"
+                    source: "qrc:/example/images/gallery/tree.jpg"
                 }
                 EImage {
                     width: 140
                     height: 100
                     fillMode: Image.PreserveAspectCrop
-                    source: "qrc:/example/eui-mark.svg"
+                    source: "qrc:/example/images/gallery/tree.jpg"
                 }
                 EImage {
                     width: 140
                     height: 100
                     fillMode: Image.Stretch
-                    source: "qrc:/example/eui-mark.svg"
+                    source: "qrc:/example/images/gallery/tree.jpg"
                 }
             }
         }
@@ -203,19 +203,45 @@ Column {
                 import EUI 1.0
                 import QtQuick 2.15
 
-                EImage {
-                    width: 240
-                    height: 140
-                    source: "qrc:/example/missing-image.png"
-                    errorText: ELocale.texts.ImageUnavailable
+                Column {
+                    spacing: 12
+
+                    EImage {
+                        id: errorImage
+
+                        width: 240
+                        height: 140
+                        objectName: "imageErrorExample"
+                        errorText: ELocale.texts.ImageUnavailable
+                        source: "qrc:/example/images/gallery/lake.jpg"
+                    }
+                    EButton {
+                        objectName: "simulateImageError"
+                        text: ELocale.texts.SimulateImageError
+
+                        onClicked: errorImage.source = "qrc:/example/missing-image.png"
+                    }
                 }
             `)
 
-            EImage {
-                width: 240
-                height: 140
-                source: "qrc:/example/missing-image.png"
-                errorText: ELocale.texts.ImageUnavailable
+            Column {
+                spacing: 12
+
+                EImage {
+                    id: errorImage
+
+                    width: 240
+                    height: 140
+                    objectName: "imageErrorExample"
+                    errorText: ELocale.texts.ImageUnavailable
+                    source: "qrc:/example/images/gallery/lake.jpg"
+                }
+                EButton {
+                    objectName: "simulateImageError"
+                    text: ELocale.texts.SimulateImageError
+
+                    onClicked: errorImage.source = "qrc:/example/missing-image.png"
+                }
             }
         }
     }
@@ -236,8 +262,12 @@ Column {
                     minScale: 0.5
                     preview: true
                     zoomRate: 1.2
-                    source: "qrc:/example/eui-mark.svg"
-                    previewSrcList: ["qrc:/example/eui-mark.svg", "qrc:/example/eui-mark.svg"]
+                    source: "qrc:/example/images/gallery/lake.jpg"
+                    previewSrcList: ["qrc:/example/images/gallery/lake.jpg",
+                        "qrc:/example/images/gallery/neon-red.jpg",
+                        "qrc:/example/images/gallery/neon-purple.jpg",
+                        "qrc:/example/images/gallery/tree.jpg",
+                        "qrc:/example/images/gallery/ocean.jpg"]
                 }
             `)
 
@@ -248,8 +278,12 @@ Column {
                 minScale: 0.5
                 preview: true
                 zoomRate: 1.2
-                source: "qrc:/example/eui-mark.svg"
-                previewSrcList: ["qrc:/example/eui-mark.svg", "qrc:/example/eui-mark.svg"]
+                source: "qrc:/example/images/gallery/lake.jpg"
+                previewSrcList: ["qrc:/example/images/gallery/lake.jpg",
+                    "qrc:/example/images/gallery/neon-red.jpg",
+                    "qrc:/example/images/gallery/neon-purple.jpg",
+                    "qrc:/example/images/gallery/tree.jpg",
+                    "qrc:/example/images/gallery/ocean.jpg"]
             }
         }
     }
@@ -841,17 +875,30 @@ Column {
                     autoplay: false
                     indicatorPosition: "outside"
                     width: Math.min(480, parent.width)
-                    model: [{title: ELocale.texts.Design, color: "#409eff"}, {title: ELocale.texts.Engineering, color: "#67c23a"}, {title: ELocale.texts.Publish, color: "#f56c6c"}]
+                    model: [{title: ELocale.texts.Design, source: "qrc:/example/images/gallery/lake.jpg"},
+                        {title: ELocale.texts.Engineering, source: "qrc:/example/images/gallery/neon-red.jpg"},
+                        {title: ELocale.texts.Publish, source: "qrc:/example/images/gallery/neon-purple.jpg"}]
                     delegate: Component {
-                        ERectangle {
-                            radius: 12
-                            color: parent.modelData.color || "#409eff"
+                        EClip {
+                            id: slide
 
+                            readonly property var slideData: parent.modelData
+
+                            radius: 8
+
+                            Image {
+                                anchors.fill: parent
+                                source: slide.slideData.source
+                                fillMode: Image.PreserveAspectCrop
+                            }
                             EText {
+                                padding: 12
                                 color: "white"
                                 font.pixelSize: 24
-                                anchors.centerIn: parent
-                                text: parent.parent.modelData.title
+                                style: Text.Outline
+                                styleColor: "#80000000"
+                                text: slide.slideData.title
+                                anchors.bottom: parent.bottom
                             }
                         }
                     }
@@ -864,17 +911,30 @@ Column {
                 autoplay: false
                 indicatorPosition: "outside"
                 width: Math.min(480, parent.width)
-                model: [{title: ELocale.texts.Design, color: "#409eff"}, {title: ELocale.texts.Engineering, color: "#67c23a"}, {title: ELocale.texts.Publish, color: "#f56c6c"}]
+                model: [{title: ELocale.texts.Design, source: "qrc:/example/images/gallery/lake.jpg"},
+                    {title: ELocale.texts.Engineering, source: "qrc:/example/images/gallery/neon-red.jpg"},
+                    {title: ELocale.texts.Publish, source: "qrc:/example/images/gallery/neon-purple.jpg"}]
                 delegate: Component {
-                    ERectangle {
-                        radius: 12
-                        color: parent.modelData.color || "#409eff"
+                    EClip {
+                        id: slide
 
+                        readonly property var slideData: parent.modelData
+
+                        radius: 8
+
+                        Image {
+                            anchors.fill: parent
+                            source: slide.slideData.source
+                            fillMode: Image.PreserveAspectCrop
+                        }
                         EText {
+                            padding: 12
                             color: "white"
                             font.pixelSize: 24
-                            anchors.centerIn: parent
-                            text: parent.parent.modelData.title
+                            style: Text.Outline
+                            styleColor: "#80000000"
+                            text: slide.slideData.title
+                            anchors.bottom: parent.bottom
                         }
                     }
                 }
@@ -898,17 +958,30 @@ Column {
                     initialIndex: 1
                     direction: "vertical"
                     width: Math.min(480, parent.width)
-                    model: [{title: ELocale.texts.FirstSlide}, {title: ELocale.texts.SecondSlide}, {title: ELocale.texts.ThirdSlide}]
+                    model: [{title: ELocale.texts.FirstSlide, source: "qrc:/example/images/gallery/lake.jpg"},
+                        {title: ELocale.texts.SecondSlide, source: "qrc:/example/images/gallery/neon-red.jpg"},
+                        {title: ELocale.texts.ThirdSlide, source: "qrc:/example/images/gallery/neon-purple.jpg"}]
                     delegate: Component {
-                        ERectangle {
-                            radius: 12
-                            color: parent.modelData.color || "#409eff"
+                        EClip {
+                            id: slide
 
+                            readonly property var slideData: parent.modelData
+
+                            radius: 8
+
+                            Image {
+                                anchors.fill: parent
+                                source: slide.slideData.source
+                                fillMode: Image.PreserveAspectCrop
+                            }
                             EText {
+                                padding: 12
                                 color: "white"
                                 font.pixelSize: 24
-                                anchors.centerIn: parent
-                                text: parent.parent.modelData.title
+                                style: Text.Outline
+                                styleColor: "#80000000"
+                                text: slide.slideData.title
+                                anchors.bottom: parent.bottom
                             }
                         }
                     }
@@ -922,17 +995,30 @@ Column {
                 initialIndex: 1
                 direction: "vertical"
                 width: Math.min(480, parent.width)
-                model: [{title: ELocale.texts.FirstSlide}, {title: ELocale.texts.SecondSlide}, {title: ELocale.texts.ThirdSlide}]
+                model: [{title: ELocale.texts.FirstSlide, source: "qrc:/example/images/gallery/lake.jpg"},
+                    {title: ELocale.texts.SecondSlide, source: "qrc:/example/images/gallery/neon-red.jpg"},
+                    {title: ELocale.texts.ThirdSlide, source: "qrc:/example/images/gallery/neon-purple.jpg"}]
                 delegate: Component {
-                    ERectangle {
-                        radius: 12
-                        color: parent.modelData.color || "#409eff"
+                    EClip {
+                        id: slide
 
+                        readonly property var slideData: parent.modelData
+
+                        radius: 8
+
+                        Image {
+                            anchors.fill: parent
+                            source: slide.slideData.source
+                            fillMode: Image.PreserveAspectCrop
+                        }
                         EText {
+                            padding: 12
                             color: "white"
                             font.pixelSize: 24
-                            anchors.centerIn: parent
-                            text: parent.parent.modelData.title
+                            style: Text.Outline
+                            styleColor: "#80000000"
+                            text: slide.slideData.title
+                            anchors.bottom: parent.bottom
                         }
                     }
                 }
@@ -959,17 +1045,30 @@ Column {
                         height: 220
                         autoplay: false
                         width: Math.min(480, parent.width)
-                        model: [{title: ELocale.texts.Design}, {title: ELocale.texts.Engineering}, {title: ELocale.texts.Publish}]
+                        model: [{title: ELocale.texts.Design, source: "qrc:/example/images/gallery/lake.jpg"},
+                            {title: ELocale.texts.Engineering, source: "qrc:/example/images/gallery/neon-red.jpg"},
+                            {title: ELocale.texts.Publish, source: "qrc:/example/images/gallery/neon-purple.jpg"}]
                         delegate: Component {
-                            ERectangle {
-                                radius: 12
-                                color: parent.modelData.color || "#409eff"
+                            EClip {
+                                id: slide
 
+                                readonly property var slideData: parent.modelData
+
+                                radius: 8
+
+                                Image {
+                                    anchors.fill: parent
+                                    source: slide.slideData.source
+                                    fillMode: Image.PreserveAspectCrop
+                                }
                                 EText {
+                                    padding: 12
                                     color: "white"
                                     font.pixelSize: 24
-                                    anchors.centerIn: parent
-                                    text: parent.parent.modelData.title
+                                    style: Text.Outline
+                                    styleColor: "#80000000"
+                                    text: slide.slideData.title
+                                    anchors.bottom: parent.bottom
                                 }
                             }
                         }
@@ -1005,17 +1104,30 @@ Column {
                     height: 220
                     autoplay: false
                     width: Math.min(480, parent.width)
-                    model: [{title: ELocale.texts.Design}, {title: ELocale.texts.Engineering}, {title: ELocale.texts.Publish}]
+                    model: [{title: ELocale.texts.Design, source: "qrc:/example/images/gallery/lake.jpg"},
+                        {title: ELocale.texts.Engineering, source: "qrc:/example/images/gallery/neon-red.jpg"},
+                        {title: ELocale.texts.Publish, source: "qrc:/example/images/gallery/neon-purple.jpg"}]
                     delegate: Component {
-                        ERectangle {
-                            radius: 12
-                            color: parent.modelData.color || "#409eff"
+                        EClip {
+                            id: slide
 
+                            readonly property var slideData: parent.modelData
+
+                            radius: 8
+
+                            Image {
+                                anchors.fill: parent
+                                source: slide.slideData.source
+                                fillMode: Image.PreserveAspectCrop
+                            }
                             EText {
+                                padding: 12
                                 color: "white"
                                 font.pixelSize: 24
-                                anchors.centerIn: parent
-                                text: parent.parent.modelData.title
+                                style: Text.Outline
+                                styleColor: "#80000000"
+                                text: slide.slideData.title
+                                anchors.bottom: parent.bottom
                             }
                         }
                     }
@@ -1744,7 +1856,7 @@ Column {
                         id: viewer
 
                         visible: false
-                        urlList: ["qrc:/example/eui-mark.svg"]
+                        urlList: ["qrc:/example/images/gallery/lake.jpg"]
                     }
                 }
             `)
@@ -1762,7 +1874,7 @@ Column {
                     id: viewer
 
                     visible: false
-                    urlList: ["qrc:/example/eui-mark.svg"]
+                    urlList: ["qrc:/example/images/gallery/lake.jpg"]
                 }
             }
         }
@@ -1792,7 +1904,11 @@ Column {
                         visible: false
                         infinite: false
                         initialIndex: 1
-                        urlList: ["qrc:/example/eui-mark.svg", "qrc:/example/eui-mark.svg"]
+                        urlList: ["qrc:/example/images/gallery/lake.jpg",
+                            "qrc:/example/images/gallery/neon-red.jpg",
+                            "qrc:/example/images/gallery/neon-purple.jpg",
+                            "qrc:/example/images/gallery/tree.jpg",
+                            "qrc:/example/images/gallery/ocean.jpg"]
                     }
                 }
             `)
@@ -1812,7 +1928,11 @@ Column {
                     visible: false
                     infinite: false
                     initialIndex: 1
-                    urlList: ["qrc:/example/eui-mark.svg", "qrc:/example/eui-mark.svg"]
+                    urlList: ["qrc:/example/images/gallery/lake.jpg",
+                        "qrc:/example/images/gallery/neon-red.jpg",
+                        "qrc:/example/images/gallery/neon-purple.jpg",
+                        "qrc:/example/images/gallery/tree.jpg",
+                        "qrc:/example/images/gallery/ocean.jpg"]
                 }
             }
         }
@@ -1844,7 +1964,7 @@ Column {
                         visible: false
                         showProgress: false
                         hideOnClickModal: true
-                        urlList: ["qrc:/example/eui-mark.svg"]
+                        urlList: ["qrc:/example/images/gallery/lake.jpg"]
                     }
                 }
             `)
@@ -1866,7 +1986,7 @@ Column {
                     visible: false
                     showProgress: false
                     hideOnClickModal: true
-                    urlList: ["qrc:/example/eui-mark.svg"]
+                    urlList: ["qrc:/example/images/gallery/lake.jpg"]
                 }
             }
         }
@@ -1896,7 +2016,7 @@ Column {
                         zoomRate: 1.5
                         visible: false
                         closeOnPressEscape: true
-                        urlList: ["qrc:/example/eui-mark.svg"]
+                        urlList: ["qrc:/example/images/gallery/lake.jpg"]
                     }
                 }
             `)
@@ -1916,7 +2036,7 @@ Column {
                     zoomRate: 1.5
                     visible: false
                     closeOnPressEscape: true
-                    urlList: ["qrc:/example/eui-mark.svg"]
+                    urlList: ["qrc:/example/images/gallery/lake.jpg"]
                 }
             }
         }

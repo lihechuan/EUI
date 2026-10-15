@@ -12,6 +12,14 @@ import tempfile
 from pathlib import Path
 
 
+def build_tool(name):
+    paths = [os.environ.get('PATH', os.defpath),
+             str(Path.home() / 'qt/Tools/Ninja'),
+             str(Path.home() / 'qt/Tools/CMake/CMake.app/Contents/bin'),
+             '/usr/local/bin', '/opt/homebrew/bin', '/Applications/CMake.app/Contents/bin']
+    return shutil.which(name, path=os.pathsep.join(filter(None, paths)))
+
+
 def run(*arguments, **options):
     process = subprocess.Popen([str(value) for value in arguments], start_new_session=True, **options)
     previous = signal.signal(signal.SIGTERM, lambda *_: os.killpg(process.pid, signal.SIGTERM))
@@ -56,10 +64,12 @@ def main():
     if platform.system() != 'Darwin' or architecture is None:
         parser.error('Requires macOS x64 or macOS arm64.')
     root = Path(__file__).resolve().parents[1]
-    ninja = shutil.which('ninja') or shutil.which('ninja', path=str(Path.home() / 'qt/Tools/Ninja'))
-    cmake = shutil.which('cmake')
+    ninja = build_tool('ninja')
+    cmake = build_tool('cmake')
     if not cmake or not ninja:
-        raise ValueError('CMake and Ninja are required to prepare a source build.')
+        missing = [name for name, path in [('CMake', cmake), ('Ninja', ninja)] if not path]
+        parser.error('Missing build tools: ' + ', '.join(missing)
+                     + '. Install them with the Qt Maintenance Tool or add them to PATH.')
     qt = arguments.qt_dir or root / 'build/quick3d-sdk/6.8.3/macos'
     required = ['bin/qmake'] + ['lib/cmake/Qt6' + module + '/Qt6' + module + 'Config.cmake'
                                for module in ('Quick3D', 'QuickTimeline', 'WebEngineQuick')]

@@ -840,7 +840,7 @@ Column {
                     }
                     EAvatar {
                         size: 56
-                        source: "qrc:/example/eui-mark.svg"
+                        source: "qrc:/example/images/gallery/avatar-01.jpg"
                     }
                 }
             `)
@@ -860,7 +860,7 @@ Column {
                 }
                 EAvatar {
                     size: 56
-                    source: "qrc:/example/eui-mark.svg"
+                    source: "qrc:/example/images/gallery/avatar-01.jpg"
                 }
             }
         }
@@ -1169,18 +1169,23 @@ Column {
 
                     EAvatar {
                         text: "A"
+                        source: "qrc:/example/images/gallery/avatar-01.jpg"
                     }
                     EAvatar {
                         text: "B"
+                        source: "qrc:/example/images/gallery/avatar-02.jpg"
                     }
                     EAvatar {
                         text: "C"
+                        source: "qrc:/example/images/gallery/avatar-03.jpg"
                     }
                     EAvatar {
                         text: "D"
+                        source: "qrc:/example/images/gallery/avatar-04.jpg"
                     }
                     EAvatar {
                         text: "E"
+                        source: "qrc:/example/images/gallery/avatar-05.jpg"
                     }
                 }
             `)
@@ -1193,18 +1198,23 @@ Column {
 
                 EAvatar {
                     text: "A"
+                    source: "qrc:/example/images/gallery/avatar-01.jpg"
                 }
                 EAvatar {
                     text: "B"
+                    source: "qrc:/example/images/gallery/avatar-02.jpg"
                 }
                 EAvatar {
                     text: "C"
+                    source: "qrc:/example/images/gallery/avatar-03.jpg"
                 }
                 EAvatar {
                     text: "D"
+                    source: "qrc:/example/images/gallery/avatar-04.jpg"
                 }
                 EAvatar {
                     text: "E"
+                    source: "qrc:/example/images/gallery/avatar-05.jpg"
                 }
             }
         }
@@ -1227,12 +1237,15 @@ Column {
 
                     EAvatar {
                         text: "Qt"
+                        source: "qrc:/example/images/gallery/avatar-01.jpg"
                     }
                     EAvatar {
                         text: "UI"
+                        source: "qrc:/example/images/gallery/avatar-02.jpg"
                     }
                     EAvatar {
                         text: "C++"
+                        source: "qrc:/example/images/gallery/avatar-03.jpg"
                     }
                 }
             `)
@@ -1245,12 +1258,15 @@ Column {
 
                 EAvatar {
                     text: "Qt"
+                    source: "qrc:/example/images/gallery/avatar-01.jpg"
                 }
                 EAvatar {
                     text: "UI"
+                    source: "qrc:/example/images/gallery/avatar-02.jpg"
                 }
                 EAvatar {
                     text: "C++"
+                    source: "qrc:/example/images/gallery/avatar-03.jpg"
                 }
             }
         }
@@ -1271,15 +1287,19 @@ Column {
 
                     EAvatar {
                         text: "A"
+                        source: "qrc:/example/images/gallery/avatar-01.jpg"
                     }
                     EAvatar {
                         text: "B"
+                        source: "qrc:/example/images/gallery/avatar-02.jpg"
                     }
                     EAvatar {
                         text: "C"
+                        source: "qrc:/example/images/gallery/avatar-03.jpg"
                     }
                     EAvatar {
                         text: "D"
+                        source: "qrc:/example/images/gallery/avatar-04.jpg"
                     }
                 }
             `)
@@ -1290,15 +1310,19 @@ Column {
 
                 EAvatar {
                     text: "A"
+                    source: "qrc:/example/images/gallery/avatar-01.jpg"
                 }
                 EAvatar {
                     text: "B"
+                    source: "qrc:/example/images/gallery/avatar-02.jpg"
                 }
                 EAvatar {
                     text: "C"
+                    source: "qrc:/example/images/gallery/avatar-03.jpg"
                 }
                 EAvatar {
                     text: "D"
+                    source: "qrc:/example/images/gallery/avatar-04.jpg"
                 }
             }
         }
@@ -1320,15 +1344,19 @@ Column {
 
                     EAvatar {
                         text: "A"
+                        source: "qrc:/example/images/gallery/avatar-01.jpg"
                     }
                     EAvatar {
                         text: "B"
+                        source: "qrc:/example/images/gallery/avatar-02.jpg"
                     }
                     EAvatar {
                         text: "C"
+                        source: "qrc:/example/images/gallery/avatar-03.jpg"
                     }
                     EAvatar {
                         text: "D"
+                        source: "qrc:/example/images/gallery/avatar-04.jpg"
                     }
                 }
             `)
@@ -1340,15 +1368,19 @@ Column {
 
                 EAvatar {
                     text: "A"
+                    source: "qrc:/example/images/gallery/avatar-01.jpg"
                 }
                 EAvatar {
                     text: "B"
+                    source: "qrc:/example/images/gallery/avatar-02.jpg"
                 }
                 EAvatar {
                     text: "C"
+                    source: "qrc:/example/images/gallery/avatar-03.jpg"
                 }
                 EAvatar {
                     text: "D"
+                    source: "qrc:/example/images/gallery/avatar-04.jpg"
                 }
             }
         }

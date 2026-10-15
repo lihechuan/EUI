@@ -440,13 +440,13 @@ Control {
             spacing: 8
             anchors.bottomMargin: 8
             anchors.bottom: parent.bottom
-            model: control.previewSources
             visible: control.showThumbnails
             orientation: ListView.Horizontal
-            currentIndex: control.previewIndex
+            currentIndex: count > 0 ? control.previewIndex : -1
             objectName: "imagePreviewThumbnails"
             width: Math.min(parent.width - 24, contentWidth)
             anchors.horizontalCenter: parent.horizontalCenter
+            model: control.showThumbnails && previewPopup.visible ? control.previewSources : []
             delegate: Rectangle {
                 width: 72
                 height: 56

@@ -3,6 +3,17 @@
         <file>data/component-api.json</file>
         <file>data/echarts-options.json</file>
         <file alias="eui-mark.svg">../assets/eui-mark.svg</file>
+        <file alias="images/gallery/avatar-01.jpg">../assets/images/gallery/avatar-01.jpg</file>
+        <file alias="images/gallery/avatar-02.jpg">../assets/images/gallery/avatar-02.jpg</file>
+        <file alias="images/gallery/avatar-03.jpg">../assets/images/gallery/avatar-03.jpg</file>
+        <file alias="images/gallery/avatar-04.jpg">../assets/images/gallery/avatar-04.jpg</file>
+        <file alias="images/gallery/avatar-05.jpg">../assets/images/gallery/avatar-05.jpg</file>
+        <file alias="images/gallery/avatar-06.jpg">../assets/images/gallery/avatar-06.jpg</file>
+        <file alias="images/gallery/lake.jpg">../assets/images/gallery/lake.jpg</file>
+        <file alias="images/gallery/neon-purple.jpg">../assets/images/gallery/neon-purple.jpg</file>
+        <file alias="images/gallery/neon-red.jpg">../assets/images/gallery/neon-red.jpg</file>
+        <file alias="images/gallery/ocean.jpg">../assets/images/gallery/ocean.jpg</file>
+        <file alias="images/gallery/tree.jpg">../assets/images/gallery/tree.jpg</file>
         <file>qml/component/App.qml</file>
         <file>qml/component/UpdateControl.qml</file>
         <file>update/Update.ps1</file>

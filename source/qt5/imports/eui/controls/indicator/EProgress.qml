@@ -77,6 +77,7 @@ Item {
     ERectangle {
         id: track
 
+        clip: true
         objectName: "progressTrack"
         height: Math.max(0, control.height)
         anchors.verticalCenter: parent.verticalCenter
@@ -91,55 +92,61 @@ Item {
 
         )
 
-        ERectangle {
-            id: fill
+        Repeater {
+            model: control.indeterminate ? 2 : 1
 
-            clip: true
-            objectName: "progressFill"
-            color: control.effectiveColor
-            height: Math.max(0, parent.height)
-            radius: control.strokeLinecap === "round" ? height / 2 : 0
-            width: parent.width * (control.indeterminate ? 0.25 : control.normalizedValue)
-            x: control.indeterminate ? internal.phase * Math.max(0, parent.width - width) : 0
+            ERectangle {
+                id: fill
 
-            Behavior on width {
-                NumberAnimation {
-                    duration: 200
-                    easing.type: Easing.OutQuad
-                }
-            }
-            Canvas {
-                id: stripesCanvas
+                clip: true
+                color: control.effectiveColor
+                height: Math.max(0, parent.height)
+                radius: control.strokeLinecap === "round" ? height / 2 : 0
+                objectName: index === 0 ? "progressFill" : "progressWrapFill"
+                x: control.indeterminate ? (internal.phase - index) * parent.width : 0
+                width: parent.width * (control.indeterminate ? 0.25 : control.normalizedValue)
 
-                anchors.fill: parent
-                visible: control.striped
+                Behavior on width {
+                    enabled: !control.indeterminate
 
-                onWidthChanged: requestPaint()
-                onHeightChanged: requestPaint()
-                onPaint: {
-                    const ctx = getContext("2d")
-                    ctx.reset()
-                    ctx.clearRect(0, 0, width, height)
-                    ctx.fillStyle = "#33FFFFFF"
-                    const spacing = Math.max(12, height * 2)
-                    const offset = control.stripedFlow ? internal.phase * spacing : 0
-                    for (let x = -spacing + offset; x < width + spacing; x += spacing) {
-                        ctx.beginPath()
-                        ctx.moveTo(x, 0)
-                        ctx.lineTo(x + spacing / 2, 0)
-                        ctx.lineTo(x + spacing / 2 - height, height)
-                        ctx.lineTo(x - height, height)
-                        ctx.closePath()
-                        ctx.fill()
+                    NumberAnimation {
+                        duration: 200
+                        easing.type: Easing.OutQuad
                     }
                 }
+                Canvas {
+                    id: stripesCanvas
 
-                Connections {
-                    function onPhaseChanged() {
-                        stripesCanvas.requestPaint()
+                    anchors.fill: parent
+                    visible: control.striped
+
+                    onWidthChanged: requestPaint()
+                    onHeightChanged: requestPaint()
+                    onPaint: {
+                        const ctx = getContext("2d")
+                        ctx.reset()
+                        ctx.clearRect(0, 0, width, height)
+                        ctx.fillStyle = "#33FFFFFF"
+                        const spacing = Math.max(12, height * 2)
+                        const offset = control.stripedFlow ? internal.phase * spacing : 0
+                        for (let x = -spacing + offset; x < width + spacing; x += spacing) {
+                            ctx.beginPath()
+                            ctx.moveTo(x, 0)
+                            ctx.lineTo(x + spacing / 2, 0)
+                            ctx.lineTo(x + spacing / 2 - height, height)
+                            ctx.lineTo(x - height, height)
+                            ctx.closePath()
+                            ctx.fill()
+                        }
                     }
 
-                    target: internal
+                    Connections {
+                        function onPhaseChanged() {
+                            stripesCanvas.requestPaint()
+                        }
+
+                        target: internal
+                    }
                 }
             }
         }

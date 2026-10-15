@@ -312,6 +312,9 @@ Column {
                     autoUpload: false
                     pictureCardSize: 96
                     listType: "picture-card"
+                    fileList: [{url: "qrc:/example/images/gallery/lake.jpg", name: "lake.jpg", status: "ready"},
+                        {url: "qrc:/example/images/gallery/tree.jpg", name: "tree.jpg", status: "ready"},
+                        {url: "qrc:/example/images/gallery/ocean.jpg", name: "ocean.jpg", status: "ready"}]
                 }
             `)
 
@@ -320,6 +323,9 @@ Column {
                 autoUpload: false
                 pictureCardSize: 96
                 listType: "picture-card"
+                fileList: [{url: "qrc:/example/images/gallery/lake.jpg", name: "lake.jpg", status: "ready"},
+                    {url: "qrc:/example/images/gallery/tree.jpg", name: "tree.jpg", status: "ready"},
+                    {url: "qrc:/example/images/gallery/ocean.jpg", name: "ocean.jpg", status: "ready"}]
             }
         }
     }

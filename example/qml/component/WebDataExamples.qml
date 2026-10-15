@@ -132,8 +132,12 @@ ExamplePage {
                     width: 240
                     height: 160
                     preview: true
-                    source: "qrc:/example/eui-mark.svg"
-                    previewSrcList: [source, source]
+                    source: "qrc:/example/images/gallery/lake.jpg"
+                    previewSrcList: ["qrc:/example/images/gallery/lake.jpg",
+                        "qrc:/example/images/gallery/neon-red.jpg",
+                        "qrc:/example/images/gallery/neon-purple.jpg",
+                        "qrc:/example/images/gallery/tree.jpg",
+                        "qrc:/example/images/gallery/ocean.jpg"]
                     showProgress: true
                     minScale: 0.25
                     maxScale: 4
@@ -146,8 +150,12 @@ ExamplePage {
                 preview: true
                 minScale: 0.25
                 showProgress: true
-                previewSrcList: [source, source]
-                source: "qrc:/example/eui-mark.svg"
+                source: "qrc:/example/images/gallery/lake.jpg"
+                previewSrcList: ["qrc:/example/images/gallery/lake.jpg",
+                    "qrc:/example/images/gallery/neon-red.jpg",
+                    "qrc:/example/images/gallery/neon-purple.jpg",
+                    "qrc:/example/images/gallery/tree.jpg",
+                    "qrc:/example/images/gallery/ocean.jpg"]
             }
         }
     }
@@ -266,20 +274,31 @@ ExamplePage {
                         trigger: "hover"
                         pauseOnHover: true
                         width: Math.min(600, parent.width)
-                        delegate: ERectangle {
-                            radius: 8
-                            color: parent.modelData.color
+                        delegate: EClip {
+                            id: slide
 
+                            readonly property var slideData: parent.modelData
+
+                            radius: 8
+
+                            Image {
+                                anchors.fill: parent
+                                source: slide.slideData.source
+                                fillMode: Image.PreserveAspectCrop
+                            }
                             EText {
-                                color: "#30343B"
+                                padding: 12
+                                color: "white"
                                 font.pixelSize: 24
-                                anchors.centerIn: parent
-                                text: parent.parent.modelData.title
+                                style: Text.Outline
+                                styleColor: "#80000000"
+                                text: slide.slideData.title
+                                anchors.bottom: parent.bottom
                             }
                         }
-                        model: [{ name: "design", title: ELocale.texts.DesignSystem, color: "#E7F0FD" },
-                            { name: "build", title: ELocale.texts.ComponentEngineering, color: "#E6F2E9" },
-                            { name: "ship", title: ELocale.texts.ProductDelivery, color: "#FFF0DE" }]
+                        model: [{ name: "design", title: ELocale.texts.DesignSystem, source: "qrc:/example/images/gallery/lake.jpg" },
+                            { name: "build", title: ELocale.texts.ComponentEngineering, source: "qrc:/example/images/gallery/neon-red.jpg" },
+                            { name: "ship", title: ELocale.texts.ProductDelivery, source: "qrc:/example/images/gallery/neon-purple.jpg" }]
                     }
                     EButton {
                         text: ELocale.texts.OpenComponentEngineering
@@ -302,20 +321,31 @@ ExamplePage {
                     trigger: "hover"
                     pauseOnHover: true
                     width: Math.min(600, parent.width)
-                    delegate: ERectangle {
-                        radius: 8
-                        color: parent.modelData.color
+                    delegate: EClip {
+                        id: slide
 
+                        readonly property var slideData: parent.modelData
+
+                        radius: 8
+
+                        Image {
+                            anchors.fill: parent
+                            source: slide.slideData.source
+                            fillMode: Image.PreserveAspectCrop
+                        }
                         EText {
-                            color: "#30343B"
+                            padding: 12
+                            color: "white"
                             font.pixelSize: 24
-                            anchors.centerIn: parent
-                            text: parent.parent.modelData.title
+                            style: Text.Outline
+                            styleColor: "#80000000"
+                            text: slide.slideData.title
+                            anchors.bottom: parent.bottom
                         }
                     }
-                    model: [{ name: "design", title: ELocale.texts.DesignSystem, color: "#E7F0FD" },
-                        { name: "build", title: ELocale.texts.ComponentEngineering, color: "#E6F2E9" },
-                        { name: "ship", title: ELocale.texts.ProductDelivery, color: "#FFF0DE" }]
+                    model: [{ name: "design", title: ELocale.texts.DesignSystem, source: "qrc:/example/images/gallery/lake.jpg" },
+                        { name: "build", title: ELocale.texts.ComponentEngineering, source: "qrc:/example/images/gallery/neon-red.jpg" },
+                        { name: "ship", title: ELocale.texts.ProductDelivery, source: "qrc:/example/images/gallery/neon-purple.jpg" }]
                 }
                 EButton {
                     text: ELocale.texts.OpenComponentEngineering
@@ -872,7 +902,7 @@ ExamplePage {
                         size: 56
                         shape: "square"
                         fillMode: Image.PreserveAspectFit
-                        source: "qrc:/example/eui-mark.svg"
+                        source: "qrc:/example/images/gallery/avatar-01.jpg"
                     }
                     EAvatar {
                         size: 56
@@ -897,7 +927,7 @@ ExamplePage {
                     size: 56
                     shape: "square"
                     fillMode: Image.PreserveAspectFit
-                    source: "qrc:/example/eui-mark.svg"
+                    source: "qrc:/example/images/gallery/avatar-01.jpg"
                 }
                 EAvatar {
                     size: 56
@@ -1174,11 +1204,30 @@ ExamplePage {
                     maxCollapseAvatars: 3
                     collapseAvatarsTooltip: true
 
-                    EAvatar { text: "A" }
-                    EAvatar { text: "B" }
-                    EAvatar { text: "C" }
-                    EAvatar { text: "D" }
-                    EAvatar { text: "E" }
+                    EAvatar {
+                        text: "A"
+                        source: "qrc:/example/images/gallery/avatar-01.jpg"
+                    }
+                    EAvatar {
+                        text: "B"
+                        source: "qrc:/example/images/gallery/avatar-02.jpg"
+                    }
+                    EAvatar {
+                        text: "C"
+                        source: "qrc:/example/images/gallery/avatar-03.jpg"
+                    }
+                    EAvatar {
+                        text: "D"
+                        source: "qrc:/example/images/gallery/avatar-04.jpg"
+                    }
+                    EAvatar {
+                        text: "E"
+                        source: "qrc:/example/images/gallery/avatar-05.jpg"
+                    }
+                    EAvatar {
+                        text: "F"
+                        source: "qrc:/example/images/gallery/avatar-06.jpg"
+                    }
                 }`)
 
             EAvatarGroup {
@@ -1188,11 +1237,30 @@ ExamplePage {
                 maxCollapseAvatars: 3
                 collapseAvatarsTooltip: true
 
-                EAvatar { text: "A" }
-                EAvatar { text: "B" }
-                EAvatar { text: "C" }
-                EAvatar { text: "D" }
-                EAvatar { text: "E" }
+                EAvatar {
+                    text: "A"
+                    source: "qrc:/example/images/gallery/avatar-01.jpg"
+                }
+                EAvatar {
+                    text: "B"
+                    source: "qrc:/example/images/gallery/avatar-02.jpg"
+                }
+                EAvatar {
+                    text: "C"
+                    source: "qrc:/example/images/gallery/avatar-03.jpg"
+                }
+                EAvatar {
+                    text: "D"
+                    source: "qrc:/example/images/gallery/avatar-04.jpg"
+                }
+                EAvatar {
+                    text: "E"
+                    source: "qrc:/example/images/gallery/avatar-05.jpg"
+                }
+                EAvatar {
+                    text: "F"
+                    source: "qrc:/example/images/gallery/avatar-06.jpg"
+                }
             }
         }
     }
@@ -1281,7 +1349,11 @@ ExamplePage {
                         id: webDataViewer
 
                         visible: false
-                        urlList: ["qrc:/example/eui-mark.svg", "qrc:/example/eui-mark.svg"]
+                        urlList: ["qrc:/example/images/gallery/lake.jpg",
+                            "qrc:/example/images/gallery/neon-red.jpg",
+                            "qrc:/example/images/gallery/neon-purple.jpg",
+                            "qrc:/example/images/gallery/tree.jpg",
+                            "qrc:/example/images/gallery/ocean.jpg"]
 
                         onPreviewClosed: visible = false
                     }
@@ -1297,7 +1369,11 @@ ExamplePage {
                     id: webDataViewer
 
                     visible: false
-                    urlList: ["qrc:/example/eui-mark.svg", "qrc:/example/eui-mark.svg"]
+                    urlList: ["qrc:/example/images/gallery/lake.jpg",
+                        "qrc:/example/images/gallery/neon-red.jpg",
+                        "qrc:/example/images/gallery/neon-purple.jpg",
+                        "qrc:/example/images/gallery/tree.jpg",
+                        "qrc:/example/images/gallery/ocean.jpg"]
 
                     onPreviewClosed: visible = false
                 }

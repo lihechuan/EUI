@@ -85,10 +85,11 @@ ExamplePage {
                         onClicked: exampleRuntime.install(ELocale.language, ETheme.dark)
                     }
                     EProgress {
-                        showText: true
                         width: parent.width
+                        showText: !indeterminate
                         visible: exampleRuntime.busy
                         objectName: "quick3dInstallProgress"
+                        indeterminate: exampleRuntime.stage === "preparing"
                         percentage: Math.round(exampleRuntime.progress * 100)
                     }
                     EText {

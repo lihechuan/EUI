@@ -69,26 +69,12 @@ ExamplePage {
                     height: 240
                     width: parent.width
 
-                    ERectangle {
+                    Image {
                         id: backdrop
 
-                        radius: 6
                         anchors.fill: parent
-                        color: EPaletteManager.ThemePalette.fetchColorForStyle(EStyle.Primary)
-
-                        ERectangle {
-                            height: parent.height
-                            width: parent.width / 2
-                            anchors.right: parent.right
-                            color: EPaletteManager.ThemePalette.fetchColorForStyle(EStyle.Success)
-                        }
-                        EText {
-                            font.bold: true
-                            font.pixelSize: 64
-                            text: ELocale.texts.Eui
-                            anchors.centerIn: parent
-                            color: EPaletteManager.BasePalette.white
-                        }
+                        fillMode: Image.PreserveAspectCrop
+                        source: "qrc:/example/images/gallery/lake.jpg"
                     }
                     EAcrylic {
                         id: acrylic
@@ -224,15 +210,13 @@ ExamplePage {
                 spacing: 24
                 width: parent.width
                 backgroundComponent: Component {
-                    ERectangle {
-                        color: EPaletteManager.ThemePalette.surfacePressed(ETheme.dark)
+                    Image {
+                        source: "qrc:/example/images/gallery/tree.jpg"
+                        fillMode: Image.PreserveAspectCrop
 
-                        EText {
-                            font.bold: true
-                            font.pixelSize: 72
-                            text: ELocale.texts.Eui
-                            anchors.centerIn: parent
-                            color: EPaletteManager.ThemePalette.fetchColorForStyle(EStyle.Primary)
+                        ERectangle {
+                            color: "#66000000"
+                            anchors.fill: parent
                         }
                     }
                 }
@@ -244,7 +228,7 @@ ExamplePage {
                         height: 48
                         font.pixelSize: 14
                         text: ELocale.texts.ScrollableContent + (index + 1)
-                        color: EPaletteManager.ThemePalette.textRegular(ETheme.dark)
+                        color: "white"
                     }
                 }
             }

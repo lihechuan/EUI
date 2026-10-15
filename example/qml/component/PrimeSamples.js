@@ -37,27 +37,27 @@ var definitions = {
             {
                 "name": "ECompare",
                 "title": "PrimeCompareCase1",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nECompare {\n    value: 50\n    height: 220\n    width: Math.min(540, parent.width)\n    afterComponent: Rectangle {\n        color: \"#67c23a\"\n\n        EText {\n            text: \"After\"\n            color: \"white\"\n            anchors.centerIn: parent\n        }\n    }\n    beforeComponent: Rectangle {\n        color: \"#409eff\"\n\n        EText {\n            color: \"white\"\n            text: \"Before\"\n            anchors.centerIn: parent\n        }\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nECompare {\n    value: 50\n    height: 220\n    width: Math.min(540, parent.width)\n    beforeSource: \"qrc:/example/images/gallery/neon-red.jpg\"\n    afterSource: \"qrc:/example/images/gallery/neon-purple.jpg\"\n}\n"
             },
             {
                 "name": "ECompare",
                 "title": "PrimeCompareCase2",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nECompare {\n    height: 220\n    hover: true\n    width: Math.min(540, parent.width)\n    afterComponent: Rectangle {\n        color: \"#67c23a\"\n\n        EText {\n            text: \"After\"\n            color: \"white\"\n            anchors.centerIn: parent\n        }\n    }\n    beforeComponent: Rectangle {\n        color: \"#409eff\"\n\n        EText {\n            color: \"white\"\n            text: \"Before\"\n            anchors.centerIn: parent\n        }\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nECompare {\n    height: 220\n    hover: true\n    width: Math.min(540, parent.width)\n    beforeSource: \"qrc:/example/images/gallery/neon-red.jpg\"\n    afterSource: \"qrc:/example/images/gallery/neon-purple.jpg\"\n}\n"
             },
             {
                 "name": "ECompare",
                 "title": "PrimeCompareCase3",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nECompare {\n    height: 220\n    vertical: true\n    width: Math.min(540, parent.width)\n    afterComponent: Rectangle {\n        color: \"#67c23a\"\n\n        EText {\n            text: \"After\"\n            color: \"white\"\n            anchors.centerIn: parent\n        }\n    }\n    beforeComponent: Rectangle {\n        color: \"#409eff\"\n\n        EText {\n            color: \"white\"\n            text: \"Before\"\n            anchors.centerIn: parent\n        }\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nECompare {\n    height: 220\n    vertical: true\n    width: Math.min(540, parent.width)\n    beforeSource: \"qrc:/example/images/gallery/neon-red.jpg\"\n    afterSource: \"qrc:/example/images/gallery/neon-purple.jpg\"\n}\n"
             },
             {
                 "name": "ECompare",
                 "title": "PrimeCompareCase4",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nECompare {\n    height: 220\n    width: Math.min(540, parent.width)\n    afterComponent: Rectangle {\n        color: \"#67c23a\"\n\n        EText {\n            text: \"After\"\n            color: \"white\"\n            anchors.centerIn: parent\n        }\n    }\n    beforeComponent: Rectangle {\n        color: \"#409eff\"\n\n        EText {\n            color: \"white\"\n            text: \"Before\"\n            anchors.centerIn: parent\n        }\n    }\n    handleComponent: EText {\n        text: \"◆\"\n        verticalAlignment: Text.AlignVCenter\n        horizontalAlignment: Text.AlignHCenter\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nECompare {\n    height: 220\n    width: Math.min(540, parent.width)\n    beforeSource: \"qrc:/example/images/gallery/neon-red.jpg\"\n    afterSource: \"qrc:/example/images/gallery/neon-purple.jpg\"\n    handleComponent: EText {\n        text: \"◆\"\n        verticalAlignment: Text.AlignVCenter\n        horizontalAlignment: Text.AlignHCenter\n    }\n}\n"
             },
             {
                 "name": "ECompare",
                 "title": "PrimeCompareCase5",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nECompare {\n    value: 0\n    height: 220\n    width: Math.min(540, parent.width)\n    Accessible.description: \"Arrow keys, Home, End\"\n    afterComponent: Rectangle {\n        color: \"#67c23a\"\n\n        EText {\n            text: \"After\"\n            color: \"white\"\n            anchors.centerIn: parent\n        }\n    }\n    beforeComponent: Rectangle {\n        color: \"#409eff\"\n\n        EText {\n            color: \"white\"\n            text: \"Before\"\n            anchors.centerIn: parent\n        }\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nECompare {\n    value: 0\n    height: 220\n    width: Math.min(540, parent.width)\n    Accessible.description: \"Arrow keys, Home, End\"\n    beforeSource: \"qrc:/example/images/gallery/neon-red.jpg\"\n    afterSource: \"qrc:/example/images/gallery/neon-purple.jpg\"\n}\n"
             }
         ]
     },
@@ -517,7 +517,7 @@ var definitions = {
             {
                 "name": "EChip",
                 "title": "PrimeChipCase3",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nRow {\n    spacing: 12\n\n    EChip {\n        text: \"EUI\"\n        avatarSource: \"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAiIGhlaWdodD0iMTAwIj48cmVjdCB3aWR0aD0iMTYwIiBoZWlnaHQ9IjEwMCIgcng9IjEyIiBmaWxsPSIjMjU2M2ViIi8+PHRleHQgeD0iODAiIHk9IjYwIiBmb250LXNpemU9IjM2IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkVVSTwvdGV4dD48L3N2Zz4=\"\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nRow {\n    spacing: 12\n\n    EChip {\n        text: \"EUI\"\n        avatarSource: \"qrc:/example/images/gallery/avatar-01.jpg\"\n    }\n}\n"
             },
             {
                 "name": "EChip",
@@ -852,12 +852,12 @@ var definitions = {
             {
                 "name": "EImage",
                 "title": "PrimeImageCase1",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEImage {\n    width: 260\n    height: 160\n    preview: true\n    showThumbnails: true\n    source: \"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAiIGhlaWdodD0iMTAwIj48cmVjdCB3aWR0aD0iMTYwIiBoZWlnaHQ9IjEwMCIgcng9IjEyIiBmaWxsPSIjMjU2M2ViIi8+PHRleHQgeD0iODAiIHk9IjYwIiBmb250LXNpemU9IjM2IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkVVSTwvdGV4dD48L3N2Zz4=\"\n    previewSrcList: [\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAiIGhlaWdodD0iMTAwIj48cmVjdCB3aWR0aD0iMTYwIiBoZWlnaHQ9IjEwMCIgcng9IjEyIiBmaWxsPSIjMjU2M2ViIi8+PHRleHQgeD0iODAiIHk9IjYwIiBmb250LXNpemU9IjM2IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkVVSTwvdGV4dD48L3N2Zz4=\", \"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAiIGhlaWdodD0iMTAwIj48cmVjdCB3aWR0aD0iMTYwIiBoZWlnaHQ9IjEwMCIgcng9IjEyIiBmaWxsPSIjMjU2M2ViIi8+PHRleHQgeD0iODAiIHk9IjYwIiBmb250LXNpemU9IjM2IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkVVSTwvdGV4dD48L3N2Zz4=\"]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEImage {\n    width: 260\n    height: 160\n    preview: true\n    showThumbnails: true\n    source: \"qrc:/example/images/gallery/lake.jpg\"\n    previewSrcList: [\"qrc:/example/images/gallery/lake.jpg\",\n        \"qrc:/example/images/gallery/neon-red.jpg\",\n        \"qrc:/example/images/gallery/neon-purple.jpg\",\n        \"qrc:/example/images/gallery/tree.jpg\",\n        \"qrc:/example/images/gallery/ocean.jpg\"]\n}\n"
             },
             {
                 "name": "EImage",
                 "title": "PrimeImageCase2",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEImage {\n    width: 260\n    height: 160\n    preview: true\n    allowDownload: false\n    showThumbnails: true\n    source: \"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAiIGhlaWdodD0iMTAwIj48cmVjdCB3aWR0aD0iMTYwIiBoZWlnaHQ9IjEwMCIgcng9IjEyIiBmaWxsPSIjMjU2M2ViIi8+PHRleHQgeD0iODAiIHk9IjYwIiBmb250LXNpemU9IjM2IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkVVSTwvdGV4dD48L3N2Zz4=\"\n    previewSrcList: [\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAiIGhlaWdodD0iMTAwIj48cmVjdCB3aWR0aD0iMTYwIiBoZWlnaHQ9IjEwMCIgcng9IjEyIiBmaWxsPSIjMjU2M2ViIi8+PHRleHQgeD0iODAiIHk9IjYwIiBmb250LXNpemU9IjM2IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkVVSTwvdGV4dD48L3N2Zz4=\", \"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAiIGhlaWdodD0iMTAwIj48cmVjdCB3aWR0aD0iMTYwIiBoZWlnaHQ9IjEwMCIgcng9IjEyIiBmaWxsPSIjMjU2M2ViIi8+PHRleHQgeD0iODAiIHk9IjYwIiBmb250LXNpemU9IjM2IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkVVSTwvdGV4dD48L3N2Zz4=\"]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEImage {\n    width: 260\n    height: 160\n    preview: true\n    allowDownload: false\n    showThumbnails: true\n    source: \"qrc:/example/images/gallery/lake.jpg\"\n    previewSrcList: [\"qrc:/example/images/gallery/lake.jpg\",\n        \"qrc:/example/images/gallery/neon-red.jpg\",\n        \"qrc:/example/images/gallery/neon-purple.jpg\",\n        \"qrc:/example/images/gallery/tree.jpg\",\n        \"qrc:/example/images/gallery/ocean.jpg\"]\n}\n"
             }
         ]
     },
@@ -867,12 +867,12 @@ var definitions = {
             {
                 "name": "EImageViewer",
                 "title": "PrimeImageViewerCase1",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEImage {\n    width: 260\n    height: 160\n    preview: true\n    showThumbnails: true\n    source: \"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAiIGhlaWdodD0iMTAwIj48cmVjdCB3aWR0aD0iMTYwIiBoZWlnaHQ9IjEwMCIgcng9IjEyIiBmaWxsPSIjMjU2M2ViIi8+PHRleHQgeD0iODAiIHk9IjYwIiBmb250LXNpemU9IjM2IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkVVSTwvdGV4dD48L3N2Zz4=\"\n    previewSrcList: [\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAiIGhlaWdodD0iMTAwIj48cmVjdCB3aWR0aD0iMTYwIiBoZWlnaHQ9IjEwMCIgcng9IjEyIiBmaWxsPSIjMjU2M2ViIi8+PHRleHQgeD0iODAiIHk9IjYwIiBmb250LXNpemU9IjM2IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkVVSTwvdGV4dD48L3N2Zz4=\", \"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAiIGhlaWdodD0iMTAwIj48cmVjdCB3aWR0aD0iMTYwIiBoZWlnaHQ9IjEwMCIgcng9IjEyIiBmaWxsPSIjMjU2M2ViIi8+PHRleHQgeD0iODAiIHk9IjYwIiBmb250LXNpemU9IjM2IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkVVSTwvdGV4dD48L3N2Zz4=\"]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEImage {\n    width: 260\n    height: 160\n    preview: true\n    showThumbnails: true\n    source: \"qrc:/example/images/gallery/lake.jpg\"\n    previewSrcList: [\"qrc:/example/images/gallery/lake.jpg\",\n        \"qrc:/example/images/gallery/neon-red.jpg\",\n        \"qrc:/example/images/gallery/neon-purple.jpg\",\n        \"qrc:/example/images/gallery/tree.jpg\",\n        \"qrc:/example/images/gallery/ocean.jpg\"]\n}\n"
             },
             {
                 "name": "EImageViewer",
                 "title": "PrimeImageViewerCase2",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEImage {\n    width: 260\n    height: 160\n    preview: true\n    allowDownload: false\n    showThumbnails: true\n    source: \"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAiIGhlaWdodD0iMTAwIj48cmVjdCB3aWR0aD0iMTYwIiBoZWlnaHQ9IjEwMCIgcng9IjEyIiBmaWxsPSIjMjU2M2ViIi8+PHRleHQgeD0iODAiIHk9IjYwIiBmb250LXNpemU9IjM2IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkVVSTwvdGV4dD48L3N2Zz4=\"\n    previewSrcList: [\"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAiIGhlaWdodD0iMTAwIj48cmVjdCB3aWR0aD0iMTYwIiBoZWlnaHQ9IjEwMCIgcng9IjEyIiBmaWxsPSIjMjU2M2ViIi8+PHRleHQgeD0iODAiIHk9IjYwIiBmb250LXNpemU9IjM2IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkVVSTwvdGV4dD48L3N2Zz4=\", \"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAiIGhlaWdodD0iMTAwIj48cmVjdCB3aWR0aD0iMTYwIiBoZWlnaHQ9IjEwMCIgcng9IjEyIiBmaWxsPSIjMjU2M2ViIi8+PHRleHQgeD0iODAiIHk9IjYwIiBmb250LXNpemU9IjM2IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkVVSTwvdGV4dD48L3N2Zz4=\"]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEImage {\n    width: 260\n    height: 160\n    preview: true\n    allowDownload: false\n    showThumbnails: true\n    source: \"qrc:/example/images/gallery/lake.jpg\"\n    previewSrcList: [\"qrc:/example/images/gallery/lake.jpg\",\n        \"qrc:/example/images/gallery/neon-red.jpg\",\n        \"qrc:/example/images/gallery/neon-purple.jpg\",\n        \"qrc:/example/images/gallery/tree.jpg\",\n        \"qrc:/example/images/gallery/ocean.jpg\"]\n}\n"
             }
         ]
     },
@@ -887,7 +887,7 @@ var definitions = {
             {
                 "name": "ETag",
                 "title": "PrimeTagCase2",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nETag {\n    text: \"EUI\"\n    avatarSource: \"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAiIGhlaWdodD0iMTAwIj48cmVjdCB3aWR0aD0iMTYwIiBoZWlnaHQ9IjEwMCIgcng9IjEyIiBmaWxsPSIjMjU2M2ViIi8+PHRleHQgeD0iODAiIHk9IjYwIiBmb250LXNpemU9IjM2IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkVVSTwvdGV4dD48L3N2Zz4=\"\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nETag {\n    text: \"EUI\"\n    avatarSource: \"qrc:/example/images/gallery/avatar-02.jpg\"\n}\n"
             }
         ]
     },

@@ -1,7 +1,5 @@
-1. 新增浮动标签、内嵌标签、关联标签、输入组合、旋钮和列表框。
-2. 新增图片与内容对比、排序列表、组织图、分段计量和胶囊标签。
-3. 新增字段分组、视口延迟加载、原位编辑、滚动动画、涟漪和焦点约束。
-4. 新增停靠栏、多列菜单、响应式侧边导航、动态弹窗服务和交互终端。
-5. 新增排程、任务看板和富文本编辑器，支持事件移动、任务拖拽及文本格式编辑。
-6. 为既有组件增加密码强度与规则提示、穿梭框排序与跨栏拖动、右键坐标定位，以及图片缩略图、翻转和原图保存。
-7. Gallery 增加 26 个组件入口和 149 个功能展示，同步中英文 API、类型提示及使用说明。
+1. Add bundled sample images to avatar, carousel, image preview, upload, comparison, and visual effect examples.
+2. Fix CMake and Ninja discovery when preparing the Qt 6 runtime from macOS GUI applications.
+3. Show an animated progress bar during Qt 6 preparation and measured percentages during installation.
+4. Fix indeterminate progress so segments wrap continuously from the right edge to the left.
+5. Load image preview thumbnails only when needed and trigger the image error example on demand.

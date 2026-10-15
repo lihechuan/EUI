@@ -170,7 +170,7 @@ var examples = {
         {
             "title": "CoreListItemAvatar",
             "description": "CoreListItemAvatarDescription",
-            "code": "import EUI 1.0\nimport QtQuick 2.15\n\nEListItem {\n    width: 420\n    extra: \"12:30\"\n    avatarText: \"B\"\n    title: ELocale.texts.CoreSampleBeta\n}\n"
+            "code": "import EUI 1.0\nimport QtQuick 2.15\n\nEListItem {\n    width: 420\n    extra: \"12:30\"\n    avatarText: \"B\"\n    title: ELocale.texts.CoreSampleBeta\n    avatarSource: \"qrc:/example/images/gallery/avatar-03.jpg\"\n}\n"
         },
         {
             "title": "CoreListItemActions",
@@ -180,7 +180,7 @@ var examples = {
         {
             "title": "CoreListItemData",
             "description": "CoreListItemDataDescription",
-            "code": "import EUI 1.0\nimport QtQuick 2.15\n\nEListItem {\n    width: 420\n    avatarText: \"G\"\n    itemData: ({\n        \"title\": ELocale.texts.CoreSampleGamma,\n        \"description\": ELocale.texts.CoreSampleDescription\n    })\n}\n"
+            "code": "import EUI 1.0\nimport QtQuick 2.15\n\nEListItem {\n    width: 420\n    avatarText: \"G\"\n    itemData: ({\n        \"title\": ELocale.texts.CoreSampleGamma,\n        \"description\": ELocale.texts.CoreSampleDescription\n    })\n    avatarSource: \"qrc:/example/images/gallery/avatar-04.jpg\"\n}\n"
         },
         {
             "title": "CoreListItemPlain",
