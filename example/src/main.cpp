@@ -147,6 +147,28 @@ int main(int argc, char *argv[])
                 {QStringLiteral("footer"), version ? version->property("text") : QVariant()},
                 {QStringLiteral("update"), update && update->property("visible").toBool()}});
             qInfo("QUICK3D_GALLERY %s", QJsonDocument(report).toJson(QJsonDocument::Compact).constData());
+            if (arguments.isSet(QStringLiteral("quick3d-ready-file")))
+            {
+                auto *timer = new QTimer(window);
+                timer->setInterval(5000);
+                QObject::connect(timer, &QTimer::timeout, window, [window]() {
+                    auto *view = qobject_cast<QQuickWindow *>(window);
+                    auto *preview = window->findChild<QObject *>(QStringLiteral("quick3dPreview"));
+                    auto *loader = window->findChild<QObject *>(QStringLiteral("quick3dSceneLoader"));
+                    auto *item = loader ? loader->property("item").value<QObject *>() : nullptr;
+                    const auto state = QJsonObject::fromVariantMap({
+                        {QStringLiteral("exposed"), view && view->isExposed()},
+                        {QStringLiteral("visible"), view && view->isVisible()},
+                        {QStringLiteral("available"), preview ? preview->property("available") : QVariant()},
+                        {QStringLiteral("software"), preview ? preview->property("software") : QVariant()},
+                        {QStringLiteral("status"), loader ? loader->property("status") : QVariant()},
+                        {QStringLiteral("active"), loader ? loader->property("active") : QVariant()},
+                        {QStringLiteral("progress"), loader ? loader->property("progress") : QVariant()},
+                        {QStringLiteral("fps"), item ? item->property("fps") : QVariant()}});
+                    qInfo("[DEBUG-a4f2] %s", QJsonDocument(state).toJson(QJsonDocument::Compact).constData());
+                });
+                timer->start();
+            }
             if (arguments.isSet(QStringLiteral("quick3d-ready-file")) &&
                 qEnvironmentVariable("QT_QPA_PLATFORM") == QStringLiteral("offscreen"))
                 QTimer::singleShot(1000, &runtime, &Example3DRuntime::confirmReady);

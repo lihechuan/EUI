@@ -583,6 +583,7 @@ void Example3DRuntime::launch()
     if (QCoreApplication::arguments().contains(QStringLiteral("--quick3d-runtime-check")))
     {
         environment.insert(QStringLiteral("QT_FORCE_STDERR_LOGGING"), QStringLiteral("1"));
+        environment.insert(QStringLiteral("QSG_INFO"), QStringLiteral("1"));
         if (qEnvironmentVariable("QT_QPA_PLATFORM") == QStringLiteral("offscreen"))
             environment.insert(QStringLiteral("QT_QPA_PLATFORM"), QStringLiteral("offscreen"));
         m_child->setProcessChannelMode(QProcess::ForwardedChannels);
