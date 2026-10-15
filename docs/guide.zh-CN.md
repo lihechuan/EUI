@@ -728,7 +728,7 @@ Windows 使用 Qt 5.15.2，macOS 使用 Qt 6.8.3。macOS DMG 将应用拖入 App
 2. 在页面底部的 **Artifacts** 下载所需平台的附件；构建产物保留 14 天。
 3. 解压附件，使用其中的安装包或免安装包，并按 `SHA256SUMS.txt` 核对 SHA-256。Windows 免安装版解压后运行 `EUI-Gallery.exe`，保留全部 DLL 和子目录。
 
-长期下载入口见[发行版页面](https://github.com/lihechuan/EUI/releases)。版本号变化并进入 `master` 后，工作流会自动发布通过验证的安装包、免安装包和校验文件；正式发布及失败重跑方式见[贡献指南](../CONTRIBUTING.md#正式发布--releases)。交付前仍应在目标电脑检查图表、媒体、上传和打印等实际功能。
+长期下载入口见[GitHub Releases](https://github.com/lihechuan/EUI/releases)。版本号变化并进入 `master` 后，工作流会自动发布通过验证的安装包、免安装包和校验文件；正式发布及失败重跑方式见[贡献指南](../CONTRIBUTING.md#正式发布--releases)。交付前仍应在目标电脑检查图表、媒体、上传和打印等实际功能。
 
 ## 7. 常见问题
 
