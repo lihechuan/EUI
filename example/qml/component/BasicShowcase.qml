@@ -26,12 +26,12 @@ Column {
                     }
                     EIcon {
                         iconSize: 32
-                        color: "#21B6A8"
+                        color: "#67c23a"
                         iconSource: EIcons.PALETTE
                     }
                     EIcon {
                         iconSize: 32
-                        color: "#A78BFA"
+                        color: "#e6a23c"
                         iconSource: EIcons.PALETTE
                     }
                 }
@@ -48,12 +48,12 @@ Column {
                 }
                 EIcon {
                     iconSize: 32
-                    color: "#21B6A8"
+                    color: "#67c23a"
                     iconSource: EIcons.PALETTE
                 }
                 EIcon {
                     iconSize: 32
-                    color: "#A78BFA"
+                    color: "#e6a23c"
                     iconSource: EIcons.PALETTE
                 }
             }
@@ -525,7 +525,7 @@ Column {
                         width: 100
                         border.width: 1
                         color: "transparent"
-                        border.color: "#21B6A8"
+                        border.color: "#67c23a"
                     }
                     ERectangle {
                         height: 72
@@ -533,7 +533,7 @@ Column {
                         width: 100
                         border.width: 2
                         color: "transparent"
-                        border.color: "#21B6A8"
+                        border.color: "#67c23a"
                     }
                     ERectangle {
                         height: 72
@@ -541,7 +541,7 @@ Column {
                         width: 100
                         border.width: 4
                         color: "transparent"
-                        border.color: "#21B6A8"
+                        border.color: "#67c23a"
                     }
                 }
             `)
@@ -556,7 +556,7 @@ Column {
                     width: 100
                     border.width: 1
                     color: "transparent"
-                    border.color: "#21B6A8"
+                    border.color: "#67c23a"
                 }
                 ERectangle {
                     height: 72
@@ -564,7 +564,7 @@ Column {
                     width: 100
                     border.width: 2
                     color: "transparent"
-                    border.color: "#21B6A8"
+                    border.color: "#67c23a"
                 }
                 ERectangle {
                     height: 72
@@ -572,7 +572,7 @@ Column {
                     width: 100
                     border.width: 4
                     color: "transparent"
-                    border.color: "#21B6A8"
+                    border.color: "#67c23a"
                 }
             }
         }
@@ -594,11 +594,11 @@ Column {
                     gradient: Gradient {
                         GradientStop {
                             position: 0
-                            color: "#226DCA"
+                            color: "#409eff"
                         }
                         GradientStop {
                             position: 1
-                            color: "#21B6A8"
+                            color: "#67c23a"
                         }
                     }
                 }
@@ -611,11 +611,11 @@ Column {
                 gradient: Gradient {
                     GradientStop {
                         position: 0
-                        color: "#226DCA"
+                        color: "#409eff"
                     }
                     GradientStop {
                         position: 1
-                        color: "#21B6A8"
+                        color: "#67c23a"
                     }
                 }
             }
@@ -1230,7 +1230,7 @@ Column {
                 ERotatingIcon {
                     iconSize: 36
                     running: false
-                    color: "#21B6A8"
+                    color: "#67c23a"
                     iconSource: EIcons.CHECK
                 }
             `)
@@ -1238,7 +1238,7 @@ Column {
             ERotatingIcon {
                 iconSize: 36
                 running: false
-                color: "#21B6A8"
+                color: "#67c23a"
                 iconSource: EIcons.CHECK
             }
         }
@@ -1436,7 +1436,7 @@ Column {
                         width: 100
                         borderWidth: 2
                         color: "transparent"
-                        borderColor: "#21B6A8"
+                        borderColor: "#67c23a"
                         radius: [12, 12, 12, 12]
                         borderStyle: Qt.SolidLine
                     }
@@ -1445,7 +1445,7 @@ Column {
                         width: 100
                         borderWidth: 2
                         color: "transparent"
-                        borderColor: "#21B6A8"
+                        borderColor: "#67c23a"
                         borderStyle: Qt.DashLine
                         radius: [12, 12, 12, 12]
                     }
@@ -1454,7 +1454,7 @@ Column {
                         width: 100
                         borderWidth: 2
                         color: "transparent"
-                        borderColor: "#21B6A8"
+                        borderColor: "#67c23a"
                         borderStyle: Qt.DotLine
                         radius: [12, 12, 12, 12]
                     }
@@ -1470,7 +1470,7 @@ Column {
                     width: 100
                     borderWidth: 2
                     color: "transparent"
-                    borderColor: "#21B6A8"
+                    borderColor: "#67c23a"
                     radius: [12, 12, 12, 12]
                     borderStyle: Qt.SolidLine
                 }
@@ -1479,7 +1479,7 @@ Column {
                     width: 100
                     borderWidth: 2
                     color: "transparent"
-                    borderColor: "#21B6A8"
+                    borderColor: "#67c23a"
                     borderStyle: Qt.DashLine
                     radius: [12, 12, 12, 12]
                 }
@@ -1488,7 +1488,7 @@ Column {
                     width: 100
                     borderWidth: 2
                     color: "transparent"
-                    borderColor: "#21B6A8"
+                    borderColor: "#67c23a"
                     borderStyle: Qt.DotLine
                     radius: [12, 12, 12, 12]
                 }
@@ -1510,7 +1510,7 @@ Column {
                     width: 280
                     borderWidth: 3
                     color: "transparent"
-                    borderColor: "#A78BFA"
+                    borderColor: "#e6a23c"
                     radius: [16, 16, 16, 16]
                     dashPattern: [6, 2, 1, 2]
                     borderStyle: Qt.CustomDashLine
@@ -1522,7 +1522,7 @@ Column {
                 width: 280
                 borderWidth: 3
                 color: "transparent"
-                borderColor: "#A78BFA"
+                borderColor: "#e6a23c"
                 radius: [16, 16, 16, 16]
                 dashPattern: [6, 2, 1, 2]
                 borderStyle: Qt.CustomDashLine

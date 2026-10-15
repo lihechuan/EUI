@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
-project(EUI VERSION 1.2.0)
+project(EUI VERSION 1.3.0)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -92,7 +92,10 @@ add_subdirectory(source)
 
 if(EUI_BUILD_TESTS)
     enable_testing()
-    add_subdirectory(tests)
+    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/tests/CMakeLists.txt")
+        add_subdirectory(tests)
+    endif()
+    add_subdirectory(validation/library)
 endif()
 
 target_compile_definitions(euiplugin

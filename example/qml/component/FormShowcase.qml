@@ -895,9 +895,9 @@ Column {
 
                 EThemeSwitch {
                     darkIconColor: "#DCEBFF"
-                    darkThumbColor: "#68B5FF"
+                    darkThumbColor: "#409eff"
                     darkTrackColor: "#173958"
-                    lightIconColor: "#226DCA"
+                    lightIconColor: "#409eff"
                     lightThumbColor: "#FFFFFF"
                     lightTrackColor: "#C3DEF4"
                 }
@@ -905,9 +905,9 @@ Column {
 
             EThemeSwitch {
                 darkIconColor: "#DCEBFF"
-                darkThumbColor: "#68B5FF"
+                darkThumbColor: "#409eff"
                 darkTrackColor: "#173958"
-                lightIconColor: "#226DCA"
+                lightIconColor: "#409eff"
                 lightThumbColor: "#FFFFFF"
                 lightTrackColor: "#C3DEF4"
             }

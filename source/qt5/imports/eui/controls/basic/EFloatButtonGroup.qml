@@ -44,7 +44,7 @@ Item {
             close()
 
     }
-    Keys.onEscapePressed: {
+    Keys.onEscapePressed: function(event) {
         close()
         event.accepted = true
     }

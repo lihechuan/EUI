@@ -395,7 +395,7 @@ Column {
 
                     EBadge {
                         isDot: true
-                        color: "#21B6A8"
+                        color: "#67c23a"
                         offset: Qt.point(4, -4)
 
                         EAvatar {
@@ -419,7 +419,7 @@ Column {
 
                 EBadge {
                     isDot: true
-                    color: "#21B6A8"
+                    color: "#67c23a"
                     offset: Qt.point(4, -4)
 
                     EAvatar {
@@ -778,17 +778,17 @@ Column {
                     EAvatar {
                         size: 32
                         text: "UI"
-                        backgroundColor: "#226DCA"
+                        backgroundColor: "#409eff"
                     }
                     EAvatar {
                         size: 48
                         text: "UI"
-                        backgroundColor: "#226DCA"
+                        backgroundColor: "#409eff"
                     }
                     EAvatar {
                         size: 64
                         text: "UI"
-                        backgroundColor: "#226DCA"
+                        backgroundColor: "#409eff"
                     }
                 }
             `)
@@ -800,17 +800,17 @@ Column {
                 EAvatar {
                     size: 32
                     text: "UI"
-                    backgroundColor: "#226DCA"
+                    backgroundColor: "#409eff"
                 }
                 EAvatar {
                     size: 48
                     text: "UI"
-                    backgroundColor: "#226DCA"
+                    backgroundColor: "#409eff"
                 }
                 EAvatar {
                     size: 64
                     text: "UI"
-                    backgroundColor: "#226DCA"
+                    backgroundColor: "#409eff"
                 }
             }
         }

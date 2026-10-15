@@ -47,6 +47,17 @@ EButton {
             dropdownMenu.open()
     }
 
+    function openAt(x, y, item) {
+        if (!enabled || !isFinite(x) || !isFinite(y))
+            return false
+        if (item)
+            reference = item
+        menuState.position = Qt.point(x, y)
+        menuState.positioned = true
+        open()
+        return dropdownMenu.visible
+    }
+
     iconSize: 12
     hoverEnabled: true
     iconSource: EIcons.CHEVRON_DOWN
@@ -132,7 +143,7 @@ EButton {
             acceptedButtons: Qt.RightButton
             enabled: control.trigger === "contextmenu"
 
-            onTapped: control.open()
+            onTapped: control.openAt(point.position.x, point.position.y, control.reference || control)
         }
     }
     ETextButton {
@@ -150,7 +161,7 @@ EButton {
         acceptedButtons: Qt.RightButton
         enabled: control.trigger === "contextmenu"
 
-        onClicked: control.open()
+        onClicked: function(mouse) { control.openAt(mouse.x, mouse.y, control) }
     }
     Timer {
         id: showTimer
@@ -173,6 +184,8 @@ EButton {
         id: menuState
 
         property bool loaded: false
+        property bool positioned: false
+        property point position: Qt.point(0, 0)
     }
     Menu {
         id: dropdownMenu
@@ -182,11 +195,12 @@ EButton {
         width: Math.max(100, control.menuWidth)
         z: EControlConfig.valueFor(control, "zIndex", 0)
         height: control.maxHeight > 0 ? Math.min(implicitHeight, control.maxHeight) : implicitHeight
-        y: control.placement === EPlacement.Top
+        y: menuState.positioned ? menuState.position.y : control.placement === EPlacement.Top
             || control.placement === EPlacement.TopLeft
             || control.placement === EPlacement.TopRight
             ? -height - 6 : (parent ? parent.height : 0) + 6
-        x: control.placement === EPlacement.TopRight || control.placement === EPlacement.BottomRight
+        x: menuState.positioned ? menuState.position.x
+            : control.placement === EPlacement.TopRight || control.placement === EPlacement.BottomRight
             ? (parent ? parent.width : 0) - width
                 : control.placement === EPlacement.Top || control.placement === EPlacement.Bottom
             ? ((parent ? parent.width : 0) - width) / 2 : 0
@@ -239,6 +253,7 @@ EButton {
         }
 
         onClosed: {
+            menuState.positioned = false
             if (!control.persistent)
                 menuState.loaded = false
         }
@@ -281,8 +296,8 @@ EButton {
                 }
             }
 
-            onObjectRemoved: dropdownMenu.removeItem(object)
-            onObjectAdded: dropdownMenu.insertItem(index, object)
+            onObjectRemoved: function(index, object) { dropdownMenu.removeItem(object) }
+            onObjectAdded: function(index, object) { dropdownMenu.insertItem(index, object) }
         }
     }
 }

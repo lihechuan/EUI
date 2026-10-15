@@ -58,4 +58,5 @@ ExamplePage {
             }
         }
     }
+    PrimeShowcase { names: ["EApp"] }
 }

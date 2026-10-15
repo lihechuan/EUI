@@ -549,7 +549,8 @@ Item {
                 text: EControlConfig.textFor(control, "RequiredIndicator", ELocale.texts)
                 color: EPaletteManager.StatePalette.validationColor(EValidationState.Error)
             }
-            EText {
+            ELabel {
+                target: control.field
                 visible: control.labelComponent === null
                 text: control.label + control.labelSuffix
                 anchors.verticalCenter: parent.verticalCenter

@@ -153,7 +153,7 @@ RangeSlider {
         first.value = closestMark(first.value, Math.min(from, to), second.value)
     second.onValueChanged: if (step === "mark")
         second.value = closestMark(second.value, first.value, Math.max(from, to))
-    Keys.onPressed: {
+    Keys.onPressed: function(event) {
         const target = second.handle && second.handle.activeFocus ? second : first
         moveToMark(event, target, target === first ? Math.min(from, to) : first.value,
             target === first ? second.value : Math.max(from, to))

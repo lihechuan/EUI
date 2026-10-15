@@ -73,8 +73,10 @@ Loader {
             textRole: editor.options.textRole || "label"
             valueRole: editor.options.valueRole || "value"
 
-            onChanged: editor.accept(value)
             Keys.onEscapePressed: editor.owner.cancelEdit()
+            onChanged: function(value) {
+                editor.accept(value)
+            }
         }
     }
     Component {

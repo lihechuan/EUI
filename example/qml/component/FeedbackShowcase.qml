@@ -24,21 +24,21 @@ Column {
                         height: 40
                         strokeWidth: 2
                         sweepAngle: 100
-                        color: "#21B6A8"
+                        color: "#67c23a"
                     }
                     ELoading {
                         width: 40
                         height: 40
                         strokeWidth: 4
                         sweepAngle: 100
-                        color: "#21B6A8"
+                        color: "#67c23a"
                     }
                     ELoading {
                         width: 40
                         height: 40
                         strokeWidth: 6
                         sweepAngle: 100
-                        color: "#21B6A8"
+                        color: "#67c23a"
                     }
                 }
             `)
@@ -52,21 +52,21 @@ Column {
                     height: 40
                     strokeWidth: 2
                     sweepAngle: 100
-                    color: "#21B6A8"
+                    color: "#67c23a"
                 }
                 ELoading {
                     width: 40
                     height: 40
                     strokeWidth: 4
                     sweepAngle: 100
-                    color: "#21B6A8"
+                    color: "#67c23a"
                 }
                 ELoading {
                     width: 40
                     height: 40
                     strokeWidth: 6
                     sweepAngle: 100
-                    color: "#21B6A8"
+                    color: "#67c23a"
                 }
             }
         }
@@ -718,7 +718,7 @@ Column {
                     width: 100
                     height: 100
                     strokeWidth: 8
-                    color: "#21B6A8"
+                    color: "#67c23a"
                     format: function(value) { return Math.round(value) + " / 100" }
                 }
             `)
@@ -728,7 +728,7 @@ Column {
                 width: 100
                 height: 100
                 strokeWidth: 8
-                color: "#21B6A8"
+                color: "#67c23a"
                 format: function(value) { return Math.round(value) + " / 100" }
             }
         }
@@ -828,7 +828,7 @@ Column {
                 EProgress {
                     value: 65
                     strokeWidth: 8
-                    color: "#21B6A8"
+                    color: "#67c23a"
                     width: Math.min(260, parent.width)
                     format: function(value) { return Math.round(value) + " / 100" }
                 }
@@ -837,7 +837,7 @@ Column {
             EProgress {
                 value: 65
                 strokeWidth: 8
-                color: "#21B6A8"
+                color: "#67c23a"
                 width: Math.min(260, parent.width)
                 format: function(value) { return Math.round(value) + " / 100" }
             }

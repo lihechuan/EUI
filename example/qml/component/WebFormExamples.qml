@@ -805,9 +805,9 @@ ExamplePage {
                         value: "off"
                         activeValue: "on"
                         inactiveValue: "off"
-                        activeColor: "#14b8a6"
+                        activeColor: "#67c23a"
                         activeIcon: EIcons.CHECK
-                        inactiveColor: "#858b96"
+                        inactiveColor: "#909399"
                         inactiveIcon: EIcons.XMARK
                         activeText: ELocale.texts.Enabled2
                         inactiveText: ELocale.texts.Disabled3
@@ -831,9 +831,9 @@ ExamplePage {
                     value: "off"
                     activeValue: "on"
                     inactiveValue: "off"
-                    activeColor: "#14b8a6"
+                    activeColor: "#67c23a"
                     activeIcon: EIcons.CHECK
-                    inactiveColor: "#858b96"
+                    inactiveColor: "#909399"
                     inactiveIcon: EIcons.XMARK
                     objectName: "webFormSwitch"
                     activeText: ELocale.texts.Enabled2
@@ -863,7 +863,7 @@ ExamplePage {
                         showText: true
                         allowHalf: true
                         texts: [ELocale.texts.Poor, ELocale.texts.Fair, ELocale.texts.Good, ELocale.texts.Great, ELocale.texts.Excellent]
-                        colors: ["#909399", "#E6A23C", "#E6A23C", "#F5B301", "#F5B301"]
+                        colors: ["#909399", "#E6A23C", "#E6A23C", "#e6a23c", "#e6a23c"]
                     }
                     ERate {
                         value: 4.5
@@ -882,7 +882,7 @@ ExamplePage {
                     showText: true
                     allowHalf: true
                     objectName: "webFormRate"
-                    colors: ["#909399", "#E6A23C", "#E6A23C", "#F5B301", "#F5B301"]
+                    colors: ["#909399", "#E6A23C", "#E6A23C", "#e6a23c", "#e6a23c"]
                     texts: [ELocale.texts.Poor, ELocale.texts.Fair, ELocale.texts.Good,
                         ELocale.texts.Great, ELocale.texts.Excellent]
                 }
@@ -912,18 +912,18 @@ ExamplePage {
                         showAlpha: true
                         colorFormat: "rgb"
                         commitOnConfirm: true
-                        value: "#3267e8"
-                        predefine: ["#3267e8", "#8b5cf6", "#14b8a6", "#e6a23c", "#f56c6c"]
+                        value: "#409eff"
+                        predefine: ["#409eff", "#909399", "#67c23a", "#e6a23c", "#f56c6c"]
                     }
                 }`)
 
             EColorPicker {
                 showAlpha: true
-                value: "#3267e8"
+                value: "#409eff"
                 colorFormat: "rgb"
                 commitOnConfirm: true
                 objectName: "webFormEColorPicker"
-                predefine: ["#3267e8", "#8b5cf6", "#14b8a6", "#e6a23c", "#f56c6c"]
+                predefine: ["#409eff", "#909399", "#67c23a", "#e6a23c", "#f56c6c"]
             }
         }
     }
@@ -945,19 +945,19 @@ ExamplePage {
                         showButtons: true
                         colorFormat: "hsl"
                         commitOnConfirm: true
-                        value: "#3267e8"
-                        predefine: ["#3267e8", "#8b5cf6", "#14b8a6", "#e6a23c", "#f56c6c"]
+                        value: "#409eff"
+                        predefine: ["#409eff", "#909399", "#67c23a", "#e6a23c", "#f56c6c"]
                     }
                 }`)
 
             EColorPickerPanel {
                 showAlpha: true
-                value: "#3267e8"
+                value: "#409eff"
                 showButtons: true
                 colorFormat: "hsl"
                 commitOnConfirm: true
                 objectName: "webFormEColorPickerPanel"
-                predefine: ["#3267e8", "#8b5cf6", "#14b8a6", "#e6a23c", "#f56c6c"]
+                predefine: ["#409eff", "#909399", "#67c23a", "#e6a23c", "#f56c6c"]
             }
         }
     }

@@ -196,9 +196,11 @@ EInput {
         : EDefaultConfig.controlHeight(size)
 
     onTextEdited: syncSuggestions()
-    Keys.onPressed: handleKey(event)
     onEnabledChanged: if (!enabled)
         close()
+    Keys.onPressed: function(event) {
+        handleKey(event)
+    }
     onMatchesChanged: mentionList.currentIndex = matches.length > 0 ? 0 : -1
     onTextChanged: if (editor !== control && editor.text !== text)
         editor.text = text
@@ -225,7 +227,9 @@ EInput {
                 validationState: control.validationState
                 validationMessage: control.validationMessage
 
-                Keys.onPressed: control.handleKey(event)
+                Keys.onPressed: function(event) {
+                    control.handleKey(event)
+                }
                 onTextChanged: if (control.text !== text)
                     control.text = text
                 onActiveFocusChanged: Qt.callLater(function() {

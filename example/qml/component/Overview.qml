@@ -339,6 +339,7 @@ Flickable {
                         property var group: modelData
 
                         readonly property color accent: [GalleryStyle.accent, GalleryStyle.teal, GalleryStyle.violet][index % 3]
+                            || GalleryStyle.accent
 
                         radius: 10
                         border.width: 1

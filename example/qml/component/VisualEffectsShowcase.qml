@@ -215,7 +215,7 @@ Column {
                         radius: 50
                         width: 100
                         height: 100
-                        color: "#007D83"
+                        color: "#67c23a"
                         anchors.centerIn: parent
 
                         EShadow {
@@ -236,7 +236,7 @@ Column {
                     radius: 50
                     width: 100
                     height: 100
-                    color: "#007D83"
+                    color: "#67c23a"
                     anchors.centerIn: parent
 
                     EShadow {
@@ -270,11 +270,11 @@ Column {
                         gradient: Gradient {
                             GradientStop {
                                 position: 0
-                                color: "#226DCA"
+                                color: "#409eff"
                             }
                             GradientStop {
                                 position: 1
-                                color: "#21B6A8"
+                                color: "#67c23a"
                             }
                         }
 
@@ -315,11 +315,11 @@ Column {
                     gradient: Gradient {
                         GradientStop {
                             position: 0
-                            color: "#226DCA"
+                            color: "#409eff"
                         }
                         GradientStop {
                             position: 1
-                            color: "#21B6A8"
+                            color: "#67c23a"
                         }
                     }
 
@@ -370,11 +370,11 @@ Column {
                         gradient: Gradient {
                             GradientStop {
                                 position: 0
-                                color: "#226DCA"
+                                color: "#409eff"
                             }
                             GradientStop {
                                 position: 1
-                                color: "#21B6A8"
+                                color: "#67c23a"
                             }
                         }
 
@@ -416,11 +416,11 @@ Column {
                     gradient: Gradient {
                         GradientStop {
                             position: 0
-                            color: "#226DCA"
+                            color: "#409eff"
                         }
                         GradientStop {
                             position: 1
-                            color: "#21B6A8"
+                            color: "#67c23a"
                         }
                     }
 
@@ -472,11 +472,11 @@ Column {
                         gradient: Gradient {
                             GradientStop {
                                 position: 0
-                                color: "#226DCA"
+                                color: "#409eff"
                             }
                             GradientStop {
                                 position: 1
-                                color: "#21B6A8"
+                                color: "#67c23a"
                             }
                         }
 
@@ -518,11 +518,11 @@ Column {
                     gradient: Gradient {
                         GradientStop {
                             position: 0
-                            color: "#226DCA"
+                            color: "#409eff"
                         }
                         GradientStop {
                             position: 1
-                            color: "#21B6A8"
+                            color: "#67c23a"
                         }
                     }
 
@@ -574,7 +574,7 @@ Column {
                         ERectangle {
                             id: backdrop
 
-                            color: "#226DCA"
+                            color: "#409eff"
                             anchors.fill: parent
                         }
                         EAcrylic {
@@ -590,7 +590,7 @@ Column {
                     EButton {
                         text: ELocale.texts.ChangeBackgroundAndRefresh
 
-                        onClicked: { backdrop.color = backdrop.color === "#226dca" ? "#007D83" : "#226DCA"
+                        onClicked: { backdrop.color = backdrop.color === "#409eff" ? "#67c23a" : "#409eff"
                             glass.refresh() }
                     }
                 }
@@ -607,7 +607,7 @@ Column {
                     ERectangle {
                         id: backdrop
 
-                        color: "#226DCA"
+                        color: "#409eff"
                         anchors.fill: parent
                     }
                     EAcrylic {
@@ -623,7 +623,7 @@ Column {
                 EButton {
                     text: ELocale.texts.ChangeBackgroundAndRefresh
 
-                    onClicked: { backdrop.color = backdrop.color === "#226dca" ? "#007D83" : "#226DCA"
+                    onClicked: { backdrop.color = backdrop.color === "#409eff" ? "#67c23a" : "#409eff"
                         glass.refresh() }
                 }
             }
@@ -652,11 +652,11 @@ Column {
                         gradient: Gradient {
                             GradientStop {
                                 position: 0
-                                color: "#226DCA"
+                                color: "#409eff"
                             }
                             GradientStop {
                                 position: 1
-                                color: "#21B6A8"
+                                color: "#67c23a"
                             }
                         }
                     }
@@ -676,11 +676,11 @@ Column {
                     gradient: Gradient {
                         GradientStop {
                             position: 0
-                            color: "#226DCA"
+                            color: "#409eff"
                         }
                         GradientStop {
                             position: 1
-                            color: "#21B6A8"
+                            color: "#67c23a"
                         }
                     }
                 }
@@ -710,11 +710,11 @@ Column {
                         gradient: Gradient {
                             GradientStop {
                                 position: 0
-                                color: "#226DCA"
+                                color: "#409eff"
                             }
                             GradientStop {
                                 position: 1
-                                color: "#21B6A8"
+                                color: "#67c23a"
                             }
                         }
                     }
@@ -734,11 +734,11 @@ Column {
                     gradient: Gradient {
                         GradientStop {
                             position: 0
-                            color: "#226DCA"
+                            color: "#409eff"
                         }
                         GradientStop {
                             position: 1
-                            color: "#21B6A8"
+                            color: "#67c23a"
                         }
                     }
                 }
@@ -768,11 +768,11 @@ Column {
                         gradient: Gradient {
                             GradientStop {
                                 position: 0
-                                color: "#226DCA"
+                                color: "#409eff"
                             }
                             GradientStop {
                                 position: 1
-                                color: "#21B6A8"
+                                color: "#67c23a"
                             }
                         }
                     }
@@ -792,11 +792,11 @@ Column {
                     gradient: Gradient {
                         GradientStop {
                             position: 0
-                            color: "#226DCA"
+                            color: "#409eff"
                         }
                         GradientStop {
                             position: 1
-                            color: "#21B6A8"
+                            color: "#67c23a"
                         }
                     }
                 }

@@ -169,7 +169,6 @@ EApplicationWindow {
                     easing.type: Easing.InOutCubic
                 }
             }
-
             Row {
                 x: 16
                 y: 22
@@ -276,7 +275,9 @@ EApplicationWindow {
                     id: navigationViewport
 
                     clip: true
+                    pixelAligned: true
                     contentWidth: width
+                    layer.enabled: true
                     width: parent.width
                     objectName: "galleryNavigation"
                     ScrollBar.vertical: ScrollHandle { }
@@ -398,12 +399,11 @@ EApplicationWindow {
                                             contentItem: Item {
                                                 EText {
                                                     font.bold: false
-                                                    height: parent.height
                                                     elide: Text.ElideRight
                                                     text: entryButton.text
                                                     color: GalleryStyle.text
-                                                    verticalAlignment: Text.AlignVCenter
                                                     font.pixelSize: GalleryStyle.bodySize
+                                                    anchors.verticalCenter: parent.verticalCenter
                                                     width: Math.max(0, parent.width - (demoBadge.visible ? demoBadge.width + 8 : 0)
                                                         - (newBadge.visible ? newBadge.width + 8 : 0))
                                                 }
@@ -462,6 +462,22 @@ EApplicationWindow {
                             visible: window.pages.length === 0
                             font.pixelSize: GalleryStyle.bodySize
                             text: ELocale.texts.NoMatchingResults
+                        }
+                    }
+                    MouseArea {
+                        anchors.fill: parent
+                        acceptedButtons: Qt.NoButton
+
+                        onWheel: function(wheel) {
+                            const delta = wheel.pixelDelta.y || wheel.angleDelta.y / 120 * 128
+                            if (delta === 0) {
+                                wheel.accepted = false
+                                return
+                            }
+                            navigationViewport.cancelFlick()
+                            navigationViewport.contentY = Math.max(0, Math.min(navigationViewport.contentY - delta,
+                                navigationViewport.contentHeight - navigationViewport.height))
+                            wheel.accepted = true
                         }
                     }
                 }

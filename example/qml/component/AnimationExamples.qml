@@ -45,7 +45,7 @@ ExamplePage {
                         radius: 12
                         width: 220
                         height: 100
-                        color: "#3267e8"
+                        color: "#409eff"
                     }
                     EButton {
                         text: "${ELocale.texts.AnimationPlay}"

@@ -1218,18 +1218,18 @@ Column {
                 import QtQuick 2.15
 
                 EColorPicker {
-                    value: "#21B6A8"
+                    value: "#67c23a"
                     showButtons: false
                     commitOnConfirm: false
-                    predefine: ["#409EFF", "#21B6A8", "#A78BFA", "#F0A540"]
+                    predefine: ["#409EFF", "#67c23a", "#e6a23c", "#e6a23c"]
                 }
             `)
 
             EColorPicker {
-                value: "#21B6A8"
+                value: "#67c23a"
                 showButtons: false
                 commitOnConfirm: false
-                predefine: ["#409EFF", "#21B6A8", "#A78BFA", "#F0A540"]
+                predefine: ["#409EFF", "#67c23a", "#e6a23c", "#e6a23c"]
             }
         }
     }
@@ -1594,18 +1594,18 @@ Column {
                 import QtQuick 2.15
 
                 EColorPickerPanel {
-                    value: "#21B6A8"
+                    value: "#67c23a"
                     showButtons: false
                     commitOnConfirm: false
-                    predefine: ["#409EFF", "#21B6A8", "#A78BFA", "#F0A540"]
+                    predefine: ["#409EFF", "#67c23a", "#e6a23c", "#e6a23c"]
                 }
             `)
 
             EColorPickerPanel {
-                value: "#21B6A8"
+                value: "#67c23a"
                 showButtons: false
                 commitOnConfirm: false
-                predefine: ["#409EFF", "#21B6A8", "#A78BFA", "#F0A540"]
+                predefine: ["#409EFF", "#67c23a", "#e6a23c", "#e6a23c"]
             }
         }
     }

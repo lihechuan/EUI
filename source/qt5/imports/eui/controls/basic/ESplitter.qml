@@ -191,7 +191,7 @@ SplitView {
                 control.activeHandle = -1
                 control.pendingDelta = 0
             }
-            onPositionChanged: {
+            onPositionChanged: function(mouse) {
                 if (!pressed)
                     return
                 const point = mapToItem(control, mouse.x, mouse.y)
@@ -202,7 +202,7 @@ SplitView {
                     finishTimer.start()
                 }
             }
-            onPressed: {
+            onPressed: function(mouse) {
                 const point = mapToItem(control, mouse.x, mouse.y)
                 handle.pressPosition = control.orientation === Qt.Horizontal ? point.x : point.y
                 handle.handleIndex = handle.resolvedIndex()

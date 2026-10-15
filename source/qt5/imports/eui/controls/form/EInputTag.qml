@@ -102,9 +102,11 @@ Control {
                 property int tagIndex: index
 
                 readonly property string tag: modelData
+                readonly property real contentWidth: tagLoader.item ? tagLoader.item.implicitWidth : 0
+                readonly property real contentHeight: tagLoader.item ? tagLoader.item.implicitHeight : 0
 
-                height: tagLoader.item ? tagLoader.item.implicitHeight : 0
-                width: Math.min(tagFlow.width, tagLoader.item ? tagLoader.item.implicitWidth : 0)
+                height: contentHeight
+                width: Math.min(tagFlow.width, contentWidth)
 
                 Loader {
                     id: tagLoader

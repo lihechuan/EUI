@@ -4,6 +4,20 @@
 
 Features, fixes, and compatibility changes for each version.
 
+## 1.3.0 - 2026-10-15
+
+1. 新增浮动标签、内嵌标签、关联标签、输入组合、旋钮和列表框。
+2. 新增图片与内容对比、排序列表、组织图、分段计量和胶囊标签。
+3. 新增字段分组、视口延迟加载、原位编辑、滚动动画、涟漪和焦点约束。
+4. 新增停靠栏、多列菜单、响应式侧边导航、动态弹窗服务和交互终端。
+5. 新增排程、任务看板和富文本编辑器，支持事件移动、任务拖拽及文本格式编辑。
+6. 为既有组件增加密码强度与规则提示、穿梭框排序与跨栏拖动、右键坐标定位，以及图片缩略图、翻转和原图保存。
+7. Gallery 增加 26 个组件入口和 149 个功能展示，同步中英文 API、类型提示及使用说明。
+8. 修复自定义插槽尺寸循环、组件销毁及空数据异常、菜单弹窗时序、排程语言切换和深色示例文字对比度，完善 Qt 6 信号处理兼容性。
+9. 增加自动扫描公开 QML 类型的全库回归，覆盖主题、语言、尺寸、生命周期、边界输入与展示页面；优化无头像标签的加载开销。
+
+English: Adds 26 public types covering field labels, grouped inputs, knobs, list boxes, content comparison, ordering, organization charts, meters, chips, containers, effects, focus management, navigation, dynamic dialogs, a terminal, a scheduler, a task board, and rich text editing. Extends password feedback, transfer ordering and dragging, context menu positioning, and image preview and saving. Gallery adds 149 runnable scenarios with bilingual API and usage documentation. Fixes slot sizing loops, lifecycle and null-data errors, popup timing, scheduler localization, dark-theme contrast, and Qt 6 signal handlers. Adds automatic public-component regression coverage and avoids unnecessary avatar loading in tags.
+
 ## 1.2.0 - 2026-10-15
 
 1. 新增 `EFilePicker`、`EFolderPicker`，支持打开文件、多选、保存位置和目录选择。

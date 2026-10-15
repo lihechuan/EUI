@@ -1,5 +1,6 @@
 import EUI 1.0
 import QtQuick 2.15
+import QtQuick.Window 2.15
 
 Item {
     id: item
@@ -27,6 +28,15 @@ Item {
             owner.select(entry.index)
     }
 
+    function syncPopup() {
+        if (!owner || !entry || !owner.popupMode || !entry.hasChildren)
+            return
+        if (expanded && item.visible && item.Window.window && branch.parent)
+            branch.open()
+        else
+            branch.close()
+    }
+
     Accessible.name: entry.text
     Accessible.selected: selected
     activeFocusOnTab: itemEnabled
@@ -37,10 +47,10 @@ Item {
     Keys.onEnterPressed: activate()
     Keys.onSpacePressed: activate()
     Keys.onReturnPressed: activate()
-    onExpandedChanged: {
-        if (owner.popupMode && entry.hasChildren)
-            expanded ? branch.open() : branch.close()
-    }
+    onVisibleChanged: popupSyncTimer.restart()
+    onExpandedChanged: popupSyncTimer.restart()
+    Component.onCompleted: popupSyncTimer.restart()
+    Window.onWindowChanged: popupSyncTimer.restart()
 
     ERectangle {
         anchors.fill: parent
@@ -111,6 +121,7 @@ Item {
         id: branch
 
         nested: true
+        parent: item
         owner: item.owner
         entry: item.entry.item
         enabled: item.itemEnabled
@@ -135,6 +146,13 @@ Item {
             else if (item.owner.menuTrigger === "hover")
                 hideTimer.restart()
         }
+    }
+    Timer {
+        id: popupSyncTimer
+
+        interval: 0
+
+        onTriggered: item.syncPopup()
     }
     Timer {
         id: showTimer

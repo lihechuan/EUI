@@ -538,7 +538,9 @@ Control {
         }
     }
 
-    onRejected: lastError = message
+    onRejected: function(message) {
+        lastError = message
+    }
     onFileListChanged: if (!Array.isArray(fileList))
         fileList = []
     onEnabledChanged: if (!enabled && internal.fileDialog)

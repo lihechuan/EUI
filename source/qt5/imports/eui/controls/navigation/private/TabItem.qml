@@ -95,16 +95,16 @@ TabButton {
         cursorShape: dragging ? Qt.ClosedHandCursor : Qt.ArrowCursor
 
         onCanceled: dragging = false
-        onPressed: {
+        onPressed: function(mouse) {
             pressX = mouse.x
             pressY = mouse.y
             dragging = false
         }
-        onPositionChanged: {
+        onPositionChanged: function(mouse) {
             if (pressed && Math.abs(tab.owner.vertical ? mouse.y - pressY : mouse.x - pressX) > 12)
                 dragging = true
         }
-        onReleased: {
+        onReleased: function(mouse) {
             if (dragging) {
                 const position = mapToItem(tab.owner.contentItem, mouse.x, mouse.y)
                 tab.owner.moveTab(tab.tabIndex, tab.owner.indexAt(tab.owner.vertical ? position.y

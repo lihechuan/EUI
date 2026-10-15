@@ -299,9 +299,11 @@ SpinBox {
         else
             numberValue = value
     }
-    Keys.onPressed: if (readOnly
-        && [Qt.Key_Up, Qt.Key_Down, Qt.Key_PageUp, Qt.Key_PageDown].indexOf(event.key) >= 0)
-        event.accepted = true
+    Keys.onPressed: function(event) {
+        if (readOnly
+            && [Qt.Key_Up, Qt.Key_Down, Qt.Key_PageUp, Qt.Key_PageDown].indexOf(event.key) >= 0)
+            event.accepted = true
+    }
     onValueChanged: {
         if (!inside.completed || inside.syncing)
             return
@@ -331,13 +333,15 @@ SpinBox {
         id: prefixLoader
 
         readonly property var input: control
+        readonly property real contentWidth: active && item ? item.implicitWidth : 0
+        readonly property real contentHeight: active && item ? item.implicitHeight : 0
 
+        width: contentWidth
+        height: contentHeight
         objectName: "spinBoxPrefix"
         y: (control.height - height) / 2
         active: control.prefixComponent !== null
         sourceComponent: control.prefixComponent
-        width: active && item ? item.implicitWidth : 0
-        height: active && item ? item.implicitHeight : 0
         x: control.controls && control.controlsPosition === "both"
             ? control.down.indicator.width + control.padding
             : EDefaultConfig.horizontalPadding(control.size)
@@ -346,13 +350,15 @@ SpinBox {
         id: suffixLoader
 
         readonly property var input: control
+        readonly property real contentWidth: active && item ? item.implicitWidth : 0
+        readonly property real contentHeight: active && item ? item.implicitHeight : 0
 
+        width: contentWidth
+        height: contentHeight
         objectName: "spinBoxSuffix"
         y: (control.height - height) / 2
         active: control.suffixComponent !== null
         sourceComponent: control.suffixComponent
-        width: active && item ? item.implicitWidth : 0
-        height: active && item ? item.implicitHeight : 0
         x: control.width - width - (control.controls ? control.up.indicator.width + control.padding
             : EDefaultConfig.horizontalPadding(control.size))
     }

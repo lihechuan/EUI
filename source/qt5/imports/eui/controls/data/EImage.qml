@@ -1,4 +1,5 @@
 import EUI 1.0
+import EUI.Private 1.0
 import "../config/EControlConfig.js" as EControlConfig
 import QtQuick 2.15
 import QtQuick.Window 2.15
@@ -17,6 +18,8 @@ Control {
     property bool preview: false
     property var previewSrcList: []
     property bool showProgress: true
+    property bool allowDownload: true
+    property bool showThumbnails: false
     property bool hideOnClickModal: true
     property bool closeOnPressEscape: true
     property Component errorDelegate: null
@@ -27,10 +30,13 @@ Control {
     property string errorText: EControlConfig.textFor(control, "FailedToLoad", ELocale.texts)
 
     readonly property int status: image.status
+    readonly property bool downloadBusy: imageFiles.busy
     readonly property int previewIndex: internal.previewIndex
     readonly property real previewScale: internal.previewScale
     readonly property bool previewVisible: previewPopup.visible
     readonly property real previewRotation: internal.previewRotation
+    readonly property bool previewFlippedVertical: internal.flippedVertical
+    readonly property bool previewFlippedHorizontal: internal.flippedHorizontal
     readonly property var previewSources: Array.isArray(previewSrcList) && previewSrcList.length > 0
         ? previewSrcList : source.toString().length > 0 ? [source] : []
 
@@ -40,6 +46,8 @@ Control {
     signal previewClosed()
     signal previewRotated(real angle)
     signal previewSwitched(int index)
+    signal downloaded(url destination)
+    signal downloadFailed(string message)
 
     function closePreview() {
         previewPopup.close()
@@ -56,6 +64,8 @@ Control {
     function resetPreview() {
         internal.previewScale = 1
         internal.previewRotation = 0
+        internal.flippedVertical = false
+        internal.flippedHorizontal = false
         viewerImage.x = 0
         viewerImage.y = 0
     }
@@ -66,6 +76,24 @@ Control {
         internal.previewRotation = (internal.previewRotation + Number(angle)) % 360
         previewRotated(previewRotation)
         return true
+    }
+
+    function flipPreview(vertical) {
+        if (!enabled || !previewVisible)
+            return false
+        if (vertical)
+            internal.flippedVertical = !internal.flippedVertical
+        else
+            internal.flippedHorizontal = !internal.flippedHorizontal
+        return true
+    }
+
+    function downloadPreview(destination) {
+        if (!enabled || !allowDownload || !previewSources.length || downloadBusy)
+            return false
+        if (destination === undefined || String(destination).length === 0)
+            return savePicker.open()
+        return imageFiles.save(previewSources[previewIndex], destination)
     }
 
     function zoomPreview(factor) {
@@ -194,6 +222,8 @@ Control {
         property real previewScale: 1
         property bool loadStarted: false
         property real previewRotation: 0
+        property bool flippedVertical: false
+        property bool flippedHorizontal: false
     }
     Timer {
         repeat: true
@@ -257,6 +287,12 @@ Control {
                 rotation: control.previewRotation
                 source: control.previewVisible && control.previewSources.length > 0
                     ? control.previewSources[control.previewIndex] : ""
+                transform: Scale {
+                    origin.x: viewerImage.width / 2
+                    origin.y: viewerImage.height / 2
+                    yScale: control.previewFlippedVertical ? -1 : 1
+                    xScale: control.previewFlippedHorizontal ? -1 : 1
+                }
             }
             Loader {
                 property int currentIndex: control.previewIndex
@@ -332,10 +368,10 @@ Control {
         }
         Row {
             spacing: 8
-            anchors.bottomMargin: 8
             anchors.bottom: parent.bottom
             visible: !control.toolbarDelegate
             anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottomMargin: control.showThumbnails ? 76 : 8
 
             EButton {
                 text: "−"
@@ -361,6 +397,29 @@ Control {
 
                 onClicked: control.resetPreview()
             }
+            EButton {
+                text: "↔"
+                objectName: "imagePreviewFlipHorizontal"
+                Accessible.name: ELocale.texts.FlipHorizontal
+
+                onClicked: control.flipPreview(false)
+            }
+            EButton {
+                text: "↕"
+                objectName: "imagePreviewFlipVertical"
+                Accessible.name: ELocale.texts.FlipVertical
+
+                onClicked: control.flipPreview(true)
+            }
+            EButton {
+                text: "↓"
+                enabled: !control.downloadBusy
+                visible: control.allowDownload
+                objectName: "imagePreviewDownload"
+                Accessible.name: ELocale.texts.DownloadImage
+
+                onClicked: control.downloadPreview()
+            }
             EText {
                 height: 32
                 color: "white"
@@ -375,5 +434,49 @@ Control {
             sourceComponent: control.toolbarDelegate
             anchors.horizontalCenter: parent.horizontalCenter
         }
+        ListView {
+            clip: true
+            height: 60
+            spacing: 8
+            anchors.bottomMargin: 8
+            anchors.bottom: parent.bottom
+            model: control.previewSources
+            visible: control.showThumbnails
+            orientation: ListView.Horizontal
+            currentIndex: control.previewIndex
+            objectName: "imagePreviewThumbnails"
+            width: Math.min(parent.width - 24, contentWidth)
+            anchors.horizontalCenter: parent.horizontalCenter
+            delegate: Rectangle {
+                width: 72
+                height: 56
+                border.width: index === control.previewIndex ? 3 : 1
+                border.color: index === control.previewIndex
+                    ? EPaletteManager.ThemePalette.fetchColorForStyle(EStyle.Primary) : "#888888"
+
+                Image {
+                    source: modelData
+                    anchors.margins: 3
+                    anchors.fill: parent
+                    fillMode: Image.PreserveAspectCrop
+                }
+                TapHandler { onTapped: control.setActiveItem(index) }
+            }
+        }
+    }
+    ImageIO {
+        id: imageFiles
+
+        onFailed: function(message) { control.downloadFailed(message) }
+        onSaved: function(destination) { control.downloaded(destination) }
+    }
+    EFilePicker {
+        id: savePicker
+
+        mode: "save"
+        visible: false
+        nameFilters: ["Images (*)"]
+
+        onPicked: function(value) { control.downloadPreview(value) }
     }
 }

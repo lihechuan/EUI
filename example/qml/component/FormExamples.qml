@@ -174,9 +174,9 @@ ExamplePage {
                         value: "off"
                         activeValue: "on"
                         inactiveValue: "off"
-                        activeColor: "#14b8a6"
+                        activeColor: "#67c23a"
                         activeIcon: EIcons.CHECK
-                        inactiveColor: "#858b96"
+                        inactiveColor: "#909399"
                         inactiveIcon: EIcons.XMARK
                         activeText: ELocale.texts.Enabled2
                         inactiveText: ELocale.texts.Disabled3
@@ -200,9 +200,9 @@ ExamplePage {
                     value: "off"
                     activeValue: "on"
                     inactiveValue: "off"
-                    activeColor: "#14b8a6"
+                    activeColor: "#67c23a"
                     activeIcon: EIcons.CHECK
-                    inactiveColor: "#858b96"
+                    inactiveColor: "#909399"
                     inactiveIcon: EIcons.XMARK
                     objectName: "webFormSwitch"
                     activeText: ELocale.texts.Enabled2
@@ -925,4 +925,5 @@ ExamplePage {
         }
     }
     FormShowcase { }
+    PrimeShowcase { names: ["EInput", "EFormItem"] }
 }

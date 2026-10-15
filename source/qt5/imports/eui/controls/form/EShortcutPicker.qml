@@ -45,7 +45,7 @@ FormControls.EInput {
         cancel()
         captured(sequence)
     }
-    Keys.onPressed: {
+    Keys.onPressed: function(event) {
         if (capturing && event.key === Qt.Key_Escape)
             cancel()
         else if (capturing)

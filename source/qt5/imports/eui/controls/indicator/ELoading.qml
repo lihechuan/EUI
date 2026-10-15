@@ -105,7 +105,9 @@ Item {
             anchors.fill: parent
             enabled: control.lock
 
-            onWheel: wheel.accepted = true
+            onWheel: function(wheel) {
+                wheel.accepted = true
+            }
         }
         Loader {
             width: parent.width

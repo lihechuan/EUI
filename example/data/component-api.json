@@ -1479,6 +1479,26 @@
           "zh": "EStyle.Small\nEStyle.Medium\nEStyle.Large",
           "en": "EStyle.Small\nEStyle.Medium\nEStyle.Large"
         }
+      },
+      {
+        "name": "dialog",
+        "type": "alias",
+        "binding": "dialogManager",
+        "readonly": true,
+        "owner": "EApp",
+        "source": "source/qt5/imports/eui/controls/config/EApp.qml",
+        "description": {
+          "zh": "EApp 内置的弹窗服务实例。",
+          "en": "Dialog service provided by EApp."
+        },
+        "default": {
+          "zh": "dialogManager",
+          "en": "dialogManager"
+        },
+        "details": {
+          "zh": "字段：\nalignCenter, draggable, overflow",
+          "en": "Fields:\nalignCenter, draggable, overflow"
+        }
       }
     ]
   },
@@ -3115,6 +3135,74 @@
           "zh": "由运行时计算",
           "en": "Computed at runtime"
         }
+      },
+      {
+        "name": "showPasswordStrength",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "聚焦密码输入时显示强度与规则检查。",
+          "en": "Show strength and rule checks while a password input is focused."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "passwordRules",
+        "type": "var",
+        "binding": "[ {label: ELocale.texts.PasswordLength, minLength: 8}, {label: ELocale.texts.PasswordUppercase, pattern: /[A-Z]/}, {label: ELocale.texts.PasswordLowercase, pattern: /[a-z]/}, {label: ELocale.texts.PasswordNumber, pattern: /[0-9]/}, {label: ELocale.texts.PasswordSymbol, pattern: /[^A-Za-z0-9]/} ]",
+        "readonly": false,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "密码规则数组；每项包含 label 及 minLength 或 pattern。",
+          "en": "Password rules with label and minLength or pattern."
+        },
+        "default": {
+          "zh": "[ {label: ELocale.texts.PasswordLength, minLength: 8}, {label: ELocale.texts.PasswordUppercase, pattern: /[A-Z]/}, {label: ELocale.texts.PasswordLowercase, pattern: /[a-z]/}, {label: ELocale.texts.PasswordNumber, pattern: /[0-9]/}, {label: ELocale.texts.PasswordSymbol, pattern: /[^A-Za-z0-9]/} ]",
+          "en": "[ {label: ELocale.texts.PasswordLength, minLength: 8}, {label: ELocale.texts.PasswordUppercase, pattern: /[A-Z]/}, {label: ELocale.texts.PasswordLowercase, pattern: /[a-z]/}, {label: ELocale.texts.PasswordNumber, pattern: /[0-9]/}, {label: ELocale.texts.PasswordSymbol, pattern: /[^A-Za-z0-9]/} ]"
+        }
+      },
+      {
+        "name": "passwordStrength",
+        "type": "real",
+        "binding": "passwordRequirements.length ? passwordRequirements.filter(function(rule) { return rule.passed }).length / passwordRequirements.length : 0",
+        "readonly": true,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "通过规则的比例，范围为 0 到 1。",
+          "en": "Fraction of passed password rules, from 0 to 1."
+        },
+        "default": {
+          "zh": "passwordRequirements.length ? passwordRequirements.filter(function(rule) { return rule.passed }).length / passwordRequirements.length : 0",
+          "en": "passwordRequirements.length ? passwordRequirements.filter(function(rule) { return rule.passed }).length / passwordRequirements.length : 0"
+        }
+      },
+      {
+        "name": "passwordRequirements",
+        "type": "var",
+        "binding": "Array.isArray(passwordRules) ? passwordRules.map(function(rule) { let passed = false try { if (rule && rule.minLength !== undefined) passed = text.length >= Number(rule.minLength) else if (rule && rule.pattern) { const expression = new RegExp(rule.pattern) passed = expression.test(text) } } catch (error) { passed = false } return {label: rule && rule.label ? String(rule.label) : \"\", passed: passed} }) : []",
+        "readonly": true,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "包含 label 与 passed 的规则检查结果。",
+          "en": "Rule results with label and passed fields."
+        },
+        "default": {
+          "zh": "Array.isArray(passwordRules) ? passwordRules.map(function(rule) { let passed = false try { if (rule && rule.minLength !== undefined) passed = text.length >= Number(rule.minLength) else if (rule && rule.pattern) { const expression = new RegExp(rule.pattern) passed = expression.test(text) } } catch (error) { passed = false } return {label: rule && rule.label ? String(rule.label) : \"\", passed: passed} }) : []",
+          "en": "Array.isArray(passwordRules) ? passwordRules.map(function(rule) { let passed = false try { if (rule && rule.minLength !== undefined) passed = text.length >= Number(rule.minLength) else if (rule && rule.pattern) { const expression = new RegExp(rule.pattern) passed = expression.test(text) } } catch (error) { passed = false } return {label: rule && rule.label ? String(rule.label) : \"\", passed: passed} }) : []"
+        }
       }
     ]
   },
@@ -3641,7 +3729,7 @@
       {
         "name": "count",
         "type": "int",
-        "binding": "avatars.length",
+        "binding": "Array.isArray(avatars) ? avatars.length : 0",
         "readonly": true,
         "owner": "EAvatarGroup",
         "source": "source/qt5/imports/eui/controls/data/EAvatarGroup.qml",
@@ -8138,6 +8226,74 @@
         "default": {
           "zh": "由运行时计算",
           "en": "Computed at runtime"
+        }
+      },
+      {
+        "name": "showPasswordStrength",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "聚焦密码输入时显示强度与规则检查。",
+          "en": "Show strength and rule checks while a password input is focused."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "passwordRules",
+        "type": "var",
+        "binding": "[ {label: ELocale.texts.PasswordLength, minLength: 8}, {label: ELocale.texts.PasswordUppercase, pattern: /[A-Z]/}, {label: ELocale.texts.PasswordLowercase, pattern: /[a-z]/}, {label: ELocale.texts.PasswordNumber, pattern: /[0-9]/}, {label: ELocale.texts.PasswordSymbol, pattern: /[^A-Za-z0-9]/} ]",
+        "readonly": false,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "密码规则数组；每项包含 label 及 minLength 或 pattern。",
+          "en": "Password rules with label and minLength or pattern."
+        },
+        "default": {
+          "zh": "[ {label: ELocale.texts.PasswordLength, minLength: 8}, {label: ELocale.texts.PasswordUppercase, pattern: /[A-Z]/}, {label: ELocale.texts.PasswordLowercase, pattern: /[a-z]/}, {label: ELocale.texts.PasswordNumber, pattern: /[0-9]/}, {label: ELocale.texts.PasswordSymbol, pattern: /[^A-Za-z0-9]/} ]",
+          "en": "[ {label: ELocale.texts.PasswordLength, minLength: 8}, {label: ELocale.texts.PasswordUppercase, pattern: /[A-Z]/}, {label: ELocale.texts.PasswordLowercase, pattern: /[a-z]/}, {label: ELocale.texts.PasswordNumber, pattern: /[0-9]/}, {label: ELocale.texts.PasswordSymbol, pattern: /[^A-Za-z0-9]/} ]"
+        }
+      },
+      {
+        "name": "passwordStrength",
+        "type": "real",
+        "binding": "passwordRequirements.length ? passwordRequirements.filter(function(rule) { return rule.passed }).length / passwordRequirements.length : 0",
+        "readonly": true,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "通过规则的比例，范围为 0 到 1。",
+          "en": "Fraction of passed password rules, from 0 to 1."
+        },
+        "default": {
+          "zh": "passwordRequirements.length ? passwordRequirements.filter(function(rule) { return rule.passed }).length / passwordRequirements.length : 0",
+          "en": "passwordRequirements.length ? passwordRequirements.filter(function(rule) { return rule.passed }).length / passwordRequirements.length : 0"
+        }
+      },
+      {
+        "name": "passwordRequirements",
+        "type": "var",
+        "binding": "Array.isArray(passwordRules) ? passwordRules.map(function(rule) { let passed = false try { if (rule && rule.minLength !== undefined) passed = text.length >= Number(rule.minLength) else if (rule && rule.pattern) { const expression = new RegExp(rule.pattern) passed = expression.test(text) } } catch (error) { passed = false } return {label: rule && rule.label ? String(rule.label) : \"\", passed: passed} }) : []",
+        "readonly": true,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "包含 label 与 passed 的规则检查结果。",
+          "en": "Rule results with label and passed fields."
+        },
+        "default": {
+          "zh": "Array.isArray(passwordRules) ? passwordRules.map(function(rule) { let passed = false try { if (rule && rule.minLength !== undefined) passed = text.length >= Number(rule.minLength) else if (rule && rule.pattern) { const expression = new RegExp(rule.pattern) passed = expression.test(text) } } catch (error) { passed = false } return {label: rule && rule.label ? String(rule.label) : \"\", passed: passed} }) : []",
+          "en": "Array.isArray(passwordRules) ? passwordRules.map(function(rule) { let passed = false try { if (rule && rule.minLength !== undefined) passed = text.length >= Number(rule.minLength) else if (rule && rule.pattern) { const expression = new RegExp(rule.pattern) passed = expression.test(text) } } catch (error) { passed = false } return {label: rule && rule.label ? String(rule.label) : \"\", passed: passed} }) : []"
         }
       }
     ]
@@ -14294,6 +14450,74 @@
           "zh": "由运行时计算",
           "en": "Computed at runtime"
         }
+      },
+      {
+        "name": "showPasswordStrength",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "聚焦密码输入时显示强度与规则检查。",
+          "en": "Show strength and rule checks while a password input is focused."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "passwordRules",
+        "type": "var",
+        "binding": "[ {label: ELocale.texts.PasswordLength, minLength: 8}, {label: ELocale.texts.PasswordUppercase, pattern: /[A-Z]/}, {label: ELocale.texts.PasswordLowercase, pattern: /[a-z]/}, {label: ELocale.texts.PasswordNumber, pattern: /[0-9]/}, {label: ELocale.texts.PasswordSymbol, pattern: /[^A-Za-z0-9]/} ]",
+        "readonly": false,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "密码规则数组；每项包含 label 及 minLength 或 pattern。",
+          "en": "Password rules with label and minLength or pattern."
+        },
+        "default": {
+          "zh": "[ {label: ELocale.texts.PasswordLength, minLength: 8}, {label: ELocale.texts.PasswordUppercase, pattern: /[A-Z]/}, {label: ELocale.texts.PasswordLowercase, pattern: /[a-z]/}, {label: ELocale.texts.PasswordNumber, pattern: /[0-9]/}, {label: ELocale.texts.PasswordSymbol, pattern: /[^A-Za-z0-9]/} ]",
+          "en": "[ {label: ELocale.texts.PasswordLength, minLength: 8}, {label: ELocale.texts.PasswordUppercase, pattern: /[A-Z]/}, {label: ELocale.texts.PasswordLowercase, pattern: /[a-z]/}, {label: ELocale.texts.PasswordNumber, pattern: /[0-9]/}, {label: ELocale.texts.PasswordSymbol, pattern: /[^A-Za-z0-9]/} ]"
+        }
+      },
+      {
+        "name": "passwordStrength",
+        "type": "real",
+        "binding": "passwordRequirements.length ? passwordRequirements.filter(function(rule) { return rule.passed }).length / passwordRequirements.length : 0",
+        "readonly": true,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "通过规则的比例，范围为 0 到 1。",
+          "en": "Fraction of passed password rules, from 0 to 1."
+        },
+        "default": {
+          "zh": "passwordRequirements.length ? passwordRequirements.filter(function(rule) { return rule.passed }).length / passwordRequirements.length : 0",
+          "en": "passwordRequirements.length ? passwordRequirements.filter(function(rule) { return rule.passed }).length / passwordRequirements.length : 0"
+        }
+      },
+      {
+        "name": "passwordRequirements",
+        "type": "var",
+        "binding": "Array.isArray(passwordRules) ? passwordRules.map(function(rule) { let passed = false try { if (rule && rule.minLength !== undefined) passed = text.length >= Number(rule.minLength) else if (rule && rule.pattern) { const expression = new RegExp(rule.pattern) passed = expression.test(text) } } catch (error) { passed = false } return {label: rule && rule.label ? String(rule.label) : \"\", passed: passed} }) : []",
+        "readonly": true,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "包含 label 与 passed 的规则检查结果。",
+          "en": "Rule results with label and passed fields."
+        },
+        "default": {
+          "zh": "Array.isArray(passwordRules) ? passwordRules.map(function(rule) { let passed = false try { if (rule && rule.minLength !== undefined) passed = text.length >= Number(rule.minLength) else if (rule && rule.pattern) { const expression = new RegExp(rule.pattern) passed = expression.test(text) } } catch (error) { passed = false } return {label: rule && rule.label ? String(rule.label) : \"\", passed: passed} }) : []",
+          "en": "Array.isArray(passwordRules) ? passwordRules.map(function(rule) { let passed = false try { if (rule && rule.minLength !== undefined) passed = text.length >= Number(rule.minLength) else if (rule && rule.pattern) { const expression = new RegExp(rule.pattern) passed = expression.test(text) } } catch (error) { passed = false } return {label: rule && rule.label ? String(rule.label) : \"\", passed: passed} }) : []"
+        }
       }
     ]
   },
@@ -16087,6 +16311,74 @@
         "default": {
           "zh": "由运行时计算",
           "en": "Computed at runtime"
+        }
+      },
+      {
+        "name": "showPasswordStrength",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "聚焦密码输入时显示强度与规则检查。",
+          "en": "Show strength and rule checks while a password input is focused."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "passwordRules",
+        "type": "var",
+        "binding": "[ {label: ELocale.texts.PasswordLength, minLength: 8}, {label: ELocale.texts.PasswordUppercase, pattern: /[A-Z]/}, {label: ELocale.texts.PasswordLowercase, pattern: /[a-z]/}, {label: ELocale.texts.PasswordNumber, pattern: /[0-9]/}, {label: ELocale.texts.PasswordSymbol, pattern: /[^A-Za-z0-9]/} ]",
+        "readonly": false,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "密码规则数组；每项包含 label 及 minLength 或 pattern。",
+          "en": "Password rules with label and minLength or pattern."
+        },
+        "default": {
+          "zh": "[ {label: ELocale.texts.PasswordLength, minLength: 8}, {label: ELocale.texts.PasswordUppercase, pattern: /[A-Z]/}, {label: ELocale.texts.PasswordLowercase, pattern: /[a-z]/}, {label: ELocale.texts.PasswordNumber, pattern: /[0-9]/}, {label: ELocale.texts.PasswordSymbol, pattern: /[^A-Za-z0-9]/} ]",
+          "en": "[ {label: ELocale.texts.PasswordLength, minLength: 8}, {label: ELocale.texts.PasswordUppercase, pattern: /[A-Z]/}, {label: ELocale.texts.PasswordLowercase, pattern: /[a-z]/}, {label: ELocale.texts.PasswordNumber, pattern: /[0-9]/}, {label: ELocale.texts.PasswordSymbol, pattern: /[^A-Za-z0-9]/} ]"
+        }
+      },
+      {
+        "name": "passwordStrength",
+        "type": "real",
+        "binding": "passwordRequirements.length ? passwordRequirements.filter(function(rule) { return rule.passed }).length / passwordRequirements.length : 0",
+        "readonly": true,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "通过规则的比例，范围为 0 到 1。",
+          "en": "Fraction of passed password rules, from 0 to 1."
+        },
+        "default": {
+          "zh": "passwordRequirements.length ? passwordRequirements.filter(function(rule) { return rule.passed }).length / passwordRequirements.length : 0",
+          "en": "passwordRequirements.length ? passwordRequirements.filter(function(rule) { return rule.passed }).length / passwordRequirements.length : 0"
+        }
+      },
+      {
+        "name": "passwordRequirements",
+        "type": "var",
+        "binding": "Array.isArray(passwordRules) ? passwordRules.map(function(rule) { let passed = false try { if (rule && rule.minLength !== undefined) passed = text.length >= Number(rule.minLength) else if (rule && rule.pattern) { const expression = new RegExp(rule.pattern) passed = expression.test(text) } } catch (error) { passed = false } return {label: rule && rule.label ? String(rule.label) : \"\", passed: passed} }) : []",
+        "readonly": true,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "包含 label 与 passed 的规则检查结果。",
+          "en": "Rule results with label and passed fields."
+        },
+        "default": {
+          "zh": "Array.isArray(passwordRules) ? passwordRules.map(function(rule) { let passed = false try { if (rule && rule.minLength !== undefined) passed = text.length >= Number(rule.minLength) else if (rule && rule.pattern) { const expression = new RegExp(rule.pattern) passed = expression.test(text) } } catch (error) { passed = false } return {label: rule && rule.label ? String(rule.label) : \"\", passed: passed} }) : []",
+          "en": "Array.isArray(passwordRules) ? passwordRules.map(function(rule) { let passed = false try { if (rule && rule.minLength !== undefined) passed = text.length >= Number(rule.minLength) else if (rule && rule.pattern) { const expression = new RegExp(rule.pattern) passed = expression.test(text) } } catch (error) { passed = false } return {label: rule && rule.label ? String(rule.label) : \"\", passed: passed} }) : []"
         }
       }
     ]
@@ -20021,6 +20313,74 @@
           "zh": "由运行时计算",
           "en": "Computed at runtime"
         }
+      },
+      {
+        "name": "showPasswordStrength",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "聚焦密码输入时显示强度与规则检查。",
+          "en": "Show strength and rule checks while a password input is focused."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "passwordRules",
+        "type": "var",
+        "binding": "[ {label: ELocale.texts.PasswordLength, minLength: 8}, {label: ELocale.texts.PasswordUppercase, pattern: /[A-Z]/}, {label: ELocale.texts.PasswordLowercase, pattern: /[a-z]/}, {label: ELocale.texts.PasswordNumber, pattern: /[0-9]/}, {label: ELocale.texts.PasswordSymbol, pattern: /[^A-Za-z0-9]/} ]",
+        "readonly": false,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "密码规则数组；每项包含 label 及 minLength 或 pattern。",
+          "en": "Password rules with label and minLength or pattern."
+        },
+        "default": {
+          "zh": "[ {label: ELocale.texts.PasswordLength, minLength: 8}, {label: ELocale.texts.PasswordUppercase, pattern: /[A-Z]/}, {label: ELocale.texts.PasswordLowercase, pattern: /[a-z]/}, {label: ELocale.texts.PasswordNumber, pattern: /[0-9]/}, {label: ELocale.texts.PasswordSymbol, pattern: /[^A-Za-z0-9]/} ]",
+          "en": "[ {label: ELocale.texts.PasswordLength, minLength: 8}, {label: ELocale.texts.PasswordUppercase, pattern: /[A-Z]/}, {label: ELocale.texts.PasswordLowercase, pattern: /[a-z]/}, {label: ELocale.texts.PasswordNumber, pattern: /[0-9]/}, {label: ELocale.texts.PasswordSymbol, pattern: /[^A-Za-z0-9]/} ]"
+        }
+      },
+      {
+        "name": "passwordStrength",
+        "type": "real",
+        "binding": "passwordRequirements.length ? passwordRequirements.filter(function(rule) { return rule.passed }).length / passwordRequirements.length : 0",
+        "readonly": true,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "通过规则的比例，范围为 0 到 1。",
+          "en": "Fraction of passed password rules, from 0 to 1."
+        },
+        "default": {
+          "zh": "passwordRequirements.length ? passwordRequirements.filter(function(rule) { return rule.passed }).length / passwordRequirements.length : 0",
+          "en": "passwordRequirements.length ? passwordRequirements.filter(function(rule) { return rule.passed }).length / passwordRequirements.length : 0"
+        }
+      },
+      {
+        "name": "passwordRequirements",
+        "type": "var",
+        "binding": "Array.isArray(passwordRules) ? passwordRules.map(function(rule) { let passed = false try { if (rule && rule.minLength !== undefined) passed = text.length >= Number(rule.minLength) else if (rule && rule.pattern) { const expression = new RegExp(rule.pattern) passed = expression.test(text) } } catch (error) { passed = false } return {label: rule && rule.label ? String(rule.label) : \"\", passed: passed} }) : []",
+        "readonly": true,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "包含 label 与 passed 的规则检查结果。",
+          "en": "Rule results with label and passed fields."
+        },
+        "default": {
+          "zh": "Array.isArray(passwordRules) ? passwordRules.map(function(rule) { let passed = false try { if (rule && rule.minLength !== undefined) passed = text.length >= Number(rule.minLength) else if (rule && rule.pattern) { const expression = new RegExp(rule.pattern) passed = expression.test(text) } } catch (error) { passed = false } return {label: rule && rule.label ? String(rule.label) : \"\", passed: passed} }) : []",
+          "en": "Array.isArray(passwordRules) ? passwordRules.map(function(rule) { let passed = false try { if (rule && rule.minLength !== undefined) passed = text.length >= Number(rule.minLength) else if (rule && rule.pattern) { const expression = new RegExp(rule.pattern) passed = expression.test(text) } } catch (error) { passed = false } return {label: rule && rule.label ? String(rule.label) : \"\", passed: passed} }) : []"
+        }
       }
     ]
   },
@@ -22126,6 +22486,74 @@
         "default": {
           "zh": "由运行时计算",
           "en": "Computed at runtime"
+        }
+      },
+      {
+        "name": "showPasswordStrength",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "聚焦密码输入时显示强度与规则检查。",
+          "en": "Show strength and rule checks while a password input is focused."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "passwordRules",
+        "type": "var",
+        "binding": "[ {label: ELocale.texts.PasswordLength, minLength: 8}, {label: ELocale.texts.PasswordUppercase, pattern: /[A-Z]/}, {label: ELocale.texts.PasswordLowercase, pattern: /[a-z]/}, {label: ELocale.texts.PasswordNumber, pattern: /[0-9]/}, {label: ELocale.texts.PasswordSymbol, pattern: /[^A-Za-z0-9]/} ]",
+        "readonly": false,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "密码规则数组；每项包含 label 及 minLength 或 pattern。",
+          "en": "Password rules with label and minLength or pattern."
+        },
+        "default": {
+          "zh": "[ {label: ELocale.texts.PasswordLength, minLength: 8}, {label: ELocale.texts.PasswordUppercase, pattern: /[A-Z]/}, {label: ELocale.texts.PasswordLowercase, pattern: /[a-z]/}, {label: ELocale.texts.PasswordNumber, pattern: /[0-9]/}, {label: ELocale.texts.PasswordSymbol, pattern: /[^A-Za-z0-9]/} ]",
+          "en": "[ {label: ELocale.texts.PasswordLength, minLength: 8}, {label: ELocale.texts.PasswordUppercase, pattern: /[A-Z]/}, {label: ELocale.texts.PasswordLowercase, pattern: /[a-z]/}, {label: ELocale.texts.PasswordNumber, pattern: /[0-9]/}, {label: ELocale.texts.PasswordSymbol, pattern: /[^A-Za-z0-9]/} ]"
+        }
+      },
+      {
+        "name": "passwordStrength",
+        "type": "real",
+        "binding": "passwordRequirements.length ? passwordRequirements.filter(function(rule) { return rule.passed }).length / passwordRequirements.length : 0",
+        "readonly": true,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "通过规则的比例，范围为 0 到 1。",
+          "en": "Fraction of passed password rules, from 0 to 1."
+        },
+        "default": {
+          "zh": "passwordRequirements.length ? passwordRequirements.filter(function(rule) { return rule.passed }).length / passwordRequirements.length : 0",
+          "en": "passwordRequirements.length ? passwordRequirements.filter(function(rule) { return rule.passed }).length / passwordRequirements.length : 0"
+        }
+      },
+      {
+        "name": "passwordRequirements",
+        "type": "var",
+        "binding": "Array.isArray(passwordRules) ? passwordRules.map(function(rule) { let passed = false try { if (rule && rule.minLength !== undefined) passed = text.length >= Number(rule.minLength) else if (rule && rule.pattern) { const expression = new RegExp(rule.pattern) passed = expression.test(text) } } catch (error) { passed = false } return {label: rule && rule.label ? String(rule.label) : \"\", passed: passed} }) : []",
+        "readonly": true,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "包含 label 与 passed 的规则检查结果。",
+          "en": "Rule results with label and passed fields."
+        },
+        "default": {
+          "zh": "Array.isArray(passwordRules) ? passwordRules.map(function(rule) { let passed = false try { if (rule && rule.minLength !== undefined) passed = text.length >= Number(rule.minLength) else if (rule && rule.pattern) { const expression = new RegExp(rule.pattern) passed = expression.test(text) } } catch (error) { passed = false } return {label: rule && rule.label ? String(rule.label) : \"\", passed: passed} }) : []",
+          "en": "Array.isArray(passwordRules) ? passwordRules.map(function(rule) { let passed = false try { if (rule && rule.minLength !== undefined) passed = text.length >= Number(rule.minLength) else if (rule && rule.pattern) { const expression = new RegExp(rule.pattern) passed = expression.test(text) } } catch (error) { passed = false } return {label: rule && rule.label ? String(rule.label) : \"\", passed: passed} }) : []"
         }
       }
     ]
@@ -24317,6 +24745,106 @@
           "zh": "Image.Null\nImage.Ready\nImage.Loading\nImage.Error",
           "en": "Image.Null\nImage.Ready\nImage.Loading\nImage.Error"
         }
+      },
+      {
+        "name": "allowDownload",
+        "type": "bool",
+        "binding": "true",
+        "readonly": false,
+        "owner": "EImage",
+        "source": "source/qt5/imports/eui/controls/data/EImage.qml",
+        "description": {
+          "zh": "显示并启用预览图片保存入口。",
+          "en": "Show and enable saving the preview image."
+        },
+        "default": {
+          "zh": "true",
+          "en": "true"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "showThumbnails",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "EImage",
+        "source": "source/qt5/imports/eui/controls/data/EImage.qml",
+        "description": {
+          "zh": "预览时显示图片缩略图导航。",
+          "en": "Show thumbnail navigation during image preview."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "downloadBusy",
+        "type": "bool",
+        "binding": "imageFiles.busy",
+        "readonly": true,
+        "owner": "EImage",
+        "source": "source/qt5/imports/eui/controls/data/EImage.qml",
+        "description": {
+          "zh": "图片网络下载是否正在进行。",
+          "en": "Whether an image network download is running."
+        },
+        "default": {
+          "zh": "imageFiles.busy",
+          "en": "imageFiles.busy"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "previewFlippedVertical",
+        "type": "bool",
+        "binding": "internal.flippedVertical",
+        "readonly": true,
+        "owner": "EImage",
+        "source": "source/qt5/imports/eui/controls/data/EImage.qml",
+        "description": {
+          "zh": "预览图片是否已垂直翻转。",
+          "en": "Whether the preview image is flipped vertically."
+        },
+        "default": {
+          "zh": "internal.flippedVertical",
+          "en": "internal.flippedVertical"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "previewFlippedHorizontal",
+        "type": "bool",
+        "binding": "internal.flippedHorizontal",
+        "readonly": true,
+        "owner": "EImage",
+        "source": "source/qt5/imports/eui/controls/data/EImage.qml",
+        "description": {
+          "zh": "预览图片是否已水平翻转。",
+          "en": "Whether the preview image is flipped horizontally."
+        },
+        "default": {
+          "zh": "internal.flippedHorizontal",
+          "en": "internal.flippedHorizontal"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
       }
     ]
   },
@@ -24829,6 +25357,106 @@
         "details": {
           "zh": "Image.Null\nImage.Ready\nImage.Loading\nImage.Error",
           "en": "Image.Null\nImage.Ready\nImage.Loading\nImage.Error"
+        }
+      },
+      {
+        "name": "allowDownload",
+        "type": "bool",
+        "binding": "true",
+        "readonly": false,
+        "owner": "EImage",
+        "source": "source/qt5/imports/eui/controls/data/EImage.qml",
+        "description": {
+          "zh": "显示并启用预览图片保存入口。",
+          "en": "Show and enable saving the preview image."
+        },
+        "default": {
+          "zh": "true",
+          "en": "true"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "showThumbnails",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "EImage",
+        "source": "source/qt5/imports/eui/controls/data/EImage.qml",
+        "description": {
+          "zh": "预览时显示图片缩略图导航。",
+          "en": "Show thumbnail navigation during image preview."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "downloadBusy",
+        "type": "bool",
+        "binding": "imageFiles.busy",
+        "readonly": true,
+        "owner": "EImage",
+        "source": "source/qt5/imports/eui/controls/data/EImage.qml",
+        "description": {
+          "zh": "图片网络下载是否正在进行。",
+          "en": "Whether an image network download is running."
+        },
+        "default": {
+          "zh": "imageFiles.busy",
+          "en": "imageFiles.busy"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "previewFlippedVertical",
+        "type": "bool",
+        "binding": "internal.flippedVertical",
+        "readonly": true,
+        "owner": "EImage",
+        "source": "source/qt5/imports/eui/controls/data/EImage.qml",
+        "description": {
+          "zh": "预览图片是否已垂直翻转。",
+          "en": "Whether the preview image is flipped vertically."
+        },
+        "default": {
+          "zh": "internal.flippedVertical",
+          "en": "internal.flippedVertical"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "previewFlippedHorizontal",
+        "type": "bool",
+        "binding": "internal.flippedHorizontal",
+        "readonly": true,
+        "owner": "EImage",
+        "source": "source/qt5/imports/eui/controls/data/EImage.qml",
+        "description": {
+          "zh": "预览图片是否已水平翻转。",
+          "en": "Whether the preview image is flipped horizontally."
+        },
+        "default": {
+          "zh": "internal.flippedHorizontal",
+          "en": "internal.flippedHorizontal"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
         }
       }
     ]
@@ -25603,6 +26231,74 @@
         "default": {
           "zh": "由运行时计算",
           "en": "Computed at runtime"
+        }
+      },
+      {
+        "name": "showPasswordStrength",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "聚焦密码输入时显示强度与规则检查。",
+          "en": "Show strength and rule checks while a password input is focused."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "passwordRules",
+        "type": "var",
+        "binding": "[ {label: ELocale.texts.PasswordLength, minLength: 8}, {label: ELocale.texts.PasswordUppercase, pattern: /[A-Z]/}, {label: ELocale.texts.PasswordLowercase, pattern: /[a-z]/}, {label: ELocale.texts.PasswordNumber, pattern: /[0-9]/}, {label: ELocale.texts.PasswordSymbol, pattern: /[^A-Za-z0-9]/} ]",
+        "readonly": false,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "密码规则数组；每项包含 label 及 minLength 或 pattern。",
+          "en": "Password rules with label and minLength or pattern."
+        },
+        "default": {
+          "zh": "[ {label: ELocale.texts.PasswordLength, minLength: 8}, {label: ELocale.texts.PasswordUppercase, pattern: /[A-Z]/}, {label: ELocale.texts.PasswordLowercase, pattern: /[a-z]/}, {label: ELocale.texts.PasswordNumber, pattern: /[0-9]/}, {label: ELocale.texts.PasswordSymbol, pattern: /[^A-Za-z0-9]/} ]",
+          "en": "[ {label: ELocale.texts.PasswordLength, minLength: 8}, {label: ELocale.texts.PasswordUppercase, pattern: /[A-Z]/}, {label: ELocale.texts.PasswordLowercase, pattern: /[a-z]/}, {label: ELocale.texts.PasswordNumber, pattern: /[0-9]/}, {label: ELocale.texts.PasswordSymbol, pattern: /[^A-Za-z0-9]/} ]"
+        }
+      },
+      {
+        "name": "passwordStrength",
+        "type": "real",
+        "binding": "passwordRequirements.length ? passwordRequirements.filter(function(rule) { return rule.passed }).length / passwordRequirements.length : 0",
+        "readonly": true,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "通过规则的比例，范围为 0 到 1。",
+          "en": "Fraction of passed password rules, from 0 to 1."
+        },
+        "default": {
+          "zh": "passwordRequirements.length ? passwordRequirements.filter(function(rule) { return rule.passed }).length / passwordRequirements.length : 0",
+          "en": "passwordRequirements.length ? passwordRequirements.filter(function(rule) { return rule.passed }).length / passwordRequirements.length : 0"
+        }
+      },
+      {
+        "name": "passwordRequirements",
+        "type": "var",
+        "binding": "Array.isArray(passwordRules) ? passwordRules.map(function(rule) { let passed = false try { if (rule && rule.minLength !== undefined) passed = text.length >= Number(rule.minLength) else if (rule && rule.pattern) { const expression = new RegExp(rule.pattern) passed = expression.test(text) } } catch (error) { passed = false } return {label: rule && rule.label ? String(rule.label) : \"\", passed: passed} }) : []",
+        "readonly": true,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "包含 label 与 passed 的规则检查结果。",
+          "en": "Rule results with label and passed fields."
+        },
+        "default": {
+          "zh": "Array.isArray(passwordRules) ? passwordRules.map(function(rule) { let passed = false try { if (rule && rule.minLength !== undefined) passed = text.length >= Number(rule.minLength) else if (rule && rule.pattern) { const expression = new RegExp(rule.pattern) passed = expression.test(text) } } catch (error) { passed = false } return {label: rule && rule.label ? String(rule.label) : \"\", passed: passed} }) : []",
+          "en": "Array.isArray(passwordRules) ? passwordRules.map(function(rule) { let passed = false try { if (rule && rule.minLength !== undefined) passed = text.length >= Number(rule.minLength) else if (rule && rule.pattern) { const expression = new RegExp(rule.pattern) passed = expression.test(text) } } catch (error) { passed = false } return {label: rule && rule.label ? String(rule.label) : \"\", passed: passed} }) : []"
         }
       }
     ]
@@ -29525,6 +30221,74 @@
         "default": {
           "zh": "由运行时计算",
           "en": "Computed at runtime"
+        }
+      },
+      {
+        "name": "showPasswordStrength",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "聚焦密码输入时显示强度与规则检查。",
+          "en": "Show strength and rule checks while a password input is focused."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "passwordRules",
+        "type": "var",
+        "binding": "[ {label: ELocale.texts.PasswordLength, minLength: 8}, {label: ELocale.texts.PasswordUppercase, pattern: /[A-Z]/}, {label: ELocale.texts.PasswordLowercase, pattern: /[a-z]/}, {label: ELocale.texts.PasswordNumber, pattern: /[0-9]/}, {label: ELocale.texts.PasswordSymbol, pattern: /[^A-Za-z0-9]/} ]",
+        "readonly": false,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "密码规则数组；每项包含 label 及 minLength 或 pattern。",
+          "en": "Password rules with label and minLength or pattern."
+        },
+        "default": {
+          "zh": "[ {label: ELocale.texts.PasswordLength, minLength: 8}, {label: ELocale.texts.PasswordUppercase, pattern: /[A-Z]/}, {label: ELocale.texts.PasswordLowercase, pattern: /[a-z]/}, {label: ELocale.texts.PasswordNumber, pattern: /[0-9]/}, {label: ELocale.texts.PasswordSymbol, pattern: /[^A-Za-z0-9]/} ]",
+          "en": "[ {label: ELocale.texts.PasswordLength, minLength: 8}, {label: ELocale.texts.PasswordUppercase, pattern: /[A-Z]/}, {label: ELocale.texts.PasswordLowercase, pattern: /[a-z]/}, {label: ELocale.texts.PasswordNumber, pattern: /[0-9]/}, {label: ELocale.texts.PasswordSymbol, pattern: /[^A-Za-z0-9]/} ]"
+        }
+      },
+      {
+        "name": "passwordStrength",
+        "type": "real",
+        "binding": "passwordRequirements.length ? passwordRequirements.filter(function(rule) { return rule.passed }).length / passwordRequirements.length : 0",
+        "readonly": true,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "通过规则的比例，范围为 0 到 1。",
+          "en": "Fraction of passed password rules, from 0 to 1."
+        },
+        "default": {
+          "zh": "passwordRequirements.length ? passwordRequirements.filter(function(rule) { return rule.passed }).length / passwordRequirements.length : 0",
+          "en": "passwordRequirements.length ? passwordRequirements.filter(function(rule) { return rule.passed }).length / passwordRequirements.length : 0"
+        }
+      },
+      {
+        "name": "passwordRequirements",
+        "type": "var",
+        "binding": "Array.isArray(passwordRules) ? passwordRules.map(function(rule) { let passed = false try { if (rule && rule.minLength !== undefined) passed = text.length >= Number(rule.minLength) else if (rule && rule.pattern) { const expression = new RegExp(rule.pattern) passed = expression.test(text) } } catch (error) { passed = false } return {label: rule && rule.label ? String(rule.label) : \"\", passed: passed} }) : []",
+        "readonly": true,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "包含 label 与 passed 的规则检查结果。",
+          "en": "Rule results with label and passed fields."
+        },
+        "default": {
+          "zh": "Array.isArray(passwordRules) ? passwordRules.map(function(rule) { let passed = false try { if (rule && rule.minLength !== undefined) passed = text.length >= Number(rule.minLength) else if (rule && rule.pattern) { const expression = new RegExp(rule.pattern) passed = expression.test(text) } } catch (error) { passed = false } return {label: rule && rule.label ? String(rule.label) : \"\", passed: passed} }) : []",
+          "en": "Array.isArray(passwordRules) ? passwordRules.map(function(rule) { let passed = false try { if (rule && rule.minLength !== undefined) passed = text.length >= Number(rule.minLength) else if (rule && rule.pattern) { const expression = new RegExp(rule.pattern) passed = expression.test(text) } } catch (error) { passed = false } return {label: rule && rule.label ? String(rule.label) : \"\", passed: passed} }) : []"
         }
       }
     ]
@@ -40592,6 +41356,74 @@
           "zh": "由运行时计算",
           "en": "Computed at runtime"
         }
+      },
+      {
+        "name": "showPasswordStrength",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "聚焦密码输入时显示强度与规则检查。",
+          "en": "Show strength and rule checks while a password input is focused."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "passwordRules",
+        "type": "var",
+        "binding": "[ {label: ELocale.texts.PasswordLength, minLength: 8}, {label: ELocale.texts.PasswordUppercase, pattern: /[A-Z]/}, {label: ELocale.texts.PasswordLowercase, pattern: /[a-z]/}, {label: ELocale.texts.PasswordNumber, pattern: /[0-9]/}, {label: ELocale.texts.PasswordSymbol, pattern: /[^A-Za-z0-9]/} ]",
+        "readonly": false,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "密码规则数组；每项包含 label 及 minLength 或 pattern。",
+          "en": "Password rules with label and minLength or pattern."
+        },
+        "default": {
+          "zh": "[ {label: ELocale.texts.PasswordLength, minLength: 8}, {label: ELocale.texts.PasswordUppercase, pattern: /[A-Z]/}, {label: ELocale.texts.PasswordLowercase, pattern: /[a-z]/}, {label: ELocale.texts.PasswordNumber, pattern: /[0-9]/}, {label: ELocale.texts.PasswordSymbol, pattern: /[^A-Za-z0-9]/} ]",
+          "en": "[ {label: ELocale.texts.PasswordLength, minLength: 8}, {label: ELocale.texts.PasswordUppercase, pattern: /[A-Z]/}, {label: ELocale.texts.PasswordLowercase, pattern: /[a-z]/}, {label: ELocale.texts.PasswordNumber, pattern: /[0-9]/}, {label: ELocale.texts.PasswordSymbol, pattern: /[^A-Za-z0-9]/} ]"
+        }
+      },
+      {
+        "name": "passwordStrength",
+        "type": "real",
+        "binding": "passwordRequirements.length ? passwordRequirements.filter(function(rule) { return rule.passed }).length / passwordRequirements.length : 0",
+        "readonly": true,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "通过规则的比例，范围为 0 到 1。",
+          "en": "Fraction of passed password rules, from 0 to 1."
+        },
+        "default": {
+          "zh": "passwordRequirements.length ? passwordRequirements.filter(function(rule) { return rule.passed }).length / passwordRequirements.length : 0",
+          "en": "passwordRequirements.length ? passwordRequirements.filter(function(rule) { return rule.passed }).length / passwordRequirements.length : 0"
+        }
+      },
+      {
+        "name": "passwordRequirements",
+        "type": "var",
+        "binding": "Array.isArray(passwordRules) ? passwordRules.map(function(rule) { let passed = false try { if (rule && rule.minLength !== undefined) passed = text.length >= Number(rule.minLength) else if (rule && rule.pattern) { const expression = new RegExp(rule.pattern) passed = expression.test(text) } } catch (error) { passed = false } return {label: rule && rule.label ? String(rule.label) : \"\", passed: passed} }) : []",
+        "readonly": true,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "包含 label 与 passed 的规则检查结果。",
+          "en": "Rule results with label and passed fields."
+        },
+        "default": {
+          "zh": "Array.isArray(passwordRules) ? passwordRules.map(function(rule) { let passed = false try { if (rule && rule.minLength !== undefined) passed = text.length >= Number(rule.minLength) else if (rule && rule.pattern) { const expression = new RegExp(rule.pattern) passed = expression.test(text) } } catch (error) { passed = false } return {label: rule && rule.label ? String(rule.label) : \"\", passed: passed} }) : []",
+          "en": "Array.isArray(passwordRules) ? passwordRules.map(function(rule) { let passed = false try { if (rule && rule.minLength !== undefined) passed = text.length >= Number(rule.minLength) else if (rule && rule.pattern) { const expression = new RegExp(rule.pattern) passed = expression.test(text) } } catch (error) { passed = false } return {label: rule && rule.label ? String(rule.label) : \"\", passed: passed} }) : []"
+        }
       }
     ]
   },
@@ -47867,6 +48699,42 @@
           "zh": "true / false",
           "en": "true / false"
         }
+      },
+      {
+        "name": "iconSource",
+        "type": "int",
+        "binding": "0",
+        "readonly": false,
+        "owner": "ETag",
+        "source": "source/qt5/imports/eui/controls/data/ETag.qml",
+        "description": {
+          "zh": "组件使用的图标。",
+          "en": "Icon used by the component."
+        },
+        "default": {
+          "zh": "0",
+          "en": "0"
+        },
+        "details": {
+          "zh": "EIcons.*\n0（无图标）",
+          "en": "EIcons.*\n0 (no icon)"
+        }
+      },
+      {
+        "name": "avatarSource",
+        "type": "url",
+        "binding": "\"\"",
+        "readonly": false,
+        "owner": "ETag",
+        "source": "source/qt5/imports/eui/controls/data/ETag.qml",
+        "description": {
+          "zh": "标签中显示的头像图片地址。",
+          "en": "Avatar image URL displayed inside a tag."
+        },
+        "default": {
+          "zh": "\"\"",
+          "en": "\"\""
+        }
       }
     ]
   },
@@ -50855,6 +51723,74 @@
         "default": {
           "zh": "由运行时计算",
           "en": "Computed at runtime"
+        }
+      },
+      {
+        "name": "showPasswordStrength",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "聚焦密码输入时显示强度与规则检查。",
+          "en": "Show strength and rule checks while a password input is focused."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "passwordRules",
+        "type": "var",
+        "binding": "[ {label: ELocale.texts.PasswordLength, minLength: 8}, {label: ELocale.texts.PasswordUppercase, pattern: /[A-Z]/}, {label: ELocale.texts.PasswordLowercase, pattern: /[a-z]/}, {label: ELocale.texts.PasswordNumber, pattern: /[0-9]/}, {label: ELocale.texts.PasswordSymbol, pattern: /[^A-Za-z0-9]/} ]",
+        "readonly": false,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "密码规则数组；每项包含 label 及 minLength 或 pattern。",
+          "en": "Password rules with label and minLength or pattern."
+        },
+        "default": {
+          "zh": "[ {label: ELocale.texts.PasswordLength, minLength: 8}, {label: ELocale.texts.PasswordUppercase, pattern: /[A-Z]/}, {label: ELocale.texts.PasswordLowercase, pattern: /[a-z]/}, {label: ELocale.texts.PasswordNumber, pattern: /[0-9]/}, {label: ELocale.texts.PasswordSymbol, pattern: /[^A-Za-z0-9]/} ]",
+          "en": "[ {label: ELocale.texts.PasswordLength, minLength: 8}, {label: ELocale.texts.PasswordUppercase, pattern: /[A-Z]/}, {label: ELocale.texts.PasswordLowercase, pattern: /[a-z]/}, {label: ELocale.texts.PasswordNumber, pattern: /[0-9]/}, {label: ELocale.texts.PasswordSymbol, pattern: /[^A-Za-z0-9]/} ]"
+        }
+      },
+      {
+        "name": "passwordStrength",
+        "type": "real",
+        "binding": "passwordRequirements.length ? passwordRequirements.filter(function(rule) { return rule.passed }).length / passwordRequirements.length : 0",
+        "readonly": true,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "通过规则的比例，范围为 0 到 1。",
+          "en": "Fraction of passed password rules, from 0 to 1."
+        },
+        "default": {
+          "zh": "passwordRequirements.length ? passwordRequirements.filter(function(rule) { return rule.passed }).length / passwordRequirements.length : 0",
+          "en": "passwordRequirements.length ? passwordRequirements.filter(function(rule) { return rule.passed }).length / passwordRequirements.length : 0"
+        }
+      },
+      {
+        "name": "passwordRequirements",
+        "type": "var",
+        "binding": "Array.isArray(passwordRules) ? passwordRules.map(function(rule) { let passed = false try { if (rule && rule.minLength !== undefined) passed = text.length >= Number(rule.minLength) else if (rule && rule.pattern) { const expression = new RegExp(rule.pattern) passed = expression.test(text) } } catch (error) { passed = false } return {label: rule && rule.label ? String(rule.label) : \"\", passed: passed} }) : []",
+        "readonly": true,
+        "owner": "EInput",
+        "source": "source/qt5/imports/eui/controls/form/EInput.qml",
+        "description": {
+          "zh": "包含 label 与 passed 的规则检查结果。",
+          "en": "Rule results with label and passed fields."
+        },
+        "default": {
+          "zh": "Array.isArray(passwordRules) ? passwordRules.map(function(rule) { let passed = false try { if (rule && rule.minLength !== undefined) passed = text.length >= Number(rule.minLength) else if (rule && rule.pattern) { const expression = new RegExp(rule.pattern) passed = expression.test(text) } } catch (error) { passed = false } return {label: rule && rule.label ? String(rule.label) : \"\", passed: passed} }) : []",
+          "en": "Array.isArray(passwordRules) ? passwordRules.map(function(rule) { let passed = false try { if (rule && rule.minLength !== undefined) passed = text.length >= Number(rule.minLength) else if (rule && rule.pattern) { const expression = new RegExp(rule.pattern) passed = expression.test(text) } } catch (error) { passed = false } return {label: rule && rule.label ? String(rule.label) : \"\", passed: passed} }) : []"
         }
       }
     ]
@@ -53870,6 +54806,46 @@
         "default": {
           "zh": "由运行时计算",
           "en": "Computed at runtime"
+        }
+      },
+      {
+        "name": "draggable",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "ETransfer",
+        "source": "source/qt5/imports/eui/controls/form/ETransfer.qml",
+        "description": {
+          "zh": "允许通过拖拽移动条目。",
+          "en": "Allow entries to be moved by dragging."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "reorderable",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "ETransfer",
+        "source": "source/qt5/imports/eui/controls/form/ETransfer.qml",
+        "description": {
+          "zh": "允许在列表中调整条目顺序。",
+          "en": "Allow entries to be reordered."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
         }
       }
     ]
@@ -57388,5 +58364,4325 @@
         }
       }
     ]
+  },
+  "EAnimateOnScroll": {
+    "base": "Item",
+    "properties": [
+      {
+        "name": "content",
+        "type": "alias",
+        "binding": "body.data",
+        "readonly": false,
+        "owner": "EAnimateOnScroll",
+        "source": "source/qt5/imports/eui/controls/effects/EAnimateOnScroll.qml",
+        "description": {
+          "zh": "内容插槽；直接在组件内部声明 QML 子对象。",
+          "en": "Content slot; declare QML child objects directly inside the component."
+        },
+        "default": {
+          "zh": "body.data",
+          "en": "body.data"
+        }
+      },
+      {
+        "name": "once",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "EAnimateOnScroll",
+        "source": "source/qt5/imports/eui/controls/effects/EAnimateOnScroll.qml",
+        "description": {
+          "zh": "仅播放第一次进入视口的动画。",
+          "en": "Play only the first viewport entry animation."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "distance",
+        "type": "real",
+        "binding": "24",
+        "readonly": false,
+        "owner": "EAnimateOnScroll",
+        "source": "source/qt5/imports/eui/controls/effects/EAnimateOnScroll.qml",
+        "description": {
+          "zh": "动画位移距离，单位为像素。",
+          "en": "Animation displacement in pixels."
+        },
+        "default": {
+          "zh": "24",
+          "en": "24"
+        }
+      },
+      {
+        "name": "duration",
+        "type": "int",
+        "binding": "300",
+        "readonly": false,
+        "owner": "EAnimateOnScroll",
+        "source": "source/qt5/imports/eui/controls/effects/EAnimateOnScroll.qml",
+        "description": {
+          "zh": "每次进入或离开动画的时长，单位为毫秒。",
+          "en": "Duration of each entry or exit animation in milliseconds."
+        },
+        "default": {
+          "zh": "300",
+          "en": "300"
+        }
+      },
+      {
+        "name": "target",
+        "type": "Item",
+        "binding": "body",
+        "readonly": false,
+        "owner": "EAnimateOnScroll",
+        "source": "source/qt5/imports/eui/controls/effects/EAnimateOnScroll.qml",
+        "description": {
+          "zh": "接受动画变换的目标控件，默认是内部内容容器。",
+          "en": "Item receiving the animation; defaults to the internal content container."
+        },
+        "default": {
+          "zh": "body",
+          "en": "body"
+        }
+      },
+      {
+        "name": "viewport",
+        "type": "Item",
+        "readonly": false,
+        "owner": "EAnimateOnScroll",
+        "source": "source/qt5/imports/eui/controls/effects/EAnimateOnScroll.qml",
+        "binding": "null",
+        "description": {
+          "zh": "可选视口；同时遵守祖先的裁剪边界。",
+          "en": "Optional viewport; ancestor clipping boundaries still apply."
+        },
+        "default": {
+          "zh": "null",
+          "en": "null"
+        }
+      },
+      {
+        "name": "enterEffect",
+        "type": "string",
+        "binding": "\"fadeIn\"",
+        "readonly": false,
+        "owner": "EAnimateOnScroll",
+        "source": "source/qt5/imports/eui/controls/effects/EAnimateOnScroll.qml",
+        "description": {
+          "zh": "进入视口时使用的 EAnimation 效果名称。",
+          "en": "EAnimation effect name used on viewport entry."
+        },
+        "default": {
+          "zh": "\"fadeIn\"",
+          "en": "\"fadeIn\""
+        }
+      },
+      {
+        "name": "leaveEffect",
+        "type": "string",
+        "binding": "\"fadeOut\"",
+        "readonly": false,
+        "owner": "EAnimateOnScroll",
+        "source": "source/qt5/imports/eui/controls/effects/EAnimateOnScroll.qml",
+        "description": {
+          "zh": "离开视口时使用的 EAnimation 效果名称。",
+          "en": "EAnimation effect name used on viewport exit."
+        },
+        "default": {
+          "zh": "\"fadeOut\"",
+          "en": "\"fadeOut\""
+        }
+      },
+      {
+        "name": "inViewport",
+        "type": "bool",
+        "binding": "observer.inViewport",
+        "readonly": true,
+        "owner": "EAnimateOnScroll",
+        "source": "source/qt5/imports/eui/controls/effects/EAnimateOnScroll.qml",
+        "description": {
+          "zh": "当前是否与可见视口相交。",
+          "en": "Whether the control intersects the visible viewport."
+        },
+        "default": {
+          "zh": "observer.inViewport",
+          "en": "observer.inViewport"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      }
+    ],
+    "introducedIn": "1.3.0"
+  },
+  "EChip": {
+    "base": "ETag",
+    "properties": [
+      {
+        "name": "hit",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "ETag",
+        "source": "source/qt5/imports/eui/controls/data/ETag.qml",
+        "description": {
+          "zh": "显示标签描边效果。",
+          "en": "Show tag outline emphasis."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "text",
+        "type": "string",
+        "binding": "\"\"",
+        "readonly": false,
+        "owner": "ETag",
+        "source": "source/qt5/imports/eui/controls/data/ETag.qml",
+        "description": {
+          "zh": "显示的文字内容。",
+          "en": "Displayed text."
+        },
+        "default": {
+          "zh": "\"\"",
+          "en": "\"\""
+        }
+      },
+      {
+        "name": "iconSource",
+        "type": "int",
+        "binding": "0",
+        "readonly": false,
+        "owner": "ETag",
+        "source": "source/qt5/imports/eui/controls/data/ETag.qml",
+        "description": {
+          "zh": "组件使用的图标。",
+          "en": "Icon used by the component."
+        },
+        "default": {
+          "zh": "0",
+          "en": "0"
+        },
+        "details": {
+          "zh": "EIcons.*\n0（无图标）",
+          "en": "EIcons.*\n0 (no icon)"
+        }
+      },
+      {
+        "name": "round",
+        "type": "bool",
+        "binding": "true",
+        "readonly": false,
+        "owner": "ETag",
+        "source": "source/qt5/imports/eui/controls/data/ETag.qml",
+        "description": {
+          "zh": "采用圆角胶囊按钮样式。",
+          "en": "Use rounded pill button styling."
+        },
+        "default": {
+          "zh": "true",
+          "en": "true"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "checked",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "ETag",
+        "source": "source/qt5/imports/eui/controls/data/ETag.qml",
+        "description": {
+          "zh": "控件是否选中或开启。",
+          "en": "Whether the control is checked or active."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "avatarSource",
+        "type": "url",
+        "binding": "\"\"",
+        "readonly": false,
+        "owner": "ETag",
+        "source": "source/qt5/imports/eui/controls/data/ETag.qml",
+        "description": {
+          "zh": "标签中显示的头像图片地址。",
+          "en": "Avatar image URL displayed inside a tag."
+        },
+        "default": {
+          "zh": "\"\"",
+          "en": "\"\""
+        }
+      },
+      {
+        "name": "closable",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "ETag",
+        "source": "source/qt5/imports/eui/controls/data/ETag.qml",
+        "description": {
+          "zh": "显示关闭编辑器或移除标签的按钮。",
+          "en": "Show the close editor or remove tag button."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "checkable",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "ETag",
+        "source": "source/qt5/imports/eui/controls/data/ETag.qml",
+        "description": {
+          "zh": "是否允许通过点击切换选中状态。",
+          "en": "Allow clicks to toggle the checked state."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "effect",
+        "type": "string",
+        "binding": "\"light\"",
+        "readonly": false,
+        "owner": "ETag",
+        "source": "source/qt5/imports/eui/controls/data/ETag.qml",
+        "description": {
+          "zh": "组件的视觉主题。",
+          "en": "Visual theme of the component."
+        },
+        "default": {
+          "zh": "\"light\"",
+          "en": "\"light\""
+        },
+        "details": {
+          "zh": "light\ndark",
+          "en": "light\ndark"
+        }
+      },
+      {
+        "name": "styleType",
+        "type": "int",
+        "binding": "EStyle.Primary",
+        "readonly": false,
+        "owner": "ETag",
+        "source": "source/qt5/imports/eui/controls/data/ETag.qml",
+        "description": {
+          "zh": "语义配色风格。",
+          "en": "Semantic color style."
+        },
+        "default": {
+          "zh": "EStyle.Primary",
+          "en": "EStyle.Primary"
+        },
+        "details": {
+          "zh": "EStyle.Default\nEStyle.Primary\nEStyle.Success\nEStyle.Info\nEStyle.Warning\nEStyle.Danger",
+          "en": "EStyle.Default\nEStyle.Primary\nEStyle.Success\nEStyle.Info\nEStyle.Warning\nEStyle.Danger"
+        }
+      },
+      {
+        "name": "size",
+        "type": "int",
+        "binding": "EControlConfig.sizeFor(control)",
+        "readonly": false,
+        "owner": "ETag",
+        "source": "source/qt5/imports/eui/controls/data/ETag.qml",
+        "description": {
+          "zh": "应用内控件默认尺寸，传给 EConfigProvider。",
+          "en": "Default descendant control size passed to EConfigProvider."
+        },
+        "default": {
+          "zh": "EControlConfig.sizeFor(control)",
+          "en": "EControlConfig.sizeFor(control)"
+        },
+        "details": {
+          "zh": "EStyle.Small\nEStyle.Medium\nEStyle.Large",
+          "en": "EStyle.Small\nEStyle.Medium\nEStyle.Large"
+        }
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "readonly": false,
+        "binding": "EPaletteManager.BasePalette.transparent",
+        "owner": "ETag",
+        "source": "source/qt5/imports/eui/controls/data/ETag.qml",
+        "description": {
+          "zh": "自定义颜色；透明值通常表示使用当前主题或语义配色。",
+          "en": "Custom color; a transparent value usually selects theme or semantic colors."
+        },
+        "default": {
+          "zh": "EPaletteManager.BasePalette.transparent",
+          "en": "EPaletteManager.BasePalette.transparent"
+        }
+      },
+      {
+        "name": "darkEffect",
+        "type": "bool",
+        "binding": "effect === \"dark\" || checkable && checked",
+        "readonly": true,
+        "owner": "ETag",
+        "source": "source/qt5/imports/eui/controls/data/ETag.qml",
+        "description": {
+          "zh": "当前视觉 effect 是否为 dark。",
+          "en": "Whether the visual effect is dark."
+        },
+        "default": {
+          "zh": "effect === \"dark\" || checkable && checked",
+          "en": "effect === \"dark\" || checkable && checked"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      }
+    ],
+    "introducedIn": "1.3.0"
+  },
+  "ECompare": {
+    "base": "Control",
+    "properties": [
+      {
+        "name": "value",
+        "type": "real",
+        "binding": "50",
+        "readonly": false,
+        "owner": "ECompare",
+        "source": "source/qt5/imports/eui/controls/data/ECompare.qml",
+        "description": {
+          "zh": "前层内容显示的百分比，范围为 0 到 100。",
+          "en": "Percentage of the before content revealed, from 0 to 100."
+        },
+        "default": {
+          "zh": "50",
+          "en": "50"
+        }
+      },
+      {
+        "name": "hover",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "ECompare",
+        "source": "source/qt5/imports/eui/controls/data/ECompare.qml",
+        "description": {
+          "zh": "随鼠标悬停位置更新对比比例。",
+          "en": "Update comparison ratio on pointer hover."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "afterSource",
+        "type": "url",
+        "binding": "\"\"",
+        "readonly": false,
+        "owner": "ECompare",
+        "source": "source/qt5/imports/eui/controls/data/ECompare.qml",
+        "description": {
+          "zh": "对比后层的图片地址。",
+          "en": "Image URL for the after layer."
+        },
+        "default": {
+          "zh": "\"\"",
+          "en": "\"\""
+        }
+      },
+      {
+        "name": "beforeSource",
+        "type": "url",
+        "binding": "\"\"",
+        "readonly": false,
+        "owner": "ECompare",
+        "source": "source/qt5/imports/eui/controls/data/ECompare.qml",
+        "description": {
+          "zh": "对比前层的图片地址。",
+          "en": "Image URL for the before layer."
+        },
+        "default": {
+          "zh": "\"\"",
+          "en": "\"\""
+        }
+      },
+      {
+        "name": "vertical",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "ECompare",
+        "source": "source/qt5/imports/eui/controls/data/ECompare.qml",
+        "description": {
+          "zh": "使用上下方向的分隔与揭示效果。",
+          "en": "Use a horizontal divider to reveal content vertically."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "afterComponent",
+        "type": "Component",
+        "binding": "null",
+        "readonly": false,
+        "owner": "ECompare",
+        "source": "source/qt5/imports/eui/controls/data/ECompare.qml",
+        "description": {
+          "zh": "替代后层图片的自定义内容。",
+          "en": "Custom content replacing the after image."
+        },
+        "default": {
+          "zh": "null",
+          "en": "null"
+        }
+      },
+      {
+        "name": "beforeComponent",
+        "type": "Component",
+        "binding": "null",
+        "readonly": false,
+        "owner": "ECompare",
+        "source": "source/qt5/imports/eui/controls/data/ECompare.qml",
+        "description": {
+          "zh": "替代前层图片的自定义内容。",
+          "en": "Custom content replacing the before image."
+        },
+        "default": {
+          "zh": "null",
+          "en": "null"
+        }
+      },
+      {
+        "name": "handleComponent",
+        "type": "Component",
+        "binding": "null",
+        "readonly": false,
+        "owner": "ECompare",
+        "source": "source/qt5/imports/eui/controls/data/ECompare.qml",
+        "description": {
+          "zh": "对比滑块的自定义内容。",
+          "en": "Custom comparison handle content."
+        },
+        "default": {
+          "zh": "null",
+          "en": "null"
+        }
+      },
+      {
+        "name": "fraction",
+        "type": "real",
+        "binding": "isFinite(value) ? Math.max(0, Math.min(100, value)) / 100 : 0.5",
+        "readonly": true,
+        "owner": "ECompare",
+        "source": "source/qt5/imports/eui/controls/data/ECompare.qml",
+        "description": {
+          "zh": "限制在 0 到 1 的对比比例。",
+          "en": "Comparison fraction clamped between 0 and 1."
+        },
+        "default": {
+          "zh": "isFinite(value) ? Math.max(0, Math.min(100, value)) / 100 : 0.5",
+          "en": "isFinite(value) ? Math.max(0, Math.min(100, value)) / 100 : 0.5"
+        }
+      }
+    ],
+    "introducedIn": "1.3.0"
+  },
+  "EDeferred": {
+    "base": "Item",
+    "properties": [
+      {
+        "name": "content",
+        "type": "alias",
+        "binding": "loader.sourceComponent",
+        "readonly": false,
+        "owner": "EDeferred",
+        "source": "source/qt5/imports/eui/controls/data/EDeferred.qml",
+        "description": {
+          "zh": "进入视口后创建的内容 Component。",
+          "en": "Content Component instantiated after entering the viewport."
+        },
+        "default": {
+          "zh": "loader.sourceComponent",
+          "en": "loader.sourceComponent"
+        }
+      },
+      {
+        "name": "margin",
+        "type": "real",
+        "binding": "0",
+        "readonly": false,
+        "owner": "EDeferred",
+        "source": "source/qt5/imports/eui/controls/data/EDeferred.qml",
+        "description": {
+          "zh": "进入视口前预加载的额外距离，单位为像素。",
+          "en": "Extra distance for preloading before viewport entry, in pixels."
+        },
+        "default": {
+          "zh": "0",
+          "en": "0"
+        }
+      },
+      {
+        "name": "once",
+        "type": "bool",
+        "binding": "true",
+        "readonly": false,
+        "owner": "EDeferred",
+        "source": "source/qt5/imports/eui/controls/data/EDeferred.qml",
+        "description": {
+          "zh": "首次加载后保留内容；false 时离开视口卸载。",
+          "en": "Retain content after its first load; false unloads it outside the viewport."
+        },
+        "default": {
+          "zh": "true",
+          "en": "true"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "viewport",
+        "type": "Item",
+        "readonly": false,
+        "owner": "EDeferred",
+        "source": "source/qt5/imports/eui/controls/data/EDeferred.qml",
+        "binding": "null",
+        "description": {
+          "zh": "可选视口；同时遵守祖先的裁剪边界。",
+          "en": "Optional viewport; ancestor clipping boundaries still apply."
+        },
+        "default": {
+          "zh": "null",
+          "en": "null"
+        }
+      },
+      {
+        "name": "activated",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "EDeferred",
+        "source": "source/qt5/imports/eui/controls/data/EDeferred.qml",
+        "description": {
+          "zh": "是否已经激活延迟内容。",
+          "en": "Whether deferred content has been activated."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "asynchronous",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "EDeferred",
+        "source": "source/qt5/imports/eui/controls/data/EDeferred.qml",
+        "description": {
+          "zh": "使用异步 QML 实例化。",
+          "en": "Instantiate QML content asynchronously."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "placeholderHeight",
+        "type": "real",
+        "binding": "120",
+        "readonly": false,
+        "owner": "EDeferred",
+        "source": "source/qt5/imports/eui/controls/data/EDeferred.qml",
+        "description": {
+          "zh": "尚未加载内容时占用的高度。",
+          "en": "Height reserved before content is loaded."
+        },
+        "default": {
+          "zh": "120",
+          "en": "120"
+        }
+      },
+      {
+        "name": "item",
+        "type": "alias",
+        "binding": "loader.item",
+        "readonly": true,
+        "owner": "EDeferred",
+        "source": "source/qt5/imports/eui/controls/data/EDeferred.qml",
+        "description": {
+          "zh": "当前已加载的内容实例，未加载时为 null。",
+          "en": "Currently loaded content instance; null before loading."
+        },
+        "default": {
+          "zh": "loader.item",
+          "en": "loader.item"
+        }
+      },
+      {
+        "name": "status",
+        "type": "int",
+        "binding": "loader.status",
+        "readonly": true,
+        "owner": "EDeferred",
+        "source": "source/qt5/imports/eui/controls/data/EDeferred.qml",
+        "description": {
+          "zh": "底层 Loader 状态：Null、Ready、Loading 或 Error。",
+          "en": "Underlying Loader status: Null, Ready, Loading, or Error."
+        },
+        "default": {
+          "zh": "loader.status",
+          "en": "loader.status"
+        },
+        "details": {
+          "zh": "\"\" / \"success\"\n\"warning\" / \"exception\"",
+          "en": "\"\" / \"success\"\n\"warning\" / \"exception\""
+        }
+      },
+      {
+        "name": "inViewport",
+        "type": "bool",
+        "binding": "intersectsViewport()",
+        "readonly": true,
+        "owner": "EDeferred",
+        "source": "source/qt5/imports/eui/controls/data/EDeferred.qml",
+        "description": {
+          "zh": "当前是否与可见视口相交。",
+          "en": "Whether the control intersects the visible viewport."
+        },
+        "default": {
+          "zh": "intersectsViewport()",
+          "en": "intersectsViewport()"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      }
+    ],
+    "introducedIn": "1.3.0"
+  },
+  "EDialogService": {
+    "base": "Item",
+    "properties": [
+      {
+        "name": "dialogs",
+        "type": "var",
+        "binding": "state.dialogs",
+        "readonly": true,
+        "owner": "EDialogService",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialogService.qml",
+        "description": {
+          "zh": "由服务管理的当前弹窗数组。",
+          "en": "Current dialogs managed by the service."
+        },
+        "default": {
+          "zh": "state.dialogs",
+          "en": "state.dialogs"
+        }
+      }
+    ],
+    "introducedIn": "1.3.0"
+  },
+  "EDock": {
+    "base": "Item",
+    "properties": [
+      {
+        "name": "model",
+        "type": "var",
+        "binding": "[]",
+        "readonly": false,
+        "owner": "EDock",
+        "source": "source/qt5/imports/eui/controls/navigation/EDock.qml",
+        "description": {
+          "zh": "组件的数据源；数组项结构以当前示例及组件说明为准。",
+          "en": "Component data source; item structure follows the current example and component contract."
+        },
+        "default": {
+          "zh": "[]",
+          "en": "[]"
+        }
+      },
+      {
+        "name": "iconSize",
+        "type": "int",
+        "binding": "24",
+        "readonly": false,
+        "owner": "EDock",
+        "source": "source/qt5/imports/eui/controls/navigation/EDock.qml",
+        "description": {
+          "zh": "停靠条目图标的像素尺寸。",
+          "en": "Dock item icon size in pixels."
+        },
+        "default": {
+          "zh": "24",
+          "en": "24"
+        }
+      },
+      {
+        "name": "itemSize",
+        "type": "int",
+        "binding": "48",
+        "readonly": false,
+        "owner": "EDock",
+        "source": "source/qt5/imports/eui/controls/navigation/EDock.qml",
+        "description": {
+          "zh": "停靠栏每个条目的基础尺寸。",
+          "en": "Base size of each dock item."
+        },
+        "default": {
+          "zh": "48",
+          "en": "48"
+        }
+      },
+      {
+        "name": "magnification",
+        "type": "real",
+        "binding": "1.35",
+        "readonly": false,
+        "owner": "EDock",
+        "source": "source/qt5/imports/eui/controls/navigation/EDock.qml",
+        "description": {
+          "zh": "停靠栏条目悬停时的放大倍数。",
+          "en": "Dock item scale factor on hover."
+        },
+        "default": {
+          "zh": "1.35",
+          "en": "1.35"
+        }
+      },
+      {
+        "name": "placement",
+        "type": "string",
+        "binding": "\"bottom\"",
+        "readonly": false,
+        "owner": "EDock",
+        "source": "source/qt5/imports/eui/controls/navigation/EDock.qml",
+        "description": {
+          "zh": "停靠方向：top、bottom、left 或 right。",
+          "en": "Dock placement: top, bottom, left, or right."
+        },
+        "default": {
+          "zh": "\"bottom\"",
+          "en": "\"bottom\""
+        },
+        "details": {
+          "zh": "\"top\" / \"top-start\"\n\"top-end\" / \"bottom\"\n\"bottom-start\" / \"bottom-end\"",
+          "en": "\"top\" / \"top-start\"\n\"top-end\" / \"bottom\"\n\"bottom-start\" / \"bottom-end\""
+        }
+      },
+      {
+        "name": "vertical",
+        "type": "bool",
+        "binding": "placement === \"left\" || placement === \"right\"",
+        "readonly": true,
+        "owner": "EDock",
+        "source": "source/qt5/imports/eui/controls/navigation/EDock.qml",
+        "description": {
+          "zh": "停靠在左侧或右侧时为 true。",
+          "en": "True when docked on the left or right."
+        },
+        "default": {
+          "zh": "placement === \"left\" || placement === \"right\"",
+          "en": "placement === \"left\" || placement === \"right\""
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      }
+    ],
+    "introducedIn": "1.3.0"
+  },
+  "EDynamicDialog": {
+    "base": "EDialog",
+    "properties": [
+      {
+        "name": "content",
+        "type": "alias",
+        "binding": "dialogContent.data",
+        "readonly": false,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "内容插槽；直接在组件内部声明 QML 子对象。",
+          "en": "Content slot; declare QML child objects directly inside the component."
+        },
+        "default": {
+          "zh": "dialogContent.data",
+          "en": "dialogContent.data"
+        }
+      },
+      {
+        "name": "text",
+        "type": "string",
+        "binding": "",
+        "readonly": false,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "显示的文字内容。",
+          "en": "Displayed text."
+        },
+        "default": {
+          "zh": "未设置",
+          "en": "Native or target default"
+        }
+      },
+      {
+        "name": "top",
+        "type": "real",
+        "binding": "0",
+        "readonly": false,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "对话框顶部位置，单位为像素；非垂直居中时生效。",
+          "en": "Dialog top position in pixels, used when not vertically centered."
+        },
+        "default": {
+          "zh": "0",
+          "en": "0"
+        }
+      },
+      {
+        "name": "openDelay",
+        "type": "int",
+        "binding": "0",
+        "readonly": false,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "等待、节流或自动关闭时间，单位为毫秒；0 表示不延迟或不启用定时关闭。",
+          "en": "Delay, throttling or automatic close time in milliseconds; 0 means no delay or no timed close."
+        },
+        "default": {
+          "zh": "0",
+          "en": "0"
+        }
+      },
+      {
+        "name": "closeDelay",
+        "type": "int",
+        "binding": "0",
+        "readonly": false,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "等待、节流或自动关闭时间，单位为毫秒；0 表示不延迟或不启用定时关闭。",
+          "en": "Delay, throttling or automatic close time in milliseconds; 0 means no delay or no timed close."
+        },
+        "default": {
+          "zh": "0",
+          "en": "0"
+        }
+      },
+      {
+        "name": "center",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "是否采用居中布局或居中文字。",
+          "en": "Center the layout or text."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "autofocus",
+        "type": "bool",
+        "binding": "true",
+        "readonly": false,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "组件显示时自动聚焦；受控件可用状态及弹层生命周期影响。",
+          "en": "Focus automatically when shown, subject to availability and popup lifecycle."
+        },
+        "default": {
+          "zh": "true",
+          "en": "true"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "dialogRadius",
+        "type": "real",
+        "binding": "8",
+        "readonly": false,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "圆角半径，单位为像素。",
+          "en": "Corner radius in pixels."
+        },
+        "default": {
+          "zh": "8",
+          "en": "8"
+        }
+      },
+      {
+        "name": "showClose",
+        "type": "bool",
+        "binding": "true",
+        "readonly": false,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "是否显示关闭或删除按钮。",
+          "en": "Show a close or remove button."
+        },
+        "default": {
+          "zh": "true",
+          "en": "true"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "beforeClose",
+        "type": "var",
+        "binding": "null",
+        "readonly": false,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "关闭前回调；弹窗通过 done(cancel) 完成异步判断。",
+          "en": "Callback before closing; dialogs complete asynchronous checks through done(cancel)."
+        },
+        "default": {
+          "zh": "null",
+          "en": "null"
+        }
+      },
+      {
+        "name": "exitDuration",
+        "type": "int",
+        "binding": "180",
+        "readonly": false,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "动画或显示持续时间，单位为毫秒；组件的绑定表达式给出实际用途。",
+          "en": "Animation or display duration in milliseconds; the component binding identifies its use."
+        },
+        "default": {
+          "zh": "180",
+          "en": "180"
+        }
+      },
+      {
+        "name": "showFooter",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "是否显示底部操作区。",
+          "en": "Show the footer action area."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "showHeader",
+        "type": "bool",
+        "binding": "true",
+        "readonly": false,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "是否显示头部区域。",
+          "en": "Show the header area."
+        },
+        "default": {
+          "zh": "true",
+          "en": "true"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "windowMargin",
+        "type": "real",
+        "binding": "16",
+        "readonly": false,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "对话框与窗口边缘的最小间距，单位为像素。",
+          "en": "Minimum dialog margin from the window edges in pixels."
+        },
+        "default": {
+          "zh": "16",
+          "en": "16"
+        }
+      },
+      {
+        "name": "enterDuration",
+        "type": "int",
+        "binding": "220",
+        "readonly": false,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "动画或显示持续时间，单位为毫秒；组件的绑定表达式给出实际用途。",
+          "en": "Animation or display duration in milliseconds; the component binding identifies its use."
+        },
+        "default": {
+          "zh": "220",
+          "en": "220"
+        }
+      },
+      {
+        "name": "fullscreen",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "是否使用全屏显示或全窗口覆盖。",
+          "en": "Use full-screen display or a full-window overlay."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "closeOnEscape",
+        "type": "bool",
+        "binding": "true",
+        "readonly": false,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "是否允许按 Escape 关闭。",
+          "en": "Allow Escape to close the component."
+        },
+        "default": {
+          "zh": "true",
+          "en": "true"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "destroyOnClose",
+        "type": "bool",
+        "binding": "true",
+        "readonly": false,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "关闭后销毁通过 Component 加载的内容。",
+          "en": "Destroy Component-loaded content after closing."
+        },
+        "default": {
+          "zh": "true",
+          "en": "true"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "closeIcon",
+        "type": "int",
+        "binding": "EIcons.XMARK",
+        "readonly": false,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "组件使用的图标。",
+          "en": "Icon used by the component."
+        },
+        "default": {
+          "zh": "EIcons.XMARK",
+          "en": "EIcons.XMARK"
+        },
+        "details": {
+          "zh": "EIcons.*\n0（无图标）",
+          "en": "EIcons.*\n0 (no icon)"
+        }
+      },
+      {
+        "name": "modalPenetrable",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "是否允许输入穿透非模态遮罩。",
+          "en": "Allow input to pass through the non-modal overlay."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "showCancelButton",
+        "type": "bool",
+        "binding": "true",
+        "readonly": false,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "是否显示取消按钮。",
+          "en": "Show the cancel button."
+        },
+        "default": {
+          "zh": "true",
+          "en": "true"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "showConfirmButton",
+        "type": "bool",
+        "binding": "true",
+        "readonly": false,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "是否显示确认按钮。",
+          "en": "Show the confirm button."
+        },
+        "default": {
+          "zh": "true",
+          "en": "true"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "closeOnClickOutside",
+        "type": "bool",
+        "binding": "true",
+        "readonly": false,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "点击弹层外部时关闭。",
+          "en": "Close when clicking outside the popup."
+        },
+        "default": {
+          "zh": "true",
+          "en": "true"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "contentComponent",
+        "type": "Component",
+        "binding": "Item { id: content  property var item: null  function create() { if (item) { item.destroy() item = null } if (!control.component) return const properties = {} Object.keys(control.parameters || {}).forEach(function(key) { properties[key] = control.parameters[key] }) item = control.component.createObject(content, properties) if (!item) { control.loadFailed(\"component-creation-failed\") return } if (\"dialogRef\" in item) item.dialogRef = control item.width = Qt.binding(function() { return content.width }) }  implicitHeight: item ? Math.max(item.implicitHeight || 0, item.height || 0) : 0  Component.onCompleted: create()  Connections { function onComponentChanged() { content.create() }  function onParametersChanged() { content.create() }  target: control } }",
+        "readonly": false,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "自定义主体内容的 Component 插槽；null 使用默认内容。 委托上下文见本页示例。",
+          "en": "Component slot for custom body content; null uses the default content. See this page’s examples for delegate context."
+        },
+        "default": {
+          "zh": "Item { id: content  property var item: null  function create() { if (item) { item.destroy() item = null } if (!control.component) return const properties = {} Object.keys(control.parameters || {}).forEach(function(key) { properties[key] = control.parameters[key] }) item = control.component.createObject(content, properties) if (!item) { control.loadFailed(\"component-creation-failed\") return } if (\"dialogRef\" in item) item.dialogRef = control item.width = Qt.binding(function() { return content.width }) }  implicitHeight: item ? Math.max(item.implicitHeight || 0, item.height || 0) : 0  Component.onCompleted: create()  Connections { function onComponentChanged() { content.create() }  function onParametersChanged() { content.create() }  target: control } }",
+          "en": "Item { id: content  property var item: null  function create() { if (item) { item.destroy() item = null } if (!control.component) return const properties = {} Object.keys(control.parameters || {}).forEach(function(key) { properties[key] = control.parameters[key] }) item = control.component.createObject(content, properties) if (!item) { control.loadFailed(\"component-creation-failed\") return } if (\"dialogRef\" in item) item.dialogRef = control item.width = Qt.binding(function() { return content.width }) }  implicitHeight: item ? Math.max(item.implicitHeight || 0, item.height || 0) : 0  Component.onCompleted: create()  Connections { function onComponentChanged() { content.create() }  function onParametersChanged() { content.create() }  target: control } }"
+        }
+      },
+      {
+        "name": "confirmStyleType",
+        "type": "int",
+        "binding": "EStyle.Primary",
+        "readonly": false,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "语义配色风格。",
+          "en": "Semantic color style."
+        },
+        "default": {
+          "zh": "EStyle.Primary",
+          "en": "EStyle.Primary"
+        },
+        "details": {
+          "zh": "EStyle.Default\nEStyle.Primary\nEStyle.Success\nEStyle.Info\nEStyle.Warning\nEStyle.Danger",
+          "en": "EStyle.Default\nEStyle.Primary\nEStyle.Success\nEStyle.Info\nEStyle.Warning\nEStyle.Danger"
+        }
+      },
+      {
+        "name": "modalOverlayColor",
+        "type": "color",
+        "binding": "EPaletteManager.BasePalette.modalOverlay",
+        "readonly": false,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "模态或非模态遮罩颜色。",
+          "en": "Modal or non-modal overlay color."
+        },
+        "default": {
+          "zh": "EPaletteManager.BasePalette.modalOverlay",
+          "en": "EPaletteManager.BasePalette.modalOverlay"
+        }
+      },
+      {
+        "name": "textColor",
+        "type": "color",
+        "binding": "EPaletteManager.ThemePalette.textRegular(ETheme.dark)",
+        "readonly": false,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "文字颜色。",
+          "en": "Text color."
+        },
+        "default": {
+          "zh": "EPaletteManager.ThemePalette.textRegular(ETheme.dark)",
+          "en": "EPaletteManager.ThemePalette.textRegular(ETheme.dark)"
+        }
+      },
+      {
+        "name": "modelessOverlayColor",
+        "type": "color",
+        "binding": "EPaletteManager.BasePalette.modelessOverlay",
+        "readonly": false,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "模态或非模态遮罩颜色。",
+          "en": "Modal or non-modal overlay color."
+        },
+        "default": {
+          "zh": "EPaletteManager.BasePalette.modelessOverlay",
+          "en": "EPaletteManager.BasePalette.modelessOverlay"
+        }
+      },
+      {
+        "name": "titleColor",
+        "type": "color",
+        "binding": "EPaletteManager.ThemePalette.textPrimary(ETheme.dark)",
+        "readonly": false,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "标题颜色。",
+          "en": "Title color."
+        },
+        "default": {
+          "zh": "EPaletteManager.ThemePalette.textPrimary(ETheme.dark)",
+          "en": "EPaletteManager.ThemePalette.textPrimary(ETheme.dark)"
+        }
+      },
+      {
+        "name": "borderColor",
+        "type": "color",
+        "readonly": false,
+        "binding": "EPaletteManager.ThemePalette.borderDefault(ETheme.dark)",
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "边框颜色。",
+          "en": "Border color."
+        },
+        "default": {
+          "zh": "EPaletteManager.ThemePalette.borderDefault(ETheme.dark)",
+          "en": "EPaletteManager.ThemePalette.borderDefault(ETheme.dark)"
+        }
+      },
+      {
+        "name": "cancelText",
+        "type": "string",
+        "binding": "EControlConfig.textFor(control, \"Cancel2\", ELocale.texts)",
+        "readonly": false,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "取消按钮文字。",
+          "en": "Cancel button text."
+        },
+        "default": {
+          "zh": "EControlConfig.textFor(control, \"Cancel2\", ELocale.texts)",
+          "en": "EControlConfig.textFor(control, \"Cancel2\", ELocale.texts)"
+        }
+      },
+      {
+        "name": "overflow",
+        "type": "bool",
+        "binding": "EControlConfig.optionFor(control, \"dialog\", \"overflow\", false)",
+        "readonly": false,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "是否允许对话框拖动超出窗口范围。",
+          "en": "Allow the dialog to be dragged beyond the window bounds."
+        },
+        "default": {
+          "zh": "EControlConfig.optionFor(control, \"dialog\", \"overflow\", false)",
+          "en": "EControlConfig.optionFor(control, \"dialog\", \"overflow\", false)"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "confirmText",
+        "type": "string",
+        "binding": "EControlConfig.textFor(control, \"Confirm2\", ELocale.texts)",
+        "readonly": false,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "确认按钮文字。",
+          "en": "Confirm button text."
+        },
+        "default": {
+          "zh": "EControlConfig.textFor(control, \"Confirm2\", ELocale.texts)",
+          "en": "EControlConfig.textFor(control, \"Confirm2\", ELocale.texts)"
+        }
+      },
+      {
+        "name": "draggable",
+        "type": "bool",
+        "binding": "EControlConfig.optionFor(control, \"dialog\", \"draggable\", false)",
+        "readonly": false,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "允许通过拖拽移动条目。",
+          "en": "Allow entries to be moved by dragging."
+        },
+        "default": {
+          "zh": "EControlConfig.optionFor(control, \"dialog\", \"draggable\", false)",
+          "en": "EControlConfig.optionFor(control, \"dialog\", \"draggable\", false)"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "backgroundColor",
+        "type": "color",
+        "binding": "EPaletteManager.ThemePalette.surfaceComponent(ETheme.dark)",
+        "readonly": false,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "背景颜色。",
+          "en": "Background color."
+        },
+        "default": {
+          "zh": "EPaletteManager.ThemePalette.surfaceComponent(ETheme.dark)",
+          "en": "EPaletteManager.ThemePalette.surfaceComponent(ETheme.dark)"
+        }
+      },
+      {
+        "name": "alignCenter",
+        "type": "bool",
+        "binding": "EControlConfig.optionFor(control, \"dialog\", \"alignCenter\", true)",
+        "readonly": false,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "是否采用居中布局或居中文字。",
+          "en": "Center the layout or text."
+        },
+        "default": {
+          "zh": "EControlConfig.optionFor(control, \"dialog\", \"alignCenter\", true)",
+          "en": "EControlConfig.optionFor(control, \"dialog\", \"alignCenter\", true)"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "loadedContent",
+        "type": "alias",
+        "binding": "contentLoader.item",
+        "readonly": true,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "通过 Component 创建的实际内容对象。",
+          "en": "Actual content item instantiated from a Component."
+        },
+        "default": {
+          "zh": "contentLoader.item",
+          "en": "contentLoader.item"
+        }
+      },
+      {
+        "name": "maximumDialogWidth",
+        "type": "real",
+        "binding": "Overlay.overlay && Overlay.overlay.width > 0 ? Overlay.overlay.width - windowMargin * 2 : implicitWidth",
+        "readonly": true,
+        "owner": "EDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDialog.qml",
+        "description": {
+          "zh": "扣除窗口边距后的对话框最大宽度。",
+          "en": "Maximum dialog width after subtracting window margins."
+        },
+        "default": {
+          "zh": "Overlay.overlay && Overlay.overlay.width > 0 ? Overlay.overlay.width - windowMargin * 2 : implicitWidth",
+          "en": "Overlay.overlay && Overlay.overlay.width > 0 ? Overlay.overlay.width - windowMargin * 2 : implicitWidth"
+        }
+      },
+      {
+        "name": "callback",
+        "type": "var",
+        "binding": "null",
+        "readonly": false,
+        "owner": "EDynamicDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDynamicDialog.qml",
+        "description": {
+          "zh": "完成回调 callback(result, accepted)。",
+          "en": "Completion callback(result, accepted)."
+        },
+        "default": {
+          "zh": "null",
+          "en": "null"
+        }
+      },
+      {
+        "name": "parameters",
+        "type": "var",
+        "binding": "({})",
+        "readonly": false,
+        "owner": "EDynamicDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDynamicDialog.qml",
+        "description": {
+          "zh": "动态内容创建时注入的初始属性。",
+          "en": "Initial properties injected when creating dynamic content."
+        },
+        "default": {
+          "zh": "({})",
+          "en": "({})"
+        }
+      },
+      {
+        "name": "component",
+        "type": "Component",
+        "binding": "null",
+        "readonly": false,
+        "owner": "EDynamicDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDynamicDialog.qml",
+        "description": {
+          "zh": "需要动态创建的 QML Component。",
+          "en": "QML Component to instantiate dynamically."
+        },
+        "default": {
+          "zh": "null",
+          "en": "null"
+        }
+      },
+      {
+        "name": "resultData",
+        "type": "var",
+        "binding": "undefined",
+        "readonly": false,
+        "owner": "EDynamicDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDynamicDialog.qml",
+        "description": {
+          "zh": "动态弹窗通过 resolve(value) 返回的数据。",
+          "en": "Data returned by the dynamic dialog through resolve(value)."
+        },
+        "default": {
+          "zh": "undefined",
+          "en": "undefined"
+        }
+      },
+      {
+        "name": "instance",
+        "type": "var",
+        "binding": "loadedContent ? loadedContent.item : null",
+        "readonly": true,
+        "owner": "EDynamicDialog",
+        "source": "source/qt5/imports/eui/controls/indicator/EDynamicDialog.qml",
+        "description": {
+          "zh": "已创建的动态内容实例，未创建时为 null。",
+          "en": "Created dynamic content instance; null before creation."
+        },
+        "default": {
+          "zh": "loadedContent ? loadedContent.item : null",
+          "en": "loadedContent ? loadedContent.item : null"
+        }
+      }
+    ],
+    "introducedIn": "1.3.0"
+  },
+  "EFieldset": {
+    "base": "Control",
+    "properties": [
+      {
+        "name": "content",
+        "type": "alias",
+        "binding": "body.data",
+        "readonly": false,
+        "owner": "EFieldset",
+        "source": "source/qt5/imports/eui/controls/basic/EFieldset.qml",
+        "description": {
+          "zh": "内容插槽；直接在组件内部声明 QML 子对象。",
+          "en": "Content slot; declare QML child objects directly inside the component."
+        },
+        "default": {
+          "zh": "body.data",
+          "en": "body.data"
+        }
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "binding": "\"\"",
+        "readonly": false,
+        "owner": "EFieldset",
+        "source": "source/qt5/imports/eui/controls/basic/EFieldset.qml",
+        "description": {
+          "zh": "标题文字。",
+          "en": "Title text."
+        },
+        "default": {
+          "zh": "\"\"",
+          "en": "\"\""
+        }
+      },
+      {
+        "name": "collapsed",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "EFieldset",
+        "source": "source/qt5/imports/eui/controls/basic/EFieldset.qml",
+        "description": {
+          "zh": "面板是否处于折叠状态。",
+          "en": "Whether the panel is collapsed."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "collapsible",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "EFieldset",
+        "source": "source/qt5/imports/eui/controls/basic/EFieldset.qml",
+        "description": {
+          "zh": "是否允许折叠面板。",
+          "en": "Allow the panel to collapse."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      }
+    ],
+    "introducedIn": "1.3.0"
+  },
+  "EFloatLabel": {
+    "base": "Item",
+    "properties": [
+      {
+        "name": "content",
+        "type": "alias",
+        "binding": "fieldContainer.data",
+        "readonly": false,
+        "owner": "EFloatLabel",
+        "source": "source/qt5/imports/eui/controls/form/EFloatLabel.qml",
+        "description": {
+          "zh": "内容插槽；直接在组件内部声明 QML 子对象。",
+          "en": "Content slot; declare QML child objects directly inside the component."
+        },
+        "default": {
+          "zh": "fieldContainer.data",
+          "en": "fieldContainer.data"
+        }
+      },
+      {
+        "name": "text",
+        "type": "string",
+        "binding": "\"\"",
+        "readonly": false,
+        "owner": "EFloatLabel",
+        "source": "source/qt5/imports/eui/controls/form/EFloatLabel.qml",
+        "description": {
+          "zh": "显示的文字内容。",
+          "en": "Displayed text."
+        },
+        "default": {
+          "zh": "\"\"",
+          "en": "\"\""
+        }
+      },
+      {
+        "name": "fixed",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "EFloatLabel",
+        "source": "source/qt5/imports/eui/controls/form/EFloatLabel.qml",
+        "description": {
+          "zh": "将标签固定在输入框内部顶端。",
+          "en": "Fix the label inside the top of the input."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "target",
+        "type": "Item",
+        "binding": "fieldContainer.children.length ? fieldContainer.children[0] : null",
+        "readonly": false,
+        "owner": "EFloatLabel",
+        "source": "source/qt5/imports/eui/controls/form/EFloatLabel.qml",
+        "description": {
+          "zh": "关联的目标控件。",
+          "en": "Associated target control."
+        },
+        "default": {
+          "zh": "fieldContainer.children.length ? fieldContainer.children[0] : null",
+          "en": "fieldContainer.children.length ? fieldContainer.children[0] : null"
+        }
+      },
+      {
+        "name": "filled",
+        "type": "bool",
+        "binding": "target ? target.text !== undefined ? String(target.text).length > 0 : target.value !== undefined && target.value !== null && String(target.value).length > 0 : false",
+        "readonly": false,
+        "owner": "EFloatLabel",
+        "source": "source/qt5/imports/eui/controls/form/EFloatLabel.qml",
+        "description": {
+          "zh": "字段是否已有值，可覆盖自动判断。",
+          "en": "Whether the field has a value; overrides automatic detection."
+        },
+        "default": {
+          "zh": "target ? target.text !== undefined ? String(target.text).length > 0 : target.value !== undefined && target.value !== null && String(target.value).length > 0 : false",
+          "en": "target ? target.text !== undefined ? String(target.text).length > 0 : target.value !== undefined && target.value !== null && String(target.value).length > 0 : false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "raised",
+        "type": "bool",
+        "binding": "fixed || filled || !!(target && target.activeFocus)",
+        "readonly": true,
+        "owner": "EFloatLabel",
+        "source": "source/qt5/imports/eui/controls/form/EFloatLabel.qml",
+        "description": {
+          "zh": "标签是否处于抬起状态。",
+          "en": "Whether the label is raised."
+        },
+        "default": {
+          "zh": "fixed || filled || !!(target && target.activeFocus)",
+          "en": "fixed || filled || !!(target && target.activeFocus)"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      }
+    ],
+    "introducedIn": "1.3.0"
+  },
+  "EFocusTrap": {
+    "base": "FocusScope",
+    "properties": [
+      {
+        "name": "content",
+        "type": "alias",
+        "binding": "body.data",
+        "readonly": false,
+        "owner": "EFocusTrap",
+        "source": "source/qt5/imports/eui/controls/basic/EFocusTrap.qml",
+        "description": {
+          "zh": "内容插槽；直接在组件内部声明 QML 子对象。",
+          "en": "Content slot; declare QML child objects directly inside the component."
+        },
+        "default": {
+          "zh": "body.data",
+          "en": "body.data"
+        }
+      },
+      {
+        "name": "active",
+        "type": "bool",
+        "binding": "true",
+        "readonly": false,
+        "owner": "EFocusTrap",
+        "source": "source/qt5/imports/eui/controls/basic/EFocusTrap.qml",
+        "description": {
+          "zh": "启用 Tab 和 Shift+Tab 在区域内循环聚焦。",
+          "en": "Keep Tab and Shift+Tab focus navigation within the region."
+        },
+        "default": {
+          "zh": "true",
+          "en": "true"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      }
+    ],
+    "introducedIn": "1.3.0"
+  },
+  "EIftaLabel": {
+    "base": "EFloatLabel",
+    "properties": [
+      {
+        "name": "content",
+        "type": "alias",
+        "binding": "fieldContainer.data",
+        "readonly": false,
+        "owner": "EFloatLabel",
+        "source": "source/qt5/imports/eui/controls/form/EFloatLabel.qml",
+        "description": {
+          "zh": "内容插槽；直接在组件内部声明 QML 子对象。",
+          "en": "Content slot; declare QML child objects directly inside the component."
+        },
+        "default": {
+          "zh": "fieldContainer.data",
+          "en": "fieldContainer.data"
+        }
+      },
+      {
+        "name": "text",
+        "type": "string",
+        "binding": "\"\"",
+        "readonly": false,
+        "owner": "EFloatLabel",
+        "source": "source/qt5/imports/eui/controls/form/EFloatLabel.qml",
+        "description": {
+          "zh": "显示的文字内容。",
+          "en": "Displayed text."
+        },
+        "default": {
+          "zh": "\"\"",
+          "en": "\"\""
+        }
+      },
+      {
+        "name": "fixed",
+        "type": "bool",
+        "binding": "true",
+        "readonly": false,
+        "owner": "EFloatLabel",
+        "source": "source/qt5/imports/eui/controls/form/EFloatLabel.qml",
+        "description": {
+          "zh": "将标签固定在输入框内部顶端。",
+          "en": "Fix the label inside the top of the input."
+        },
+        "default": {
+          "zh": "true",
+          "en": "true"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "target",
+        "type": "Item",
+        "binding": "fieldContainer.children.length ? fieldContainer.children[0] : null",
+        "readonly": false,
+        "owner": "EFloatLabel",
+        "source": "source/qt5/imports/eui/controls/form/EFloatLabel.qml",
+        "description": {
+          "zh": "关联的目标控件。",
+          "en": "Associated target control."
+        },
+        "default": {
+          "zh": "fieldContainer.children.length ? fieldContainer.children[0] : null",
+          "en": "fieldContainer.children.length ? fieldContainer.children[0] : null"
+        }
+      },
+      {
+        "name": "filled",
+        "type": "bool",
+        "binding": "target ? target.text !== undefined ? String(target.text).length > 0 : target.value !== undefined && target.value !== null && String(target.value).length > 0 : false",
+        "readonly": false,
+        "owner": "EFloatLabel",
+        "source": "source/qt5/imports/eui/controls/form/EFloatLabel.qml",
+        "description": {
+          "zh": "字段是否已有值，可覆盖自动判断。",
+          "en": "Whether the field has a value; overrides automatic detection."
+        },
+        "default": {
+          "zh": "target ? target.text !== undefined ? String(target.text).length > 0 : target.value !== undefined && target.value !== null && String(target.value).length > 0 : false",
+          "en": "target ? target.text !== undefined ? String(target.text).length > 0 : target.value !== undefined && target.value !== null && String(target.value).length > 0 : false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "raised",
+        "type": "bool",
+        "binding": "fixed || filled || !!(target && target.activeFocus)",
+        "readonly": true,
+        "owner": "EFloatLabel",
+        "source": "source/qt5/imports/eui/controls/form/EFloatLabel.qml",
+        "description": {
+          "zh": "标签是否处于抬起状态。",
+          "en": "Whether the label is raised."
+        },
+        "default": {
+          "zh": "fixed || filled || !!(target && target.activeFocus)",
+          "en": "fixed || filled || !!(target && target.activeFocus)"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      }
+    ],
+    "introducedIn": "1.3.0"
+  },
+  "EInplace": {
+    "base": "Item",
+    "properties": [
+      {
+        "name": "editor",
+        "type": "alias",
+        "binding": "editorLoader.sourceComponent",
+        "readonly": false,
+        "owner": "EInplace",
+        "source": "source/qt5/imports/eui/controls/data/EInplace.qml",
+        "description": {
+          "zh": "进入编辑状态后创建的编辑器 Component。",
+          "en": "Editor Component instantiated in edit mode."
+        },
+        "default": {
+          "zh": "editorLoader.sourceComponent",
+          "en": "editorLoader.sourceComponent"
+        }
+      },
+      {
+        "name": "text",
+        "type": "string",
+        "binding": "\"\"",
+        "readonly": false,
+        "owner": "EInplace",
+        "source": "source/qt5/imports/eui/controls/data/EInplace.qml",
+        "description": {
+          "zh": "显示的文字内容。",
+          "en": "Displayed text."
+        },
+        "default": {
+          "zh": "\"\"",
+          "en": "\"\""
+        }
+      },
+      {
+        "name": "active",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "EInplace",
+        "source": "source/qt5/imports/eui/controls/data/EInplace.qml",
+        "description": {
+          "zh": "是否正在显示编辑内容。",
+          "en": "Whether the editor is currently displayed."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "closable",
+        "type": "bool",
+        "binding": "true",
+        "readonly": false,
+        "owner": "EInplace",
+        "source": "source/qt5/imports/eui/controls/data/EInplace.qml",
+        "description": {
+          "zh": "显示退出编辑状态的关闭按钮。",
+          "en": "Show a button to leave edit mode."
+        },
+        "default": {
+          "zh": "true",
+          "en": "true"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "displayComponent",
+        "type": "Component",
+        "binding": "null",
+        "readonly": false,
+        "owner": "EInplace",
+        "source": "source/qt5/imports/eui/controls/data/EInplace.qml",
+        "description": {
+          "zh": "原位编辑器未打开时的展示内容。",
+          "en": "Display content while the inplace editor is closed."
+        },
+        "default": {
+          "zh": "null",
+          "en": "null"
+        }
+      },
+      {
+        "name": "item",
+        "type": "alias",
+        "binding": "editorLoader.item",
+        "readonly": true,
+        "owner": "EInplace",
+        "source": "source/qt5/imports/eui/controls/data/EInplace.qml",
+        "description": {
+          "zh": "当前已加载的内容实例，未加载时为 null。",
+          "en": "Currently loaded content instance; null before loading."
+        },
+        "default": {
+          "zh": "editorLoader.item",
+          "en": "editorLoader.item"
+        }
+      }
+    ],
+    "introducedIn": "1.3.0"
+  },
+  "EInputGroup": {
+    "base": "Item",
+    "properties": [
+      {
+        "name": "content",
+        "type": "alias",
+        "binding": "layout.data",
+        "readonly": false,
+        "owner": "EInputGroup",
+        "source": "source/qt5/imports/eui/controls/form/EInputGroup.qml",
+        "description": {
+          "zh": "内容插槽；直接在组件内部声明 QML 子对象。",
+          "en": "Content slot; declare QML child objects directly inside the component."
+        },
+        "default": {
+          "zh": "layout.data",
+          "en": "layout.data"
+        }
+      },
+      {
+        "name": "spacing",
+        "type": "real",
+        "binding": "8",
+        "readonly": false,
+        "owner": "EInputGroup",
+        "source": "source/qt5/imports/eui/controls/form/EInputGroup.qml",
+        "description": {
+          "zh": "相邻输入组成员之间的间距，单位为像素。",
+          "en": "Spacing between adjacent input group members in pixels."
+        },
+        "default": {
+          "zh": "8",
+          "en": "8"
+        }
+      }
+    ],
+    "introducedIn": "1.3.0"
+  },
+  "EKnob": {
+    "base": "Control",
+    "properties": [
+      {
+        "name": "from",
+        "type": "real",
+        "binding": "0",
+        "readonly": false,
+        "owner": "EKnob",
+        "source": "source/qt5/imports/eui/controls/form/EKnob.qml",
+        "description": {
+          "zh": "旋钮范围的一个端点。",
+          "en": "One endpoint of the knob range."
+        },
+        "default": {
+          "zh": "0",
+          "en": "0"
+        }
+      },
+      {
+        "name": "to",
+        "type": "real",
+        "binding": "100",
+        "readonly": false,
+        "owner": "EKnob",
+        "source": "source/qt5/imports/eui/controls/form/EKnob.qml",
+        "description": {
+          "zh": "旋钮范围的另一个端点。",
+          "en": "Other endpoint of the knob range."
+        },
+        "default": {
+          "zh": "100",
+          "en": "100"
+        }
+      },
+      {
+        "name": "value",
+        "type": "real",
+        "binding": "0",
+        "readonly": false,
+        "owner": "EKnob",
+        "source": "source/qt5/imports/eui/controls/form/EKnob.qml",
+        "description": {
+          "zh": "旋钮当前数值。",
+          "en": "Current knob value."
+        },
+        "default": {
+          "zh": "0",
+          "en": "0"
+        }
+      },
+      {
+        "name": "stepSize",
+        "type": "real",
+        "binding": "1",
+        "readonly": false,
+        "owner": "EKnob",
+        "source": "source/qt5/imports/eui/controls/form/EKnob.qml",
+        "description": {
+          "zh": "数值交互时的步长；非正值按 1 处理。",
+          "en": "Interaction increment; non-positive values use 1."
+        },
+        "default": {
+          "zh": "1",
+          "en": "1"
+        }
+      },
+      {
+        "name": "suffix",
+        "type": "string",
+        "binding": "\"\"",
+        "readonly": false,
+        "owner": "EKnob",
+        "source": "source/qt5/imports/eui/controls/form/EKnob.qml",
+        "description": {
+          "zh": "显示在数值后的文本。",
+          "en": "Text displayed after the value."
+        },
+        "default": {
+          "zh": "\"\"",
+          "en": "\"\""
+        }
+      },
+      {
+        "name": "strokeWidth",
+        "type": "int",
+        "binding": "10",
+        "readonly": false,
+        "owner": "EKnob",
+        "source": "source/qt5/imports/eui/controls/form/EKnob.qml",
+        "description": {
+          "zh": "圆形轨道和数值弧的线宽。",
+          "en": "Stroke width of the circular track and value arc."
+        },
+        "default": {
+          "zh": "10",
+          "en": "10"
+        }
+      },
+      {
+        "name": "readOnly",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "EKnob",
+        "source": "source/qt5/imports/eui/controls/form/EKnob.qml",
+        "description": {
+          "zh": "保持内容可见并禁止用户修改。",
+          "en": "Keep content visible and prevent edits."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "readonly": false,
+        "binding": "EPaletteManager.ThemePalette.fetchColorForStyle(EStyle.Primary)",
+        "owner": "EKnob",
+        "source": "source/qt5/imports/eui/controls/form/EKnob.qml",
+        "description": {
+          "zh": "数值弧的颜色。",
+          "en": "Color of the value arc."
+        },
+        "default": {
+          "zh": "EPaletteManager.ThemePalette.fetchColorForStyle(EStyle.Primary)",
+          "en": "EPaletteManager.ThemePalette.fetchColorForStyle(EStyle.Primary)"
+        }
+      },
+      {
+        "name": "maximum",
+        "type": "real",
+        "binding": "Math.max(from, to)",
+        "readonly": true,
+        "owner": "EKnob",
+        "source": "source/qt5/imports/eui/controls/form/EKnob.qml",
+        "description": {
+          "zh": "from 与 to 中较大的值。",
+          "en": "Larger of from and to."
+        },
+        "default": {
+          "zh": "Math.max(from, to)",
+          "en": "Math.max(from, to)"
+        }
+      },
+      {
+        "name": "minimum",
+        "type": "real",
+        "binding": "Math.min(from, to)",
+        "readonly": true,
+        "owner": "EKnob",
+        "source": "source/qt5/imports/eui/controls/form/EKnob.qml",
+        "description": {
+          "zh": "from 与 to 中较小的值。",
+          "en": "Smaller of from and to."
+        },
+        "default": {
+          "zh": "Math.min(from, to)",
+          "en": "Math.min(from, to)"
+        }
+      },
+      {
+        "name": "effectiveValue",
+        "type": "real",
+        "binding": "isFinite(value) ? Math.max(minimum, Math.min(maximum, value)) : minimum",
+        "readonly": true,
+        "owner": "EKnob",
+        "source": "source/qt5/imports/eui/controls/form/EKnob.qml",
+        "description": {
+          "zh": "限制在有效范围内的显示值。",
+          "en": "Displayed value clamped to the valid range."
+        },
+        "default": {
+          "zh": "isFinite(value) ? Math.max(minimum, Math.min(maximum, value)) : minimum",
+          "en": "isFinite(value) ? Math.max(minimum, Math.min(maximum, value)) : minimum"
+        }
+      }
+    ],
+    "introducedIn": "1.3.0"
+  },
+  "ELabel": {
+    "base": "EText",
+    "properties": [
+      {
+        "name": "type",
+        "type": "string",
+        "binding": "\"\"",
+        "readonly": false,
+        "owner": "EText",
+        "source": "source/qt5/imports/eui/controls/basic/EText.qml",
+        "description": {
+          "zh": "导航标记的显示样式。",
+          "en": "Display style of the anchor indicator."
+        },
+        "default": {
+          "zh": "\"\"",
+          "en": "\"\""
+        },
+        "details": {
+          "zh": "\"default\" / \"underline\"",
+          "en": "\"default\" / \"underline\""
+        }
+      },
+      {
+        "name": "lineClamp",
+        "type": "int",
+        "binding": "0",
+        "readonly": false,
+        "owner": "EText",
+        "source": "source/qt5/imports/eui/controls/basic/EText.qml",
+        "description": {
+          "zh": "显示行数上限；0 表示不限制。",
+          "en": "Maximum displayed lines; 0 means unlimited."
+        },
+        "default": {
+          "zh": "0",
+          "en": "0"
+        },
+        "details": {
+          "zh": "0：不限制\n正整数：最多显示行数",
+          "en": "0: unlimited\nPositive integer: maximum line count"
+        }
+      },
+      {
+        "name": "truncated",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "EText",
+        "source": "source/qt5/imports/eui/controls/basic/EText.qml",
+        "description": {
+          "zh": "宽度不足时省略文本。",
+          "en": "Elide text when it exceeds the available width."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "size",
+        "type": "int",
+        "binding": "EStyle.Medium",
+        "readonly": false,
+        "owner": "EText",
+        "source": "source/qt5/imports/eui/controls/basic/EText.qml",
+        "description": {
+          "zh": "应用内控件默认尺寸，传给 EConfigProvider。",
+          "en": "Default descendant control size passed to EConfigProvider."
+        },
+        "default": {
+          "zh": "EStyle.Medium",
+          "en": "EStyle.Medium"
+        },
+        "details": {
+          "zh": "EStyle.Small\nEStyle.Medium\nEStyle.Large",
+          "en": "EStyle.Small\nEStyle.Medium\nEStyle.Large"
+        }
+      },
+      {
+        "name": "target",
+        "type": "Item",
+        "binding": "null",
+        "readonly": false,
+        "owner": "ELabel",
+        "source": "source/qt5/imports/eui/controls/form/ELabel.qml",
+        "description": {
+          "zh": "关联的目标控件。",
+          "en": "Associated target control."
+        },
+        "default": {
+          "zh": "null",
+          "en": "null"
+        }
+      }
+    ],
+    "introducedIn": "1.3.0"
+  },
+  "EListbox": {
+    "base": "Control",
+    "properties": [
+      {
+        "name": "model",
+        "type": "var",
+        "binding": "[]",
+        "readonly": false,
+        "owner": "EListbox",
+        "source": "source/qt5/imports/eui/controls/form/EListbox.qml",
+        "description": {
+          "zh": "基本值或选项对象数组；对象可包含 label、value、disabled。",
+          "en": "Primitive values or option objects with label, value, and disabled."
+        },
+        "default": {
+          "zh": "[]",
+          "en": "[]"
+        }
+      },
+      {
+        "name": "values",
+        "type": "var",
+        "binding": "[]",
+        "readonly": false,
+        "owner": "EListbox",
+        "source": "source/qt5/imports/eui/controls/form/EListbox.qml",
+        "description": {
+          "zh": "multiple 为 true 时选中的值数组。",
+          "en": "Selected values when multiple is true."
+        },
+        "default": {
+          "zh": "[]",
+          "en": "[]"
+        }
+      },
+      {
+        "name": "value",
+        "type": "var",
+        "binding": "null",
+        "readonly": false,
+        "owner": "EListbox",
+        "source": "source/qt5/imports/eui/controls/form/EListbox.qml",
+        "description": {
+          "zh": "单选模式中当前选中的值。",
+          "en": "Selected value in single selection mode."
+        },
+        "default": {
+          "zh": "null",
+          "en": "null"
+        }
+      },
+      {
+        "name": "multiple",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "EListbox",
+        "source": "source/qt5/imports/eui/controls/form/EListbox.qml",
+        "description": {
+          "zh": "是否允许多选。",
+          "en": "Allow multiple selection."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "filterable",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "EListbox",
+        "source": "source/qt5/imports/eui/controls/form/EListbox.qml",
+        "description": {
+          "zh": "是否允许输入关键词过滤。",
+          "en": "Allow keyword filtering."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "reorderable",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "EListbox",
+        "source": "source/qt5/imports/eui/controls/form/EListbox.qml",
+        "description": {
+          "zh": "允许在列表中调整条目顺序。",
+          "en": "Allow entries to be reordered."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "labelKey",
+        "type": "string",
+        "binding": "\"label\"",
+        "readonly": false,
+        "owner": "EListbox",
+        "source": "source/qt5/imports/eui/controls/form/EListbox.qml",
+        "description": {
+          "zh": "对象模型中用于显示标签的字段名。",
+          "en": "Field name used as the label in object models."
+        },
+        "default": {
+          "zh": "\"label\"",
+          "en": "\"label\""
+        }
+      },
+      {
+        "name": "valueKey",
+        "type": "string",
+        "binding": "\"value\"",
+        "readonly": false,
+        "owner": "EListbox",
+        "source": "source/qt5/imports/eui/controls/form/EListbox.qml",
+        "description": {
+          "zh": "选项取值字段或对象值的唯一标识字段。",
+          "en": "Option value field or unique identifier for object values."
+        },
+        "default": {
+          "zh": "\"value\"",
+          "en": "\"value\""
+        }
+      },
+      {
+        "name": "itemDelegate",
+        "type": "Component",
+        "binding": "null",
+        "readonly": false,
+        "owner": "EListbox",
+        "source": "source/qt5/imports/eui/controls/form/EListbox.qml",
+        "description": {
+          "zh": "自定义条目内容；通过父级 optionData 读取数据。",
+          "en": "Custom option content; read data from parent.optionData."
+        },
+        "default": {
+          "zh": "null",
+          "en": "null"
+        }
+      },
+      {
+        "name": "filterText",
+        "type": "alias",
+        "binding": "search.text",
+        "readonly": false,
+        "owner": "EListbox",
+        "source": "source/qt5/imports/eui/controls/form/EListbox.qml",
+        "description": {
+          "zh": "用于过滤显示条目的文本。",
+          "en": "Text used to filter visible entries."
+        },
+        "default": {
+          "zh": "search.text",
+          "en": "search.text"
+        }
+      },
+      {
+        "name": "view",
+        "type": "alias",
+        "binding": "list",
+        "readonly": true,
+        "owner": "EListbox",
+        "source": "source/qt5/imports/eui/controls/form/EListbox.qml",
+        "description": {
+          "zh": "底层 ListView 实例。",
+          "en": "Underlying ListView instance."
+        },
+        "default": {
+          "zh": "list",
+          "en": "list"
+        }
+      },
+      {
+        "name": "items",
+        "type": "var",
+        "binding": "Array.isArray(model) ? model.map(function(item, index) { const object = item && typeof item === \"object\" return {raw: item, index: index, label: String(object ? item[labelKey] === undefined ? \"\" : item[labelKey] : item), value: object ? item[valueKey] === undefined ? item : item[valueKey] : item, disabled: !!(object && item.disabled)} }).filter(function(item) { return item.label.toLowerCase().indexOf(search.text.toLowerCase()) >= 0 }) : []",
+        "readonly": true,
+        "owner": "EListbox",
+        "source": "source/qt5/imports/eui/controls/form/EListbox.qml",
+        "description": {
+          "zh": "根据模型与过滤条件得到的显示条目。",
+          "en": "Visible entries derived from the model and filter."
+        },
+        "default": {
+          "zh": "Array.isArray(model) ? model.map(function(item, index) { const object = item && typeof item === \"object\" return {raw: item, index: index, label: String(object ? item[labelKey] === undefined ? \"\" : item[labelKey] : item), value: object ? item[valueKey] === undefined ? item : item[valueKey] : item, disabled: !!(object && item.disabled)} }).filter(function(item) { return item.label.toLowerCase().indexOf(search.text.toLowerCase()) >= 0 }) : []",
+          "en": "Array.isArray(model) ? model.map(function(item, index) { const object = item && typeof item === \"object\" return {raw: item, index: index, label: String(object ? item[labelKey] === undefined ? \"\" : item[labelKey] : item), value: object ? item[valueKey] === undefined ? item : item[valueKey] : item, disabled: !!(object && item.disabled)} }).filter(function(item) { return item.label.toLowerCase().indexOf(search.text.toLowerCase()) >= 0 }) : []"
+        }
+      }
+    ],
+    "introducedIn": "1.3.0"
+  },
+  "EMegaMenu": {
+    "base": "Control",
+    "properties": [
+      {
+        "name": "model",
+        "type": "var",
+        "binding": "[]",
+        "readonly": false,
+        "owner": "EMegaMenu",
+        "source": "source/qt5/imports/eui/controls/navigation/EMegaMenu.qml",
+        "description": {
+          "zh": "组件的数据源；数组项结构以当前示例及组件说明为准。",
+          "en": "Component data source; item structure follows the current example and component contract."
+        },
+        "default": {
+          "zh": "[]",
+          "en": "[]"
+        }
+      },
+      {
+        "name": "activeIndex",
+        "type": "int",
+        "binding": "-1",
+        "readonly": false,
+        "owner": "EMegaMenu",
+        "source": "source/qt5/imports/eui/controls/navigation/EMegaMenu.qml",
+        "description": {
+          "zh": "当前打开的多列菜单索引，-1 表示关闭。",
+          "en": "Open mega-menu index; -1 closes the menu."
+        },
+        "default": {
+          "zh": "-1",
+          "en": "-1"
+        },
+        "details": {
+          "zh": "-1：未选择\n0 起：条目索引",
+          "en": "-1: no selection\n0 and above: item index"
+        }
+      },
+      {
+        "name": "columnWidth",
+        "type": "int",
+        "binding": "180",
+        "readonly": false,
+        "owner": "EMegaMenu",
+        "source": "source/qt5/imports/eui/controls/navigation/EMegaMenu.qml",
+        "description": {
+          "zh": "展开菜单中每一分组列的宽度。",
+          "en": "Width of each group column in the expanded menu."
+        },
+        "default": {
+          "zh": "180",
+          "en": "180"
+        }
+      },
+      {
+        "name": "vertical",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "EMegaMenu",
+        "source": "source/qt5/imports/eui/controls/navigation/EMegaMenu.qml",
+        "description": {
+          "zh": "顶层导航条是否竖向排列。",
+          "en": "Whether the top level navigation runs vertically."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "groups",
+        "type": "var",
+        "binding": "activeIndex >= 0 && Array.isArray(model) && model[activeIndex] && Array.isArray(model[activeIndex].children) ? model[activeIndex].children : []",
+        "readonly": true,
+        "owner": "EMegaMenu",
+        "source": "source/qt5/imports/eui/controls/navigation/EMegaMenu.qml",
+        "description": {
+          "zh": "当前多列菜单下的分组。",
+          "en": "Groups under the active mega-menu entry."
+        },
+        "default": {
+          "zh": "activeIndex >= 0 && Array.isArray(model) && model[activeIndex] && Array.isArray(model[activeIndex].children) ? model[activeIndex].children : []",
+          "en": "activeIndex >= 0 && Array.isArray(model) && model[activeIndex] && Array.isArray(model[activeIndex].children) ? model[activeIndex].children : []"
+        }
+      }
+    ],
+    "introducedIn": "1.3.0"
+  },
+  "EMeterGroup": {
+    "base": "Item",
+    "properties": [
+      {
+        "name": "values",
+        "type": "var",
+        "binding": "[]",
+        "readonly": false,
+        "owner": "EMeterGroup",
+        "source": "source/qt5/imports/eui/controls/data/EMeterGroup.qml",
+        "description": {
+          "zh": "分段计量数组，每项包含 label、value 及可选 color。",
+          "en": "Meter segments with label, value, and optional color."
+        },
+        "default": {
+          "zh": "[]",
+          "en": "[]"
+        }
+      },
+      {
+        "name": "barSize",
+        "type": "int",
+        "binding": "12",
+        "readonly": false,
+        "owner": "EMeterGroup",
+        "source": "source/qt5/imports/eui/controls/data/EMeterGroup.qml",
+        "description": {
+          "zh": "计量条的粗细，单位为像素。",
+          "en": "Meter bar thickness in pixels."
+        },
+        "default": {
+          "zh": "12",
+          "en": "12"
+        }
+      },
+      {
+        "name": "maximum",
+        "type": "real",
+        "binding": "100",
+        "readonly": false,
+        "owner": "EMeterGroup",
+        "source": "source/qt5/imports/eui/controls/data/EMeterGroup.qml",
+        "description": {
+          "zh": "计量条对应的总量，超过总量的分段将被裁剪。",
+          "en": "Total represented by the bar; segments exceeding it are clipped."
+        },
+        "default": {
+          "zh": "100",
+          "en": "100"
+        }
+      },
+      {
+        "name": "vertical",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "EMeterGroup",
+        "source": "source/qt5/imports/eui/controls/data/EMeterGroup.qml",
+        "description": {
+          "zh": "计量条是否竖向显示。",
+          "en": "Whether the meter bar runs vertically."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "labelsOnTop",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "EMeterGroup",
+        "source": "source/qt5/imports/eui/controls/data/EMeterGroup.qml",
+        "description": {
+          "zh": "将分段计量标签放在计量条上方。",
+          "en": "Place meter labels above the bar."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "total",
+        "type": "real",
+        "binding": "items.reduce(function(sum, item) { return sum + Number(item.value) }, 0)",
+        "readonly": true,
+        "owner": "EMeterGroup",
+        "source": "source/qt5/imports/eui/controls/data/EMeterGroup.qml",
+        "description": {
+          "zh": "有效计量数值之和。",
+          "en": "Sum of valid meter values."
+        },
+        "default": {
+          "zh": "items.reduce(function(sum, item) { return sum + Number(item.value) }, 0)",
+          "en": "items.reduce(function(sum, item) { return sum + Number(item.value) }, 0)"
+        }
+      },
+      {
+        "name": "items",
+        "type": "var",
+        "binding": "Array.isArray(values) ? values.filter(function(item) { return item && typeof item === \"object\" && isFinite(item.value) && item.value >= 0 }) : []",
+        "readonly": true,
+        "owner": "EMeterGroup",
+        "source": "source/qt5/imports/eui/controls/data/EMeterGroup.qml",
+        "description": {
+          "zh": "过滤掉无效数值后的计量条目。",
+          "en": "Meter entries after filtering invalid values."
+        },
+        "default": {
+          "zh": "Array.isArray(values) ? values.filter(function(item) { return item && typeof item === \"object\" && isFinite(item.value) && item.value >= 0 }) : []",
+          "en": "Array.isArray(values) ? values.filter(function(item) { return item && typeof item === \"object\" && isFinite(item.value) && item.value >= 0 }) : []"
+        }
+      },
+      {
+        "name": "circular",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "EMeterGroup",
+        "source": "source/qt5/imports/eui/controls/data/EMeterGroup.qml",
+        "description": {
+          "zh": "使用圆环分段计量，优先于 vertical。",
+          "en": "Display circular segments; takes precedence over vertical."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "diameter",
+        "type": "int",
+        "binding": "160",
+        "readonly": false,
+        "owner": "EMeterGroup",
+        "source": "source/qt5/imports/eui/controls/data/EMeterGroup.qml",
+        "description": {
+          "zh": "圆环直径，单位为像素；宽度不足时自动缩小。",
+          "en": "Ring diameter in pixels; shrinks when available width is smaller."
+        },
+        "default": {
+          "zh": "160",
+          "en": "160"
+        }
+      }
+    ],
+    "introducedIn": "1.3.0"
+  },
+  "EOrderList": {
+    "base": "Item",
+    "properties": [
+      {
+        "name": "model",
+        "type": "var",
+        "binding": "[]",
+        "readonly": false,
+        "owner": "EOrderList",
+        "source": "source/qt5/imports/eui/controls/data/EOrderList.qml",
+        "description": {
+          "zh": "待排序的基本值或选项对象数组。",
+          "en": "Primitive values or option objects to reorder."
+        },
+        "default": {
+          "zh": "[]",
+          "en": "[]"
+        }
+      },
+      {
+        "name": "values",
+        "type": "var",
+        "binding": "[]",
+        "readonly": false,
+        "owner": "EOrderList",
+        "source": "source/qt5/imports/eui/controls/data/EOrderList.qml",
+        "description": {
+          "zh": "当前选择用于排序的值数组。",
+          "en": "Values of items selected for reordering."
+        },
+        "default": {
+          "zh": "[]",
+          "en": "[]"
+        }
+      },
+      {
+        "name": "filterable",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "EOrderList",
+        "source": "source/qt5/imports/eui/controls/data/EOrderList.qml",
+        "description": {
+          "zh": "是否允许输入关键词过滤。",
+          "en": "Allow keyword filtering."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "labelKey",
+        "type": "string",
+        "binding": "\"label\"",
+        "readonly": false,
+        "owner": "EOrderList",
+        "source": "source/qt5/imports/eui/controls/data/EOrderList.qml",
+        "description": {
+          "zh": "对象模型中用于显示标签的字段名。",
+          "en": "Field name used as the label in object models."
+        },
+        "default": {
+          "zh": "\"label\"",
+          "en": "\"label\""
+        }
+      },
+      {
+        "name": "valueKey",
+        "type": "string",
+        "binding": "\"value\"",
+        "readonly": false,
+        "owner": "EOrderList",
+        "source": "source/qt5/imports/eui/controls/data/EOrderList.qml",
+        "description": {
+          "zh": "选项取值字段或对象值的唯一标识字段。",
+          "en": "Option value field or unique identifier for object values."
+        },
+        "default": {
+          "zh": "\"value\"",
+          "en": "\"value\""
+        }
+      },
+      {
+        "name": "itemDelegate",
+        "type": "Component",
+        "binding": "null",
+        "readonly": false,
+        "owner": "EOrderList",
+        "source": "source/qt5/imports/eui/controls/data/EOrderList.qml",
+        "description": {
+          "zh": "自定义条目内容；通过父级 optionData 读取数据。",
+          "en": "Custom option content; read data from parent.optionData."
+        },
+        "default": {
+          "zh": "null",
+          "en": "null"
+        }
+      },
+      {
+        "name": "view",
+        "type": "alias",
+        "binding": "selection.view",
+        "readonly": true,
+        "owner": "EOrderList",
+        "source": "source/qt5/imports/eui/controls/data/EOrderList.qml",
+        "description": {
+          "zh": "底层选择列表的 ListView 实例。",
+          "en": "ListView instance of the underlying selection list."
+        },
+        "default": {
+          "zh": "selection.view",
+          "en": "selection.view"
+        }
+      }
+    ],
+    "introducedIn": "1.3.0"
+  },
+  "EOrgChart": {
+    "base": "Control",
+    "properties": [
+      {
+        "name": "model",
+        "type": "var",
+        "binding": "[]",
+        "readonly": false,
+        "owner": "EOrgChart",
+        "source": "source/qt5/imports/eui/controls/data/EOrgChart.qml",
+        "description": {
+          "zh": "组织树根节点或根节点数组，节点使用 key、label、children。",
+          "en": "Root node or roots of an organization tree with key, label, and children."
+        },
+        "default": {
+          "zh": "[]",
+          "en": "[]"
+        }
+      },
+      {
+        "name": "nodeHeight",
+        "type": "real",
+        "binding": "56",
+        "readonly": false,
+        "owner": "EOrgChart",
+        "source": "source/qt5/imports/eui/controls/data/EOrgChart.qml",
+        "description": {
+          "zh": "每个组织节点的高度。",
+          "en": "Height of each organization node."
+        },
+        "default": {
+          "zh": "56",
+          "en": "56"
+        }
+      },
+      {
+        "name": "nodeWidth",
+        "type": "real",
+        "binding": "150",
+        "readonly": false,
+        "owner": "EOrgChart",
+        "source": "source/qt5/imports/eui/controls/data/EOrgChart.qml",
+        "description": {
+          "zh": "每个组织节点的宽度。",
+          "en": "Width of each organization node."
+        },
+        "default": {
+          "zh": "150",
+          "en": "150"
+        }
+      },
+      {
+        "name": "selectedKeys",
+        "type": "var",
+        "binding": "[]",
+        "readonly": false,
+        "owner": "EOrgChart",
+        "source": "source/qt5/imports/eui/controls/data/EOrgChart.qml",
+        "description": {
+          "zh": "当前选中的组织节点 key 数组。",
+          "en": "Keys of the selected organization nodes."
+        },
+        "default": {
+          "zh": "[]",
+          "en": "[]"
+        }
+      },
+      {
+        "name": "verticalGap",
+        "type": "real",
+        "binding": "48",
+        "readonly": false,
+        "owner": "EOrgChart",
+        "source": "source/qt5/imports/eui/controls/data/EOrgChart.qml",
+        "description": {
+          "zh": "组织结构层级之间的垂直间距。",
+          "en": "Vertical spacing between hierarchy levels."
+        },
+        "default": {
+          "zh": "48",
+          "en": "48"
+        }
+      },
+      {
+        "name": "collapsedKeys",
+        "type": "var",
+        "binding": "[]",
+        "readonly": false,
+        "owner": "EOrgChart",
+        "source": "source/qt5/imports/eui/controls/data/EOrgChart.qml",
+        "description": {
+          "zh": "已折叠的组织节点 key 数组。",
+          "en": "Array of collapsed organization node keys."
+        },
+        "default": {
+          "zh": "[]",
+          "en": "[]"
+        }
+      },
+      {
+        "name": "horizontalGap",
+        "type": "real",
+        "binding": "20",
+        "readonly": false,
+        "owner": "EOrgChart",
+        "source": "source/qt5/imports/eui/controls/data/EOrgChart.qml",
+        "description": {
+          "zh": "相邻组织节点之间的水平间距。",
+          "en": "Horizontal spacing between organization nodes."
+        },
+        "default": {
+          "zh": "20",
+          "en": "20"
+        }
+      },
+      {
+        "name": "nodeDelegate",
+        "type": "Component",
+        "binding": "null",
+        "readonly": false,
+        "owner": "EOrgChart",
+        "source": "source/qt5/imports/eui/controls/data/EOrgChart.qml",
+        "description": {
+          "zh": "自定义组织节点；通过父级 node 读取数据。",
+          "en": "Custom organization node; read parent.node."
+        },
+        "default": {
+          "zh": "null",
+          "en": "null"
+        }
+      },
+      {
+        "name": "selectionMode",
+        "type": "string",
+        "binding": "\"single\"",
+        "readonly": false,
+        "owner": "EOrgChart",
+        "source": "source/qt5/imports/eui/controls/data/EOrgChart.qml",
+        "description": {
+          "zh": "组织图选择模式：none、single、multiple、checkbox。",
+          "en": "Org chart selection mode: none, single, multiple, checkbox."
+        },
+        "default": {
+          "zh": "\"single\"",
+          "en": "\"single\""
+        }
+      },
+      {
+        "name": "layout",
+        "type": "var",
+        "binding": "buildLayout()",
+        "readonly": true,
+        "owner": "EOrgChart",
+        "source": "source/qt5/imports/eui/controls/data/EOrgChart.qml",
+        "description": {
+          "zh": "计算后的节点位置、连线与尺寸。",
+          "en": "Computed node positions, connectors and dimensions."
+        },
+        "default": {
+          "zh": "buildLayout()",
+          "en": "buildLayout()"
+        }
+      },
+      {
+        "name": "errorString",
+        "type": "string",
+        "binding": "layout.error",
+        "readonly": true,
+        "owner": "EOrgChart",
+        "source": "source/qt5/imports/eui/controls/data/EOrgChart.qml",
+        "description": {
+          "zh": "模型校验错误代码；有效时为空字符串。",
+          "en": "Model validation error code; empty for a valid model."
+        },
+        "default": {
+          "zh": "layout.error",
+          "en": "layout.error"
+        }
+      }
+    ],
+    "introducedIn": "1.3.0"
+  },
+  "ERipple": {
+    "base": "Item",
+    "properties": [
+      {
+        "name": "content",
+        "type": "alias",
+        "binding": "body.data",
+        "readonly": false,
+        "owner": "ERipple",
+        "source": "source/qt5/imports/eui/controls/effects/ERipple.qml",
+        "description": {
+          "zh": "内容插槽；直接在组件内部声明 QML 子对象。",
+          "en": "Content slot; declare QML child objects directly inside the component."
+        },
+        "default": {
+          "zh": "body.data",
+          "en": "body.data"
+        }
+      },
+      {
+        "name": "duration",
+        "type": "int",
+        "binding": "450",
+        "readonly": false,
+        "owner": "ERipple",
+        "source": "source/qt5/imports/eui/controls/effects/ERipple.qml",
+        "description": {
+          "zh": "涟漪展开并淡出的时长，单位为毫秒。",
+          "en": "Ripple expansion and fade duration in milliseconds."
+        },
+        "default": {
+          "zh": "450",
+          "en": "450"
+        }
+      },
+      {
+        "name": "target",
+        "type": "Item",
+        "binding": "null",
+        "readonly": false,
+        "owner": "ERipple",
+        "source": "source/qt5/imports/eui/controls/effects/ERipple.qml",
+        "description": {
+          "zh": "显示涟漪并监听点击的目标控件。",
+          "en": "Item that displays ripples and receives taps."
+        },
+        "default": {
+          "zh": "null",
+          "en": "null"
+        }
+      },
+      {
+        "name": "color",
+        "type": "color",
+        "readonly": false,
+        "binding": "EPaletteManager.ThemePalette.fetchColorForStyle(EStyle.Primary)",
+        "owner": "ERipple",
+        "source": "source/qt5/imports/eui/controls/effects/ERipple.qml",
+        "description": {
+          "zh": "涟漪的颜色。",
+          "en": "Color of the ripple."
+        },
+        "default": {
+          "zh": "EPaletteManager.ThemePalette.fetchColorForStyle(EStyle.Primary)",
+          "en": "EPaletteManager.ThemePalette.fetchColorForStyle(EStyle.Primary)"
+        }
+      }
+    ],
+    "introducedIn": "1.3.0"
+  },
+  "EScheduler": {
+    "base": "Control",
+    "properties": [
+      {
+        "name": "events",
+        "type": "var",
+        "binding": "[]",
+        "readonly": false,
+        "owner": "EScheduler",
+        "source": "source/qt5/imports/eui/controls/data/EScheduler.qml",
+        "description": {
+          "zh": "排程事件数组，每项包含唯一 key、title、start 和 end。",
+          "en": "Scheduled events with a unique key, title, start and end."
+        },
+        "default": {
+          "zh": "[]",
+          "en": "[]"
+        }
+      },
+      {
+        "name": "draggable",
+        "type": "bool",
+        "binding": "true",
+        "readonly": false,
+        "owner": "EScheduler",
+        "source": "source/qt5/imports/eui/controls/data/EScheduler.qml",
+        "description": {
+          "zh": "允许通过拖拽移动条目。",
+          "en": "Allow entries to be moved by dragging."
+        },
+        "default": {
+          "zh": "true",
+          "en": "true"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "readOnly",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "EScheduler",
+        "source": "source/qt5/imports/eui/controls/data/EScheduler.qml",
+        "description": {
+          "zh": "保持内容可见并禁止用户修改。",
+          "en": "Keep content visible and prevent edits."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "view",
+        "type": "string",
+        "binding": "\"month\"",
+        "readonly": false,
+        "owner": "EScheduler",
+        "source": "source/qt5/imports/eui/controls/data/EScheduler.qml",
+        "description": {
+          "zh": "日期视图：day、week 或 month。",
+          "en": "Calendar view: day, week, or month."
+        },
+        "default": {
+          "zh": "\"month\"",
+          "en": "\"month\""
+        }
+      },
+      {
+        "name": "date",
+        "type": "date",
+        "binding": "new Date()",
+        "readonly": false,
+        "owner": "EScheduler",
+        "source": "source/qt5/imports/eui/controls/data/EScheduler.qml",
+        "description": {
+          "zh": "当前显示的本地日期。",
+          "en": "Current local date displayed by the scheduler."
+        },
+        "default": {
+          "zh": "new Date()",
+          "en": "new Date()"
+        }
+      },
+      {
+        "name": "firstDayOfWeek",
+        "type": "int",
+        "binding": "1",
+        "readonly": false,
+        "owner": "EScheduler",
+        "source": "source/qt5/imports/eui/controls/data/EScheduler.qml",
+        "description": {
+          "zh": "每周第一天，0 为周日，1 为周一，范围 0 到 6。",
+          "en": "First weekday, 0 for Sunday, 1 for Monday; range 0 to 6."
+        },
+        "default": {
+          "zh": "1",
+          "en": "1"
+        }
+      },
+      {
+        "name": "eventDelegate",
+        "type": "Component",
+        "binding": "null",
+        "readonly": false,
+        "owner": "EScheduler",
+        "source": "source/qt5/imports/eui/controls/data/EScheduler.qml",
+        "description": {
+          "zh": "自定义排程事件内容，通过父级 eventData 读取数据。",
+          "en": "Custom scheduled event content; read parent.eventData."
+        },
+        "default": {
+          "zh": "null",
+          "en": "null"
+        }
+      },
+      {
+        "name": "visibleDays",
+        "type": "var",
+        "binding": "days()",
+        "readonly": true,
+        "owner": "EScheduler",
+        "source": "source/qt5/imports/eui/controls/data/EScheduler.qml",
+        "description": {
+          "zh": "当前视图中显示的本地日期数组。",
+          "en": "Array of local dates displayed in the current view."
+        },
+        "default": {
+          "zh": "days()",
+          "en": "days()"
+        }
+      },
+      {
+        "name": "errorString",
+        "type": "string",
+        "binding": "validate()",
+        "readonly": true,
+        "owner": "EScheduler",
+        "source": "source/qt5/imports/eui/controls/data/EScheduler.qml",
+        "description": {
+          "zh": "模型校验错误代码；有效时为空字符串。",
+          "en": "Model validation error code; empty for a valid model."
+        },
+        "default": {
+          "zh": "validate()",
+          "en": "validate()"
+        }
+      }
+    ],
+    "introducedIn": "1.3.0"
+  },
+  "ESidebar": {
+    "base": "Control",
+    "properties": [
+      {
+        "name": "content",
+        "type": "alias",
+        "binding": "extraContent.data",
+        "readonly": false,
+        "owner": "ESidebar",
+        "source": "source/qt5/imports/eui/controls/navigation/ESidebar.qml",
+        "description": {
+          "zh": "内容插槽；直接在组件内部声明 QML 子对象。",
+          "en": "Content slot; declare QML child objects directly inside the component."
+        },
+        "default": {
+          "zh": "extraContent.data",
+          "en": "extraContent.data"
+        }
+      },
+      {
+        "name": "model",
+        "type": "var",
+        "binding": "[]",
+        "readonly": false,
+        "owner": "ESidebar",
+        "source": "source/qt5/imports/eui/controls/navigation/ESidebar.qml",
+        "description": {
+          "zh": "组件的数据源；数组项结构以当前示例及组件说明为准。",
+          "en": "Component data source; item structure follows the current example and component contract."
+        },
+        "default": {
+          "zh": "[]",
+          "en": "[]"
+        }
+      },
+      {
+        "name": "open",
+        "type": "bool",
+        "binding": "true",
+        "readonly": false,
+        "owner": "ESidebar",
+        "source": "source/qt5/imports/eui/controls/navigation/ESidebar.qml",
+        "description": {
+          "zh": "是否显示侧边导航。",
+          "en": "Whether the sidebar is open."
+        },
+        "default": {
+          "zh": "true",
+          "en": "true"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "binding": "\"\"",
+        "readonly": false,
+        "owner": "ESidebar",
+        "source": "source/qt5/imports/eui/controls/navigation/ESidebar.qml",
+        "description": {
+          "zh": "标题文字。",
+          "en": "Title text."
+        },
+        "default": {
+          "zh": "\"\"",
+          "en": "\"\""
+        }
+      },
+      {
+        "name": "mode",
+        "type": "string",
+        "binding": "\"icon\"",
+        "readonly": false,
+        "owner": "ESidebar",
+        "source": "source/qt5/imports/eui/controls/navigation/ESidebar.qml",
+        "description": {
+          "zh": "折叠模式：icon 或 offcanvas。",
+          "en": "Collapse mode: icon or offcanvas."
+        },
+        "default": {
+          "zh": "\"icon\"",
+          "en": "\"icon\""
+        },
+        "details": {
+          "zh": "open / save / folder",
+          "en": "open / save / folder"
+        }
+      },
+      {
+        "name": "overlay",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "ESidebar",
+        "source": "source/qt5/imports/eui/controls/navigation/ESidebar.qml",
+        "description": {
+          "zh": "强制使用覆盖式抽屉。",
+          "en": "Force overlay drawer mode."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "side",
+        "type": "string",
+        "binding": "\"left\"",
+        "readonly": false,
+        "owner": "ESidebar",
+        "source": "source/qt5/imports/eui/controls/navigation/ESidebar.qml",
+        "description": {
+          "zh": "导航所在侧：left 或 right。",
+          "en": "Sidebar side: left or right."
+        },
+        "default": {
+          "zh": "\"left\"",
+          "en": "\"left\""
+        }
+      },
+      {
+        "name": "breakpoint",
+        "type": "real",
+        "binding": "768",
+        "readonly": false,
+        "owner": "ESidebar",
+        "source": "source/qt5/imports/eui/controls/navigation/ESidebar.qml",
+        "description": {
+          "zh": "响应式抽屉的窗口宽度阈值。",
+          "en": "Window width threshold for responsive drawer mode."
+        },
+        "default": {
+          "zh": "768",
+          "en": "768"
+        }
+      },
+      {
+        "name": "collapsed",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "ESidebar",
+        "source": "source/qt5/imports/eui/controls/navigation/ESidebar.qml",
+        "description": {
+          "zh": "面板是否处于折叠状态。",
+          "en": "Whether the panel is collapsed."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "responsive",
+        "type": "bool",
+        "binding": "true",
+        "readonly": false,
+        "owner": "ESidebar",
+        "source": "source/qt5/imports/eui/controls/navigation/ESidebar.qml",
+        "description": {
+          "zh": "小于 breakpoint 时自动使用抽屉。",
+          "en": "Use a drawer automatically below breakpoint."
+        },
+        "default": {
+          "zh": "true",
+          "en": "true"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "collapsedWidth",
+        "type": "real",
+        "binding": "64",
+        "readonly": false,
+        "owner": "ESidebar",
+        "source": "source/qt5/imports/eui/controls/navigation/ESidebar.qml",
+        "description": {
+          "zh": "折叠图标导航的宽度。",
+          "en": "Collapsed icon sidebar width."
+        },
+        "default": {
+          "zh": "64",
+          "en": "64"
+        }
+      },
+      {
+        "name": "currentIndex",
+        "type": "string",
+        "binding": "\"\"",
+        "readonly": false,
+        "owner": "ESidebar",
+        "source": "source/qt5/imports/eui/controls/navigation/ESidebar.qml",
+        "description": {
+          "zh": "当前选中或显示项的索引。",
+          "en": "Index of the current selected or displayed item."
+        },
+        "default": {
+          "zh": "\"\"",
+          "en": "\"\""
+        },
+        "details": {
+          "zh": "-1：未选择\n0 起：条目索引",
+          "en": "-1: no selection\n0 and above: item index"
+        }
+      },
+      {
+        "name": "expandedWidth",
+        "type": "real",
+        "binding": "240",
+        "readonly": false,
+        "owner": "ESidebar",
+        "source": "source/qt5/imports/eui/controls/navigation/ESidebar.qml",
+        "description": {
+          "zh": "展开导航的宽度。",
+          "en": "Expanded sidebar width."
+        },
+        "default": {
+          "zh": "240",
+          "en": "240"
+        }
+      },
+      {
+        "name": "openOnHover",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "ESidebar",
+        "source": "source/qt5/imports/eui/controls/navigation/ESidebar.qml",
+        "description": {
+          "zh": "悬停侧边导航时展开，离开后折叠。",
+          "en": "Expand the sidebar on hover and collapse on exit."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "closeOnSelect",
+        "type": "bool",
+        "binding": "true",
+        "readonly": false,
+        "owner": "ESidebar",
+        "source": "source/qt5/imports/eui/controls/navigation/ESidebar.qml",
+        "description": {
+          "zh": "在覆盖模式选择条目后关闭导航。",
+          "en": "Close overlay navigation after selecting an entry."
+        },
+        "default": {
+          "zh": "true",
+          "en": "true"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "variant",
+        "type": "string",
+        "binding": "\"sidebar\"",
+        "readonly": false,
+        "owner": "ESidebar",
+        "source": "source/qt5/imports/eui/controls/navigation/ESidebar.qml",
+        "description": {
+          "zh": "侧边导航外观：sidebar、floating 或 inset。",
+          "en": "Sidebar appearance: sidebar, floating or inset."
+        },
+        "default": {
+          "zh": "\"sidebar\"",
+          "en": "\"sidebar\""
+        },
+        "details": {
+          "zh": "\"text\" / \"circle\"\n\"button\" / \"image\"\n\"caption\" / \"h1\"\n\"h3\"",
+          "en": "\"text\" / \"circle\"\n\"button\" / \"image\"\n\"caption\" / \"h1\"\n\"h3\""
+        }
+      },
+      {
+        "name": "footerComponent",
+        "type": "Component",
+        "binding": "null",
+        "readonly": false,
+        "owner": "ESidebar",
+        "source": "source/qt5/imports/eui/controls/navigation/ESidebar.qml",
+        "description": {
+          "zh": "自定义底部内容的 Component 插槽；null 使用默认内容。 委托上下文见本页示例。",
+          "en": "Component slot for custom footer; null uses the default content. See this page’s examples for delegate context."
+        },
+        "default": {
+          "zh": "null",
+          "en": "null"
+        }
+      },
+      {
+        "name": "headerComponent",
+        "type": "Component",
+        "binding": "null",
+        "readonly": false,
+        "owner": "ESidebar",
+        "source": "source/qt5/imports/eui/controls/navigation/ESidebar.qml",
+        "description": {
+          "zh": "替代默认标题与折叠按钮的导航头部内容。",
+          "en": "Sidebar header replacing the default title and collapse button."
+        },
+        "default": {
+          "zh": "null",
+          "en": "null"
+        }
+      },
+      {
+        "name": "iconMode",
+        "type": "bool",
+        "binding": "!overlayMode && collapsed && mode === \"icon\"",
+        "readonly": true,
+        "owner": "ESidebar",
+        "source": "source/qt5/imports/eui/controls/navigation/ESidebar.qml",
+        "description": {
+          "zh": "当前是否为只显示图标的折叠模式。",
+          "en": "Whether collapsed icon-only mode is active."
+        },
+        "default": {
+          "zh": "!overlayMode && collapsed && mode === \"icon\"",
+          "en": "!overlayMode && collapsed && mode === \"icon\""
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "overlayMode",
+        "type": "bool",
+        "binding": "overlay || mode === \"offcanvas\" || responsive && Window.window !== null && Window.window.width < breakpoint",
+        "readonly": true,
+        "owner": "ESidebar",
+        "source": "source/qt5/imports/eui/controls/navigation/ESidebar.qml",
+        "description": {
+          "zh": "当前是否使用覆盖式抽屉导航。",
+          "en": "Whether navigation currently uses an overlay drawer."
+        },
+        "default": {
+          "zh": "overlay || mode === \"offcanvas\" || responsive && Window.window !== null && Window.window.width < breakpoint",
+          "en": "overlay || mode === \"offcanvas\" || responsive && Window.window !== null && Window.window.width < breakpoint"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      }
+    ],
+    "introducedIn": "1.3.0"
+  },
+  "ETaskBoard": {
+    "base": "Control",
+    "properties": [
+      {
+        "name": "tasks",
+        "type": "var",
+        "binding": "[]",
+        "readonly": false,
+        "owner": "ETaskBoard",
+        "source": "source/qt5/imports/eui/controls/data/ETaskBoard.qml",
+        "description": {
+          "zh": "任务数组，默认每项包含唯一 key、title 和 status。",
+          "en": "Tasks with unique key, title and status by default."
+        },
+        "default": {
+          "zh": "[]",
+          "en": "[]"
+        }
+      },
+      {
+        "name": "beforeMove",
+        "type": "var",
+        "binding": "null",
+        "readonly": false,
+        "owner": "ETaskBoard",
+        "source": "source/qt5/imports/eui/controls/data/ETaskBoard.qml",
+        "description": {
+          "zh": "移动前同步校验函数；返回 false 或抛出异常时取消移动。",
+          "en": "Synchronous guard; returning false or throwing cancels the move."
+        },
+        "default": {
+          "zh": "null",
+          "en": "null"
+        }
+      },
+      {
+        "name": "draggable",
+        "type": "bool",
+        "binding": "true",
+        "readonly": false,
+        "owner": "ETaskBoard",
+        "source": "source/qt5/imports/eui/controls/data/ETaskBoard.qml",
+        "description": {
+          "zh": "允许通过拖拽移动条目。",
+          "en": "Allow entries to be moved by dragging."
+        },
+        "default": {
+          "zh": "true",
+          "en": "true"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "readOnly",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "ETaskBoard",
+        "source": "source/qt5/imports/eui/controls/data/ETaskBoard.qml",
+        "description": {
+          "zh": "保持内容可见并禁止用户修改。",
+          "en": "Keep content visible and prevent edits."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "columnWidth",
+        "type": "real",
+        "binding": "260",
+        "readonly": false,
+        "owner": "ETaskBoard",
+        "source": "source/qt5/imports/eui/controls/data/ETaskBoard.qml",
+        "description": {
+          "zh": "每个任务列的宽度。",
+          "en": "Width of each task column."
+        },
+        "default": {
+          "zh": "260",
+          "en": "260"
+        }
+      },
+      {
+        "name": "filterable",
+        "type": "bool",
+        "binding": "false",
+        "readonly": false,
+        "owner": "ETaskBoard",
+        "source": "source/qt5/imports/eui/controls/data/ETaskBoard.qml",
+        "description": {
+          "zh": "是否允许输入关键词过滤。",
+          "en": "Allow keyword filtering."
+        },
+        "default": {
+          "zh": "false",
+          "en": "false"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "keyField",
+        "type": "string",
+        "binding": "\"key\"",
+        "readonly": false,
+        "owner": "ETaskBoard",
+        "source": "source/qt5/imports/eui/controls/data/ETaskBoard.qml",
+        "description": {
+          "zh": "任务唯一标识字段名；同一看板内不可重复。",
+          "en": "Task identifier field; values must be unique within the board."
+        },
+        "default": {
+          "zh": "\"key\"",
+          "en": "\"key\""
+        }
+      },
+      {
+        "name": "titleField",
+        "type": "string",
+        "binding": "\"title\"",
+        "readonly": false,
+        "owner": "ETaskBoard",
+        "source": "source/qt5/imports/eui/controls/data/ETaskBoard.qml",
+        "description": {
+          "zh": "任务标题字段名称。",
+          "en": "Task title field name."
+        },
+        "default": {
+          "zh": "\"title\"",
+          "en": "\"title\""
+        }
+      },
+      {
+        "name": "cardDelegate",
+        "type": "Component",
+        "binding": "null",
+        "readonly": false,
+        "owner": "ETaskBoard",
+        "source": "source/qt5/imports/eui/controls/data/ETaskBoard.qml",
+        "description": {
+          "zh": "自定义任务卡片，通过父级 taskData 读取数据。",
+          "en": "Custom task card; read parent.taskData."
+        },
+        "default": {
+          "zh": "null",
+          "en": "null"
+        }
+      },
+      {
+        "name": "statusField",
+        "type": "string",
+        "binding": "\"status\"",
+        "readonly": false,
+        "owner": "ETaskBoard",
+        "source": "source/qt5/imports/eui/controls/data/ETaskBoard.qml",
+        "description": {
+          "zh": "任务的状态字段名称，对应 columns 中的 key。",
+          "en": "Task status field matching a key in columns."
+        },
+        "default": {
+          "zh": "\"status\"",
+          "en": "\"status\""
+        }
+      },
+      {
+        "name": "filterText",
+        "type": "alias",
+        "binding": "search.text",
+        "readonly": false,
+        "owner": "ETaskBoard",
+        "source": "source/qt5/imports/eui/controls/data/ETaskBoard.qml",
+        "description": {
+          "zh": "用于过滤显示条目的文本。",
+          "en": "Text used to filter visible entries."
+        },
+        "default": {
+          "zh": "search.text",
+          "en": "search.text"
+        }
+      },
+      {
+        "name": "columns",
+        "type": "var",
+        "binding": "[{key: \"todo\", title: ELocale.texts.TaskTodo}, {key: \"doing\", title: ELocale.texts.TaskDoing}, {key: \"done\", title: ELocale.texts.TaskDone}]",
+        "readonly": false,
+        "owner": "ETaskBoard",
+        "source": "source/qt5/imports/eui/controls/data/ETaskBoard.qml",
+        "description": {
+          "zh": "任务列数组，每项包含唯一 key、title 及可选 limit、disabled。",
+          "en": "Task columns with unique key, title, and optional limit and disabled."
+        },
+        "default": {
+          "zh": "[{key: \"todo\", title: ELocale.texts.TaskTodo}, {key: \"doing\", title: ELocale.texts.TaskDoing}, {key: \"done\", title: ELocale.texts.TaskDone}]",
+          "en": "[{key: \"todo\", title: ELocale.texts.TaskTodo}, {key: \"doing\", title: ELocale.texts.TaskDoing}, {key: \"done\", title: ELocale.texts.TaskDone}]"
+        },
+        "details": {
+          "zh": "正整数",
+          "en": "Positive integer"
+        }
+      },
+      {
+        "name": "errorString",
+        "type": "string",
+        "binding": "validate()",
+        "readonly": true,
+        "owner": "ETaskBoard",
+        "source": "source/qt5/imports/eui/controls/data/ETaskBoard.qml",
+        "description": {
+          "zh": "模型校验错误代码；有效时为空字符串。",
+          "en": "Model validation error code; empty for a valid model."
+        },
+        "default": {
+          "zh": "validate()",
+          "en": "validate()"
+        }
+      }
+    ],
+    "introducedIn": "1.3.0"
+  },
+  "ETerminal": {
+    "base": "Control",
+    "properties": [
+      {
+        "name": "prompt",
+        "type": "string",
+        "binding": "\"$\"",
+        "readonly": false,
+        "owner": "ETerminal",
+        "source": "source/qt5/imports/eui/controls/data/ETerminal.qml",
+        "description": {
+          "zh": "终端输入行前的提示符。",
+          "en": "Prompt before terminal input."
+        },
+        "default": {
+          "zh": "\"$\"",
+          "en": "\"$\""
+        }
+      },
+      {
+        "name": "welcome",
+        "type": "string",
+        "binding": "\"\"",
+        "readonly": false,
+        "owner": "ETerminal",
+        "source": "source/qt5/imports/eui/controls/data/ETerminal.qml",
+        "description": {
+          "zh": "显示在终端顶部的说明。",
+          "en": "Message displayed above terminal output."
+        },
+        "default": {
+          "zh": "\"\"",
+          "en": "\"\""
+        }
+      },
+      {
+        "name": "historyLimit",
+        "description": {
+          "zh": "保留的命令与输出记录上限，最少 1 条。",
+          "en": "Maximum retained commands and output records; minimum 1."
+        },
+        "source": "source/qt5/imports/eui/controls/data/ETerminal.qml",
+        "type": "int",
+        "binding": "200",
+        "readonly": false,
+        "owner": "ETerminal",
+        "default": {
+          "zh": "200",
+          "en": "200"
+        }
+      },
+      {
+        "name": "commandHandler",
+        "type": "var",
+        "binding": "null",
+        "readonly": false,
+        "owner": "ETerminal",
+        "source": "source/qt5/imports/eui/controls/data/ETerminal.qml",
+        "description": {
+          "zh": "接收命令字符串，返回结果或 Promise 的处理函数。",
+          "en": "Handler accepting a command and returning output or a Promise."
+        },
+        "default": {
+          "zh": "null",
+          "en": "null"
+        }
+      },
+      {
+        "name": "busy",
+        "type": "bool",
+        "readonly": true,
+        "owner": "ETerminal",
+        "source": "source/qt5/imports/eui/controls/data/ETerminal.qml",
+        "binding": "state.busy",
+        "description": {
+          "zh": "正在等待命令处理结果，此时阻止重复执行。",
+          "en": "Waiting for a command result; prevents another command from starting."
+        },
+        "default": {
+          "zh": "state.busy",
+          "en": "state.busy"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "input",
+        "type": "alias",
+        "binding": "commandInput",
+        "readonly": true,
+        "owner": "ETerminal",
+        "source": "source/qt5/imports/eui/controls/data/ETerminal.qml",
+        "description": {
+          "zh": "终端命令输入框实例。",
+          "en": "Terminal command input control."
+        },
+        "default": {
+          "zh": "commandInput",
+          "en": "commandInput"
+        }
+      },
+      {
+        "name": "entries",
+        "type": "var",
+        "binding": "state.entries",
+        "readonly": true,
+        "owner": "ETerminal",
+        "source": "source/qt5/imports/eui/controls/data/ETerminal.qml",
+        "description": {
+          "zh": "终端输出记录数组，包含 command、output、error。",
+          "en": "Terminal output entries containing command, output and error."
+        },
+        "default": {
+          "zh": "state.entries",
+          "en": "state.entries"
+        }
+      }
+    ],
+    "introducedIn": "1.3.0"
+  },
+  "ETextEditor": {
+    "base": "Control",
+    "properties": [
+      {
+        "name": "showToolbar",
+        "description": {
+          "zh": "显示富文本格式工具栏。",
+          "en": "Show the rich text formatting toolbar."
+        },
+        "source": "source/qt5/imports/eui/controls/form/ETextEditor.qml",
+        "type": "bool",
+        "binding": "true",
+        "readonly": false,
+        "owner": "ETextEditor",
+        "default": {
+          "zh": "true",
+          "en": "true"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "text",
+        "type": "alias",
+        "binding": "editor.text",
+        "readonly": false,
+        "owner": "ETextEditor",
+        "source": "source/qt5/imports/eui/controls/form/ETextEditor.qml",
+        "description": {
+          "zh": "编辑器的 Qt RichText HTML 内容。",
+          "en": "Qt RichText HTML content of the editor."
+        },
+        "default": {
+          "zh": "editor.text",
+          "en": "editor.text"
+        }
+      },
+      {
+        "name": "placeholderText",
+        "type": "string",
+        "binding": "\"\"",
+        "readonly": false,
+        "owner": "ETextEditor",
+        "source": "source/qt5/imports/eui/controls/form/ETextEditor.qml",
+        "description": {
+          "zh": "空值时显示的占位文字。",
+          "en": "Placeholder shown when the value is empty."
+        },
+        "default": {
+          "zh": "\"\"",
+          "en": "\"\""
+        }
+      },
+      {
+        "name": "readOnly",
+        "type": "alias",
+        "binding": "editor.readOnly",
+        "readonly": false,
+        "owner": "ETextEditor",
+        "source": "source/qt5/imports/eui/controls/form/ETextEditor.qml",
+        "description": {
+          "zh": "保持内容可见并禁止用户修改。",
+          "en": "Keep content visible and prevent edits."
+        },
+        "default": {
+          "zh": "editor.readOnly",
+          "en": "editor.readOnly"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "editor",
+        "type": "alias",
+        "binding": "editor",
+        "readonly": true,
+        "owner": "ETextEditor",
+        "source": "source/qt5/imports/eui/controls/form/ETextEditor.qml",
+        "description": {
+          "zh": "底层 TextEdit 实例。",
+          "en": "Underlying TextEdit instance."
+        },
+        "default": {
+          "zh": "editor",
+          "en": "editor"
+        }
+      },
+      {
+        "name": "canRedo",
+        "description": {
+          "zh": "是否有可以重做的编辑操作。",
+          "en": "Whether an edit can be redone."
+        },
+        "source": "source/qt5/imports/eui/controls/form/ETextEditor.qml",
+        "type": "bool",
+        "binding": "editor.canRedo",
+        "readonly": true,
+        "owner": "ETextEditor",
+        "default": {
+          "zh": "editor.canRedo",
+          "en": "editor.canRedo"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "canUndo",
+        "description": {
+          "zh": "是否有可以撤销的编辑操作。",
+          "en": "Whether an edit can be undone."
+        },
+        "source": "source/qt5/imports/eui/controls/form/ETextEditor.qml",
+        "type": "bool",
+        "binding": "editor.canUndo",
+        "readonly": true,
+        "owner": "ETextEditor",
+        "default": {
+          "zh": "editor.canUndo",
+          "en": "editor.canUndo"
+        },
+        "details": {
+          "zh": "true / false",
+          "en": "true / false"
+        }
+      },
+      {
+        "name": "plainText",
+        "type": "string",
+        "binding": "editor.getText(0, editor.length)",
+        "readonly": true,
+        "owner": "ETextEditor",
+        "source": "source/qt5/imports/eui/controls/form/ETextEditor.qml",
+        "description": {
+          "zh": "富文本内容对应的纯文本。",
+          "en": "Plain text representation of the rich content."
+        },
+        "default": {
+          "zh": "editor.getText(0, editor.length)",
+          "en": "editor.getText(0, editor.length)"
+        }
+      },
+      {
+        "name": "currentFormat",
+        "type": "var",
+        "binding": "{ const position = editor.cursorPosition const revision = state.revision return document.formatAt(position) }",
+        "readonly": true,
+        "owner": "ETextEditor",
+        "source": "source/qt5/imports/eui/controls/form/ETextEditor.qml",
+        "description": {
+          "zh": "光标当前位置的字符格式与段落对齐信息。",
+          "en": "Character formatting and paragraph alignment at the cursor."
+        },
+        "default": {
+          "zh": "{ const position = editor.cursorPosition const revision = state.revision return document.formatAt(position) }",
+          "en": "{ const position = editor.cursorPosition const revision = state.revision return document.formatAt(position) }"
+        }
+      }
+    ],
+    "introducedIn": "1.3.0"
   }
 }

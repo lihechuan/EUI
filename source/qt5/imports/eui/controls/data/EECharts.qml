@@ -60,10 +60,10 @@ Control {
         WebChannel.id: "chartBridge"
 
         onFinished: control.finished()
-        onFailed: control.failed(message)
-        onClicked: control.clicked(parameters)
-        onDataZoomed: control.dataZoomed(parameters)
-        onLegendSelected: control.legendSelected(parameters)
+        onFailed: function(message) { control.failed(message) }
+        onClicked: function(parameters) { control.clicked(parameters) }
+        onDataZoomed: function(parameters) { control.dataZoomed(parameters) }
+        onLegendSelected: function(parameters) { control.legendSelected(parameters) }
     }
     WebChannel {
         id: channel

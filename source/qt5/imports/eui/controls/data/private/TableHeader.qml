@@ -27,13 +27,13 @@ ETextButton {
     enabled: owner.enabled
     objectName: "tableHeader"
     styleType: EStyle.Default
-    x: owner.columnX(columnIndex)
     font.family: owner.font.family
     font.pixelSize: owner.font.pixelSize
     z: owner.columnFixed(column) ? 3 : 0
-    width: owner.columnWidth(columnIndex)
-    height: owner.effectiveHeaderHeight - y
-    y: (column._level || 0) * owner.headerHeight
+    x: owner ? owner.columnX(columnIndex) : 0
+    width: owner ? owner.columnWidth(columnIndex) : 0
+    height: owner ? owner.effectiveHeaderHeight - y : 0
+    y: owner ? (column._level || 0) * owner.headerHeight : 0
     focusPolicy: column.sortable ? Qt.StrongFocus : Qt.NoFocus
     Accessible.description: owner && typeof owner.sortIndicator === "function" ? owner.sortIndicator(column) : ""
     background: ERectangle {
@@ -120,7 +120,7 @@ ETextButton {
         anchors.fill: parent
         acceptedButtons: Qt.RightButton
 
-        onClicked: {
+        onClicked: function(mouse) {
             header.owner.headerContextMenu(header.column)
             const point = mapToItem(header.owner, mouse.x, mouse.y)
             header.owner.openContextMenu(null, header.column, point.x, point.y)
@@ -172,16 +172,16 @@ ETextButton {
         cursorShape: Qt.SplitHCursor
         visible: header.column.resizable !== false
 
-        onPressed: {
-            header.resizeStart = mapToItem(header.owner, mouse.x, mouse.y).x
-            header.resizeWidth = header.width
-        }
         onReleased: header.owner.headerDragend(
             header.owner.columnWidth(header.columnIndex),
             header.resizeWidth,
             header.column
         )
-        onPositionChanged: {
+        onPressed: function(mouse) {
+            header.resizeStart = mapToItem(header.owner, mouse.x, mouse.y).x
+            header.resizeWidth = header.width
+        }
+        onPositionChanged: function(mouse) {
             if (pressed)
                 header.owner.resizeColumn(header.columnIndex, header.resizeWidth
                     + mapToItem(header.owner, mouse.x, mouse.y).x - header.resizeStart, false)

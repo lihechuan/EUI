@@ -141,9 +141,11 @@ Slider {
         }
     }
 
-    Keys.onPressed: moveToMark(event, control, Math.min(from, to), Math.max(from, to))
     onStepChanged: if (typeof step === "number" && isFinite(step) && step > 0)
         stepSize = step
+    Keys.onPressed: function(event) {
+        moveToMark(event, control, Math.min(from, to), Math.max(from, to))
+    }
     onValueChanged: if (step === "mark")
         value = closestMark(value, Math.min(from, to), Math.max(from, to))
     onMarkValuesChanged: if (step === "mark")
@@ -168,7 +170,9 @@ Slider {
         to: control.inputPrecision > 0 ? scaledNumber(numberTo) : Math.round(numberTo)
         from: control.inputPrecision > 0 ? scaledNumber(numberFrom) : Math.round(numberFrom)
 
-        onNumberModified: control.value = numberValue
+        onNumberModified: function(numberValue) {
+            control.value = numberValue
+        }
     }
     Repeater {
         model: control.stopValues

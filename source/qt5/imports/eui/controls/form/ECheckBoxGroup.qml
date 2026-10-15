@@ -60,6 +60,8 @@ Control {
             delegate: Loader {
                 readonly property var option: modelData
                 readonly property bool selected: control.value.indexOf(key) >= 0
+                readonly property real contentWidth: item ? item.implicitWidth : 0
+                readonly property real contentHeight: item ? item.implicitHeight : 0
                 readonly property var key: typeof option === "object" ? option[control.props.value || "value"]
                     : option
                 readonly property string label: String(typeof option === "object"
@@ -70,8 +72,8 @@ Control {
                     return control.toggle(key, selected)
                 }
 
-                width: item ? item.implicitWidth : 0
-                height: item ? item.implicitHeight : 0
+                width: contentWidth
+                height: contentHeight
                 sourceComponent: control.optionDelegate || (control.buttonStyle ? buttonChoice : plainChoice)
             }
         }

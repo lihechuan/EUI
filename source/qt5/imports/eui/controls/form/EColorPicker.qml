@@ -22,7 +22,6 @@ EButton {
     readonly property alias popup: colorPopup
 
     signal cleared()
-    signal canceled()
     signal changed(var value)
     signal confirmed(var value)
     signal picked(string value)
@@ -80,7 +79,6 @@ EButton {
             valueOnClear: control.valueOnClear
             commitOnConfirm: control.commitOnConfirm
 
-            onActiveChanged: control.activeChanged(value)
             onCleared: {
                 control.cleared()
                 colorPopup.close()
@@ -89,11 +87,12 @@ EButton {
                 control.canceled()
                 colorPopup.close()
             }
-            onConfirmed: {
+            onActiveChanged: function(value) { control.activeChanged(value) }
+            onConfirmed: function(value) {
                 control.confirmed(value)
                 colorPopup.close()
             }
-            onPicked: {
+            onPicked: function(value) {
                 control.value = colorPanel.value
                 control.picked(value)
                 control.changed(control.value)

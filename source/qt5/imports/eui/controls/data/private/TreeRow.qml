@@ -84,11 +84,11 @@ Item {
             if (drag.active)
                 dragMarker.Drag.drop()
         }
-        onPressed: {
+        onPressed: function(mouse) {
             dragMarker.x = mouse.x
             dragMarker.y = mouse.y
         }
-        onPositionChanged: {
+        onPositionChanged: function(mouse) {
             if (drag.active) {
                 dragMarker.x = mouse.x
                 dragMarker.y = mouse.y
@@ -131,20 +131,20 @@ Item {
         enabled: row.owner.draggable && row.itemEnabled
 
         onExited: row.owner.nodeDragLeft(row.owner.findNode(row.owner.draggingKey), row.entry.node)
-        onEntered: {
+        onEntered: function(drag) {
             row.dropPosition = drag.y < row.height / 4 ? "before"
                 : drag.y > row.height * 3 / 4 ? "after"
                 : "inner"
             row.owner.nodeDragEntered(row.owner.findNode(row.owner.draggingKey), row.entry.node)
         }
-        onDropped: {
+        onDropped: function(drop) {
             row.dropPosition = drop.y < row.height / 4 ? "before"
                 : drop.y > row.height * 3 / 4 ? "after"
                 : "inner"
             if (row.owner.moveNode(row.owner.draggingKey, row.entry.key, row.dropPosition))
                 drop.acceptProposedAction()
         }
-        onPositionChanged: {
+        onPositionChanged: function(drag) {
             row.dropPosition = drag.y < row.height / 4 ? "before"
                 : drag.y > row.height * 3 / 4 ? "after"
                 : "inner"

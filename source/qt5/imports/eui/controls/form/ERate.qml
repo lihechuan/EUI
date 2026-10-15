@@ -151,7 +151,7 @@ Control {
         if (value !== normalized)
             value = normalized
     }
-    Keys.onPressed: {
+    Keys.onPressed: function(event) {
         const step = allowHalf ? 0.5 : 1
         if (event.key === Qt.Key_Left || event.key === Qt.Key_Down) {
             setRating(value - step)

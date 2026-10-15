@@ -410,4 +410,5 @@ ExamplePage {
         }
     }
     OverlayShowcase { }
+    PrimeShowcase { names: ["EDialog"] }
 }

@@ -189,7 +189,7 @@ EInput {
         } else if (!activeFocus)
             close()
     }
-    Keys.onPressed: {
+    Keys.onPressed: function(event) {
         if (inputMethodComposing)
             return
         if (event.key === Qt.Key_Down || event.key === Qt.Key_Up) {

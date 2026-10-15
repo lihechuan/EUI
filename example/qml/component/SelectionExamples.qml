@@ -23,7 +23,7 @@ ExamplePage {
                         showText: true
                         allowHalf: true
                         texts: [ELocale.texts.Poor, ELocale.texts.Fair, ELocale.texts.Good, ELocale.texts.Great, ELocale.texts.Excellent]
-                        colors: ["#909399", "#E6A23C", "#E6A23C", "#F5B301", "#F5B301"]
+                        colors: ["#909399", "#E6A23C", "#E6A23C", "#e6a23c", "#e6a23c"]
                     }
                     ERate {
                         value: 4.5
@@ -42,7 +42,7 @@ ExamplePage {
                     showText: true
                     allowHalf: true
                     objectName: "webFormRate"
-                    colors: ["#909399", "#E6A23C", "#E6A23C", "#F5B301", "#F5B301"]
+                    colors: ["#909399", "#E6A23C", "#E6A23C", "#e6a23c", "#e6a23c"]
                     texts: [ELocale.texts.Poor, ELocale.texts.Fair, ELocale.texts.Good,
                         ELocale.texts.Great, ELocale.texts.Excellent]
                 }

@@ -1445,6 +1445,32 @@ Module {
         }
     }
     Component {
+        name: "EImageIO"
+        prototype: "QObject"
+        exports: ["EUI.Private/ImageIO 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "busy"; type: "bool"; isReadonly: true }
+        Signal {
+            name: "failed"
+            Parameter { name: "message"; type: "string" }
+        }
+        Signal {
+            name: "saved"
+            Parameter { name: "destination"; type: "QUrl" }
+        }
+        Signal {
+            name: "progress"
+            Parameter { name: "received"; type: "qlonglong" }
+            Parameter { name: "total"; type: "qlonglong" }
+        }
+        Method {
+            name: "save"
+            type: "bool"
+            Parameter { name: "source"; type: "QUrl" }
+            Parameter { name: "destination"; type: "QUrl" }
+        }
+    }
+    Component {
         name: "EMasonryLayout"
         defaultProperty: "data"
         prototype: "QQuickItem"
@@ -1559,6 +1585,26 @@ Module {
                 "Color": 3,
                 "BackgroundColor": 4
             }
+        }
+    }
+    Component {
+        name: "ETextDocument"
+        prototype: "QObject"
+        exports: ["EUI.Private/TextDocument 1.0"]
+        exportMetaObjectRevisions: [0]
+        Property { name: "document"; type: "QQuickTextDocument"; isPointer: true }
+        Method {
+            name: "formatAt"
+            type: "QVariantMap"
+            Parameter { name: "position"; type: "int" }
+        }
+        Method {
+            name: "apply"
+            type: "bool"
+            Parameter { name: "start"; type: "int" }
+            Parameter { name: "end"; type: "int" }
+            Parameter { name: "operation"; type: "string" }
+            Parameter { name: "value"; type: "QVariant" }
         }
     }
     Component {
@@ -1766,6 +1812,22 @@ Module {
         }
     }
     Component {
+        prototype: "QQuickMouseArea"
+        name: "EUI.Private/DragGesture 1.0"
+        exports: ["EUI.Private/DragGesture 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "data"
+        Property { name: "dragging"; type: "bool" }
+        Property { name: "origin"; type: "QPointF" }
+        Signal { name: "tapped" }
+        Signal {
+            name: "dropped"
+            Parameter { name: "x"; type: "double" }
+            Parameter { name: "y"; type: "double" }
+        }
+    }
+    Component {
         prototype: "EBackdropRenderer"
         name: "EUI/EAcrylic 1.0"
         exports: ["EUI/EAcrylic 1.0"]
@@ -1868,6 +1930,30 @@ Module {
     }
     Component {
         prototype: "QQuickItem"
+        name: "EUI/EAnimateOnScroll 1.0"
+        exports: ["EUI/EAnimateOnScroll 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "content"
+        Property { name: "once"; type: "bool" }
+        Property { name: "distance"; type: "double" }
+        Property { name: "duration"; type: "int" }
+        Property { name: "target"; type: "QQuickItem"; isPointer: true }
+        Property { name: "viewport"; type: "QQuickItem"; isPointer: true }
+        Property { name: "enterEffect"; type: "string" }
+        Property { name: "leaveEffect"; type: "string" }
+        Property { name: "inViewport"; type: "bool"; isReadonly: true }
+        Property { name: "content"; type: "QObject"; isList: true; isReadonly: true }
+        Signal { name: "exited" }
+        Signal { name: "entered" }
+        Method {
+            name: "animate"
+            type: "QVariant"
+            Parameter { name: "inside"; type: "QVariant" }
+        }
+    }
+    Component {
+        prototype: "QQuickItem"
         name: "EUI/EApp 1.0"
         exports: ["EUI/EApp 1.0"]
         exportMetaObjectRevisions: [0]
@@ -1880,11 +1966,12 @@ Module {
         Property { name: "disabled"; type: "bool" }
         Property { name: "dialogConfig"; type: "QVariant" }
         Property { name: "messageConfig"; type: "QVariant" }
-        Property { name: "modal"; type: "EMessageBox_QMLTYPE_59"; isReadonly: true; isPointer: true }
-        Property { name: "message"; type: "EMessage_QMLTYPE_71"; isReadonly: true; isPointer: true }
+        Property { name: "modal"; type: "EMessageBox_QMLTYPE_88"; isReadonly: true; isPointer: true }
+        Property { name: "dialog"; type: "EDialogService_QMLTYPE_66"; isReadonly: true; isPointer: true }
+        Property { name: "message"; type: "EMessage_QMLTYPE_43"; isReadonly: true; isPointer: true }
         Property {
             name: "notification"
-            type: "ENotification_QMLTYPE_68"
+            type: "ENotification_QMLTYPE_40"
             isReadonly: true
             isPointer: true
         }
@@ -2022,13 +2109,17 @@ Module {
         Property { name: "prefixComponent"; type: "QQmlComponent"; isPointer: true }
         Property { name: "suffixComponent"; type: "QQmlComponent"; isPointer: true }
         Property { name: "prependComponent"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "showPasswordStrength"; type: "bool" }
         Property { name: "clearIcon"; type: "int" }
         Property { name: "accessibleName"; type: "string" }
         Property { name: "size"; type: "int" }
         Property { name: "validationState"; type: "int" }
         Property { name: "textColor"; type: "QColor" }
+        Property { name: "passwordRules"; type: "QVariant" }
         Property { name: "wordCount"; type: "int"; isReadonly: true }
         Property { name: "hasValidationError"; type: "bool"; isReadonly: true }
+        Property { name: "passwordStrength"; type: "double"; isReadonly: true }
+        Property { name: "passwordRequirements"; type: "QVariant"; isReadonly: true }
         Signal { name: "cleared" }
         Signal {
             name: "formatFailed"
@@ -2461,7 +2552,7 @@ Module {
         Property { name: "columnHeight"; type: "double"; isReadonly: true }
         Property { name: "filteredPaths"; type: "QVariant"; isReadonly: true }
         Property { name: "selectedLabel"; type: "string"; isReadonly: true }
-        Property { name: "popup"; type: "PickerPopup_QMLTYPE_93"; isReadonly: true; isPointer: true }
+        Property { name: "popup"; type: "PickerPopup_QMLTYPE_105"; isReadonly: true; isPointer: true }
         Signal {
             name: "selected"
             Parameter { name: "value"; type: "QVariant" }
@@ -2540,13 +2631,17 @@ Module {
         Property { name: "prefixComponent"; type: "QQmlComponent"; isPointer: true }
         Property { name: "suffixComponent"; type: "QQmlComponent"; isPointer: true }
         Property { name: "prependComponent"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "showPasswordStrength"; type: "bool" }
         Property { name: "clearIcon"; type: "int" }
         Property { name: "accessibleName"; type: "string" }
         Property { name: "size"; type: "int" }
         Property { name: "validationState"; type: "int" }
         Property { name: "textColor"; type: "QColor" }
+        Property { name: "passwordRules"; type: "QVariant" }
         Property { name: "wordCount"; type: "int"; isReadonly: true }
         Property { name: "hasValidationError"; type: "bool"; isReadonly: true }
+        Property { name: "passwordStrength"; type: "double"; isReadonly: true }
+        Property { name: "passwordRequirements"; type: "QVariant"; isReadonly: true }
         Signal { name: "cleared" }
         Signal {
             name: "formatFailed"
@@ -2633,6 +2728,33 @@ Module {
         }
     }
     Component {
+        prototype: "QQuickControl"
+        name: "EUI/EChip 1.0"
+        exports: ["EUI/EChip 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "data"
+        Property { name: "hit"; type: "bool" }
+        Property { name: "text"; type: "string" }
+        Property { name: "iconSource"; type: "int" }
+        Property { name: "round"; type: "bool" }
+        Property { name: "checked"; type: "bool" }
+        Property { name: "avatarSource"; type: "QUrl" }
+        Property { name: "closable"; type: "bool" }
+        Property { name: "checkable"; type: "bool" }
+        Property { name: "effect"; type: "string" }
+        Property { name: "styleType"; type: "int" }
+        Property { name: "size"; type: "int" }
+        Property { name: "color"; type: "QColor" }
+        Property { name: "darkEffect"; type: "bool"; isReadonly: true }
+        Signal { name: "closed" }
+        Signal { name: "clicked" }
+        Signal {
+            name: "changed"
+            Parameter { name: "checked"; type: "bool" }
+        }
+    }
+    Component {
         prototype: "QQuickItem"
         name: "EUI/ECircleProgress 1.0"
         exports: ["EUI/ECircleProgress 1.0"]
@@ -2690,7 +2812,7 @@ Module {
         Property { name: "selectedText"; type: "string"; isReadonly: true }
         Property { name: "lineCount"; type: "int"; isReadonly: true }
         Property { name: "contentHeight"; type: "double"; isReadonly: true }
-        Property { name: "textItem"; type: "ECopyableText_QMLTYPE_61"; isReadonly: true; isPointer: true }
+        Property { name: "textItem"; type: "ECopyableText_QMLTYPE_33"; isReadonly: true; isPointer: true }
         Property { name: "viewport"; type: "QQuickFlickable"; isReadonly: true; isPointer: true }
         Signal {
             name: "copied"
@@ -2787,9 +2909,8 @@ Module {
         Property { name: "valueOnClear"; type: "QVariant" }
         Property { name: "value"; type: "QVariant" }
         Property { name: "emptyValues"; type: "QVariant" }
-        Property { name: "popup"; type: "PickerPopup_QMLTYPE_93"; isReadonly: true; isPointer: true }
+        Property { name: "popup"; type: "PickerPopup_QMLTYPE_105"; isReadonly: true; isPointer: true }
         Signal { name: "cleared" }
-        Signal { name: "canceled" }
         Signal {
             name: "changed"
             Parameter { name: "value"; type: "QVariant" }
@@ -2938,6 +3059,32 @@ Module {
             name: "trigger"
             type: "QVariant"
             Parameter { name: "index"; type: "QVariant" }
+        }
+    }
+    Component {
+        prototype: "QQuickControl"
+        name: "EUI/ECompare 1.0"
+        exports: ["EUI/ECompare 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "data"
+        Property { name: "value"; type: "double" }
+        Property { name: "hover"; type: "bool" }
+        Property { name: "afterSource"; type: "QUrl" }
+        Property { name: "beforeSource"; type: "QUrl" }
+        Property { name: "vertical"; type: "bool" }
+        Property { name: "afterComponent"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "beforeComponent"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "handleComponent"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "fraction"; type: "double"; isReadonly: true }
+        Signal {
+            name: "moved"
+            Parameter { name: "value"; type: "double" }
+        }
+        Method {
+            name: "setValue"
+            type: "QVariant"
+            Parameter { name: "next"; type: "QVariant" }
         }
     }
     Component {
@@ -3144,13 +3291,17 @@ Module {
         Property { name: "prefixComponent"; type: "QQmlComponent"; isPointer: true }
         Property { name: "suffixComponent"; type: "QQmlComponent"; isPointer: true }
         Property { name: "prependComponent"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "showPasswordStrength"; type: "bool" }
         Property { name: "clearIcon"; type: "int" }
         Property { name: "accessibleName"; type: "string" }
         Property { name: "size"; type: "int" }
         Property { name: "validationState"; type: "int" }
         Property { name: "textColor"; type: "QColor" }
+        Property { name: "passwordRules"; type: "QVariant" }
         Property { name: "wordCount"; type: "int"; isReadonly: true }
         Property { name: "hasValidationError"; type: "bool"; isReadonly: true }
+        Property { name: "passwordStrength"; type: "double"; isReadonly: true }
+        Property { name: "passwordRequirements"; type: "QVariant"; isReadonly: true }
         Signal { name: "cleared" }
         Signal {
             name: "formatFailed"
@@ -3421,13 +3572,17 @@ Module {
         Property { name: "prefixComponent"; type: "QQmlComponent"; isPointer: true }
         Property { name: "suffixComponent"; type: "QQmlComponent"; isPointer: true }
         Property { name: "prependComponent"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "showPasswordStrength"; type: "bool" }
         Property { name: "clearIcon"; type: "int" }
         Property { name: "accessibleName"; type: "string" }
         Property { name: "size"; type: "int" }
         Property { name: "validationState"; type: "int" }
         Property { name: "textColor"; type: "QColor" }
+        Property { name: "passwordRules"; type: "QVariant" }
         Property { name: "wordCount"; type: "int"; isReadonly: true }
         Property { name: "hasValidationError"; type: "bool"; isReadonly: true }
+        Property { name: "passwordStrength"; type: "double"; isReadonly: true }
+        Property { name: "passwordRequirements"; type: "QVariant"; isReadonly: true }
         Signal { name: "cleared" }
         Signal {
             name: "formatFailed"
@@ -3438,6 +3593,30 @@ Module {
             type: "QVariant"
             Parameter { name: "value"; type: "QVariant" }
         }
+    }
+    Component {
+        prototype: "QQuickItem"
+        name: "EUI/EDeferred 1.0"
+        exports: ["EUI/EDeferred 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "content"
+        Property { name: "margin"; type: "double" }
+        Property { name: "once"; type: "bool" }
+        Property { name: "viewport"; type: "QQuickItem"; isPointer: true }
+        Property { name: "activated"; type: "bool" }
+        Property { name: "asynchronous"; type: "bool" }
+        Property { name: "placeholderHeight"; type: "double" }
+        Property { name: "status"; type: "int"; isReadonly: true }
+        Property { name: "inViewport"; type: "bool"; isReadonly: true }
+        Property { name: "content"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "item"; type: "QObject"; isReadonly: true; isPointer: true }
+        Signal { name: "exited" }
+        Signal { name: "loaded" }
+        Signal { name: "entered" }
+        Method { name: "reset"; type: "QVariant" }
+        Method { name: "updateActivation"; type: "QVariant" }
+        Method { name: "intersectsViewport"; type: "QVariant" }
     }
     Component {
         prototype: "QQuickControl"
@@ -3529,6 +3708,32 @@ Module {
     }
     Component {
         prototype: "QQuickItem"
+        name: "EUI/EDialogService 1.0"
+        exports: ["EUI/EDialogService 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "data"
+        Property { name: "dialogs"; type: "QVariant"; isReadonly: true }
+        Signal {
+            name: "opened"
+            Parameter { name: "dialog"; type: "QVariant" }
+        }
+        Signal {
+            name: "closed"
+            Parameter { name: "result"; type: "QVariant" }
+            Parameter { name: "accepted"; type: "bool" }
+        }
+        Method { name: "closeAll"; type: "QVariant" }
+        Method {
+            name: "open"
+            type: "QVariant"
+            Parameter { name: "component"; type: "QVariant" }
+            Parameter { name: "properties"; type: "QVariant" }
+            Parameter { name: "options"; type: "QVariant" }
+        }
+    }
+    Component {
+        prototype: "QQuickItem"
         name: "EUI/EDivider 1.0"
         exports: ["EUI/EDivider 1.0"]
         exportMetaObjectRevisions: [0]
@@ -3551,6 +3756,30 @@ Module {
         Property { name: "effectiveContentPosition"; type: "int"; isReadonly: true }
         Property { name: "font"; type: "QFont" }
         Property { name: "text"; type: "string" }
+    }
+    Component {
+        prototype: "QQuickItem"
+        name: "EUI/EDock 1.0"
+        exports: ["EUI/EDock 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "data"
+        Property { name: "model"; type: "QVariant" }
+        Property { name: "iconSize"; type: "int" }
+        Property { name: "itemSize"; type: "int" }
+        Property { name: "magnification"; type: "double" }
+        Property { name: "placement"; type: "string" }
+        Property { name: "vertical"; type: "bool"; isReadonly: true }
+        Signal {
+            name: "command"
+            Parameter { name: "command"; type: "QVariant" }
+            Parameter { name: "item"; type: "QVariant" }
+        }
+        Method {
+            name: "trigger"
+            type: "QVariant"
+            Parameter { name: "index"; type: "QVariant" }
+        }
     }
     Component {
         prototype: "QQuickDrawer"
@@ -3623,7 +3852,7 @@ Module {
         Property { name: "triggerKeys"; type: "QVariant" }
         Property { name: "items"; type: "QVariant"; isReadonly: true }
         Property { name: "referenceAvailable"; type: "bool"; isReadonly: true }
-        Property { name: "menu"; type: "Menu_QMLTYPE_263"; isReadonly: true; isPointer: true }
+        Property { name: "menu"; type: "Menu_QMLTYPE_393"; isReadonly: true; isPointer: true }
         Signal {
             name: "command"
             Parameter { name: "value"; type: "QVariant" }
@@ -3637,6 +3866,13 @@ Module {
         Method { name: "handleClose"; type: "QVariant" }
         Method { name: "close"; type: "QVariant" }
         Method { name: "open"; type: "QVariant" }
+        Method {
+            name: "openAt"
+            type: "QVariant"
+            Parameter { name: "x"; type: "QVariant" }
+            Parameter { name: "y"; type: "QVariant" }
+            Parameter { name: "item"; type: "QVariant" }
+        }
         Property { name: "bg"; type: "bool" }
         Property { name: "iconSource"; type: "int" }
         Property { name: "link"; type: "bool" }
@@ -3665,6 +3901,90 @@ Module {
         Property { name: "autoInsertSpace"; type: "bool" }
         Property { name: "displayText"; type: "string"; isReadonly: true }
         Method { name: "activateForm"; type: "QVariant" }
+    }
+    Component {
+        prototype: "QQuickDialog"
+        name: "EUI/EDynamicDialog 1.0"
+        exports: ["EUI/EDynamicDialog 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "content"
+        Property { name: "callback"; type: "QVariant" }
+        Property { name: "parameters"; type: "QVariant" }
+        Property { name: "component"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "resultData"; type: "QVariant" }
+        Property { name: "instance"; type: "QVariant"; isReadonly: true }
+        Signal {
+            name: "loadFailed"
+            Parameter { name: "message"; type: "string" }
+        }
+        Signal {
+            name: "finished"
+            Parameter { name: "result"; type: "QVariant" }
+            Parameter { name: "accepted"; type: "bool" }
+        }
+        Method {
+            name: "resolve"
+            type: "QVariant"
+            Parameter { name: "value"; type: "QVariant" }
+        }
+        Method {
+            name: "finish"
+            type: "QVariant"
+            Parameter { name: "accepted"; type: "QVariant" }
+        }
+        Method {
+            name: "openComponent"
+            type: "QVariant"
+            Parameter { name: "source"; type: "QVariant" }
+            Parameter { name: "properties"; type: "QVariant" }
+        }
+        Property { name: "text"; type: "string" }
+        Property { name: "top"; type: "double" }
+        Property { name: "openDelay"; type: "int" }
+        Property { name: "closeDelay"; type: "int" }
+        Property { name: "center"; type: "bool" }
+        Property { name: "autofocus"; type: "bool" }
+        Property { name: "dialogRadius"; type: "double" }
+        Property { name: "showClose"; type: "bool" }
+        Property { name: "beforeClose"; type: "QVariant" }
+        Property { name: "exitDuration"; type: "int" }
+        Property { name: "showFooter"; type: "bool" }
+        Property { name: "showHeader"; type: "bool" }
+        Property { name: "windowMargin"; type: "double" }
+        Property { name: "enterDuration"; type: "int" }
+        Property { name: "fullscreen"; type: "bool" }
+        Property { name: "closeOnEscape"; type: "bool" }
+        Property { name: "destroyOnClose"; type: "bool" }
+        Property { name: "closeIcon"; type: "int" }
+        Property { name: "modalPenetrable"; type: "bool" }
+        Property { name: "showCancelButton"; type: "bool" }
+        Property { name: "showConfirmButton"; type: "bool" }
+        Property { name: "closeOnClickOutside"; type: "bool" }
+        Property { name: "contentComponent"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "confirmStyleType"; type: "int" }
+        Property { name: "modalOverlayColor"; type: "QColor" }
+        Property { name: "textColor"; type: "QColor" }
+        Property { name: "modelessOverlayColor"; type: "QColor" }
+        Property { name: "titleColor"; type: "QColor" }
+        Property { name: "borderColor"; type: "QColor" }
+        Property { name: "cancelText"; type: "string" }
+        Property { name: "overflow"; type: "bool" }
+        Property { name: "confirmText"; type: "string" }
+        Property { name: "draggable"; type: "bool" }
+        Property { name: "backgroundColor"; type: "QColor" }
+        Property { name: "alignCenter"; type: "bool" }
+        Property { name: "maximumDialogWidth"; type: "double"; isReadonly: true }
+        Property { name: "content"; type: "QObject"; isList: true; isReadonly: true }
+        Property { name: "loadedContent"; type: "QObject"; isReadonly: true; isPointer: true }
+        Signal { name: "closeRejected" }
+        Signal { name: "openAutoFocused" }
+        Signal { name: "closeAutoFocused" }
+        Method { name: "close"; type: "QVariant" }
+        Method { name: "handleClose"; type: "QVariant" }
+        Method { name: "open"; type: "QVariant" }
+        Method { name: "resetPosition"; type: "QVariant" }
+        Method { name: "requestClose"; type: "QVariant" }
     }
     Component {
         prototype: "QQuickControl"
@@ -3729,6 +4049,23 @@ Module {
         Property { name: "content"; type: "QObject"; isList: true; isReadonly: true }
     }
     Component {
+        prototype: "QQuickControl"
+        name: "EUI/EFieldset 1.0"
+        exports: ["EUI/EFieldset 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "content"
+        Property { name: "title"; type: "string" }
+        Property { name: "collapsed"; type: "bool" }
+        Property { name: "collapsible"; type: "bool" }
+        Property { name: "content"; type: "QObject"; isList: true; isReadonly: true }
+        Signal {
+            name: "toggled"
+            Parameter { name: "collapsed"; type: "bool" }
+        }
+        Method { name: "toggle"; type: "QVariant" }
+    }
+    Component {
         prototype: "QQuickTextField"
         name: "EUI/EFilePicker 1.0"
         exports: ["EUI/EFilePicker 1.0"]
@@ -3778,13 +4115,17 @@ Module {
         Property { name: "prefixComponent"; type: "QQmlComponent"; isPointer: true }
         Property { name: "suffixComponent"; type: "QQmlComponent"; isPointer: true }
         Property { name: "prependComponent"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "showPasswordStrength"; type: "bool" }
         Property { name: "clearIcon"; type: "int" }
         Property { name: "accessibleName"; type: "string" }
         Property { name: "size"; type: "int" }
         Property { name: "validationState"; type: "int" }
         Property { name: "textColor"; type: "QColor" }
+        Property { name: "passwordRules"; type: "QVariant" }
         Property { name: "wordCount"; type: "int"; isReadonly: true }
         Property { name: "hasValidationError"; type: "bool"; isReadonly: true }
+        Property { name: "passwordStrength"; type: "double"; isReadonly: true }
+        Property { name: "passwordRequirements"; type: "QVariant"; isReadonly: true }
         Signal { name: "cleared" }
         Signal {
             name: "formatFailed"
@@ -3935,7 +4276,7 @@ Module {
         Property { name: "content"; type: "QObject"; isList: true; isReadonly: true }
         Property {
             name: "triggerButton"
-            type: "EFloatButton_QMLTYPE_394"
+            type: "EFloatButton_QMLTYPE_414"
             isReadonly: true
             isPointer: true
         }
@@ -3945,6 +4286,35 @@ Module {
         }
         Method { name: "close"; type: "QVariant" }
         Method { name: "toggle"; type: "QVariant" }
+    }
+    Component {
+        prototype: "QQuickItem"
+        name: "EUI/EFloatLabel 1.0"
+        exports: ["EUI/EFloatLabel 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "content"
+        Property { name: "text"; type: "string" }
+        Property { name: "fixed"; type: "bool" }
+        Property { name: "target"; type: "QQuickItem"; isPointer: true }
+        Property { name: "filled"; type: "bool" }
+        Property { name: "raised"; type: "bool"; isReadonly: true }
+        Property { name: "content"; type: "QObject"; isList: true; isReadonly: true }
+    }
+    Component {
+        prototype: "QQuickFocusScope"
+        name: "EUI/EFocusTrap 1.0"
+        exports: ["EUI/EFocusTrap 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "content"
+        Property { name: "active"; type: "bool" }
+        Property { name: "content"; type: "QObject"; isList: true; isReadonly: true }
+        Method {
+            name: "focusNext"
+            type: "QVariant"
+            Parameter { name: "reverse"; type: "QVariant" }
+        }
     }
     Component {
         prototype: "QQuickTextField"
@@ -3996,13 +4366,17 @@ Module {
         Property { name: "prefixComponent"; type: "QQmlComponent"; isPointer: true }
         Property { name: "suffixComponent"; type: "QQmlComponent"; isPointer: true }
         Property { name: "prependComponent"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "showPasswordStrength"; type: "bool" }
         Property { name: "clearIcon"; type: "int" }
         Property { name: "accessibleName"; type: "string" }
         Property { name: "size"; type: "int" }
         Property { name: "validationState"; type: "int" }
         Property { name: "textColor"; type: "QColor" }
+        Property { name: "passwordRules"; type: "QVariant" }
         Property { name: "wordCount"; type: "int"; isReadonly: true }
         Property { name: "hasValidationError"; type: "bool"; isReadonly: true }
+        Property { name: "passwordStrength"; type: "double"; isReadonly: true }
+        Property { name: "passwordRequirements"; type: "QVariant"; isReadonly: true }
         Signal { name: "cleared" }
         Signal {
             name: "formatFailed"
@@ -4356,6 +4730,20 @@ Module {
         Property { name: "size"; type: "int" }
     }
     Component {
+        prototype: "QQuickItem"
+        name: "EUI/EIftaLabel 1.0"
+        exports: ["EUI/EIftaLabel 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "content"
+        Property { name: "text"; type: "string" }
+        Property { name: "fixed"; type: "bool" }
+        Property { name: "target"; type: "QQuickItem"; isPointer: true }
+        Property { name: "filled"; type: "bool" }
+        Property { name: "raised"; type: "bool"; isReadonly: true }
+        Property { name: "content"; type: "QObject"; isList: true; isReadonly: true }
+    }
+    Component {
         prototype: "QQuickControl"
         name: "EUI/EImage 1.0"
         exports: ["EUI/EImage 1.0"]
@@ -4372,6 +4760,8 @@ Module {
         Property { name: "preview"; type: "bool" }
         Property { name: "previewSrcList"; type: "QVariant" }
         Property { name: "showProgress"; type: "bool" }
+        Property { name: "allowDownload"; type: "bool" }
+        Property { name: "showThumbnails"; type: "bool" }
         Property { name: "hideOnClickModal"; type: "bool" }
         Property { name: "closeOnPressEscape"; type: "bool" }
         Property { name: "errorDelegate"; type: "QQmlComponent"; isPointer: true }
@@ -4381,10 +4771,13 @@ Module {
         Property { name: "fillMode"; type: "int" }
         Property { name: "errorText"; type: "string" }
         Property { name: "status"; type: "int"; isReadonly: true }
+        Property { name: "downloadBusy"; type: "bool"; isReadonly: true }
         Property { name: "previewIndex"; type: "int"; isReadonly: true }
         Property { name: "previewScale"; type: "double"; isReadonly: true }
         Property { name: "previewVisible"; type: "bool"; isReadonly: true }
         Property { name: "previewRotation"; type: "double"; isReadonly: true }
+        Property { name: "previewFlippedVertical"; type: "bool"; isReadonly: true }
+        Property { name: "previewFlippedHorizontal"; type: "bool"; isReadonly: true }
         Property { name: "previewSources"; type: "QVariant"; isReadonly: true }
         Signal { name: "loaded" }
         Signal { name: "loadError" }
@@ -4398,6 +4791,14 @@ Module {
             name: "previewSwitched"
             Parameter { name: "index"; type: "int" }
         }
+        Signal {
+            name: "downloaded"
+            Parameter { name: "destination"; type: "QUrl" }
+        }
+        Signal {
+            name: "downloadFailed"
+            Parameter { name: "message"; type: "string" }
+        }
         Method { name: "closePreview"; type: "QVariant" }
         Method { name: "loadNow"; type: "QVariant" }
         Method {
@@ -4410,6 +4811,16 @@ Module {
             name: "rotatePreview"
             type: "QVariant"
             Parameter { name: "angle"; type: "QVariant" }
+        }
+        Method {
+            name: "flipPreview"
+            type: "QVariant"
+            Parameter { name: "vertical"; type: "QVariant" }
+        }
+        Method {
+            name: "downloadPreview"
+            type: "QVariant"
+            Parameter { name: "destination"; type: "QVariant" }
         }
         Method {
             name: "zoomPreview"
@@ -4447,6 +4858,8 @@ Module {
         Property { name: "preview"; type: "bool" }
         Property { name: "previewSrcList"; type: "QVariant" }
         Property { name: "showProgress"; type: "bool" }
+        Property { name: "allowDownload"; type: "bool" }
+        Property { name: "showThumbnails"; type: "bool" }
         Property { name: "hideOnClickModal"; type: "bool" }
         Property { name: "closeOnPressEscape"; type: "bool" }
         Property { name: "errorDelegate"; type: "QQmlComponent"; isPointer: true }
@@ -4456,10 +4869,13 @@ Module {
         Property { name: "fillMode"; type: "int" }
         Property { name: "errorText"; type: "string" }
         Property { name: "status"; type: "int"; isReadonly: true }
+        Property { name: "downloadBusy"; type: "bool"; isReadonly: true }
         Property { name: "previewIndex"; type: "int"; isReadonly: true }
         Property { name: "previewScale"; type: "double"; isReadonly: true }
         Property { name: "previewVisible"; type: "bool"; isReadonly: true }
         Property { name: "previewRotation"; type: "double"; isReadonly: true }
+        Property { name: "previewFlippedVertical"; type: "bool"; isReadonly: true }
+        Property { name: "previewFlippedHorizontal"; type: "bool"; isReadonly: true }
         Property { name: "previewSources"; type: "QVariant"; isReadonly: true }
         Signal { name: "loaded" }
         Signal { name: "loadError" }
@@ -4473,6 +4889,14 @@ Module {
             name: "previewSwitched"
             Parameter { name: "index"; type: "int" }
         }
+        Signal {
+            name: "downloaded"
+            Parameter { name: "destination"; type: "QUrl" }
+        }
+        Signal {
+            name: "downloadFailed"
+            Parameter { name: "message"; type: "string" }
+        }
         Method { name: "closePreview"; type: "QVariant" }
         Method { name: "loadNow"; type: "QVariant" }
         Method {
@@ -4485,6 +4909,16 @@ Module {
             name: "rotatePreview"
             type: "QVariant"
             Parameter { name: "angle"; type: "QVariant" }
+        }
+        Method {
+            name: "flipPreview"
+            type: "QVariant"
+            Parameter { name: "vertical"; type: "QVariant" }
+        }
+        Method {
+            name: "downloadPreview"
+            type: "QVariant"
+            Parameter { name: "destination"; type: "QVariant" }
         }
         Method {
             name: "zoomPreview"
@@ -4525,6 +4959,24 @@ Module {
         Method { name: "checkLoad"; type: "QVariant" }
     }
     Component {
+        prototype: "QQuickItem"
+        name: "EUI/EInplace 1.0"
+        exports: ["EUI/EInplace 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "editor"
+        Property { name: "text"; type: "string" }
+        Property { name: "active"; type: "bool" }
+        Property { name: "closable"; type: "bool" }
+        Property { name: "displayComponent"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "editor"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "item"; type: "QObject"; isReadonly: true; isPointer: true }
+        Signal { name: "closed" }
+        Signal { name: "opened" }
+        Method { name: "close"; type: "QVariant" }
+        Method { name: "open"; type: "QVariant" }
+    }
+    Component {
         prototype: "QQuickTextField"
         name: "EUI/EInput 1.0"
         exports: ["EUI/EInput 1.0"]
@@ -4546,13 +4998,17 @@ Module {
         Property { name: "prefixComponent"; type: "QQmlComponent"; isPointer: true }
         Property { name: "suffixComponent"; type: "QQmlComponent"; isPointer: true }
         Property { name: "prependComponent"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "showPasswordStrength"; type: "bool" }
         Property { name: "clearIcon"; type: "int" }
         Property { name: "accessibleName"; type: "string" }
         Property { name: "size"; type: "int" }
         Property { name: "validationState"; type: "int" }
         Property { name: "textColor"; type: "QColor" }
+        Property { name: "passwordRules"; type: "QVariant" }
         Property { name: "wordCount"; type: "int"; isReadonly: true }
         Property { name: "hasValidationError"; type: "bool"; isReadonly: true }
+        Property { name: "passwordStrength"; type: "double"; isReadonly: true }
+        Property { name: "passwordRequirements"; type: "QVariant"; isReadonly: true }
         Signal { name: "cleared" }
         Signal {
             name: "formatFailed"
@@ -4563,6 +5019,16 @@ Module {
             type: "QVariant"
             Parameter { name: "value"; type: "QVariant" }
         }
+    }
+    Component {
+        prototype: "QQuickItem"
+        name: "EUI/EInputGroup 1.0"
+        exports: ["EUI/EInputGroup 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "content"
+        Property { name: "spacing"; type: "double" }
+        Property { name: "content"; type: "QObject"; isList: true; isReadonly: true }
     }
     Component {
         prototype: "QQuickControl"
@@ -4648,6 +5114,55 @@ Module {
             Parameter { name: "from"; type: "QVariant" }
             Parameter { name: "to"; type: "QVariant" }
         }
+    }
+    Component {
+        prototype: "QQuickControl"
+        name: "EUI/EKnob 1.0"
+        exports: ["EUI/EKnob 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "data"
+        Property { name: "from"; type: "double" }
+        Property { name: "to"; type: "double" }
+        Property { name: "value"; type: "double" }
+        Property { name: "stepSize"; type: "double" }
+        Property { name: "suffix"; type: "string" }
+        Property { name: "strokeWidth"; type: "int" }
+        Property { name: "readOnly"; type: "bool" }
+        Property { name: "color"; type: "QColor" }
+        Property { name: "maximum"; type: "double"; isReadonly: true }
+        Property { name: "minimum"; type: "double"; isReadonly: true }
+        Property { name: "effectiveValue"; type: "double"; isReadonly: true }
+        Signal {
+            name: "moved"
+            Parameter { name: "value"; type: "double" }
+        }
+        Method {
+            name: "valueAt"
+            type: "QVariant"
+            Parameter { name: "x"; type: "QVariant" }
+            Parameter { name: "y"; type: "QVariant" }
+        }
+        Method {
+            name: "setValue"
+            type: "QVariant"
+            Parameter { name: "next"; type: "QVariant" }
+        }
+    }
+    Component {
+        prototype: "QQuickText"
+        name: "EUI/ELabel 1.0"
+        exports: ["EUI/ELabel 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "data"
+        Property { name: "target"; type: "QQuickItem"; isPointer: true }
+        Signal { name: "activated" }
+        Method { name: "activate"; type: "QVariant" }
+        Property { name: "type"; type: "string" }
+        Property { name: "lineClamp"; type: "int" }
+        Property { name: "truncated"; type: "bool" }
+        Property { name: "size"; type: "int" }
     }
     Component {
         prototype: "QQuickButton"
@@ -4752,6 +5267,55 @@ Module {
         Property { name: "description"; type: "string" }
         Property { name: "title"; type: "string" }
         Property { name: "content"; type: "QObject"; isList: true; isReadonly: true }
+    }
+    Component {
+        prototype: "QQuickControl"
+        name: "EUI/EListbox 1.0"
+        exports: ["EUI/EListbox 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "data"
+        Property { name: "model"; type: "QVariant" }
+        Property { name: "values"; type: "QVariant" }
+        Property { name: "value"; type: "QVariant" }
+        Property { name: "multiple"; type: "bool" }
+        Property { name: "filterable"; type: "bool" }
+        Property { name: "reorderable"; type: "bool" }
+        Property { name: "labelKey"; type: "string" }
+        Property { name: "valueKey"; type: "string" }
+        Property { name: "itemDelegate"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "items"; type: "QVariant"; isReadonly: true }
+        Property { name: "filterText"; type: "string" }
+        Property { name: "view"; type: "QQuickListView"; isReadonly: true; isPointer: true }
+        Signal {
+            name: "changed"
+            Parameter { name: "value"; type: "QVariant" }
+        }
+        Signal {
+            name: "itemClicked"
+            Parameter { name: "item"; type: "QVariant" }
+            Parameter { name: "index"; type: "int" }
+        }
+        Signal {
+            name: "reorderRequested"
+            Parameter { name: "from"; type: "int" }
+            Parameter { name: "to"; type: "int" }
+        }
+        Method {
+            name: "isSelected"
+            type: "QVariant"
+            Parameter { name: "option"; type: "QVariant" }
+        }
+        Method {
+            name: "navigate"
+            type: "QVariant"
+            Parameter { name: "delta"; type: "QVariant" }
+        }
+        Method {
+            name: "select"
+            type: "QVariant"
+            Parameter { name: "index"; type: "QVariant" }
+        }
     }
     Component {
         prototype: "QQuickListView"
@@ -4868,6 +5432,35 @@ Module {
         }
     }
     Component {
+        prototype: "QQuickControl"
+        name: "EUI/EMegaMenu 1.0"
+        exports: ["EUI/EMegaMenu 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "data"
+        Property { name: "model"; type: "QVariant" }
+        Property { name: "activeIndex"; type: "int" }
+        Property { name: "columnWidth"; type: "int" }
+        Property { name: "vertical"; type: "bool" }
+        Property { name: "groups"; type: "QVariant"; isReadonly: true }
+        Signal {
+            name: "command"
+            Parameter { name: "command"; type: "QVariant" }
+            Parameter { name: "item"; type: "QVariant" }
+        }
+        Method { name: "close"; type: "QVariant" }
+        Method {
+            name: "trigger"
+            type: "QVariant"
+            Parameter { name: "item"; type: "QVariant" }
+        }
+        Method {
+            name: "open"
+            type: "QVariant"
+            Parameter { name: "index"; type: "QVariant" }
+        }
+    }
+    Component {
         prototype: "QQuickTextField"
         name: "EUI/EMention 1.0"
         exports: ["EUI/EMention 1.0"]
@@ -4960,13 +5553,17 @@ Module {
         Property { name: "prefixComponent"; type: "QQmlComponent"; isPointer: true }
         Property { name: "suffixComponent"; type: "QQmlComponent"; isPointer: true }
         Property { name: "prependComponent"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "showPasswordStrength"; type: "bool" }
         Property { name: "clearIcon"; type: "int" }
         Property { name: "accessibleName"; type: "string" }
         Property { name: "size"; type: "int" }
         Property { name: "validationState"; type: "int" }
         Property { name: "textColor"; type: "QColor" }
+        Property { name: "passwordRules"; type: "QVariant" }
         Property { name: "wordCount"; type: "int"; isReadonly: true }
         Property { name: "hasValidationError"; type: "bool"; isReadonly: true }
+        Property { name: "passwordStrength"; type: "double"; isReadonly: true }
+        Property { name: "passwordRequirements"; type: "QVariant"; isReadonly: true }
         Signal { name: "cleared" }
         Signal {
             name: "formatFailed"
@@ -5344,6 +5941,28 @@ Module {
     }
     Component {
         prototype: "QQuickItem"
+        name: "EUI/EMeterGroup 1.0"
+        exports: ["EUI/EMeterGroup 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "data"
+        Property { name: "values"; type: "QVariant" }
+        Property { name: "barSize"; type: "int" }
+        Property { name: "diameter"; type: "int" }
+        Property { name: "maximum"; type: "double" }
+        Property { name: "circular"; type: "bool" }
+        Property { name: "vertical"; type: "bool" }
+        Property { name: "labelsOnTop"; type: "bool" }
+        Property { name: "total"; type: "double"; isReadonly: true }
+        Property { name: "items"; type: "QVariant"; isReadonly: true }
+        Method {
+            name: "fractionAt"
+            type: "QVariant"
+            Parameter { name: "index"; type: "QVariant" }
+        }
+    }
+    Component {
+        prototype: "QQuickItem"
         name: "EUI/ENotification 1.0"
         exports: ["EUI/ENotification 1.0"]
         exportMetaObjectRevisions: [0]
@@ -5451,6 +6070,83 @@ Module {
             type: "QVariant"
             Parameter { name: "messageValue"; type: "QVariant" }
         }
+    }
+    Component {
+        prototype: "QQuickItem"
+        name: "EUI/EOrderList 1.0"
+        exports: ["EUI/EOrderList 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "data"
+        Property { name: "model"; type: "QVariant" }
+        Property { name: "values"; type: "QVariant" }
+        Property { name: "filterable"; type: "bool" }
+        Property { name: "labelKey"; type: "string" }
+        Property { name: "valueKey"; type: "string" }
+        Property { name: "itemDelegate"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "view"; type: "QQuickListView"; isReadonly: true; isPointer: true }
+        Signal {
+            name: "changed"
+            Parameter { name: "model"; type: "QVariant" }
+        }
+        Signal {
+            name: "selectionChanged"
+            Parameter { name: "values"; type: "QVariant" }
+        }
+        Method {
+            name: "moveItem"
+            type: "QVariant"
+            Parameter { name: "from"; type: "QVariant" }
+            Parameter { name: "to"; type: "QVariant" }
+        }
+        Method {
+            name: "moveSelected"
+            type: "QVariant"
+            Parameter { name: "direction"; type: "QVariant" }
+        }
+    }
+    Component {
+        prototype: "QQuickControl"
+        name: "EUI/EOrgChart 1.0"
+        exports: ["EUI/EOrgChart 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "data"
+        Property { name: "model"; type: "QVariant" }
+        Property { name: "nodeHeight"; type: "double" }
+        Property { name: "nodeWidth"; type: "double" }
+        Property { name: "selectedKeys"; type: "QVariant" }
+        Property { name: "verticalGap"; type: "double" }
+        Property { name: "collapsedKeys"; type: "QVariant" }
+        Property { name: "horizontalGap"; type: "double" }
+        Property { name: "nodeDelegate"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "selectionMode"; type: "string" }
+        Property { name: "layout"; type: "QVariant"; isReadonly: true }
+        Property { name: "errorString"; type: "string"; isReadonly: true }
+        Signal {
+            name: "nodeClicked"
+            Parameter { name: "node"; type: "QVariant" }
+        }
+        Signal {
+            name: "selectionChanged"
+            Parameter { name: "keys"; type: "QVariant" }
+        }
+        Signal {
+            name: "toggled"
+            Parameter { name: "key"; type: "QVariant" }
+            Parameter { name: "collapsed"; type: "bool" }
+        }
+        Method {
+            name: "toggle"
+            type: "QVariant"
+            Parameter { name: "key"; type: "QVariant" }
+        }
+        Method {
+            name: "select"
+            type: "QVariant"
+            Parameter { name: "key"; type: "QVariant" }
+        }
+        Method { name: "buildLayout"; type: "QVariant" }
     }
     Component {
         prototype: "QQuickControl"
@@ -5594,7 +6290,7 @@ Module {
         Property { name: "referenceHeight"; type: "double"; isReadonly: true }
         Property { name: "referenceVisible"; type: "bool"; isReadonly: true }
         Property { name: "content"; type: "QObject"; isList: true; isReadonly: true }
-        Property { name: "popperRef"; type: "Popup_QMLTYPE_75"; isReadonly: true; isPointer: true }
+        Property { name: "popperRef"; type: "Popup_QMLTYPE_78"; isReadonly: true; isPointer: true }
         Property { name: "loadedContent"; type: "QObject"; isReadonly: true; isPointer: true }
         Method { name: "hide"; type: "QVariant" }
         Method { name: "toggle"; type: "QVariant" }
@@ -5638,7 +6334,7 @@ Module {
         Property { name: "referenceHeight"; type: "double"; isReadonly: true }
         Property { name: "referenceVisible"; type: "bool"; isReadonly: true }
         Property { name: "content"; type: "QObject"; isList: true; isReadonly: true }
-        Property { name: "popperRef"; type: "Popup_QMLTYPE_75"; isReadonly: true; isPointer: true }
+        Property { name: "popperRef"; type: "Popup_QMLTYPE_78"; isReadonly: true; isPointer: true }
         Property { name: "loadedContent"; type: "QObject"; isReadonly: true; isPointer: true }
         Method { name: "hide"; type: "QVariant" }
         Method { name: "toggle"; type: "QVariant" }
@@ -5882,6 +6578,29 @@ Module {
         Property { name: "content"; type: "QObject"; isList: true; isReadonly: true }
     }
     Component {
+        prototype: "QQuickItem"
+        name: "EUI/ERipple 1.0"
+        exports: ["EUI/ERipple 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "content"
+        Property { name: "duration"; type: "int" }
+        Property { name: "target"; type: "QQuickItem"; isPointer: true }
+        Property { name: "color"; type: "QColor" }
+        Property { name: "content"; type: "QObject"; isList: true; isReadonly: true }
+        Signal {
+            name: "triggered"
+            Parameter { name: "x"; type: "double" }
+            Parameter { name: "y"; type: "double" }
+        }
+        Method {
+            name: "pulse"
+            type: "QVariant"
+            Parameter { name: "x"; type: "QVariant" }
+            Parameter { name: "y"; type: "QVariant" }
+        }
+    }
+    Component {
         prototype: "QQuickText"
         name: "EUI/ERotatingIcon 1.0"
         exports: ["EUI/ERotatingIcon 1.0"]
@@ -5914,6 +6633,75 @@ Module {
         Property { name: "verticalGutter"; type: "double"; isReadonly: true }
         Property { name: "horizontalGutter"; type: "double"; isReadonly: true }
         Method { name: "layoutChildren"; type: "QVariant" }
+    }
+    Component {
+        prototype: "QQuickControl"
+        name: "EUI/EScheduler 1.0"
+        exports: ["EUI/EScheduler 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "data"
+        Property { name: "events"; type: "QVariant" }
+        Property { name: "draggable"; type: "bool" }
+        Property { name: "readOnly"; type: "bool" }
+        Property { name: "view"; type: "string" }
+        Property { name: "date"; type: "QDateTime" }
+        Property { name: "firstDayOfWeek"; type: "int" }
+        Property { name: "eventDelegate"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "visibleDays"; type: "QVariant"; isReadonly: true }
+        Property { name: "errorString"; type: "string"; isReadonly: true }
+        Signal {
+            name: "changed"
+            Parameter { name: "events"; type: "QVariant" }
+        }
+        Signal {
+            name: "slotClicked"
+            Parameter { name: "date"; type: "QDateTime" }
+        }
+        Signal {
+            name: "eventClicked"
+            Parameter { name: "event"; type: "QVariant" }
+        }
+        Signal {
+            name: "eventMoved"
+            Parameter { name: "event"; type: "QVariant" }
+            Parameter { name: "previousStart"; type: "QDateTime" }
+        }
+        Method {
+            name: "startOfDay"
+            type: "QVariant"
+            Parameter { name: "value"; type: "QVariant" }
+        }
+        Method {
+            name: "eventsFor"
+            type: "QVariant"
+            Parameter { name: "day"; type: "QVariant" }
+        }
+        Method { name: "days"; type: "QVariant" }
+        Method {
+            name: "navigate"
+            type: "QVariant"
+            Parameter { name: "delta"; type: "QVariant" }
+        }
+        Method {
+            name: "resizeEvent"
+            type: "QVariant"
+            Parameter { name: "key"; type: "QVariant" }
+            Parameter { name: "end"; type: "QVariant" }
+        }
+        Method {
+            name: "dropEvent"
+            type: "QVariant"
+            Parameter { name: "event"; type: "QVariant" }
+            Parameter { name: "point"; type: "QVariant" }
+        }
+        Method { name: "validate"; type: "QVariant" }
+        Method {
+            name: "moveEvent"
+            type: "QVariant"
+            Parameter { name: "key"; type: "QVariant" }
+            Parameter { name: "start"; type: "QVariant" }
+        }
     }
     Component {
         prototype: "QQuickScrollView"
@@ -6163,13 +6951,17 @@ Module {
         Property { name: "prefixComponent"; type: "QQmlComponent"; isPointer: true }
         Property { name: "suffixComponent"; type: "QQmlComponent"; isPointer: true }
         Property { name: "prependComponent"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "showPasswordStrength"; type: "bool" }
         Property { name: "clearIcon"; type: "int" }
         Property { name: "accessibleName"; type: "string" }
         Property { name: "size"; type: "int" }
         Property { name: "validationState"; type: "int" }
         Property { name: "textColor"; type: "QColor" }
+        Property { name: "passwordRules"; type: "QVariant" }
         Property { name: "wordCount"; type: "int"; isReadonly: true }
         Property { name: "hasValidationError"; type: "bool"; isReadonly: true }
+        Property { name: "passwordStrength"; type: "double"; isReadonly: true }
+        Property { name: "passwordRequirements"; type: "QVariant"; isReadonly: true }
         Signal { name: "cleared" }
         Signal {
             name: "formatFailed"
@@ -6180,6 +6972,40 @@ Module {
             type: "QVariant"
             Parameter { name: "value"; type: "QVariant" }
         }
+    }
+    Component {
+        prototype: "QQuickControl"
+        name: "EUI/ESidebar 1.0"
+        exports: ["EUI/ESidebar 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "content"
+        Property { name: "model"; type: "QVariant" }
+        Property { name: "open"; type: "bool" }
+        Property { name: "title"; type: "string" }
+        Property { name: "mode"; type: "string" }
+        Property { name: "overlay"; type: "bool" }
+        Property { name: "side"; type: "string" }
+        Property { name: "breakpoint"; type: "double" }
+        Property { name: "collapsed"; type: "bool" }
+        Property { name: "responsive"; type: "bool" }
+        Property { name: "collapsedWidth"; type: "double" }
+        Property { name: "currentIndex"; type: "string" }
+        Property { name: "expandedWidth"; type: "double" }
+        Property { name: "openOnHover"; type: "bool" }
+        Property { name: "closeOnSelect"; type: "bool" }
+        Property { name: "variant"; type: "string" }
+        Property { name: "footerComponent"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "headerComponent"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "iconMode"; type: "bool"; isReadonly: true }
+        Property { name: "overlayMode"; type: "bool"; isReadonly: true }
+        Property { name: "content"; type: "QObject"; isList: true; isReadonly: true }
+        Signal {
+            name: "selected"
+            Parameter { name: "index"; type: "string" }
+            Parameter { name: "item"; type: "QVariant" }
+        }
+        Method { name: "toggle"; type: "QVariant" }
     }
     Component {
         prototype: "QQuickControl"
@@ -7391,7 +8217,7 @@ Module {
         Property { name: "count"; type: "int"; isReadonly: true }
         Property { name: "vertical"; type: "bool"; isReadonly: true }
         Property { name: "currentName"; type: "QVariant"; isReadonly: true }
-        Property { name: "navigation"; type: "TabBar_QMLTYPE_595"; isReadonly: true; isPointer: true }
+        Property { name: "navigation"; type: "TabBar_QMLTYPE_655"; isReadonly: true; isPointer: true }
         Property { name: "activePane"; type: "QQuickItem"; isReadonly: true; isPointer: true }
         Signal { name: "tabAddRequested" }
         Signal {
@@ -7478,8 +8304,10 @@ Module {
         defaultProperty: "data"
         Property { name: "hit"; type: "bool" }
         Property { name: "text"; type: "string" }
+        Property { name: "iconSource"; type: "int" }
         Property { name: "round"; type: "bool" }
         Property { name: "checked"; type: "bool" }
+        Property { name: "avatarSource"; type: "QUrl" }
         Property { name: "closable"; type: "bool" }
         Property { name: "checkable"; type: "bool" }
         Property { name: "effect"; type: "string" }
@@ -7492,6 +8320,103 @@ Module {
         Signal {
             name: "changed"
             Parameter { name: "checked"; type: "bool" }
+        }
+    }
+    Component {
+        prototype: "QQuickControl"
+        name: "EUI/ETaskBoard 1.0"
+        exports: ["EUI/ETaskBoard 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "data"
+        Property { name: "tasks"; type: "QVariant" }
+        Property { name: "beforeMove"; type: "QVariant" }
+        Property { name: "draggable"; type: "bool" }
+        Property { name: "readOnly"; type: "bool" }
+        Property { name: "columnWidth"; type: "double" }
+        Property { name: "filterable"; type: "bool" }
+        Property { name: "keyField"; type: "string" }
+        Property { name: "titleField"; type: "string" }
+        Property { name: "cardDelegate"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "statusField"; type: "string" }
+        Property { name: "columns"; type: "QVariant" }
+        Property { name: "errorString"; type: "string"; isReadonly: true }
+        Property { name: "filterText"; type: "string" }
+        Signal {
+            name: "changed"
+            Parameter { name: "tasks"; type: "QVariant" }
+        }
+        Signal {
+            name: "taskClicked"
+            Parameter { name: "task"; type: "QVariant" }
+        }
+        Signal {
+            name: "taskMoved"
+            Parameter { name: "task"; type: "QVariant" }
+            Parameter { name: "from"; type: "QVariant" }
+            Parameter { name: "to"; type: "QVariant" }
+            Parameter { name: "index"; type: "int" }
+        }
+        Method {
+            name: "tasksFor"
+            type: "QVariant"
+            Parameter { name: "key"; type: "QVariant" }
+        }
+        Method { name: "validate"; type: "QVariant" }
+        Method {
+            name: "dropTask"
+            type: "QVariant"
+            Parameter { name: "key"; type: "QVariant" }
+            Parameter { name: "point"; type: "QVariant" }
+        }
+        Method {
+            name: "moveTask"
+            type: "QVariant"
+            Parameter { name: "key"; type: "QVariant" }
+            Parameter { name: "status"; type: "QVariant" }
+            Parameter { name: "position"; type: "QVariant" }
+        }
+    }
+    Component {
+        prototype: "QQuickControl"
+        name: "EUI/ETerminal 1.0"
+        exports: ["EUI/ETerminal 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "data"
+        Property { name: "prompt"; type: "string" }
+        Property { name: "welcome"; type: "string" }
+        Property { name: "historyLimit"; type: "int" }
+        Property { name: "commandHandler"; type: "QVariant" }
+        Property { name: "busy"; type: "bool"; isReadonly: true }
+        Property { name: "entries"; type: "QVariant"; isReadonly: true }
+        Property { name: "input"; type: "EInput_QMLTYPE_81"; isReadonly: true; isPointer: true }
+        Signal {
+            name: "submitted"
+            Parameter { name: "command"; type: "string" }
+        }
+        Signal {
+            name: "completed"
+            Parameter { name: "command"; type: "string" }
+            Parameter { name: "output"; type: "string" }
+            Parameter { name: "error"; type: "bool" }
+        }
+        Method { name: "clear"; type: "QVariant" }
+        Method {
+            name: "write"
+            type: "QVariant"
+            Parameter { name: "text"; type: "QVariant" }
+            Parameter { name: "error"; type: "QVariant" }
+        }
+        Method {
+            name: "historyAt"
+            type: "QVariant"
+            Parameter { name: "delta"; type: "QVariant" }
+        }
+        Method {
+            name: "execute"
+            type: "QVariant"
+            Parameter { name: "command"; type: "QVariant" }
         }
     }
     Component {
@@ -7570,6 +8495,35 @@ Module {
         Property { name: "autoInsertSpace"; type: "bool" }
         Property { name: "displayText"; type: "string"; isReadonly: true }
         Method { name: "activateForm"; type: "QVariant" }
+    }
+    Component {
+        prototype: "QQuickControl"
+        name: "EUI/ETextEditor 1.0"
+        exports: ["EUI/ETextEditor 1.0"]
+        exportMetaObjectRevisions: [0]
+        isComposite: true
+        defaultProperty: "data"
+        Property { name: "showToolbar"; type: "bool" }
+        Property { name: "placeholderText"; type: "string" }
+        Property { name: "canRedo"; type: "bool"; isReadonly: true }
+        Property { name: "canUndo"; type: "bool"; isReadonly: true }
+        Property { name: "plainText"; type: "string"; isReadonly: true }
+        Property { name: "currentFormat"; type: "QVariant"; isReadonly: true }
+        Property { name: "text"; type: "string" }
+        Property { name: "readOnly"; type: "bool" }
+        Property { name: "editor"; type: "QQuickTextEdit"; isReadonly: true; isPointer: true }
+        Signal {
+            name: "formatApplied"
+            Parameter { name: "operation"; type: "string" }
+        }
+        Method { name: "redo"; type: "QVariant" }
+        Method { name: "undo"; type: "QVariant" }
+        Method {
+            name: "applyFormat"
+            type: "QVariant"
+            Parameter { name: "operation"; type: "QVariant" }
+            Parameter { name: "value"; type: "QVariant" }
+        }
     }
     Component {
         prototype: "QQuickSwitch"
@@ -7760,13 +8714,17 @@ Module {
         Property { name: "prefixComponent"; type: "QQmlComponent"; isPointer: true }
         Property { name: "suffixComponent"; type: "QQmlComponent"; isPointer: true }
         Property { name: "prependComponent"; type: "QQmlComponent"; isPointer: true }
+        Property { name: "showPasswordStrength"; type: "bool" }
         Property { name: "clearIcon"; type: "int" }
         Property { name: "accessibleName"; type: "string" }
         Property { name: "size"; type: "int" }
         Property { name: "validationState"; type: "int" }
         Property { name: "textColor"; type: "QColor" }
+        Property { name: "passwordRules"; type: "QVariant" }
         Property { name: "wordCount"; type: "int"; isReadonly: true }
         Property { name: "hasValidationError"; type: "bool"; isReadonly: true }
+        Property { name: "passwordStrength"; type: "double"; isReadonly: true }
+        Property { name: "passwordRequirements"; type: "QVariant"; isReadonly: true }
         Signal { name: "cleared" }
         Signal {
             name: "formatFailed"
@@ -7984,7 +8942,7 @@ Module {
         Property { name: "referenceEnabled"; type: "bool"; isReadonly: true }
         Property { name: "showAfter"; type: "int" }
         Property { name: "autoClose"; type: "int" }
-        Property { name: "popperRef"; type: "ToolTip_QMLTYPE_31"; isReadonly: true; isPointer: true }
+        Property { name: "popperRef"; type: "ToolTip_QMLTYPE_69"; isReadonly: true; isPointer: true }
         Method { name: "hide"; type: "QVariant" }
         Method { name: "onClose"; type: "QVariant" }
         Method { name: "onOpen"; type: "QVariant" }
@@ -8087,8 +9045,10 @@ Module {
         defaultProperty: "data"
         Property { name: "data"; type: "QVariant" }
         Property { name: "value"; type: "QVariant" }
+        Property { name: "draggable"; type: "bool" }
         Property { name: "filterable"; type: "bool" }
         Property { name: "filterMethod"; type: "QVariant" }
+        Property { name: "reorderable"; type: "bool" }
         Property { name: "validateEvent"; type: "bool" }
         Property { name: "leftFooter"; type: "QQmlComponent"; isPointer: true }
         Property { name: "rightFooter"; type: "QQmlComponent"; isPointer: true }
@@ -8103,6 +9063,10 @@ Module {
         Signal {
             name: "changed"
             Parameter { name: "value"; type: "QVariant" }
+        }
+        Signal {
+            name: "reordered"
+            Parameter { name: "right"; type: "bool" }
         }
         Signal {
             name: "moved"
@@ -8121,6 +9085,27 @@ Module {
             Parameter { name: "key"; type: "QVariant" }
             Parameter { name: "checked"; type: "QVariant" }
             Parameter { name: "right"; type: "QVariant" }
+        }
+        Method {
+            name: "finishDrag"
+            type: "QVariant"
+            Parameter { name: "right"; type: "QVariant" }
+            Parameter { name: "key"; type: "QVariant" }
+            Parameter { name: "x"; type: "QVariant" }
+            Parameter { name: "y"; type: "QVariant" }
+        }
+        Method {
+            name: "moveSelection"
+            type: "QVariant"
+            Parameter { name: "right"; type: "QVariant" }
+            Parameter { name: "delta"; type: "QVariant" }
+        }
+        Method {
+            name: "reorder"
+            type: "QVariant"
+            Parameter { name: "right"; type: "QVariant" }
+            Parameter { name: "from"; type: "QVariant" }
+            Parameter { name: "to"; type: "QVariant" }
         }
         Method {
             name: "move"
@@ -9032,13 +10017,19 @@ Module {
         Property { name: "model"; type: "QVariant" }
         Property { name: "title"; type: "string" }
         Property { name: "checkedKeys"; type: "QVariant" }
+        Property { name: "draggable"; type: "bool" }
         Property { name: "filterable"; type: "bool" }
         Property { name: "filterMethod"; type: "QVariant" }
+        Property { name: "reorderable"; type: "bool" }
         Property { name: "optionDelegate"; type: "QQmlComponent"; isPointer: true }
         Property { name: "footerComponent"; type: "QQmlComponent"; isPointer: true }
         Property { name: "selectedCount"; type: "int"; isReadonly: true }
         Property { name: "availableKeys"; type: "QVariant"; isReadonly: true }
         Property { name: "filteredItems"; type: "QVariant"; isReadonly: true }
+        Signal {
+            name: "moveSelection"
+            Parameter { name: "delta"; type: "int" }
+        }
         Signal {
             name: "toggled"
             Parameter { name: "key"; type: "QVariant" }
@@ -9048,6 +10039,12 @@ Module {
             name: "allToggled"
             Parameter { name: "keys"; type: "QVariant" }
             Parameter { name: "checked"; type: "bool" }
+        }
+        Signal {
+            name: "dragFinished"
+            Parameter { name: "key"; type: "QVariant" }
+            Parameter { name: "x"; type: "double" }
+            Parameter { name: "y"; type: "double" }
         }
     }
 }
