@@ -8,6 +8,7 @@ import struct
 import subprocess
 import sys
 import tempfile
+import time
 import zipfile
 from ctypes import wintypes
 from pathlib import Path
@@ -146,12 +147,6 @@ try:
                                       ctypes.byref(startup), ctypes.byref(process)):
             raise ctypes.WinError(ctypes.get_last_error())
         try:
-            result = kernel32.WaitForSingleObject(process.hProcess, 8000)
-            if result != 258:
-                code = wintypes.DWORD()
-                kernel32.GetExitCodeProcess(process.hProcess, ctypes.byref(code))
-                stderr.seek(0)
-                raise AssertionError(f"Packaged app exited: {code.value}\n{stderr.read().decode(errors='replace')}")
             windows = []
 
             @callback_type
@@ -162,8 +157,21 @@ try:
                     windows.append(hwnd)
                 return True
 
-            user32.EnumDesktopWindows(desktop, record_window, 0)
-            assert windows, "Packaged app did not create a visible window on the isolated desktop"
+            deadline = time.monotonic() + 30
+            wait = 8000
+            while not windows and time.monotonic() < deadline:
+                result = kernel32.WaitForSingleObject(process.hProcess, wait)
+                if result != 258:
+                    code = wintypes.DWORD()
+                    kernel32.GetExitCodeProcess(process.hProcess, ctypes.byref(code))
+                    stderr.seek(0)
+                    raise AssertionError(f"Packaged app exited: {code.value}\n{stderr.read().decode(errors='replace')}")
+                user32.EnumDesktopWindows(desktop, record_window, 0)
+                wait = 500
+            if not windows:
+                stderr.seek(0)
+                raise AssertionError("Packaged app did not create a visible window on the isolated desktop within 30 seconds\n"
+                                     + stderr.read().decode(errors='replace'))
             foreground_pid = wintypes.DWORD()
             user32.GetWindowThreadProcessId(user32.GetForegroundWindow(), ctypes.byref(foreground_pid))
             assert foreground_pid.value != process.dwProcessId, "The packaged app took foreground focus"

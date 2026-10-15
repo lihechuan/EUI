@@ -54,7 +54,7 @@ parser.add_argument("--expect-stage", choices=("installing", "verifying", "cache
 arguments = parser.parse_args()
 exe = arguments.executable.resolve()
 environment = {key: value for key, value in os.environ.items()
-               if not key.startswith(("QT_", "QML", "QSG_", "QTWEBENGINE_"))}
+               if key == "QT_OPENGL_DLL" or not key.startswith(("QT_", "QML", "QSG_", "QTWEBENGINE_"))}
 environment.update(PATH=str(Path(environment["WINDIR"]) / "System32"),
                    QT_FORCE_STDERR_LOGGING="1", QT_QPA_PLATFORM="windows")
 if arguments.qt_bin:
