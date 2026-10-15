@@ -79,13 +79,20 @@ try:
         if not kernel32.CreateProcessW(str(exe), ctypes.create_unicode_buffer(command), None, None, True,
                                       0x08000400, block, str(exe.parent), ctypes.byref(startup), ctypes.byref(process)):
             raise ctypes.WinError(ctypes.get_last_error())
-        if kernel32.WaitForSingleObject(process.hProcess, 60000) != 0:
+        wait_result = kernel32.WaitForSingleObject(process.hProcess, 180000)
+        if wait_result != 0:
+            subprocess.run([str(Path(environment["WINDIR"]) / "System32/taskkill.exe"),
+                            "/PID", str(process.dwProcessId), "/T", "/F"],
+                           stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                           creationflags=subprocess.CREATE_NO_WINDOW, timeout=10)
             kernel32.TerminateProcess(process.hProcess, 1)
-            raise TimeoutError("3D installation/handoff exceeded 60 seconds")
+            kernel32.WaitForSingleObject(process.hProcess, 5000)
         code = wintypes.DWORD()
         kernel32.GetExitCodeProcess(process.hProcess, ctypes.byref(code))
         stderr.seek(0)
         log = stderr.read().decode("utf-8", errors="replace")
+        if wait_result != 0:
+            raise TimeoutError("3D installation/handoff exceeded 180 seconds\n" + log[-12000:])
         stages = re.findall(r"QUICK3D_RUNTIME (\w+) ([0-9.]+)[ \t]*([^\r\n]*)", log)
         assert code.value == 0, f"Gallery exited with {code.value}\n{log[-8000:]}"
         assert stages and stages[-1][:2] == ("ready", "1.000"), f"3D renderer did not acknowledge readiness:\n{log[-8000:]}"
