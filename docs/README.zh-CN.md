@@ -6,7 +6,7 @@ EUI 是面向 Qt Quick / QML 桌面应用的组件库，提供表单、数据表
 
 ## 界面预览
 
-![包含顶部 dock 和组件导航的完整 Gallery 窗口](screenshots/overview-zh.png)
+![包含顶部 dock、精选组件和全部分类的完整 Gallery 首页](screenshots/home-zh.png)
 
 ## 体验 Gallery
 
@@ -41,22 +41,31 @@ cmake --build build/local --target example --parallel
 
 ## 更多组件
 
-![按钮与交互状态](screenshots/buttons-zh.png)
+![Apache ECharts 柱线双轴组合图](screenshots/echarts-mixed-zh.png)
 
-![数据编辑、筛选与分页](screenshots/table-zh.png)
+![暗色主题下的 Apache ECharts 桑基图](screenshots/echarts-sankey-dark-zh.png)
 
-![表单输入与校验反馈](screenshots/form-zh.png)
+![Apache ECharts 旭日图展示层级数据](screenshots/echarts-sunburst-zh.png)
 
-![原生图表](screenshots/chart-zh.png)
+![包含头像、单元格编辑、排序和分页的业务表格](screenshots/table-zh.png)
 
-![代码高亮与复制](screenshots/code-view-zh.png)
+![Qt Quick 3D 渲染的 Littlest Tokyo 三维展示场景](screenshots/quick3d-zh.png)
+
+三维场景是视觉演示，支持旋转、缩放与播放控制，并非 EUI 组件。
 
 ![命令搜索与选择](screenshots/command-palette-zh.png)
 
 ![步骤向导](screenshots/wizard-zh.png)
 
-## 反馈与许可
+更多图表类型、表单、源码预览及其他组件见[全部截图](screenshots/README.md)。
 
-通过 [GitHub Issues](https://github.com/lihechuan/EUI/issues) 提交问题或功能建议，也可以联系邮箱 [xiaojiaqaq@gmail.com](mailto:xiaojiaqaq@gmail.com)。贡献规范见 [CONTRIBUTING.md](../CONTRIBUTING.md)。
+## 问题反馈
+
+- 问题与功能建议：[GitHub Issues](https://github.com/lihechuan/EUI/issues)
+- **联系邮箱：[xiaojiaqaq@gmail.com](mailto:xiaojiaqaq@gmail.com)**
+
+贡献规范见 [CONTRIBUTING.md](../CONTRIBUTING.md)。
+
+## 许可证
 
 EUI 采用 [MIT 许可证](../LICENSE)。第三方软件和资源保留各自许可，见 [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md)。

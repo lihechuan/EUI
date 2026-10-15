@@ -6,7 +6,7 @@ EUI is a Qt Quick / QML component library for desktop applications, with forms, 
 
 ## Preview
 
-![Complete Gallery window with the top dock and component navigation](docs/screenshots/overview-en.png)
+![Complete Gallery home page with the top dock, featured components, and all categories](docs/screenshots/home-en.png)
 
 ## Try the Gallery
 
@@ -41,22 +41,31 @@ The [application integration guide](docs/guide.en.md#3-integrate-a-qt-quick-appl
 
 ## More components
 
-![Buttons and interaction states](docs/screenshots/buttons-en.png)
+![Apache ECharts with a combined bar and line chart and dual axes](docs/screenshots/echarts-mixed-en.png)
 
-![Data editing, filtering, and pagination](docs/screenshots/table-en.png)
+![Apache ECharts Sankey diagram in the dark theme](docs/screenshots/echarts-sankey-dark-en.png)
 
-![Form inputs and validation feedback](docs/screenshots/form-en.png)
+![Apache ECharts sunburst chart for hierarchical data](docs/screenshots/echarts-sunburst-en.png)
 
-![Native charts](docs/screenshots/chart-en.png)
+![Business table with avatars, cell editing, sorting, and pagination](docs/screenshots/table-en.png)
 
-![Code highlighting and copying](docs/screenshots/code-view-en.png)
+![Littlest Tokyo rendered with Qt Quick 3D, shown as a visual demo](docs/screenshots/quick3d-en.png)
+
+The 3D scene is a visual demo with orbit, zoom, and playback controls. It is not an EUI component.
 
 ![Command search and selection](docs/screenshots/command-palette-en.png)
 
 ![Step-by-step setup](docs/screenshots/wizard-en.png)
 
-## Support and license
+See [all screenshots](docs/screenshots/README.md) for more chart types, forms, source previews, and other components.
 
-Report problems or request features through [GitHub Issues](https://github.com/lihechuan/EUI/issues) or email [xiaojiaqaq@gmail.com](mailto:xiaojiaqaq@gmail.com). See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+## Feedback
+
+- Issues and feature requests: [GitHub Issues](https://github.com/lihechuan/EUI/issues)
+- **Email: [xiaojiaqaq@gmail.com](mailto:xiaojiaqaq@gmail.com)**
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+
+## License
 
 EUI uses the [MIT License](LICENSE). Third-party software and assets retain their own licenses; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
