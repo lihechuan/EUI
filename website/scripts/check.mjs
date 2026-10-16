@@ -63,6 +63,16 @@ for (const item of site.groups.flatMap(group => group.items).filter(item => !ite
   for (const prefix of ['', '/en']) {
     const page = pages.get(`${prefix}/components/${item.name}.html`)
     assert(page, `Missing component page: ${prefix}/${item.name}`)
+    const breadcrumb = page.html.match(/<div class="component-breadcrumb">([\s\S]*?)<\/div>/)?.[1]
+    assert(breadcrumb, `Missing component breadcrumb: ${prefix}/${item.name}`)
+    const targets = [...breadcrumb.matchAll(/\bhref="([^"]+)"/g)].map(([, target]) => target)
+    assert.equal(targets.length, 2, `Incomplete component breadcrumb: ${prefix}/${item.name}`)
+    for (const base of ['/', '/EUI/', '/preview/docs/']) {
+      const deployed = `https://eui.invalid${base}${page.relative.replace(/\.md$/, '.html')}`
+      for (const target of targets) {
+        assert.equal(new URL(target, deployed).pathname, `${base.slice(0, -1)}${prefix}/components/`, `Component breadcrumb leaves the deployed directory: ${page.relative} (${base})`)
+      }
+    }
     assert(!page.html.includes('component-source-links') && !/组件源码|示例源码|Component source|Example source/.test(page.text), `Source links left in ${prefix}/${item.name}`)
     assert(page.text.includes(`<QmlPlayground initial="${item.name}" :examples=`), `Missing component playground: ${prefix}/${item.name}`)
     assert(!page.html.includes('class="component-demo') && !/View full image|查看原图/.test(page.text), `Static preview left in ${prefix}/${item.name}`)

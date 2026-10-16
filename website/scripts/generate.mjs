@@ -269,7 +269,7 @@ function componentPage(item, language) {
   const sampleList = prepareExamples(item.name, examples(item, language), language)
   const declarations = interfaces(item.name)
   const introduced = item.introducedIn ? `<span class="component-introduced">${chinese ? '引入于' : 'Introduced in'} ${item.introducedIn}</span>` : ''
-  let text = `<div class="component-breadcrumb"><a href="${prefix}/components/">${chinese ? '组件' : 'Components'}</a><span>/</span><a href="${prefix}/components/#${item.group.id}">${item.group[language]}</a>${introduced}</div>\n\n`
+  let text = `<div class="component-breadcrumb"><a href="./">${chinese ? '组件' : 'Components'}</a><span>/</span><a href="./#${item.group.id}">${item.group[language]}</a>${introduced}</div>\n\n`
   text += `# ${item.name} <span class="component-subtitle">${escape(item[language])}</span>\n\n`
   text += '<div class="component-meta">\n\n`import EUI 1.0`\n\n</div>\n\n'
   text += `## ${chinese ? '示例与代码' : 'Examples'}\n\n`

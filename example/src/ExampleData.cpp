@@ -220,27 +220,6 @@ const Sample Samples[] = {
     text: "EU"
     shape: "circle"
 })qml"},
-    {"LayoutExamplesSample3",
-     R"qml(ERow {
-    gutter: 16
-
-    ECol {
-        span: 8
-    }
-    ECol {
-        span: 16
-    }
-})qml",
-     R"qml(ERow {
-    gutter: 16
-
-    ECol {
-        span: 8
-    }
-    ECol {
-        span: 16
-    }
-})qml"},
     {"EDateTimePickerExample",
      R"qml(EDateTimePicker {
     value: "2026-10-10 09:30:00"
@@ -2505,6 +2484,95 @@ EAdvancedRectangle {
         horizontalAlignment: Text.AlignHCenter
         text: qsTr("Drag the title bar, double-click to maximize, or resize from the window edges.")
         color: EPaletteManager.ThemePalette.textRegular(ETheme.dark)
+    }
+})qml"},
+    {"LayoutExamplesSample3",
+     R"qml(ERow {
+    gutter: 16
+    height: 64
+    width: parent.width
+
+    ECol {
+        span: 8
+        height: parent.height
+
+        ERectangle {
+            radius: 4
+            border.width: 1
+            anchors.fill: parent
+            color: EPaletteManager.BasePalette.transparent
+            border.color: EPaletteManager.ThemePalette.borderDefault(ETheme.dark)
+
+            EText {
+                font.pixelSize: 14
+                anchors.centerIn: parent
+                text: "8 / 24"
+                color: EPaletteManager.ThemePalette.textRegular(ETheme.dark)
+            }
+        }
+    }
+    ECol {
+        span: 16
+        height: parent.height
+
+        ERectangle {
+            radius: 4
+            border.width: 1
+            anchors.fill: parent
+            color: EPaletteManager.BasePalette.transparent
+            border.color: EPaletteManager.ThemePalette.borderDefault(ETheme.dark)
+
+            EText {
+                font.pixelSize: 14
+                anchors.centerIn: parent
+                text: "16 / 24"
+                color: EPaletteManager.ThemePalette.textRegular(ETheme.dark)
+            }
+        }
+    }
+})qml",
+     R"qml(ERow {
+    gutter: 16
+    height: 64
+    width: parent.width
+
+    ECol {
+        span: 8
+        height: parent.height
+
+        ERectangle {
+            radius: 4
+            border.width: 1
+            anchors.fill: parent
+            color: EPaletteManager.BasePalette.transparent
+            border.color: EPaletteManager.ThemePalette.borderDefault(ETheme.dark)
+
+            EText {
+                font.pixelSize: 14
+                anchors.centerIn: parent
+                text: "8 / 24"
+                color: EPaletteManager.ThemePalette.textRegular(ETheme.dark)
+            }
+        }
+    }
+    ECol {
+        span: 16
+        height: parent.height
+
+        ERectangle {
+            radius: 4
+            border.width: 1
+            anchors.fill: parent
+            color: EPaletteManager.BasePalette.transparent
+            border.color: EPaletteManager.ThemePalette.borderDefault(ETheme.dark)
+
+            EText {
+                font.pixelSize: 14
+                anchors.centerIn: parent
+                text: "16 / 24"
+                color: EPaletteManager.ThemePalette.textRegular(ETheme.dark)
+            }
+        }
     }
 })qml"},
     {"BasicExamplesSample7",

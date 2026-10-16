@@ -16,7 +16,6 @@ function navigation(language) {
       nav: [
         { text: chinese ? '指南' : 'Guide', link: `${prefix}/guide/getting-started` },
         { text: chinese ? '组件' : 'Components', link: `${prefix}/components/` },
-        { text: chinese ? '在线体验' : 'Playground', link: `${prefix}/playground` },
         { text: chinese ? '更新记录' : 'Changelog', link: `${prefix}/changelog` },
         { text: `v${version}`, link: 'https://github.com/lihechuan/EUI/releases' }
       ],
