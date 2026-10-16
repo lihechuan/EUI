@@ -48,27 +48,27 @@ ExamplePage {
                     width: parent.width
 
                     EButton {
-                        text: "Primary"
                         styleType: EStyle.Primary
+                        text: ELocale.texts.Primary
                     }
                     EButton {
                         plain: true
-                        text: "Plain"
                         styleType: EStyle.Success
+                        text: ELocale.texts.Plain
                     }
                     EButton {
                         dashed: true
-                        text: "Dashed"
+                        text: ELocale.texts.DemoDashedButton
                     }
                     EButton {
                         bg: true
                         textButton: true
-                        text: "Background"
+                        text: ELocale.texts.DemoBackgroundButton
                     }
                     EButton {
                         link: true
-                        text: "Link"
                         styleType: EStyle.Primary
+                        text: ELocale.texts.DemoLinkButton
                     }
                     EButton {
                         leftIcon: true
@@ -89,27 +89,27 @@ ExamplePage {
                 width: parent.width
 
                 EButton {
-                    text: "Primary"
                     styleType: EStyle.Primary
+                    text: ELocale.texts.Primary
                 }
                 EButton {
                     plain: true
-                    text: "Plain"
                     styleType: EStyle.Success
+                    text: ELocale.texts.Plain
                 }
                 EButton {
                     dashed: true
-                    text: "Dashed"
+                    text: ELocale.texts.DemoDashedButton
                 }
                 EButton {
                     bg: true
                     textButton: true
-                    text: "Background"
+                    text: ELocale.texts.DemoBackgroundButton
                 }
                 EButton {
                     link: true
-                    text: "Link"
                     styleType: EStyle.Primary
+                    text: ELocale.texts.DemoLinkButton
                 }
                 EButton {
                     leftIcon: true

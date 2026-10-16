@@ -40,7 +40,7 @@ ExampleCard {
                         editRules: ({name: [{required: true}], score: [{type: "number", min: 0, max: 100}]})
                         model: {
                             return (exampleData.models.TableAvatars || []).map(function(row, index) {
-                                return {id: index + 1, avatar: row.avatar, name: row.name, department: index % 2 ? "Design" : "Development",
+                                return {id: index + 1, avatar: row.avatar, name: row.name, department: index % 2 ? ELocale.texts.Design : ELocale.texts.DemoDevelopment,
                                     score: 60 + index % 41, joined: "2026-10-01", active: index % 3 !== 0}
                             })
                         }
@@ -48,7 +48,7 @@ ExampleCard {
                             {prop: "avatar", label: ELocale.texts.Avatar, width: 76, cellDelegate: avatarCell},
                             {prop: "name", label: ELocale.texts.Name2, minWidth: 160, editable: true, sortable: true},
                             {prop: "department", label: ELocale.texts.TableDepartment, width: 150,
-                                editRender: {type: "select", options: [{label: "Design", value: "Design"}, {label: "Development", value: "Development"}]}},
+                                editRender: {type: "select", options: [{label: ELocale.texts.Design, value: ELocale.texts.Design}, {label: ELocale.texts.DemoDevelopment, value: ELocale.texts.DemoDevelopment}]}},
                             {prop: "score", label: ELocale.texts.TableScore, width: 100, sortable: true, editRender: {type: "number"}},
                             {prop: "joined", label: ELocale.texts.TableJoined, width: 150, editRender: {type: "date"}},
                             {prop: "active", label: ELocale.texts.TableActive, width: 90, cellDelegate: activeCell, editRender: {type: "checkbox"}}]
@@ -131,7 +131,7 @@ ExampleCard {
                     editRules: ({name: [{required: true}], score: [{type: "number", min: 0, max: 100}]})
                     model: {
                         return (exampleData.models.TableAvatars || []).map(function(row, index) {
-                            return {id: index + 1, avatar: row.avatar, name: row.name, department: index % 2 ? "Design" : "Development",
+                            return {id: index + 1, avatar: row.avatar, name: row.name, department: index % 2 ? ELocale.texts.Design : ELocale.texts.DemoDevelopment,
                                 score: 60 + index % 41, joined: "2026-10-01", active: index % 3 !== 0}
                         })
                     }
@@ -139,7 +139,7 @@ ExampleCard {
                         {prop: "avatar", label: ELocale.texts.Avatar, width: 76, cellDelegate: avatarCell},
                         {prop: "name", label: ELocale.texts.Name2, minWidth: 160, editable: true, sortable: true},
                         {prop: "department", label: ELocale.texts.TableDepartment, width: 150,
-                            editRender: {type: "select", options: [{label: "Design", value: "Design"}, {label: "Development", value: "Development"}]}},
+                            editRender: {type: "select", options: [{label: ELocale.texts.Design, value: ELocale.texts.Design}, {label: ELocale.texts.DemoDevelopment, value: ELocale.texts.DemoDevelopment}]}},
                         {prop: "score", label: ELocale.texts.TableScore, width: 100, sortable: true, editRender: {type: "number"}},
                         {prop: "joined", label: ELocale.texts.TableJoined, width: 150, editRender: {type: "date"}},
                         {prop: "active", label: ELocale.texts.TableActive, width: 90, cellDelegate: activeCell, editRender: {type: "checkbox"}}]

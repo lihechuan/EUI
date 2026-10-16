@@ -1,0 +1,19 @@
+{
+  "name": "eui-documentation",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "generate": "node scripts/generate.mjs",
+    "dev": "npm run generate && vitepress dev --host 127.0.0.1",
+    "build": "npm run generate && vitepress build",
+    "preview": "vitepress preview --host 127.0.0.1",
+    "check": "npm run generate && node scripts/check.mjs"
+  },
+  "devDependencies": {
+    "shiki": "^2.5.0",
+    "vitepress": "1.6.4"
+  }
+}

@@ -2,7 +2,7 @@
 
 [简体中文](guide.zh-CN.md) | English · [Back to the project](../README.md)
 
-This guide covers the current source version, **EUI 1.3.1**. See the [1.3.1 screenshot index](screenshots/README.md) for current previews. Software and QML module versions are maintained separately; keep using `import EUI 1.0` in your application.
+Use `import EUI 1.0` to import EUI in your application.
 
 The default commands use **Windows, the Qt 5.15.2 MSVC 2019 64-bit Kit, C++17, and Ninja**. With only Qt 6 installed, build using [section 2.3](#23-build-with-only-qt-6-installed), then continue with application integration. Choose one path when starting:
 
@@ -12,7 +12,7 @@ The default commands use **Windows, the Qt 5.15.2 MSVC 2019 64-bit Kit, C++17, a
 | Create your application | Section 1 → Section 2.2 → Section 3 | Clicking a button increases a counter and shows a message |
 | Integrate an existing Qt Quick project | Section 1 → Section 2.2 → Section 3.5 | Your existing window can use `import EUI 1.0` |
 
-For an introduction, screenshots, and quick start instructions, see the [project page](../README.md). To create release packages yourself, see [section 6.3](#63-github-packages-and-downloads).
+For an introduction, screenshots, and quick start instructions, see the [project page](../README.md).
 
 ## Contents
 
@@ -21,8 +21,7 @@ For an introduction, screenshots, and quick start instructions, see the [project
 - [3. Integrate a Qt Quick application](#3-integrate-a-qt-quick-application)
 - [4. Common features: purpose and usage](#4-common-features-purpose-and-usage)
 - [5. Learn components with the Gallery](#5-learn-components-with-the-gallery)
-- [6. Deploy your application](#6-deploy-your-application)
-- [7. Troubleshooting](#7-troubleshooting)
+- [6. Troubleshooting](#6-troubleshooting)
 
 ## 1. Prerequisites
 
@@ -74,8 +73,6 @@ cmake --build build/local
 
 The executable is at `$euiRoot/bin/Release/example.exe`, with the component module in the adjacent `EUI/` directory. Building also copies the module to `$qtKit/qml/EUI/`; this SDK directory must be writable.
 
-On Windows x64 with Qt 5.15.2, the Gallery uses the QML interpreter and synchronous page loading to avoid JIT unwind-table writes and nested asynchronous creation crashes in that Kit. Examples within each page still load when they approach the viewport. The interpreter adds JavaScript execution overhead; all 127 navigation entries opened their first view in under one second in local regression tests. The Qt 6 Gallery retains asynchronous page loading, and the component library does not apply either compatibility policy to host applications.
-
 ### 2.2 Build the library for your application
 
 **Working directory: the EUI repository root.**
@@ -93,7 +90,7 @@ cmake --install build/library --prefix build/eui-install
 
 Qt 5 does not need to be installed. `source/qt5` contains the shared QML source. CMake adapts it with Python into `source/qt6` inside the current build directory, then compiles the plugin and Gallery using Qt 6. The script preserves the source files, and `import EUI 1.0` stays unchanged.
 
-Prepare a Qt 6.5 or newer desktop Kit, its matching C++ compiler, CMake, Ninja, and Python 3. Qt 6.8.3 is the locally verified version. In addition to the library's base modules, install **Core5Compat, ShaderTools, Multimedia, and SVG**; the Gallery needs **WebEngineQuick and WebChannel**. **Quick3D and QuickTimeline** enable the native 3D example with Qt 6.8+. File selection uses Qt Quick Dialogs, calendars use Qt Quick Controls, masking uses Qt5Compat.GraphicalEffects, and shaders are compiled into `.qsb` files during the build.
+Prepare a Qt 6.5 or newer desktop Kit, its matching C++ compiler, CMake, Ninja, and Python 3. In addition to the library's base modules, install **Core5Compat, ShaderTools, Multimedia, and SVG**; the Gallery needs **WebEngineQuick and WebChannel**. **Quick3D and QuickTimeline** enable the native 3D example with Qt 6.8+. File selection uses Qt Quick Dialogs, calendars use Qt Quick Controls, masking uses Qt5Compat.GraphicalEffects, and shaders are compiled into `.qsb` files during the build.
 
 Run these commands in the matching compiler's Developer PowerShell, replacing `$qtKit` with your Qt 6 Kit:
 
@@ -110,7 +107,7 @@ cmake --build build/qt6
 
 To build only the library, set both `EUI_BUILD_*` options to `OFF`, then run `cmake --install build/qt6 --prefix build/eui-install-qt6`. When following section 3, keep the same `$qtKit` and copy the module from `build/eui-install-qt6/imports/EUI`. Use separate build, installation, and application directories for Qt 5 and Qt 6; their `euiplugin.dll` files are not interchangeable.
 
-Qt 6 builds require matching Qt 6 runtime libraries. After deployment with that Kit's `windeployqt` as described in section 6, the target computer does not need a Qt SDK. Existing Qt 5 executables still require Qt 5 runtime libraries; Qt 6 DLLs cannot replace them.
+Qt 5 and Qt 6 builds require their matching runtime libraries; do not mix DLLs from the two versions.
 
 ## 3. Integrate a Qt Quick application
 
@@ -281,7 +278,7 @@ Copy all of `EUI/`, including the plugin DLL. `main.cpp` adds the executable dir
 2. Select **Add one**. The text becomes **Clicks: 1**, and **Clicked 1 times** appears as a message.
 3. Click again. The text becomes **Clicks: 2**.
 
-After editing `main.qml`, close the application, run `cmake --build build`, and launch it again. QML is embedded in the executable, so source changes require a rebuild. Qt runtime libraries currently come from the PATH set in section 1; deploy them using section 6 before running on another computer.
+After editing `main.qml`, close the application, run `cmake --build build`, and launch it again. QML is embedded in the executable, so source changes require a rebuild. Qt runtime libraries come from the PATH set in section 1.
 
 ### 3.5 Use an existing project or replace the example control
 
@@ -661,57 +658,20 @@ Recommended workflow:
 
 ### Gallery software updates
 
-Every launch checks GitHub for the latest stable release. The top dock bar provides the update action; the bottom-left corner retains the actual build version. Clicking the update button opens the status and progress panel. Update now downloads the matching package, verifies SHA-256, prepares installation, replaces the program, and restarts it. During an update, the dock button shows the percentage; click it again to reopen the progress panel. Completion appears only after the new version renders its window. Verification failures preserve the current version; replacement or startup failures restore it. Retry check repeats a failed network request.
+Gallery checks for new versions at startup. Open the update panel from the top bar to view version information. When an update is available, select **Update now** to download and install it while following progress in the panel. Gallery restarts after updating and retains your language, theme, and user settings. Select **Retry check** after a network error.
 
-Windows installed and portable releases update in their original directory. The Qt 6 3D window also updates the original Gallery installation. Uninstaller information and user settings are retained. The adjacent `.before-.eui-update-*` directory preserves the previous installation; remove it after confirming the new version works. Updating requires write access to the installation and its parent, plus sufficient free space. macOS uses a complete `.app` package matching the architecture; replacement and startup cannot be tested from this Windows environment. Development builds can check releases but cannot update in place. Missing platform or architecture assets are reported without installing a different package.
+Updating requires write access to the installation directory and sufficient free space. If an in-place update is unavailable, download a package for your system and architecture from [GitHub Releases](https://github.com/lihechuan/EUI/releases).
 
-## 6. Deploy your application
-
-### 6.1 Deploy this chapter's MyEuiApp
-
-Complete section 3 and close the application. Run this in the terminal from section 1. Absolute paths make it independent of the working directory:
-
-```powershell
-& "$qtKit/bin/windeployqt.exe" --release --qmldir "$appRoot" --qmlimport "$appRoot/build" "$appRoot/build/MyEuiApp.exe"
-```
-
-`--qmldir` points to the QML source directory; `--qmlimport` points to the parent directory containing your current `EUI/` module. The deployment tool places Qt libraries, QML runtime modules, and platform plugins in the application directory. Keep the complete `EUI/` directory copied in section 3.3, and distribute all of `$appRoot/build/`. Run `MyEuiApp.exe` on the target computer. Check that the window, button, and messages work on a target without the development environment. For other applications, replace the arguments with their source directories, module parent directories, and executables.
-
-### 6.2 Deploy additional components
-
-For `EECharts`, include Qt WebEngine / WebChannel, `QtWebEngineProcess`, Chromium resource files, and `qtwebengine_locales`, retaining your Qt Kit's directory layout. Media controls require Qt Multimedia; SVG icons require the SVG image-format plugin.
-
-### 6.3 GitHub packages and downloads
-
-[GitHub Actions](https://github.com/lihechuan/EUI/actions/workflows/build-windows.yml) builds and packages the Gallery, then verifies runtime files and background startup. To get a recent build:
-
-The workflow targets these packages. Use the actual Release attachments for published downloads; existing versions do not automatically receive new platform assets.
-
-| Platform | Installer | Portable package |
-| --- | --- | --- |
-| Windows x64 | `*-windows-x64-setup.exe` | `*-windows-x64-portable.zip` |
-| Windows x86 (32-bit) | `*-windows-x86-setup.exe` | `*-windows-x86-portable.zip` |
-| macOS Intel | `*-macos-x64.dmg` | `*-macos-x64-portable.zip` |
-| macOS Apple Silicon | `*-macos-arm64.dmg` | `*-macos-arm64-portable.zip` |
-
-Windows uses Qt 5.15.2; macOS uses Qt 6.8.3. Drag the macOS DMG application into Applications, or extract the ZIP and run its `.app`. macOS packages use ad-hoc signing without Apple Developer ID signing or notarization. Packages include runtime libraries and license notices, and retain existing per-user settings storage.
-
-1. Open the workflow page and select a successful run for the desired commit.
-2. Download the required platform's attachment from **Artifacts** at the bottom of the page. Build artifacts are retained for 14 days.
-3. Extract the attachment and use the installer or portable package. Verify SHA-256 against `SHA256SUMS.txt`. For the Windows portable package, extract the complete directory and run `EUI-Gallery.exe`, keeping all DLLs and subdirectories.
-
-For long-term downloads, see [GitHub Releases](https://github.com/lihechuan/EUI/releases). Documentation and screenshot changes alone skip automatic packaging. A push to `master` that triggers packaging publishes installers, portable packages, and checksums after every platform passes verification if the current version has no published release. Fixes can recover a failed release without changing the version; published versions are preserved. See the [release process](../CONTRIBUTING.md#正式发布--releases) for publication and failed-job retries. Test charts, media, uploads, and printing on actual target systems before delivery.
-
-## 7. Troubleshooting
+## 6. Troubleshooting
 
 | Symptom | What to check |
 | --- | --- |
 | `module "EUI" is not installed` | Does the import path point to the parent of the complete `EUI/` directory? Is `qmldir` present? |
-| Plugin loading fails or a DLL is missing | Match Qt version, architecture, compiler, and Debug/Release; deploy plugin dependencies and the Qt runtime |
+| Plugin loading fails or a DLL is missing | Match Qt version, architecture, compiler, and Debug/Release; check that plugin dependencies and the Qt runtime are available |
 | Theme or utilities are missing after copying QML | Copy the complete generated module, including the compiled plugin |
 | `cl`, `ninja`, or Qt cannot be found | Use Developer PowerShell, check PATH, and correct `CMAKE_PREFIX_PATH` |
 | Changing a table/tree array does not refresh the UI | Assign a new `model` array instead of mutating a plain JavaScript array in place |
 | Business text does not change with the language | `ELocale` manages built-in text; add your own localization bindings for business `text` / `label` |
 | Selected files are not uploaded | Selection does not send files by default; configure `action` and call an upload method or enable `autoUpload` |
-| `EECharts` reports an unsupported software backend | Remove `QT_QUICK_BACKEND=software`, then check host initialization, graphics, and WebEngine deployment |
+| `EECharts` reports an unsupported software backend | Remove `QT_QUICK_BACKEND=software`, then check host initialization, graphics, and WebEngine modules |
 | Brand icons or video do not display | Check the SVG plugin or Multimedia backend and supported media formats |

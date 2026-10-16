@@ -37,7 +37,7 @@ The build copies the EUI module beside the executable and into `$qtKit/qml/EUI/`
 2. Copy the complete `EUI/` module, including its plugin, into your application. Add its parent directory to the QML engine's import path.
 3. Import the EUI module in your QML, then use the Gallery's examples and API to configure the controls you need.
 
-The [application integration guide](docs/guide.en.md#3-integrate-a-qt-quick-application) includes a complete project, build commands, and QML examples. Follow the [deployment guide](docs/guide.en.md#6-deploy-your-application) when distributing your application.
+The [application integration guide](docs/guide.en.md#3-integrate-a-qt-quick-application) includes a complete project, build commands, and QML examples.
 
 ## More components
 

@@ -1,0 +1,74 @@
+name: Documentation website
+
+on:
+  push:
+    branches: [master]
+    paths: &docs-paths
+      - 'website/**'
+      - '.github/workflows/docs.yml'
+      - 'CMakeLists.txt'
+      - 'CHANGELOG.md'
+      - 'docs/**'
+      - 'assets/eui-mark.svg'
+      - 'example/data/**'
+      - 'example/src/ExampleCatalog.cpp'
+      - 'example/src/ExampleData.cpp'
+      - 'example/qml/component/**'
+      - 'source/qt5/imports/eui/**'
+      - 'source/component/*.h'
+      - 'source/utils/*.h'
+  pull_request:
+    branches: [master]
+    paths: *docs-paths
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: docs-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: website
+    steps:
+      - name: Check out source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: website/package-lock.json
+      - name: Install dependencies
+        run: npm ci
+      - name: Check documentation
+        run: npm run check
+      - name: Build website
+        run: npm run build
+      - name: Upload Pages artifact
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: website/.vitepress/dist
+
+  deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

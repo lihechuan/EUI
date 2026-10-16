@@ -1,0 +1,25 @@
+EUI QML browser runtime
+
+The compiled eui-playground.js and eui-playground.wasm include Qt 5.15.2
+(Qt Core, Gui, Network, Widgets, Print Support, Qml, Quick,
+Quick Controls, Quick Controls 2, Graphical Effects and their dependencies).
+Copyright (C) The Qt Company Ltd. and other Qt contributors.
+This combined runtime is distributed under the GNU General Public License v3.
+See licenses/Qt-GPL-3.0.txt.
+
+Runtime application and EUI component source (MIT):
+https://github.com/lihechuan/EUI/tree/master/website/playground
+https://github.com/lihechuan/EUI/tree/master/source
+https://github.com/lihechuan/EUI/blob/master/example/src/ExampleData.cpp
+Qt 5.15.2 source, including third-party notices:
+https://download.qt.io/archive/qt/5.15/5.15.2/single/qt-everywhere-src-5.15.2.tar.xz
+Emscripten 1.39.8 source and licenses:
+https://github.com/emscripten-core/emscripten/tree/1.39.8
+
+The embedded Noto Sans SC font is Copyright 2014-2021 Adobe
+(http://www.adobe.com/), with Reserved Font Name 'Source'.
+The GB2312 character subset is based on Google Fonts revision a85815a:
+https://github.com/google/fonts/tree/a85815a42757630ce188fdad368c2dfc444d4773/ofl/notosanssc
+Distributed under SIL Open Font License 1.1. See licenses/NotoSansSC-OFL.txt.
+
+EUI and its icon font retain the MIT license in licenses/EUI-MIT.txt.

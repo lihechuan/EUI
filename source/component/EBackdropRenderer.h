@@ -4,7 +4,9 @@
 #include <QImage>
 #include <QTimer>
 #include <QPointer>
+#if QT_CONFIG(thread)
 #include <QFutureWatcher>
+#endif
 #include <QSharedPointer>
 #include <QQuickPaintedItem>
 
@@ -67,7 +69,9 @@ private:
     int workingRevision_ = 0;
     qreal noiseOpacity_  = 0.025;
     QPointer<QQuickItem> source_;
+#if QT_CONFIG(thread)
     QFutureWatcher<QImage> worker_;
+#endif
     QMetaObject::Connection frameConnection_;
     QSharedPointer<QQuickItemGrabResult> grab_;
     QMetaObject::Connection visibilityConnection_;

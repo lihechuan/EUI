@@ -37,7 +37,7 @@ cmake --build build/local --target example --parallel
 2. 将包含插件的完整 `EUI/` 模块复制到应用中，将它的父目录加入 QML 引擎的导入路径。
 3. 在 QML 中导入 EUI 模块，参考 Gallery 的示例和 API 配置需要的组件。
 
-[应用接入指南](guide.zh-CN.md#3-接入自己的-qt-quick-应用)提供完整工程、构建命令和 QML 示例。分发应用时，按[部署指南](guide.zh-CN.md#6-部署应用)准备运行库和模块文件。
+[应用接入指南](guide.zh-CN.md#3-接入自己的-qt-quick-应用)提供完整工程、构建命令和 QML 示例。
 
 ## 更多组件
 

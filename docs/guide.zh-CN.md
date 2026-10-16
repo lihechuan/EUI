@@ -2,7 +2,7 @@
 
 简体中文 | [English](guide.en.md) · [返回首页](README.zh-CN.md)
 
-本指南对应当前源码版本 **EUI 1.3.1**，界面预览见[1.3.1 截图索引](screenshots/README.md)。软件版本与 QML 模块版本分别维护，接入时继续使用 `import EUI 1.0`。
+接入 EUI 时使用 `import EUI 1.0`。
 
 本指南的默认命令使用 **Windows、Qt 5.15.2 MSVC 2019 64 位 Kit、C++17 和 Ninja**。只安装 Qt 6 时，按[第 2.3 节](#23-只安装-qt-6-时构建)构建，再继续接入应用。第一次使用时，先选择一条流程：
 
@@ -12,7 +12,7 @@
 | 创建自己的应用 | 第 1 节 → 第 2.2 节 → 第 3 节 | 点击按钮后计数增加，并出现消息 |
 | 接入已有 Qt Quick 项目 | 第 1 节 → 第 2.2 节 → 第 3.5 节 | 现有窗口中可以使用 `import EUI 1.0` |
 
-项目介绍、界面截图和快速使用方法见[首页](README.zh-CN.md)。自行生成发布包见[第 6.3 节](#63-github-自动打包与下载)。
+项目介绍、界面截图和快速使用方法见[首页](README.zh-CN.md)。
 
 ## 目录
 
@@ -21,8 +21,7 @@
 - [3. 接入自己的 Qt Quick 应用](#3-接入自己的-qt-quick-应用)
 - [4. 常用功能：是什么、何时用、如何用](#4-常用功能是什么何时用如何用)
 - [5. 使用 Gallery 学习组件](#5-使用-gallery-学习组件)
-- [6. 部署应用](#6-部署应用)
-- [7. 常见问题](#7-常见问题)
+- [6. 常见问题](#6-常见问题)
 
 ## 1. 环境准备
 
@@ -74,8 +73,6 @@ cmake --build build/local
 
 程序在 `$euiRoot/bin/Release/example.exe`，组件模块在旁边的 `EUI/`。构建还会将模块复制到 `$qtKit/qml/EUI/`，这个 SDK 目录需要可写。
 
-Windows x64 的 Qt 5.15.2 Gallery 使用 QML 解释器和同步页面加载，规避该 Kit 的 JIT 异常表写入及嵌套异步创建崩溃；页面内的示例仍按可视区域延迟创建。解释器会增加 JavaScript 执行开销，本机回归中 127 个导航入口的首屏打开均小于 1 秒。Qt 6 Gallery 保持异步页面加载，组件库不会替宿主应用设置这两项兼容策略。
-
 ### 2.2 为自己的应用构建组件库
 
 **执行位置：EUI 仓库根目录。**
@@ -93,7 +90,7 @@ cmake --install build/library --prefix build/eui-install
 
 无需安装 Qt 5。`source/qt5` 是共享 QML 源码目录；CMake 使用 Python 将其适配到当前构建目录的 `source/qt6`，再使用 Qt 6 编译插件和 Gallery。源文件不会被转换脚本覆盖，`import EUI 1.0` 保持不变。
 
-准备 Qt 6.5 或更高版本的桌面 Kit、匹配的 C++ 编译器、CMake、Ninja 和 Python 3。Qt 6.8.3 是本机验证版本。除了组件库基础模块，还需要 **Core5Compat、ShaderTools、Multimedia、SVG**；Gallery 需要 **WebEngineQuick、WebChannel**。Qt 6.8+ 安装 **Quick3D、QuickTimeline** 后可使用原生 3D 示例。文件选择使用 Qt Quick Dialogs，日历使用 Qt Quick Controls，遮罩使用 Qt5Compat.GraphicalEffects，Shader 在构建时生成 `.qsb`。
+准备 Qt 6.5 或更高版本的桌面 Kit、匹配的 C++ 编译器、CMake、Ninja 和 Python 3。除了组件库基础模块，还需要 **Core5Compat、ShaderTools、Multimedia、SVG**；Gallery 需要 **WebEngineQuick、WebChannel**。Qt 6.8+ 安装 **Quick3D、QuickTimeline** 后可使用原生 3D 示例。文件选择使用 Qt Quick Dialogs，日历使用 Qt Quick Controls，遮罩使用 Qt5Compat.GraphicalEffects，Shader 在构建时生成 `.qsb`。
 
 在对应编译器的 Developer PowerShell 中执行，将 `$qtKit` 改成自己的 Qt 6 Kit：
 
@@ -110,7 +107,7 @@ cmake --build build/qt6
 
 只构建组件库时，将两个 `EUI_BUILD_*` 选项设为 `OFF`，再执行 `cmake --install build/qt6 --prefix build/eui-install-qt6`。接入第 3 节的应用时，使用相同的 `$qtKit`，并将复制来源改为 `build/eui-install-qt6/imports/EUI`。Qt 5 和 Qt 6 使用不同的构建、安装和程序目录，不混用两者的 `euiplugin.dll`。
 
-运行 Qt 6 构建产物只需要匹配的 Qt 6 运行库；按第 6 节使用该 Kit 的 `windeployqt` 部署后，目标电脑无需安装 Qt SDK。Qt 5 编译的现有程序仍需要 Qt 5 运行库，不能直接使用 Qt 6 DLL 替代。
+Qt 5 和 Qt 6 构建产物需使用对应版本的运行库，不能混用 DLL。
 
 ## 3. 接入自己的 Qt Quick 应用
 
@@ -281,7 +278,7 @@ MyEuiApp/
 2. 点击“点击加一”，文字变为“点击次数：1”，同时出现“已点击 1 次”消息。
 3. 再点击一次，文字变为“点击次数：2”。
 
-修改 `main.qml` 后先关闭程序，再执行 `cmake --build build` 并重新运行。QML 已打包进可执行文件，修改源文件需要重新构建。此时 Qt 运行库来自第 1 节的 PATH；交给其他电脑运行前，按第 6 节部署运行库。
+修改 `main.qml` 后先关闭程序，再执行 `cmake --build build` 并重新运行。QML 已打包进可执行文件，修改源文件需要重新构建。此时 Qt 运行库来自第 1 节的 PATH。
 
 ### 3.5 接入已有项目或替换示例组件
 
@@ -692,7 +689,7 @@ EWizard {
 
 Gallery 左侧提供分类导航和名称搜索；`Ctrl+K` 聚焦搜索框。右上角切换语言和主题。每个组件页面包含可操作的示例卡片、源码按钮及页面下方的 API 文档。
 
-![英文按钮页的源码面板：交互预览、展开源码与复制源码](screenshots/1.3.1/source-en.png)
+![按钮页的源码面板：交互预览、展开源码与复制源码](screenshots/1.3.1/source-zh.png)
 
 推荐按以下顺序学习：
 
@@ -704,57 +701,20 @@ Gallery 左侧提供分类导航和名称搜索；`Ctrl+K` 聚焦搜索框。右
 
 ### Gallery 软件更新
 
-每次启动 Gallery 会检查 GitHub 的最新正式版本，顶部 dock 栏提供更新入口，左下角保留当前构建版本。点击更新按钮可展开检查结果和进度面板；发现新版后点击“立即更新”，进度依次覆盖下载、SHA-256 校验和安装准备，然后自动关闭旧进程、替换程序并重启。更新期间 dock 栏按钮显示百分比，关闭面板后可再次点击查看进度。新版本成功渲染窗口后才显示“更新完成”；校验失败时保留当前版本，替换或启动失败时恢复旧目录。网络失败可点击“重新检查”。
+Gallery 启动时检查新版本。点击顶部的更新按钮查看版本信息；有新版时点击“立即更新”，可在面板中查看下载和安装进度。更新完成后 Gallery 自动重启，语言、主题和用户设置保留。网络连接失败时可点击“重新检查”。
 
-Windows 安装版和免安装版在原目录更新；Qt 6 的 3D 窗口仍更新原 Gallery 安装目录。安装版保留卸载信息，用户设置不变。旧目录保留为相邻的 `.before-.eui-update-*` 备份，确认新版本正常后可手动删除。更新需要安装目录及其父目录的写入权限和足够空间。macOS 使用匹配架构的完整 `.app` 更新包；当前 Windows 环境无法验证 macOS 实际替换和启动。开发构建显示版本检查结果，但不能覆盖更新；尚未发布匹配系统和架构的完整附件时会显示原因。
+更新需要安装目录的写入权限和足够的可用空间。无法直接更新时，可从 [GitHub Releases](https://github.com/lihechuan/EUI/releases) 下载适合当前系统和架构的版本。
 
-## 6. 部署应用
-
-### 6.1 部署本章的 MyEuiApp
-
-先完成第 3 节并关闭程序。在第 1 节使用的终端执行，下面使用绝对路径，无需切换工作目录：
-
-```powershell
-& "$qtKit/bin/windeployqt.exe" --release --qmldir "$appRoot" --qmlimport "$appRoot/build" "$appRoot/build/MyEuiApp.exe"
-```
-
-`--qmldir` 指向 QML 源文件目录，`--qmlimport` 指向包含当前 `EUI/` 的父目录。部署工具将 Qt 动态库、QML 运行模块和平台插件放到程序目录。保留第 3.3 节已复制的完整 `EUI/`，将整个 `$appRoot/build/` 目录交给目标电脑运行，其中的 `MyEuiApp.exe` 是入口。先在没有开发环境的目标机器上检查程序能打开、按钮和消息能工作；其他应用将参数替换为自己的源码目录、模块父目录和可执行文件。
-
-### 6.2 部署额外组件
-
-使用 `EECharts` 时还需部署 Qt WebEngine / WebChannel、`QtWebEngineProcess`、Chromium 资源文件和 `qtwebengine_locales`，保持所用 Qt Kit 的目录结构。使用媒体组件时部署 Qt Multimedia；使用 SVG 图标时部署 SVG 图片格式插件。
-
-### 6.3 GitHub 自动打包与下载
-
-Gallery 由 [GitHub Actions](https://github.com/lihechuan/EUI/actions/workflows/build-windows.yml) 自动构建、打包并验证运行文件和后台启动。获取最新构建产物时：
-
-工作流的目标产物如下；正式下载以 Release 实际附件为准，既有版本不会自动补充新平台附件。
-
-| 平台 | 安装版 | 免安装版 |
-| --- | --- | --- |
-| Windows x64 | `*-windows-x64-setup.exe` | `*-windows-x64-portable.zip` |
-| Windows x86（32 位） | `*-windows-x86-setup.exe` | `*-windows-x86-portable.zip` |
-| macOS Intel | `*-macos-x64.dmg` | `*-macos-x64-portable.zip` |
-| macOS Apple Silicon | `*-macos-arm64.dmg` | `*-macos-arm64-portable.zip` |
-
-Windows 使用 Qt 5.15.2，macOS 使用 Qt 6.8.3。macOS DMG 将应用拖入 Applications，ZIP 解压后运行 `.app`。macOS 包使用临时签名，未进行 Apple Developer ID 签名和公证。各平台都附带运行库和许可声明，并保留应用原有的用户配置存储方式。
-
-1. 打开工作流页面，选择对应提交且已成功完成的运行记录。
-2. 在页面底部的 **Artifacts** 下载所需平台的附件；构建产物保留 14 天。
-3. 解压附件，使用其中的安装包或免安装包，并按 `SHA256SUMS.txt` 核对 SHA-256。Windows 免安装版解压后运行 `EUI-Gallery.exe`，保留全部 DLL 和子目录。
-
-长期下载入口见[GitHub Releases](https://github.com/lihechuan/EUI/releases)。仅修改文档和截图时跳过自动打包。推送到 `master` 并触发打包后，如果当前版本尚未发布，工作流会在全部平台验证通过后自动发布安装包、免安装包和校验文件；版本号不变的修复提交也能补发之前失败的版本，已公开版本不覆盖。正式发布及失败重跑方式见[贡献指南](../CONTRIBUTING.md#正式发布--releases)。交付前仍应在目标电脑检查图表、媒体、上传和打印等实际功能。
-
-## 7. 常见问题
+## 6. 常见问题
 
 | 现象 | 检查方式 |
 | --- | --- |
 | `module "EUI" is not installed` | 导入路径是否指向完整 `EUI/` 的父目录？目录里是否有 `qmldir`？ |
-| 插件无法加载或提示 DLL 缺失 | 检查 Qt 版本、架构、编译器及 Debug/Release 一致；检查插件依赖和 Qt 运行库是否已部署 |
+| 插件无法加载或提示 DLL 缺失 | 检查 Qt 版本、架构、编译器及 Debug/Release 一致；检查插件依赖和 Qt 运行库是否齐全 |
 | 只复制了 QML，主题或工具不可用 | 复制完整构建产物，包含编译后的插件 |
 | `cl`、`ninja` 或 Qt 找不到 | 使用 Developer PowerShell，确认工具在 PATH 中，并修正 `CMAKE_PREFIX_PATH` |
 | 更新表格或树数组后 UI 不刷新 | 重新赋值一个新的 `model` 数组；避免只原地修改普通 JavaScript 数组 |
 | 语言切换后业务文字未改变 | `ELocale` 只管理内置文本；给业务 `text` / `label` 添加应用自己的翻译绑定 |
 | 选择文件后未上传 | 默认不会自动发送；配置 `action`，调用上传方法或启用 `autoUpload` |
-| `EECharts` 提示软件后端不可用 | 移除 `QT_QUICK_BACKEND=software`，确认宿主初始化、图形后端及 WebEngine 部署 |
+| `EECharts` 提示软件后端不可用 | 移除 `QT_QUICK_BACKEND=software`，确认宿主初始化、图形后端及 WebEngine 模块 |
 | 品牌图标或视频无法显示 | 检查 SVG 插件或 Multimedia 后端及支持的媒体格式 |

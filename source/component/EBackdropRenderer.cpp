@@ -2,7 +2,9 @@
 #include <QPainterPath>
 #include <QQuickWindow>
 #include <QQuickItemGrabResult>
+#if QT_CONFIG(thread)
 #include <QtConcurrent/QtConcurrentRun>
+#endif
 
 #include "EBackdropRenderer.h"
 #include "utils/EImageEffects.h"
@@ -37,6 +39,7 @@ EBackdropRenderer::EBackdropRenderer(QQuickItem *parent) : QQuickPaintedItem(par
     connect(this, &QQuickItem::heightChanged, this, &EBackdropRenderer::refresh);
     connect(this, &QQuickItem::visibleChanged, this, &EBackdropRenderer::updateTimer);
     connect(this, &QQuickItem::windowChanged, this, &EBackdropRenderer::updateWindow);
+#if QT_CONFIG(thread)
     connect(&worker_,
             &QFutureWatcher<QImage>::finished,
             this,
@@ -52,6 +55,7 @@ EBackdropRenderer::EBackdropRenderer(QQuickItem *parent) : QQuickPaintedItem(par
                 if (dirty_)
                     QTimer::singleShot(0, this, &EBackdropRenderer::capture);
             });
+#endif
     updateWindow();
 }
 
@@ -91,7 +95,9 @@ QQuickItem *EBackdropRenderer::sourceItem() const
 EBackdropRenderer::~EBackdropRenderer()
 {
     disconnect(this, nullptr, this, nullptr);
+#if QT_CONFIG(thread)
     disconnect(&worker_, nullptr, this, nullptr);
+#endif
     disconnect(frameConnection_);
     disconnect(visibilityConnection_);
     for (const auto &connection : sourceConnections_)
@@ -175,7 +181,11 @@ void EBackdropRenderer::setSourceItem(QQuickItem *source)
     {
         disconnect(grab_.data(), nullptr, this, nullptr);
         grab_.clear();
+#if QT_CONFIG(thread)
         pending_ = worker_.isRunning();
+#else
+        pending_ = false;
+#endif
     }
     source_ = source;
     image_  = {};
@@ -193,7 +203,11 @@ void EBackdropRenderer::setSourceItem(QQuickItem *source)
                                               {
                                                   disconnect(grab_.data(), nullptr, this, nullptr);
                                                   grab_.clear();
+#if QT_CONFIG(thread)
                                                   pending_ = worker_.isRunning();
+#else
+                                                  pending_ = false;
+#endif
                                               }
                                               ++revision_;
                                               image_ = {};
@@ -309,8 +323,17 @@ void EBackdropRenderer::capture()
                         QTimer::singleShot(0, this, &EBackdropRenderer::capture);
                     return;
                 }
+#if QT_CONFIG(thread)
                 workingRevision_ = revision;
                 worker_.setFuture(QtConcurrent::run([image, radius]() { return EImageEffects::blur(image, radius); }));
+#else
+                image_   = EImageEffects::blur(image, radius);
+                pending_ = false;
+                update();
+                emit readyChanged();
+                if (dirty_)
+                    QTimer::singleShot(0, this, &EBackdropRenderer::capture);
+#endif
             });
 }
 

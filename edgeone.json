@@ -1,0 +1,6 @@
+{
+  "nodeVersion": "22.11.0",
+  "installCommand": "npm --prefix website ci",
+  "buildCommand": "npm --prefix website run check && EUI_DOCS_BASE=/ npm --prefix website run build",
+  "outputDirectory": "website/.vitepress/dist"
+}

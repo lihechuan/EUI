@@ -21,7 +21,7 @@ ExamplePage {
                     width: parent.width
                     height: webBasicProviderContent.implicitHeight
                     button: ({plain: true, round: true, type: "primary"})
-                    locale: ({name: "en", texts: {NoData: "Nothing here yet"}})
+                    locale: ({name: ELocale.language, texts: {NoData: ELocale.texts.DemoNoDataOverride}})
 
                     Column {
                         id: webBasicProviderContent
@@ -29,7 +29,7 @@ ExamplePage {
                         spacing: 16
                         width: parent.width
                         EEmpty { width: parent.width }
-                        EButton { text: "Local button defaults" }
+                        EButton { text: ELocale.texts.DemoLocalButtonDefaults }
                     }
                 }
             `)
@@ -38,7 +38,7 @@ ExamplePage {
                 width: parent.width
                 height: webBasicProviderContent.implicitHeight
                 button: ({plain: true, round: true, type: "primary"})
-                locale: ({name: "en", texts: {NoData: "Nothing here yet"}})
+                locale: ({name: ELocale.language, texts: {NoData: ELocale.texts.DemoNoDataOverride}})
 
                 Column {
                     id: webBasicProviderContent
@@ -47,7 +47,7 @@ ExamplePage {
                     width: parent.width
 
                     EEmpty { width: parent.width }
-                    EButton { text: "Local button defaults" }
+                    EButton { text: ELocale.texts.DemoLocalButtonDefaults }
                 }
             }
         }
@@ -81,7 +81,7 @@ ExamplePage {
 
                         ECard {
                             anchors.fill: parent
-                            header: "Remaining space"
+                            header: ELocale.texts.DemoRemainingSpace
                         }
                     }
                 }
@@ -107,7 +107,7 @@ ExamplePage {
 
                     ECard {
                         anchors.fill: parent
-                        header: "Remaining space"
+                        header: ELocale.texts.DemoRemainingSpace
                     }
                 }
             }

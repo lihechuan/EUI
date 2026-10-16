@@ -16,27 +16,27 @@ ExamplePage {
                     width: parent.width
 
                     EButton {
-                        text: "Primary"
                         styleType: EStyle.Primary
+                        text: ELocale.texts.Primary
                     }
                     EButton {
                         plain: true
-                        text: "Plain"
                         styleType: EStyle.Success
+                        text: ELocale.texts.Plain
                     }
                     EButton {
                         dashed: true
-                        text: "Dashed"
+                        text: ELocale.texts.DemoDashedButton
                     }
                     EButton {
                         bg: true
                         textButton: true
-                        text: "Background"
+                        text: ELocale.texts.DemoBackgroundButton
                     }
                     EButton {
                         link: true
-                        text: "Link"
                         styleType: EStyle.Primary
+                        text: ELocale.texts.DemoLinkButton
                     }
                     EButton {
                         leftIcon: true
@@ -57,27 +57,27 @@ ExamplePage {
                 width: parent.width
 
                 EButton {
-                    text: "Primary"
                     styleType: EStyle.Primary
+                    text: ELocale.texts.Primary
                 }
                 EButton {
                     plain: true
-                    text: "Plain"
                     styleType: EStyle.Success
+                    text: ELocale.texts.Plain
                 }
                 EButton {
                     dashed: true
-                    text: "Dashed"
+                    text: ELocale.texts.DemoDashedButton
                 }
                 EButton {
                     bg: true
                     textButton: true
-                    text: "Background"
+                    text: ELocale.texts.DemoBackgroundButton
                 }
                 EButton {
                     link: true
-                    text: "Link"
                     styleType: EStyle.Primary
+                    text: ELocale.texts.DemoLinkButton
                 }
                 EButton {
                     leftIcon: true
@@ -168,7 +168,7 @@ ExamplePage {
                             EText {
                                 color: "white"
                                 anchors.centerIn: parent
-                                text: "Responsive column"
+                                text: ELocale.texts.DemoResponsiveColumn
                             }
                         }
                     }
@@ -186,7 +186,7 @@ ExamplePage {
                             EText {
                                 color: "white"
                                 anchors.centerIn: parent
-                                text: "Responsive column"
+                                text: ELocale.texts.DemoResponsiveColumn
                             }
                         }
                     }
@@ -230,7 +230,7 @@ ExamplePage {
                         EText {
                             color: "white"
                             anchors.centerIn: parent
-                            text: "Responsive column"
+                            text: ELocale.texts.DemoResponsiveColumn
                         }
                     }
                 }
@@ -248,7 +248,7 @@ ExamplePage {
                         EText {
                             color: "white"
                             anchors.centerIn: parent
-                            text: "Responsive column"
+                            text: ELocale.texts.DemoResponsiveColumn
                         }
                     }
                 }
@@ -269,10 +269,10 @@ ExamplePage {
                     spacer: "·"
                     size: [20, 14]
                     width: parent.width
-                    EButton { text: "Design" }
-                    EButton { text: "Components" }
-                    EButton { text: "Interaction" }
-                    EButton { text: "Accessibility" }
+                    EButton { text: ELocale.texts.Design }
+                    EButton { text: ELocale.texts.DemoComponents }
+                    EButton { text: ELocale.texts.DemoInteraction }
+                    EButton { text: ELocale.texts.DemoAccessibility }
                 }
             `)
 
@@ -282,10 +282,10 @@ ExamplePage {
                 size: [20, 14]
                 width: parent.width
 
-                EButton { text: "Design" }
-                EButton { text: "Components" }
-                EButton { text: "Interaction" }
-                EButton { text: "Accessibility" }
+                EButton { text: ELocale.texts.Design }
+                EButton { text: ELocale.texts.DemoComponents }
+                EButton { text: ELocale.texts.DemoInteraction }
+                EButton { text: ELocale.texts.DemoAccessibility }
             }
         }
     }

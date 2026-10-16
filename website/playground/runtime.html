@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src 'self'; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; base-uri 'none'; form-action 'none'">
+  <title>EUI QML</title>
+  <style>html,body{margin:0;height:100%;overflow:hidden}canvas{display:block;width:100%;height:100%;border:0;outline:0;caret-color:transparent}#ime{position:fixed;width:1px;height:1px;padding:0;border:0;opacity:0;pointer-events:none;font-size:16px}#status{position:absolute;inset:0;display:grid;place-items:center;font:14px system-ui;color:#667085;background:#fff}html.dark #status{color:#acb6c7;background:#171c24}</style>
+</head>
+<body>
+  <canvas id="canvas" contenteditable="true" aria-label="QML preview"></canvas>
+  <textarea id="ime" aria-label="QML input" tabindex="-1" autocomplete="off" autocapitalize="off" spellcheck="false"></textarea>
+  <div id="status" role="status"></div>
+  <script src="qtloader.js"></script>
+  <script>
+    const parameters = new URLSearchParams(location.search)
+    const chinese = parameters.get('lang') !== 'en'
+    document.documentElement.classList.toggle('dark', parameters.get('dark') === '1')
+    const status = document.getElementById('status')
+    const send = (type, data = {}) => parent.postMessage({channel: 'eui-qml', type, ...data}, location.origin)
+    const fail = message => {
+      status.style.display = 'grid'
+      status.textContent = message
+      send('failed', {message})
+    }
+    Module.print = message => send('log', {message: String(message)})
+    Module.printErr = message => send('log', {message: String(message)})
+    Module.postRun = [() => send('ready')]
+    const loader = QtLoader({
+      canvasElements: [document.getElementById('canvas')],
+      environment: {QT_QUICK_CONTROLS_STYLE: 'Default'},
+      showLoader: () => { status.textContent = chinese ? '正在加载 QML 运行器…' : 'Loading the QML runtime…' },
+      showError: fail,
+      showExit: () => fail(chinese ? '预览已停止，请重启预览。' : 'Preview stopped. Restart the preview.'),
+      showCanvas: () => { status.style.display = 'none' }
+    })
+    window.addEventListener('message', event => {
+      if (event.source !== parent || event.origin !== location.origin || event.data?.channel !== 'eui-qml') return
+      const data = event.data
+      try {
+        if (data.type === 'appearance') {
+          Module.setAppearance(data.dark === true, data.language === 'en' ? 'en' : 'zh')
+          return
+        }
+        if (data.type !== 'run' || typeof data.code !== 'string' || data.code.length > 65536) return
+        const error = Module.runQml(data.code, data.dark === true, data.language === 'en' ? 'en' : 'zh')
+        send('result', {error})
+      } catch (error) {
+        send('result', {error: String(error)})
+      }
+    })
+    const canvas = document.getElementById('canvas')
+    const ime = document.getElementById('ime')
+    let composing = false
+    let committed = ''
+    const syncInput = () => {
+      const state = Module.inputState?.()
+      if (!state?.enabled) {
+        if (document.activeElement === ime) canvas.focus({preventScroll: true})
+        return
+      }
+      ime.style.left = Math.min(innerWidth - 2, Math.max(0, state.x)) + 'px'
+      ime.style.top = Math.min(innerHeight - 2, Math.max(0, state.y)) + 'px'
+      ime.focus({preventScroll: true})
+    }
+    canvas.addEventListener('pointerup', () => setTimeout(syncInput, 0))
+    ime.addEventListener('compositionstart', () => { composing = true })
+    ime.addEventListener('compositionupdate', event => Module.inputText?.(event.data || '', ''))
+    ime.addEventListener('compositionend', event => {
+      composing = false
+      committed = event.data || ''
+      Module.inputText?.('', committed)
+      ime.value = ''
+      setTimeout(() => { committed = ''; syncInput() }, 0)
+    })
+    ime.addEventListener('beforeinput', event => {
+      if (event.isComposing || composing || event.inputType !== 'insertText' || !event.data) return
+      event.preventDefault()
+      if (event.data !== committed) Module.inputText?.('', event.data)
+      syncInput()
+    })
+    ime.addEventListener('input', () => { if (!composing) ime.value = '' })
+    ime.addEventListener('paste', event => {
+      const text = event.clipboardData?.getData('text/plain')
+      if (!text) return
+      event.preventDefault()
+      Module.inputText?.('', text)
+    })
+    for (const type of ['keydown', 'keyup']) window.addEventListener(type, event => {
+      if (event.target !== ime) return
+      event.stopImmediatePropagation()
+      if (composing || event.keyCode === 229) return
+      if (event.key.length === 1 && !event.ctrlKey && !event.metaKey && !event.altKey) return
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'v') return
+      event.preventDefault()
+      canvas.dispatchEvent(new KeyboardEvent(type, {
+        key: event.key, code: event.code, keyCode: event.keyCode, which: event.which,
+        shiftKey: event.shiftKey, ctrlKey: event.ctrlKey, altKey: event.altKey, metaKey: event.metaKey,
+        bubbles: true, cancelable: true
+      }))
+      setTimeout(syncInput, 0)
+    }, true)
+    canvas.addEventListener('contextmenu', event => event.preventDefault())
+    loader.loadEmscriptenModule('eui-playground')
+  </script>
+</body>
+</html>

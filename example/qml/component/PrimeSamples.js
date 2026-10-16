@@ -67,27 +67,27 @@ var definitions = {
             {
                 "name": "EFloatLabel",
                 "title": "PrimeFloatLabelCase1",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEFloatLabel {\n    width: 300\n    text: \"Name\"\n\n    EInput {\n        width: parent.width\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEFloatLabel {\n    width: 300\n    text: ELocale.texts.Name2\n\n    EInput {\n        width: parent.width\n    }\n}\n"
             },
             {
                 "name": "EFloatLabel",
                 "title": "PrimeFloatLabelCase2",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEFloatLabel {\n    width: 300\n    text: \"Name\"\n\n    EInput {\n        text: \"EUI\"\n        width: parent.width\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEFloatLabel {\n    width: 300\n    text: ELocale.texts.Name2\n\n    EInput {\n        text: \"EUI\"\n        width: parent.width\n    }\n}\n"
             },
             {
                 "name": "EFloatLabel",
                 "title": "PrimeFloatLabelCase3",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEFloatLabel {\n    width: 300\n    text: \"Name\"\n\n    EInput {\n        text: \"EUI2026!\"\n        showPassword: true\n        width: parent.width\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEFloatLabel {\n    width: 300\n    text: ELocale.texts.Name2\n\n    EInput {\n        text: \"EUI2026!\"\n        showPassword: true\n        width: parent.width\n    }\n}\n"
             },
             {
                 "name": "EFloatLabel",
                 "title": "PrimeFloatLabelCase4",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEFloatLabel {\n    width: 300\n    text: \"Name\"\n\n    EInput {\n        enabled: false\n        width: parent.width\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEFloatLabel {\n    width: 300\n    text: ELocale.texts.Name2\n\n    EInput {\n        enabled: false\n        width: parent.width\n    }\n}\n"
             },
             {
                 "name": "EFloatLabel",
                 "title": "PrimeFloatLabelCase5",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEFloatLabel {\n    width: 300\n    text: \"Name\"\n\n    EInput {\n        clearable: true\n        text: \"Clear me\"\n        width: parent.width\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEFloatLabel {\n    width: 300\n    text: ELocale.texts.Name2\n\n    EInput {\n        clearable: true\n        text: \"Clear me\"\n        width: parent.width\n    }\n}\n"
             }
         ]
     },
@@ -97,27 +97,27 @@ var definitions = {
             {
                 "name": "EIftaLabel",
                 "title": "PrimeIftaLabelCase1",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEIftaLabel {\n    width: 300\n    text: \"Name\"\n\n    EInput {\n        width: parent.width\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEIftaLabel {\n    width: 300\n    text: ELocale.texts.Name2\n\n    EInput {\n        width: parent.width\n    }\n}\n"
             },
             {
                 "name": "EIftaLabel",
                 "title": "PrimeIftaLabelCase2",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEIftaLabel {\n    width: 300\n    text: \"Name\"\n\n    EInput {\n        text: \"EUI\"\n        width: parent.width\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEIftaLabel {\n    width: 300\n    text: ELocale.texts.Name2\n\n    EInput {\n        text: \"EUI\"\n        width: parent.width\n    }\n}\n"
             },
             {
                 "name": "EIftaLabel",
                 "title": "PrimeIftaLabelCase3",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEIftaLabel {\n    width: 300\n    text: \"Name\"\n\n    EInput {\n        text: \"EUI2026!\"\n        showPassword: true\n        width: parent.width\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEIftaLabel {\n    width: 300\n    text: ELocale.texts.Name2\n\n    EInput {\n        text: \"EUI2026!\"\n        showPassword: true\n        width: parent.width\n    }\n}\n"
             },
             {
                 "name": "EIftaLabel",
                 "title": "PrimeIftaLabelCase4",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEIftaLabel {\n    width: 300\n    text: \"Name\"\n\n    EInput {\n        enabled: false\n        width: parent.width\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEIftaLabel {\n    width: 300\n    text: ELocale.texts.Name2\n\n    EInput {\n        enabled: false\n        width: parent.width\n    }\n}\n"
             },
             {
                 "name": "EIftaLabel",
                 "title": "PrimeIftaLabelCase5",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEIftaLabel {\n    width: 300\n    text: \"Name\"\n\n    EInput {\n        clearable: true\n        text: \"Clear me\"\n        width: parent.width\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEIftaLabel {\n    width: 300\n    text: ELocale.texts.Name2\n\n    EInput {\n        clearable: true\n        text: \"Clear me\"\n        width: parent.width\n    }\n}\n"
             }
         ]
     },
@@ -127,27 +127,27 @@ var definitions = {
             {
                 "name": "ELabel",
                 "title": "PrimeLabelCase1",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nColumn {\n    spacing: 12\n\n    ELabel {\n        target: field\n        text: \"Account\"\n    }\n    EInput {\n        id: field\n\n        width: 300\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nColumn {\n    spacing: 12\n\n    ELabel {\n        target: field\n        text: ELocale.texts.DemoAccount\n    }\n    EInput {\n        id: field\n\n        width: 300\n    }\n}\n"
             },
             {
                 "name": "ELabel",
                 "title": "PrimeLabelCase2",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nColumn {\n    spacing: 12\n\n    ELabel {\n        target: field\n        text: \"Account\"\n    }\n    EInput {\n        id: field\n\n        width: 300\n        text: \"EUI\"\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nColumn {\n    spacing: 12\n\n    ELabel {\n        target: field\n        text: ELocale.texts.DemoAccount\n    }\n    EInput {\n        id: field\n\n        width: 300\n        text: \"EUI\"\n    }\n}\n"
             },
             {
                 "name": "ELabel",
                 "title": "PrimeLabelCase3",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nColumn {\n    spacing: 12\n\n    ELabel {\n        target: field\n        text: \"Account\"\n    }\n    EInput {\n        id: field\n\n        width: 300\n        showPassword: true\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nColumn {\n    spacing: 12\n\n    ELabel {\n        target: field\n        text: ELocale.texts.DemoAccount\n    }\n    EInput {\n        id: field\n\n        width: 300\n        showPassword: true\n    }\n}\n"
             },
             {
                 "name": "ELabel",
                 "title": "PrimeLabelCase4",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nColumn {\n    spacing: 12\n\n    ELabel {\n        target: field\n        text: \"Account\"\n    }\n    EInput {\n        id: field\n\n        width: 300\n        enabled: false\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nColumn {\n    spacing: 12\n\n    ELabel {\n        target: field\n        text: ELocale.texts.DemoAccount\n    }\n    EInput {\n        id: field\n\n        width: 300\n        enabled: false\n    }\n}\n"
             },
             {
                 "name": "ELabel",
                 "title": "PrimeLabelCase5",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nColumn {\n    spacing: 12\n\n    ELabel {\n        target: field\n        text: \"Account\"\n    }\n    EInput {\n        id: field\n\n        width: 300\n        clearable: true\n        text: \"Account\"\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nColumn {\n    spacing: 12\n\n    ELabel {\n        target: field\n        text: ELocale.texts.DemoAccount\n    }\n    EInput {\n        id: field\n\n        width: 300\n        clearable: true\n        text: ELocale.texts.DemoAccount\n    }\n}\n"
             }
         ]
     },
@@ -157,7 +157,7 @@ var definitions = {
             {
                 "name": "EInputGroup",
                 "title": "PrimeInputGroupCase1",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEInputGroup {\n    width: Math.min(480, parent.width)\n\n    EInput {\n        Layout.fillWidth: true\n        placeholderText: \"Search\"\n    }\n    EButton {\n        text: \"Search\"\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEInputGroup {\n    width: Math.min(480, parent.width)\n\n    EInput {\n        Layout.fillWidth: true\n        placeholderText: ELocale.texts.Search\n    }\n    EButton {\n        text: ELocale.texts.Search\n    }\n}\n"
             },
             {
                 "name": "EInputGroup",
@@ -172,7 +172,7 @@ var definitions = {
             {
                 "name": "EInputGroup",
                 "title": "PrimeInputGroupCase4",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEInputGroup {\n    width: Math.min(480, parent.width)\n\n    EInput {\n        Layout.fillWidth: true\n        placeholderText: \"First\"\n    }\n    EInput {\n        Layout.fillWidth: true\n        placeholderText: \"Last\"\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEInputGroup {\n    width: Math.min(480, parent.width)\n\n    EInput {\n        Layout.fillWidth: true\n        placeholderText: \"First\"\n    }\n    EInput {\n        Layout.fillWidth: true\n        placeholderText: ELocale.texts.DemoLast\n    }\n}\n"
             },
             {
                 "name": "EInputGroup",
@@ -182,7 +182,7 @@ var definitions = {
             {
                 "name": "EInputGroup",
                 "title": "PrimeInputGroupCase6",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\n\nColumn {\n    spacing: 16\n    width: Math.min(480, parent.width)\n\n    Row {\n        spacing: 12\n\n        EText {\n            text: ELocale.texts.PrimeInputGroupSpacing\n            anchors.verticalCenter: parent.verticalCenter\n        }\n        ESpinBox {\n            id: gap\n\n            to: 48\n            from: 0\n            value: 16\n            stepSize: 4\n            editable: true\n            objectName: \"inputGroupSpacingControl\"\n        }\n        EText {\n            text: \"px\"\n            anchors.verticalCenter: parent.verticalCenter\n        }\n    }\n    EInputGroup {\n        spacing: gap.value\n        width: parent.width\n        objectName: \"customSpacingInputGroup\"\n\n        EInput {\n            Layout.fillWidth: true\n            placeholderText: \"First\"\n        }\n        EInput {\n            Layout.fillWidth: true\n            placeholderText: \"Last\"\n        }\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\n\nColumn {\n    spacing: 16\n    width: Math.min(480, parent.width)\n\n    Row {\n        spacing: 12\n\n        EText {\n            text: ELocale.texts.PrimeInputGroupSpacing\n            anchors.verticalCenter: parent.verticalCenter\n        }\n        ESpinBox {\n            id: gap\n\n            to: 48\n            from: 0\n            value: 16\n            stepSize: 4\n            editable: true\n            objectName: \"inputGroupSpacingControl\"\n        }\n        EText {\n            text: \"px\"\n            anchors.verticalCenter: parent.verticalCenter\n        }\n    }\n    EInputGroup {\n        spacing: gap.value\n        width: parent.width\n        objectName: \"customSpacingInputGroup\"\n\n        EInput {\n            Layout.fillWidth: true\n            placeholderText: \"First\"\n        }\n        EInput {\n            Layout.fillWidth: true\n            placeholderText: ELocale.texts.DemoLast\n        }\n    }\n}\n"
             }
         ]
     },
@@ -192,27 +192,27 @@ var definitions = {
             {
                 "name": "EListbox",
                 "title": "PrimeListboxCase1",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEListbox {\n    value: 1\n    width: 320\n    height: 200\n    model: [{\n        \"label\": \"Design\",\n        \"value\": 1\n    }, {\n        \"label\": \"Develop\",\n        \"value\": 2\n    }, {\n        \"label\": \"Review\",\n        \"value\": 3,\n        \"disabled\": true\n    }, {\n        \"label\": \"Release\",\n        \"value\": 4\n    }]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEListbox {\n    value: 1\n    width: 320\n    height: 200\n    model: [{\n        \"label\": ELocale.texts.Design,\n        \"value\": 1\n    }, {\n        \"label\": ELocale.texts.DemoDevelop,\n        \"value\": 2\n    }, {\n        \"label\": ELocale.texts.Review,\n        \"value\": 3,\n        \"disabled\": true\n    }, {\n        \"label\": ELocale.texts.DemoRelease,\n        \"value\": 4\n    }]\n}\n"
             },
             {
                 "name": "EListbox",
                 "title": "PrimeListboxCase2",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEListbox {\n    width: 320\n    height: 200\n    multiple: true\n    values: [1, 2]\n    model: [{\n        \"label\": \"Design\",\n        \"value\": 1\n    }, {\n        \"label\": \"Develop\",\n        \"value\": 2\n    }, {\n        \"label\": \"Review\",\n        \"value\": 3,\n        \"disabled\": true\n    }, {\n        \"label\": \"Release\",\n        \"value\": 4\n    }]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEListbox {\n    width: 320\n    height: 200\n    multiple: true\n    values: [1, 2]\n    model: [{\n        \"label\": ELocale.texts.Design,\n        \"value\": 1\n    }, {\n        \"label\": ELocale.texts.DemoDevelop,\n        \"value\": 2\n    }, {\n        \"label\": ELocale.texts.Review,\n        \"value\": 3,\n        \"disabled\": true\n    }, {\n        \"label\": ELocale.texts.DemoRelease,\n        \"value\": 4\n    }]\n}\n"
             },
             {
                 "name": "EListbox",
                 "title": "PrimeListboxCase3",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEListbox {\n    width: 320\n    height: 200\n    filterable: true\n    model: [{\n        \"label\": \"Design\",\n        \"value\": 1\n    }, {\n        \"label\": \"Develop\",\n        \"value\": 2\n    }, {\n        \"label\": \"Review\",\n        \"value\": 3,\n        \"disabled\": true\n    }, {\n        \"label\": \"Release\",\n        \"value\": 4\n    }]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEListbox {\n    width: 320\n    height: 200\n    filterable: true\n    model: [{\n        \"label\": ELocale.texts.Design,\n        \"value\": 1\n    }, {\n        \"label\": ELocale.texts.DemoDevelop,\n        \"value\": 2\n    }, {\n        \"label\": ELocale.texts.Review,\n        \"value\": 3,\n        \"disabled\": true\n    }, {\n        \"label\": ELocale.texts.DemoRelease,\n        \"value\": 4\n    }]\n}\n"
             },
             {
                 "name": "EListbox",
                 "title": "PrimeListboxCase4",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEListbox {\n    value: 2\n    width: 320\n    height: 200\n    Accessible.description: \"Up, Down, Space, Enter\"\n    model: [{\n        \"label\": \"Design\",\n        \"value\": 1\n    }, {\n        \"label\": \"Develop\",\n        \"value\": 2\n    }, {\n        \"label\": \"Review\",\n        \"value\": 3,\n        \"disabled\": true\n    }, {\n        \"label\": \"Release\",\n        \"value\": 4\n    }]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEListbox {\n    value: 2\n    width: 320\n    height: 200\n    Accessible.description: \"Up, Down, Space, Enter\"\n    model: [{\n        \"label\": ELocale.texts.Design,\n        \"value\": 1\n    }, {\n        \"label\": ELocale.texts.DemoDevelop,\n        \"value\": 2\n    }, {\n        \"label\": ELocale.texts.Review,\n        \"value\": 3,\n        \"disabled\": true\n    }, {\n        \"label\": ELocale.texts.DemoRelease,\n        \"value\": 4\n    }]\n}\n"
             },
             {
                 "name": "EListbox",
                 "title": "PrimeListboxCase5",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEListbox {\n    width: 320\n    height: 200\n    itemDelegate: EText {\n        text: \"★ \" + parent.optionData.label\n        verticalAlignment: Text.AlignVCenter\n    }\n    model: [{\n        \"label\": \"Design\",\n        \"value\": 1\n    }, {\n        \"label\": \"Develop\",\n        \"value\": 2\n    }, {\n        \"label\": \"Review\",\n        \"value\": 3,\n        \"disabled\": true\n    }, {\n        \"label\": \"Release\",\n        \"value\": 4\n    }]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEListbox {\n    width: 320\n    height: 200\n    itemDelegate: EText {\n        text: \"★ \" + parent.optionData.label\n        verticalAlignment: Text.AlignVCenter\n    }\n    model: [{\n        \"label\": ELocale.texts.Design,\n        \"value\": 1\n    }, {\n        \"label\": ELocale.texts.DemoDevelop,\n        \"value\": 2\n    }, {\n        \"label\": ELocale.texts.Review,\n        \"value\": 3,\n        \"disabled\": true\n    }, {\n        \"label\": ELocale.texts.DemoRelease,\n        \"value\": 4\n    }]\n}\n"
             }
         ]
     },
@@ -222,27 +222,27 @@ var definitions = {
             {
                 "name": "EOrderList",
                 "title": "PrimeOrderListCase1",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEOrderList {\n    height: 220\n    values: [\"Develop\"]\n    width: Math.min(460, parent.width)\n    model: [\"Design\", \"Develop\", \"Review\", \"Release\"]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEOrderList {\n    height: 220\n    values: [ELocale.texts.DemoDevelop]\n    width: Math.min(460, parent.width)\n    model: [ELocale.texts.Design, ELocale.texts.DemoDevelop, ELocale.texts.Review, ELocale.texts.DemoRelease]\n}\n"
             },
             {
                 "name": "EOrderList",
                 "title": "PrimeOrderListCase2",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEOrderList {\n    height: 220\n    values: [\"Develop\", \"Review\"]\n    width: Math.min(460, parent.width)\n    model: [\"Design\", \"Develop\", \"Review\", \"Release\"]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEOrderList {\n    height: 220\n    values: [ELocale.texts.DemoDevelop, ELocale.texts.Review]\n    width: Math.min(460, parent.width)\n    model: [ELocale.texts.Design, ELocale.texts.DemoDevelop, ELocale.texts.Review, ELocale.texts.DemoRelease]\n}\n"
             },
             {
                 "name": "EOrderList",
                 "title": "PrimeOrderListCase3",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEOrderList {\n    height: 220\n    filterable: true\n    width: Math.min(460, parent.width)\n    model: [\"Design\", \"Develop\", \"Review\", \"Release\"]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEOrderList {\n    height: 220\n    filterable: true\n    width: Math.min(460, parent.width)\n    model: [ELocale.texts.Design, ELocale.texts.DemoDevelop, ELocale.texts.Review, ELocale.texts.DemoRelease]\n}\n"
             },
             {
                 "name": "EOrderList",
                 "title": "PrimeOrderListCase4",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEOrderList {\n    height: 220\n    values: [\"Design\", \"Release\"]\n    width: Math.min(460, parent.width)\n    model: [\"Design\", \"Develop\", \"Review\", \"Release\"]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEOrderList {\n    height: 220\n    values: [ELocale.texts.Design, ELocale.texts.DemoRelease]\n    width: Math.min(460, parent.width)\n    model: [ELocale.texts.Design, ELocale.texts.DemoDevelop, ELocale.texts.Review, ELocale.texts.DemoRelease]\n}\n"
             },
             {
                 "name": "EOrderList",
                 "title": "PrimeOrderListCase5",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEOrderList {\n    height: 220\n    enabled: false\n    values: [\"Design\"]\n    width: Math.min(460, parent.width)\n    model: [\"Design\", \"Develop\", \"Review\", \"Release\"]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEOrderList {\n    height: 220\n    enabled: false\n    values: [ELocale.texts.Design]\n    width: Math.min(460, parent.width)\n    model: [ELocale.texts.Design, ELocale.texts.DemoDevelop, ELocale.texts.Review, ELocale.texts.DemoRelease]\n}\n"
             }
         ]
     },
@@ -252,27 +252,27 @@ var definitions = {
             {
                 "name": "EOrgChart",
                 "title": "PrimeOrgChartCase1",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEOrgChart {\n    height: 270\n    width: Math.min(700, parent.width)\n    model: [{\n        \"key\": \"team\",\n        \"label\": \"Team\",\n        \"children\": [{\n            \"key\": \"design\",\n            \"label\": \"Design\"\n        }, {\n            \"key\": \"dev\",\n            \"label\": \"Development\",\n            \"children\": [{\n                \"key\": \"qa\",\n                \"label\": \"QA\"\n            }]\n        }]\n    }]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEOrgChart {\n    height: 270\n    width: Math.min(700, parent.width)\n    model: [{\n        \"key\": \"team\",\n        \"label\": ELocale.texts.DemoTeam,\n        \"children\": [{\n            \"key\": \"design\",\n            \"label\": ELocale.texts.Design\n        }, {\n            \"key\": \"dev\",\n            \"label\": ELocale.texts.DemoDevelopment,\n            \"children\": [{\n                \"key\": \"qa\",\n                \"label\": ELocale.texts.DemoQualityAssurance\n            }]\n        }]\n    }]\n}\n"
             },
             {
                 "name": "EOrgChart",
                 "title": "PrimeOrgChartCase2",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEOrgChart {\n    height: 270\n    collapsedKeys: [\"dev\"]\n    width: Math.min(700, parent.width)\n    model: [{\n        \"key\": \"team\",\n        \"label\": \"Team\",\n        \"children\": [{\n            \"key\": \"design\",\n            \"label\": \"Design\"\n        }, {\n            \"key\": \"dev\",\n            \"label\": \"Development\",\n            \"children\": [{\n                \"key\": \"qa\",\n                \"label\": \"QA\"\n            }]\n        }]\n    }]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEOrgChart {\n    height: 270\n    collapsedKeys: [\"dev\"]\n    width: Math.min(700, parent.width)\n    model: [{\n        \"key\": \"team\",\n        \"label\": ELocale.texts.DemoTeam,\n        \"children\": [{\n            \"key\": \"design\",\n            \"label\": ELocale.texts.Design\n        }, {\n            \"key\": \"dev\",\n            \"label\": ELocale.texts.DemoDevelopment,\n            \"children\": [{\n                \"key\": \"qa\",\n                \"label\": ELocale.texts.DemoQualityAssurance\n            }]\n        }]\n    }]\n}\n"
             },
             {
                 "name": "EOrgChart",
                 "title": "PrimeOrgChartCase3",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEOrgChart {\n    height: 270\n    selectionMode: \"multiple\"\n    selectedKeys: [\"design\", \"qa\"]\n    width: Math.min(700, parent.width)\n    model: [{\n        \"key\": \"team\",\n        \"label\": \"Team\",\n        \"children\": [{\n            \"key\": \"design\",\n            \"label\": \"Design\"\n        }, {\n            \"key\": \"dev\",\n            \"label\": \"Development\",\n            \"children\": [{\n                \"key\": \"qa\",\n                \"label\": \"QA\"\n            }]\n        }]\n    }]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEOrgChart {\n    height: 270\n    selectionMode: \"multiple\"\n    selectedKeys: [\"design\", \"qa\"]\n    width: Math.min(700, parent.width)\n    model: [{\n        \"key\": \"team\",\n        \"label\": ELocale.texts.DemoTeam,\n        \"children\": [{\n            \"key\": \"design\",\n            \"label\": ELocale.texts.Design\n        }, {\n            \"key\": \"dev\",\n            \"label\": ELocale.texts.DemoDevelopment,\n            \"children\": [{\n                \"key\": \"qa\",\n                \"label\": ELocale.texts.DemoQualityAssurance\n            }]\n        }]\n    }]\n}\n"
             },
             {
                 "name": "EOrgChart",
                 "title": "PrimeOrgChartCase4",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEOrgChart {\n    height: 270\n    selectionMode: \"checkbox\"\n    width: Math.min(700, parent.width)\n    model: [{\n        \"key\": \"team\",\n        \"label\": \"Team\",\n        \"children\": [{\n            \"key\": \"design\",\n            \"label\": \"Design\"\n        }, {\n            \"key\": \"dev\",\n            \"label\": \"Development\",\n            \"children\": [{\n                \"key\": \"qa\",\n                \"label\": \"QA\"\n            }]\n        }]\n    }]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEOrgChart {\n    height: 270\n    selectionMode: \"checkbox\"\n    width: Math.min(700, parent.width)\n    model: [{\n        \"key\": \"team\",\n        \"label\": ELocale.texts.DemoTeam,\n        \"children\": [{\n            \"key\": \"design\",\n            \"label\": ELocale.texts.Design\n        }, {\n            \"key\": \"dev\",\n            \"label\": ELocale.texts.DemoDevelopment,\n            \"children\": [{\n                \"key\": \"qa\",\n                \"label\": ELocale.texts.DemoQualityAssurance\n            }]\n        }]\n    }]\n}\n"
             },
             {
                 "name": "EOrgChart",
                 "title": "PrimeOrgChartCase5",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEOrgChart {\n    height: 270\n    width: Math.min(700, parent.width)\n    nodeDelegate: EText {\n        anchors.centerIn: parent\n        text: \"★ \" + parent.node.label\n    }\n    model: [{\n        \"key\": \"team\",\n        \"label\": \"Team\",\n        \"children\": [{\n            \"key\": \"design\",\n            \"label\": \"Design\"\n        }, {\n            \"key\": \"dev\",\n            \"label\": \"Development\",\n            \"children\": [{\n                \"key\": \"qa\",\n                \"label\": \"QA\"\n            }]\n        }]\n    }]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEOrgChart {\n    height: 270\n    width: Math.min(700, parent.width)\n    nodeDelegate: EText {\n        anchors.centerIn: parent\n        text: \"★ \" + parent.node.label\n    }\n    model: [{\n        \"key\": \"team\",\n        \"label\": ELocale.texts.DemoTeam,\n        \"children\": [{\n            \"key\": \"design\",\n            \"label\": ELocale.texts.Design\n        }, {\n            \"key\": \"dev\",\n            \"label\": ELocale.texts.DemoDevelopment,\n            \"children\": [{\n                \"key\": \"qa\",\n                \"label\": ELocale.texts.DemoQualityAssurance\n            }]\n        }]\n    }]\n}\n"
             }
         ]
     },
@@ -282,37 +282,37 @@ var definitions = {
             {
                 "name": "EMeterGroup",
                 "title": "PrimeMeterGroupCase1",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEMeterGroup {\n    width: 360\n    values: [{\n        \"label\": \"Used\",\n        \"value\": 40,\n        \"color\": \"#409eff\"\n    }, {\n        \"label\": \"Cache\",\n        \"value\": 25,\n        \"color\": \"#67c23a\"\n    }, {\n        \"label\": \"Free\",\n        \"value\": 35,\n        \"color\": \"#909399\"\n    }]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEMeterGroup {\n    width: 360\n    values: [{\n        \"label\": ELocale.texts.DemoUsed,\n        \"value\": 40,\n        \"color\": \"#409eff\"\n    }, {\n        \"label\": ELocale.texts.DemoCache,\n        \"value\": 25,\n        \"color\": \"#67c23a\"\n    }, {\n        \"label\": ELocale.texts.DemoFree,\n        \"value\": 35,\n        \"color\": \"#909399\"\n    }]\n}\n"
             },
             {
                 "name": "EMeterGroup",
                 "title": "PrimeMeterGroupCase2",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEMeterGroup {\n    width: 360\n    labelsOnTop: true\n    values: [{\n        \"label\": \"Used\",\n        \"value\": 40,\n        \"color\": \"#409eff\"\n    }, {\n        \"label\": \"Cache\",\n        \"value\": 25,\n        \"color\": \"#67c23a\"\n    }, {\n        \"label\": \"Free\",\n        \"value\": 35,\n        \"color\": \"#909399\"\n    }]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEMeterGroup {\n    width: 360\n    labelsOnTop: true\n    values: [{\n        \"label\": ELocale.texts.DemoUsed,\n        \"value\": 40,\n        \"color\": \"#409eff\"\n    }, {\n        \"label\": ELocale.texts.DemoCache,\n        \"value\": 25,\n        \"color\": \"#67c23a\"\n    }, {\n        \"label\": ELocale.texts.DemoFree,\n        \"value\": 35,\n        \"color\": \"#909399\"\n    }]\n}\n"
             },
             {
                 "name": "EMeterGroup",
                 "title": "PrimeMeterGroupCase3",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEMeterGroup {\n    width: 360\n    height: 180\n    vertical: true\n    values: [{\n        \"label\": \"Used\",\n        \"value\": 40,\n        \"color\": \"#409eff\"\n    }, {\n        \"label\": \"Cache\",\n        \"value\": 25,\n        \"color\": \"#67c23a\"\n    }, {\n        \"label\": \"Free\",\n        \"value\": 35,\n        \"color\": \"#909399\"\n    }]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEMeterGroup {\n    width: 360\n    height: 180\n    vertical: true\n    values: [{\n        \"label\": ELocale.texts.DemoUsed,\n        \"value\": 40,\n        \"color\": \"#409eff\"\n    }, {\n        \"label\": ELocale.texts.DemoCache,\n        \"value\": 25,\n        \"color\": \"#67c23a\"\n    }, {\n        \"label\": ELocale.texts.DemoFree,\n        \"value\": 35,\n        \"color\": \"#909399\"\n    }]\n}\n"
             },
             {
                 "name": "EMeterGroup",
                 "title": "PrimeMeterGroupCase4",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEMeterGroup {\n    width: 360\n    maximum: 200\n    values: [{\n        \"label\": \"Used\",\n        \"value\": 40,\n        \"color\": \"#409eff\"\n    }, {\n        \"label\": \"Cache\",\n        \"value\": 25,\n        \"color\": \"#67c23a\"\n    }, {\n        \"label\": \"Free\",\n        \"value\": 35,\n        \"color\": \"#909399\"\n    }]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEMeterGroup {\n    width: 360\n    maximum: 200\n    values: [{\n        \"label\": ELocale.texts.DemoUsed,\n        \"value\": 40,\n        \"color\": \"#409eff\"\n    }, {\n        \"label\": ELocale.texts.DemoCache,\n        \"value\": 25,\n        \"color\": \"#67c23a\"\n    }, {\n        \"label\": ELocale.texts.DemoFree,\n        \"value\": 35,\n        \"color\": \"#909399\"\n    }]\n}\n"
             },
             {
                 "name": "EMeterGroup",
                 "title": "PrimeMeterGroupCase5",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEMeterGroup {\n    width: 360\n    barSize: 24\n    values: [{\n        \"label\": \"Used\",\n        \"value\": 40,\n        \"color\": \"#409eff\"\n    }, {\n        \"label\": \"Cache\",\n        \"value\": 25,\n        \"color\": \"#67c23a\"\n    }, {\n        \"label\": \"Free\",\n        \"value\": 35,\n        \"color\": \"#909399\"\n    }]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEMeterGroup {\n    width: 360\n    barSize: 24\n    values: [{\n        \"label\": ELocale.texts.DemoUsed,\n        \"value\": 40,\n        \"color\": \"#409eff\"\n    }, {\n        \"label\": ELocale.texts.DemoCache,\n        \"value\": 25,\n        \"color\": \"#67c23a\"\n    }, {\n        \"label\": ELocale.texts.DemoFree,\n        \"value\": 35,\n        \"color\": \"#909399\"\n    }]\n}\n"
             },
             {
                 "name": "EMeterGroup",
                 "title": "PrimeMeterGroupCase6",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEMeterGroup {\n    width: 360\n    barSize: 16\n    diameter: 180\n    circular: true\n    values: [{\n        \"label\": \"Used\",\n        \"value\": 40,\n        \"color\": \"#409eff\"\n    }, {\n        \"label\": \"Cache\",\n        \"value\": 25,\n        \"color\": \"#67c23a\"\n    }, {\n        \"label\": \"Free\",\n        \"value\": 35,\n        \"color\": \"#909399\"\n    }]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEMeterGroup {\n    width: 360\n    barSize: 16\n    diameter: 180\n    circular: true\n    values: [{\n        \"label\": ELocale.texts.DemoUsed,\n        \"value\": 40,\n        \"color\": \"#409eff\"\n    }, {\n        \"label\": ELocale.texts.DemoCache,\n        \"value\": 25,\n        \"color\": \"#67c23a\"\n    }, {\n        \"label\": ELocale.texts.DemoFree,\n        \"value\": 35,\n        \"color\": \"#909399\"\n    }]\n}\n"
             },
             {
                 "name": "EMeterGroup",
                 "title": "PrimeMeterGroupCase7",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEMeterGroup {\n    width: 360\n    maximum: 160\n    diameter: 140\n    circular: true\n    labelsOnTop: true\n    values: [{\n        \"label\": \"Used\",\n        \"value\": 40,\n        \"color\": \"#409eff\"\n    }, {\n        \"label\": \"Cache\",\n        \"value\": 25,\n        \"color\": \"#67c23a\"\n    }, {\n        \"label\": \"Free\",\n        \"value\": 35,\n        \"color\": \"#909399\"\n    }]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEMeterGroup {\n    width: 360\n    maximum: 160\n    diameter: 140\n    circular: true\n    labelsOnTop: true\n    values: [{\n        \"label\": ELocale.texts.DemoUsed,\n        \"value\": 40,\n        \"color\": \"#409eff\"\n    }, {\n        \"label\": ELocale.texts.DemoCache,\n        \"value\": 25,\n        \"color\": \"#67c23a\"\n    }, {\n        \"label\": ELocale.texts.DemoFree,\n        \"value\": 35,\n        \"color\": \"#909399\"\n    }]\n}\n"
             },
             {
                 "name": "EMeterGroup",
@@ -327,27 +327,27 @@ var definitions = {
             {
                 "name": "EFieldset",
                 "title": "PrimeFieldsetCase1",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEFieldset {\n    width: 360\n    title: \"Account\"\n\n    Column {\n        spacing: 12\n        width: parent.width\n\n        EInput {\n            width: parent.width\n            placeholderText: \"Name\"\n        }\n        EInput {\n            width: parent.width\n            placeholderText: \"Email\"\n        }\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEFieldset {\n    width: 360\n    title: ELocale.texts.DemoAccount\n\n    Column {\n        spacing: 12\n        width: parent.width\n\n        EInput {\n            width: parent.width\n            placeholderText: ELocale.texts.Name2\n        }\n        EInput {\n            width: parent.width\n            placeholderText: ELocale.texts.Email\n        }\n    }\n}\n"
             },
             {
                 "name": "EFieldset",
                 "title": "PrimeFieldsetCase2",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEFieldset {\n    width: 360\n    title: \"Account\"\n    collapsible: true\n\n    Column {\n        spacing: 12\n        width: parent.width\n\n        EInput {\n            width: parent.width\n            placeholderText: \"Name\"\n        }\n        EInput {\n            width: parent.width\n            placeholderText: \"Email\"\n        }\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEFieldset {\n    width: 360\n    title: ELocale.texts.DemoAccount\n    collapsible: true\n\n    Column {\n        spacing: 12\n        width: parent.width\n\n        EInput {\n            width: parent.width\n            placeholderText: ELocale.texts.Name2\n        }\n        EInput {\n            width: parent.width\n            placeholderText: ELocale.texts.Email\n        }\n    }\n}\n"
             },
             {
                 "name": "EFieldset",
                 "title": "PrimeFieldsetCase3",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEFieldset {\n    width: 360\n    collapsed: true\n    title: \"Account\"\n    collapsible: true\n\n    Column {\n        spacing: 12\n        width: parent.width\n\n        EInput {\n            width: parent.width\n            placeholderText: \"Name\"\n        }\n        EInput {\n            width: parent.width\n            placeholderText: \"Email\"\n        }\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEFieldset {\n    width: 360\n    collapsed: true\n    title: ELocale.texts.DemoAccount\n    collapsible: true\n\n    Column {\n        spacing: 12\n        width: parent.width\n\n        EInput {\n            width: parent.width\n            placeholderText: ELocale.texts.Name2\n        }\n        EInput {\n            width: parent.width\n            placeholderText: ELocale.texts.Email\n        }\n    }\n}\n"
             },
             {
                 "name": "EFieldset",
                 "title": "PrimeFieldsetCase4",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEFieldset {\n    width: 360\n    padding: 10\n    topPadding: 28\n    title: \"Account\"\n\n    Column {\n        spacing: 12\n        width: parent.width\n\n        EInput {\n            width: parent.width\n            placeholderText: \"Name\"\n        }\n        EInput {\n            width: parent.width\n            placeholderText: \"Email\"\n        }\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEFieldset {\n    width: 360\n    padding: 10\n    topPadding: 28\n    title: ELocale.texts.DemoAccount\n\n    Column {\n        spacing: 12\n        width: parent.width\n\n        EInput {\n            width: parent.width\n            placeholderText: ELocale.texts.Name2\n        }\n        EInput {\n            width: parent.width\n            placeholderText: ELocale.texts.Email\n        }\n    }\n}\n"
             },
             {
                 "name": "EFieldset",
                 "title": "PrimeFieldsetCase5",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEFieldset {\n    width: 360\n    enabled: false\n    title: \"Account\"\n\n    Column {\n        spacing: 12\n        width: parent.width\n\n        EInput {\n            width: parent.width\n            placeholderText: \"Name\"\n        }\n        EInput {\n            width: parent.width\n            placeholderText: \"Email\"\n        }\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEFieldset {\n    width: 360\n    enabled: false\n    title: ELocale.texts.DemoAccount\n\n    Column {\n        spacing: 12\n        width: parent.width\n\n        EInput {\n            width: parent.width\n            placeholderText: ELocale.texts.Name2\n        }\n        EInput {\n            width: parent.width\n            placeholderText: ELocale.texts.Email\n        }\n    }\n}\n"
             }
         ]
     },
@@ -357,27 +357,27 @@ var definitions = {
             {
                 "name": "EInplace",
                 "title": "PrimeInplaceCase1",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEInplace {\n    width: 320\n    text: \"Click to edit\"\n\n    EInput {\n        text: \"Editable value\"\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEInplace {\n    width: 320\n    text: ELocale.texts.PrimeInplaceCase1\n\n    EInput {\n        text: ELocale.texts.DemoEditableValue\n    }\n}\n"
             },
             {
                 "name": "EInplace",
                 "title": "PrimeInplaceCase2",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEInplace {\n    width: 320\n    closable: true\n    text: \"Click to edit\"\n\n    EInput {\n        text: \"Editable value\"\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEInplace {\n    width: 320\n    closable: true\n    text: ELocale.texts.PrimeInplaceCase1\n\n    EInput {\n        text: ELocale.texts.DemoEditableValue\n    }\n}\n"
             },
             {
                 "name": "EInplace",
                 "title": "PrimeInplaceCase3",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEInplace {\n    width: 320\n    active: true\n    text: \"Click to edit\"\n\n    EInput {\n        text: \"Editable value\"\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEInplace {\n    width: 320\n    active: true\n    text: ELocale.texts.PrimeInplaceCase1\n\n    EInput {\n        text: ELocale.texts.DemoEditableValue\n    }\n}\n"
             },
             {
                 "name": "EInplace",
                 "title": "PrimeInplaceCase4",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEInplace {\n    width: 320\n    text: \"Click to edit\"\n    displayComponent: ETag {\n        text: \"Edit account\"\n        iconSource: EIcons.PENCIL\n    }\n\n    EInput {\n        text: \"Editable value\"\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEInplace {\n    width: 320\n    text: ELocale.texts.PrimeInplaceCase1\n    displayComponent: ETag {\n        text: \"Edit account\"\n        iconSource: EIcons.PENCIL\n    }\n\n    EInput {\n        text: ELocale.texts.DemoEditableValue\n    }\n}\n"
             },
             {
                 "name": "EInplace",
                 "title": "PrimeInplaceCase5",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEInplace {\n    width: 320\n    enabled: false\n    text: \"Click to edit\"\n\n    EInput {\n        text: \"Editable value\"\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEInplace {\n    width: 320\n    enabled: false\n    text: ELocale.texts.PrimeInplaceCase1\n\n    EInput {\n        text: ELocale.texts.DemoEditableValue\n    }\n}\n"
             }
         ]
     },
@@ -387,7 +387,7 @@ var definitions = {
             {
                 "name": "ETerminal",
                 "title": "PrimeTerminalCase1",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nETerminal {\n    height: 240\n    width: Math.min(600, parent.width)\n    welcome: \"Try help, echo hello, clear. Up/Down: history.\"\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nETerminal {\n    height: 240\n    width: Math.min(600, parent.width)\n    welcome: ELocale.texts.DemoTerminalWelcome\n}\n"
             },
             {
                 "name": "ETerminal",
@@ -447,27 +447,27 @@ var definitions = {
             {
                 "name": "EMegaMenu",
                 "title": "PrimeMegaMenuCase1",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEMegaMenu {\n    width: 520\n    model: [{\n        \"label\": \"Workspace\",\n        \"children\": [{\n            \"label\": \"Design\",\n            \"children\": [{\n                \"label\": \"Assets\",\n                \"command\": \"assets\"\n            }, {\n                \"label\": \"Themes\",\n                \"command\": \"themes\"\n            }]\n        }, {\n            \"label\": \"Develop\",\n            \"children\": [{\n                \"label\": \"Code\",\n                \"command\": \"code\"\n            }, {\n                \"label\": \"Build\",\n                \"command\": \"build\"\n            }]\n        }]\n    }, {\n        \"label\": \"Help\",\n        \"children\": [{\n            \"label\": \"Learn\",\n            \"children\": [{\n                \"label\": \"Docs\",\n                \"command\": \"docs\"\n            }]\n        }]\n    }]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEMegaMenu {\n    width: 520\n    model: [{\n        \"label\": ELocale.texts.DemoWorkspace,\n        \"children\": [{\n            \"label\": ELocale.texts.Design,\n            \"children\": [{\n                \"label\": \"Assets\",\n                \"command\": \"assets\"\n            }, {\n                \"label\": \"Themes\",\n                \"command\": \"themes\"\n            }]\n        }, {\n            \"label\": ELocale.texts.DemoDevelop,\n            \"children\": [{\n                \"label\": \"Code\",\n                \"command\": \"code\"\n            }, {\n                \"label\": \"Build\",\n                \"command\": \"build\"\n            }]\n        }]\n    }, {\n        \"label\": ELocale.texts.DemoHelp,\n        \"children\": [{\n            \"label\": \"Learn\",\n            \"children\": [{\n                \"label\": \"Docs\",\n                \"command\": \"docs\"\n            }]\n        }]\n    }]\n}\n"
             },
             {
                 "name": "EMegaMenu",
                 "title": "PrimeMegaMenuCase2",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEMegaMenu {\n    width: 180\n    vertical: true\n    model: [{\n        \"label\": \"Workspace\",\n        \"children\": [{\n            \"label\": \"Design\",\n            \"children\": [{\n                \"label\": \"Assets\",\n                \"command\": \"assets\"\n            }, {\n                \"label\": \"Themes\",\n                \"command\": \"themes\"\n            }]\n        }, {\n            \"label\": \"Develop\",\n            \"children\": [{\n                \"label\": \"Code\",\n                \"command\": \"code\"\n            }, {\n                \"label\": \"Build\",\n                \"command\": \"build\"\n            }]\n        }]\n    }, {\n        \"label\": \"Help\",\n        \"children\": [{\n            \"label\": \"Learn\",\n            \"children\": [{\n                \"label\": \"Docs\",\n                \"command\": \"docs\"\n            }]\n        }]\n    }]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEMegaMenu {\n    width: 180\n    vertical: true\n    model: [{\n        \"label\": ELocale.texts.DemoWorkspace,\n        \"children\": [{\n            \"label\": ELocale.texts.Design,\n            \"children\": [{\n                \"label\": \"Assets\",\n                \"command\": \"assets\"\n            }, {\n                \"label\": \"Themes\",\n                \"command\": \"themes\"\n            }]\n        }, {\n            \"label\": ELocale.texts.DemoDevelop,\n            \"children\": [{\n                \"label\": \"Code\",\n                \"command\": \"code\"\n            }, {\n                \"label\": \"Build\",\n                \"command\": \"build\"\n            }]\n        }]\n    }, {\n        \"label\": ELocale.texts.DemoHelp,\n        \"children\": [{\n            \"label\": \"Learn\",\n            \"children\": [{\n                \"label\": \"Docs\",\n                \"command\": \"docs\"\n            }]\n        }]\n    }]\n}\n"
             },
             {
                 "name": "EMegaMenu",
                 "title": "PrimeMegaMenuCase3",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEMegaMenu {\n    width: 520\n    columnWidth: 240\n    model: [{\n        \"label\": \"Workspace\",\n        \"children\": [{\n            \"label\": \"Design\",\n            \"children\": [{\n                \"label\": \"Assets\",\n                \"command\": \"assets\"\n            }, {\n                \"label\": \"Themes\",\n                \"command\": \"themes\"\n            }]\n        }, {\n            \"label\": \"Develop\",\n            \"children\": [{\n                \"label\": \"Code\",\n                \"command\": \"code\"\n            }, {\n                \"label\": \"Build\",\n                \"command\": \"build\"\n            }]\n        }]\n    }, {\n        \"label\": \"Help\",\n        \"children\": [{\n            \"label\": \"Learn\",\n            \"children\": [{\n                \"label\": \"Docs\",\n                \"command\": \"docs\"\n            }]\n        }]\n    }]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEMegaMenu {\n    width: 520\n    columnWidth: 240\n    model: [{\n        \"label\": ELocale.texts.DemoWorkspace,\n        \"children\": [{\n            \"label\": ELocale.texts.Design,\n            \"children\": [{\n                \"label\": \"Assets\",\n                \"command\": \"assets\"\n            }, {\n                \"label\": \"Themes\",\n                \"command\": \"themes\"\n            }]\n        }, {\n            \"label\": ELocale.texts.DemoDevelop,\n            \"children\": [{\n                \"label\": \"Code\",\n                \"command\": \"code\"\n            }, {\n                \"label\": \"Build\",\n                \"command\": \"build\"\n            }]\n        }]\n    }, {\n        \"label\": ELocale.texts.DemoHelp,\n        \"children\": [{\n            \"label\": \"Learn\",\n            \"children\": [{\n                \"label\": \"Docs\",\n                \"command\": \"docs\"\n            }]\n        }]\n    }]\n}\n"
             },
             {
                 "name": "EMegaMenu",
                 "title": "PrimeMegaMenuCase4",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEMegaMenu {\n    width: 520\n    model: [{\n        \"label\": \"Workspace\",\n        \"children\": [{\n            \"label\": \"Design\",\n            \"children\": [{\n                \"label\": \"Assets\",\n                \"command\": \"assets\"\n            }, {\n                \"label\": \"Themes\",\n                \"command\": \"themes\"\n            }]\n        }, {\n            \"label\": \"Develop\",\n            \"children\": [{\n                \"label\": \"Code\",\n                \"command\": \"code\"\n            }, {\n                \"label\": \"Build\",\n                \"command\": \"build\"\n            }]\n        }]\n    }, {\n        \"label\": \"Help\",\n        \"children\": [{\n            \"label\": \"Learn\",\n            \"children\": [{\n                \"label\": \"Docs\",\n                \"command\": \"docs\"\n            }]\n        }]\n    }]\n\n    onCommand: function(command, item) { sampleFeedback.open(String(command)) }\n\n    EMessage {\n        id: sampleFeedback\n\n        type: EStyle.Success\n        objectName: \"sampleFeedback\"\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEMegaMenu {\n    width: 520\n    model: [{\n        \"label\": ELocale.texts.DemoWorkspace,\n        \"children\": [{\n            \"label\": ELocale.texts.Design,\n            \"children\": [{\n                \"label\": \"Assets\",\n                \"command\": \"assets\"\n            }, {\n                \"label\": \"Themes\",\n                \"command\": \"themes\"\n            }]\n        }, {\n            \"label\": ELocale.texts.DemoDevelop,\n            \"children\": [{\n                \"label\": \"Code\",\n                \"command\": \"code\"\n            }, {\n                \"label\": \"Build\",\n                \"command\": \"build\"\n            }]\n        }]\n    }, {\n        \"label\": ELocale.texts.DemoHelp,\n        \"children\": [{\n            \"label\": \"Learn\",\n            \"children\": [{\n                \"label\": \"Docs\",\n                \"command\": \"docs\"\n            }]\n        }]\n    }]\n\n    onCommand: function(command, item) { sampleFeedback.open(String(command)) }\n\n    EMessage {\n        id: sampleFeedback\n\n        type: EStyle.Success\n        objectName: \"sampleFeedback\"\n    }\n}\n"
             },
             {
                 "name": "EMegaMenu",
                 "title": "PrimeMegaMenuCase5",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEMegaMenu {\n    width: 520\n    enabled: false\n    model: [{\n        \"label\": \"Workspace\",\n        \"children\": [{\n            \"label\": \"Design\",\n            \"children\": [{\n                \"label\": \"Assets\",\n                \"command\": \"assets\"\n            }, {\n                \"label\": \"Themes\",\n                \"command\": \"themes\"\n            }]\n        }, {\n            \"label\": \"Develop\",\n            \"children\": [{\n                \"label\": \"Code\",\n                \"command\": \"code\"\n            }, {\n                \"label\": \"Build\",\n                \"command\": \"build\"\n            }]\n        }]\n    }, {\n        \"label\": \"Help\",\n        \"children\": [{\n            \"label\": \"Learn\",\n            \"children\": [{\n                \"label\": \"Docs\",\n                \"command\": \"docs\"\n            }]\n        }]\n    }]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEMegaMenu {\n    width: 520\n    enabled: false\n    model: [{\n        \"label\": ELocale.texts.DemoWorkspace,\n        \"children\": [{\n            \"label\": ELocale.texts.Design,\n            \"children\": [{\n                \"label\": \"Assets\",\n                \"command\": \"assets\"\n            }, {\n                \"label\": \"Themes\",\n                \"command\": \"themes\"\n            }]\n        }, {\n            \"label\": ELocale.texts.DemoDevelop,\n            \"children\": [{\n                \"label\": \"Code\",\n                \"command\": \"code\"\n            }, {\n                \"label\": \"Build\",\n                \"command\": \"build\"\n            }]\n        }]\n    }, {\n        \"label\": ELocale.texts.DemoHelp,\n        \"children\": [{\n            \"label\": \"Learn\",\n            \"children\": [{\n                \"label\": \"Docs\",\n                \"command\": \"docs\"\n            }]\n        }]\n    }]\n}\n"
             }
         ]
     },
@@ -477,27 +477,27 @@ var definitions = {
             {
                 "name": "ESidebar",
                 "title": "PrimeSidebarCase1",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nESidebar {\n    height: 300\n    responsive: false\n    title: \"Workspace\"\n    model: [{\n        \"index\": \"home\",\n        \"text\": \"Home\",\n        \"iconSource\": EIcons.HOUSE\n    }, {\n        \"index\": \"files\",\n        \"text\": \"Files\",\n        \"iconSource\": EIcons.FOLDER\n    }, {\n        \"index\": \"settings\",\n        \"text\": \"Settings\",\n        \"iconSource\": EIcons.GEAR\n    }]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nESidebar {\n    height: 300\n    responsive: false\n    title: ELocale.texts.DemoWorkspace\n    model: [{\n        \"index\": \"home\",\n        \"text\": ELocale.texts.DemoHome,\n        \"iconSource\": EIcons.HOUSE\n    }, {\n        \"index\": \"files\",\n        \"text\": ELocale.texts.DemoFiles,\n        \"iconSource\": EIcons.FOLDER\n    }, {\n        \"index\": \"settings\",\n        \"text\": ELocale.texts.DemoSettings,\n        \"iconSource\": EIcons.GEAR\n    }]\n}\n"
             },
             {
                 "name": "ESidebar",
                 "title": "PrimeSidebarCase2",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nESidebar {\n    height: 300\n    collapsed: true\n    responsive: false\n    title: \"Workspace\"\n    model: [{\n        \"index\": \"home\",\n        \"text\": \"Home\",\n        \"iconSource\": EIcons.HOUSE\n    }, {\n        \"index\": \"files\",\n        \"text\": \"Files\",\n        \"iconSource\": EIcons.FOLDER\n    }, {\n        \"index\": \"settings\",\n        \"text\": \"Settings\",\n        \"iconSource\": EIcons.GEAR\n    }]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nESidebar {\n    height: 300\n    collapsed: true\n    responsive: false\n    title: ELocale.texts.DemoWorkspace\n    model: [{\n        \"index\": \"home\",\n        \"text\": ELocale.texts.DemoHome,\n        \"iconSource\": EIcons.HOUSE\n    }, {\n        \"index\": \"files\",\n        \"text\": ELocale.texts.DemoFiles,\n        \"iconSource\": EIcons.FOLDER\n    }, {\n        \"index\": \"settings\",\n        \"text\": ELocale.texts.DemoSettings,\n        \"iconSource\": EIcons.GEAR\n    }]\n}\n"
             },
             {
                 "name": "ESidebar",
                 "title": "PrimeSidebarCase3",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nESidebar {\n    height: 300\n    collapsed: true\n    openOnHover: true\n    responsive: false\n    title: \"Workspace\"\n    model: [{\n        \"index\": \"home\",\n        \"text\": \"Home\",\n        \"iconSource\": EIcons.HOUSE\n    }, {\n        \"index\": \"files\",\n        \"text\": \"Files\",\n        \"iconSource\": EIcons.FOLDER\n    }, {\n        \"index\": \"settings\",\n        \"text\": \"Settings\",\n        \"iconSource\": EIcons.GEAR\n    }]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nESidebar {\n    height: 300\n    collapsed: true\n    openOnHover: true\n    responsive: false\n    title: ELocale.texts.DemoWorkspace\n    model: [{\n        \"index\": \"home\",\n        \"text\": ELocale.texts.DemoHome,\n        \"iconSource\": EIcons.HOUSE\n    }, {\n        \"index\": \"files\",\n        \"text\": ELocale.texts.DemoFiles,\n        \"iconSource\": EIcons.FOLDER\n    }, {\n        \"index\": \"settings\",\n        \"text\": ELocale.texts.DemoSettings,\n        \"iconSource\": EIcons.GEAR\n    }]\n}\n"
             },
             {
                 "name": "ESidebar",
                 "title": "PrimeSidebarCase4",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nESidebar {\n    height: 300\n    responsive: false\n    title: \"Workspace\"\n    variant: \"floating\"\n    model: [{\n        \"index\": \"home\",\n        \"text\": \"Home\",\n        \"iconSource\": EIcons.HOUSE\n    }, {\n        \"index\": \"files\",\n        \"text\": \"Files\",\n        \"iconSource\": EIcons.FOLDER\n    }, {\n        \"index\": \"settings\",\n        \"text\": \"Settings\",\n        \"iconSource\": EIcons.GEAR\n    }]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nESidebar {\n    height: 300\n    responsive: false\n    title: ELocale.texts.DemoWorkspace\n    variant: \"floating\"\n    model: [{\n        \"index\": \"home\",\n        \"text\": ELocale.texts.DemoHome,\n        \"iconSource\": EIcons.HOUSE\n    }, {\n        \"index\": \"files\",\n        \"text\": ELocale.texts.DemoFiles,\n        \"iconSource\": EIcons.FOLDER\n    }, {\n        \"index\": \"settings\",\n        \"text\": ELocale.texts.DemoSettings,\n        \"iconSource\": EIcons.GEAR\n    }]\n}\n"
             },
             {
                 "name": "ESidebar",
                 "title": "PrimeSidebarCase5",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\n\nItem {\n    height: 60\n    width: 420\n\n    EButton {\n        text: \"Open navigation\"\n\n        onClicked: navigation.open = true\n    }\n    ESidebar {\n        id: navigation\n\n        open: false\n        mode: \"offcanvas\"\n        responsive: false\n        title: \"Workspace\"\n        model: [{index: \"home\", text: \"Home\", iconSource: EIcons.HOUSE}, {index: \"files\", text: \"Files\", iconSource: EIcons.FOLDER}, {index: \"settings\", text: \"Settings\", iconSource: EIcons.GEAR}]\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\n\nItem {\n    height: 60\n    width: 420\n\n    EButton {\n        text: \"Open navigation\"\n\n        onClicked: navigation.open = true\n    }\n    ESidebar {\n        id: navigation\n\n        open: false\n        mode: \"offcanvas\"\n        responsive: false\n        title: ELocale.texts.DemoWorkspace\n        model: [{index: \"home\", text: ELocale.texts.DemoHome, iconSource: EIcons.HOUSE}, {index: \"files\", text: ELocale.texts.DemoFiles, iconSource: EIcons.FOLDER}, {index: \"settings\", text: ELocale.texts.DemoSettings, iconSource: EIcons.GEAR}]\n    }\n}\n"
             }
         ]
     },
@@ -537,27 +537,27 @@ var definitions = {
             {
                 "name": "EDeferred",
                 "title": "PrimeDeferredCase1",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nFlickable {\n    id: viewport\n\n    clip: true\n    width: 340\n    height: 180\n    contentHeight: 500\n\n    Rectangle {\n        y: 0\n        width: 320\n        height: 100\n        color: EPaletteManager.ThemePalette.surfaceHover(ETheme.dark)\n\n        EText {\n            text: \"Scroll down ↓\"\n            anchors.centerIn: parent\n        }\n    }\n    EDeferred {\n        y: 240\n        width: 300\n        height: 100\n\n        EText {\n            padding: 20\n            text: \"Loaded in viewport\"\n        }\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nFlickable {\n    id: viewport\n\n    clip: true\n    width: 340\n    height: 180\n    contentHeight: 500\n\n    Rectangle {\n        y: 0\n        width: 320\n        height: 100\n        color: EPaletteManager.ThemePalette.surfaceHover(ETheme.dark)\n\n        EText {\n            text: ELocale.texts.DemoScrollDown\n            anchors.centerIn: parent\n        }\n    }\n    EDeferred {\n        y: 240\n        width: 300\n        height: 100\n\n        EText {\n            padding: 20\n            text: ELocale.texts.DemoLoadedInViewport\n        }\n    }\n}\n"
             },
             {
                 "name": "EDeferred",
                 "title": "PrimeDeferredCase2",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nFlickable {\n    id: viewport\n\n    clip: true\n    width: 340\n    height: 180\n    contentHeight: 500\n\n    Rectangle {\n        y: 0\n        width: 320\n        height: 100\n        color: EPaletteManager.ThemePalette.surfaceHover(ETheme.dark)\n\n        EText {\n            text: \"Scroll down ↓\"\n            anchors.centerIn: parent\n        }\n    }\n    EDeferred {\n        y: 240\n        width: 300\n        height: 100\n        once: false\n\n        EText {\n            padding: 20\n            text: \"Loaded in viewport\"\n        }\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nFlickable {\n    id: viewport\n\n    clip: true\n    width: 340\n    height: 180\n    contentHeight: 500\n\n    Rectangle {\n        y: 0\n        width: 320\n        height: 100\n        color: EPaletteManager.ThemePalette.surfaceHover(ETheme.dark)\n\n        EText {\n            text: ELocale.texts.DemoScrollDown\n            anchors.centerIn: parent\n        }\n    }\n    EDeferred {\n        y: 240\n        width: 300\n        height: 100\n        once: false\n\n        EText {\n            padding: 20\n            text: ELocale.texts.DemoLoadedInViewport\n        }\n    }\n}\n"
             },
             {
                 "name": "EDeferred",
                 "title": "PrimeDeferredCase3",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nFlickable {\n    id: viewport\n\n    clip: true\n    width: 340\n    height: 180\n    contentHeight: 500\n\n    Rectangle {\n        y: 0\n        width: 320\n        height: 100\n        color: EPaletteManager.ThemePalette.surfaceHover(ETheme.dark)\n\n        EText {\n            text: \"Scroll down ↓\"\n            anchors.centerIn: parent\n        }\n    }\n    EDeferred {\n        y: 240\n        once: true\n        width: 300\n        height: 100\n\n        EText {\n            padding: 20\n            text: \"Loaded in viewport\"\n        }\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nFlickable {\n    id: viewport\n\n    clip: true\n    width: 340\n    height: 180\n    contentHeight: 500\n\n    Rectangle {\n        y: 0\n        width: 320\n        height: 100\n        color: EPaletteManager.ThemePalette.surfaceHover(ETheme.dark)\n\n        EText {\n            text: ELocale.texts.DemoScrollDown\n            anchors.centerIn: parent\n        }\n    }\n    EDeferred {\n        y: 240\n        once: true\n        width: 300\n        height: 100\n\n        EText {\n            padding: 20\n            text: ELocale.texts.DemoLoadedInViewport\n        }\n    }\n}\n"
             },
             {
                 "name": "EDeferred",
                 "title": "PrimeDeferredCase4",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nFlickable {\n    id: viewport\n\n    clip: true\n    width: 340\n    height: 180\n    contentHeight: 500\n\n    Rectangle {\n        y: 0\n        width: 320\n        height: 100\n        color: EPaletteManager.ThemePalette.surfaceHover(ETheme.dark)\n\n        EText {\n            text: \"Scroll down ↓\"\n            anchors.centerIn: parent\n        }\n    }\n    EDeferred {\n        y: 240\n        width: 300\n        height: 100\n        viewport: viewport\n\n        EText {\n            padding: 20\n            text: \"Loaded in viewport\"\n        }\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nFlickable {\n    id: viewport\n\n    clip: true\n    width: 340\n    height: 180\n    contentHeight: 500\n\n    Rectangle {\n        y: 0\n        width: 320\n        height: 100\n        color: EPaletteManager.ThemePalette.surfaceHover(ETheme.dark)\n\n        EText {\n            text: ELocale.texts.DemoScrollDown\n            anchors.centerIn: parent\n        }\n    }\n    EDeferred {\n        y: 240\n        width: 300\n        height: 100\n        viewport: viewport\n\n        EText {\n            padding: 20\n            text: ELocale.texts.DemoLoadedInViewport\n        }\n    }\n}\n"
             },
             {
                 "name": "EDeferred",
                 "title": "PrimeDeferredCase5",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nFlickable {\n    id: viewport\n\n    clip: true\n    width: 340\n    height: 180\n    contentHeight: 500\n\n    Rectangle {\n        y: 0\n        width: 320\n        height: 100\n        color: EPaletteManager.ThemePalette.surfaceHover(ETheme.dark)\n\n        EText {\n            text: \"Scroll down ↓\"\n            anchors.centerIn: parent\n        }\n    }\n    EDeferred {\n        y: 240\n        margin: 80\n        width: 300\n        height: 100\n\n        EText {\n            padding: 20\n            text: \"Loaded in viewport\"\n        }\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nFlickable {\n    id: viewport\n\n    clip: true\n    width: 340\n    height: 180\n    contentHeight: 500\n\n    Rectangle {\n        y: 0\n        width: 320\n        height: 100\n        color: EPaletteManager.ThemePalette.surfaceHover(ETheme.dark)\n\n        EText {\n            text: ELocale.texts.DemoScrollDown\n            anchors.centerIn: parent\n        }\n    }\n    EDeferred {\n        y: 240\n        margin: 80\n        width: 300\n        height: 100\n\n        EText {\n            padding: 20\n            text: ELocale.texts.DemoLoadedInViewport\n        }\n    }\n}\n"
             }
         ]
     },
@@ -597,27 +597,27 @@ var definitions = {
             {
                 "name": "ERipple",
                 "title": "PrimeRippleCase1",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nERipple {\n    height: 80\n    width: 280\n\n    ERectangle {\n        radius: 8\n        anchors.fill: parent\n        color: EPaletteManager.ThemePalette.surfaceHover(ETheme.dark)\n\n        EText {\n            text: \"Click anywhere\"\n            anchors.centerIn: parent\n        }\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nERipple {\n    height: 80\n    width: 280\n\n    ERectangle {\n        radius: 8\n        anchors.fill: parent\n        color: EPaletteManager.ThemePalette.surfaceHover(ETheme.dark)\n\n        EText {\n            text: ELocale.texts.DemoClickAnywhere\n            anchors.centerIn: parent\n        }\n    }\n}\n"
             },
             {
                 "name": "ERipple",
                 "title": "PrimeRippleCase2",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nERipple {\n    height: 80\n    width: 280\n    duration: 900\n\n    ERectangle {\n        radius: 8\n        anchors.fill: parent\n        color: EPaletteManager.ThemePalette.surfaceHover(ETheme.dark)\n\n        EText {\n            text: \"Click anywhere\"\n            anchors.centerIn: parent\n        }\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nERipple {\n    height: 80\n    width: 280\n    duration: 900\n\n    ERectangle {\n        radius: 8\n        anchors.fill: parent\n        color: EPaletteManager.ThemePalette.surfaceHover(ETheme.dark)\n\n        EText {\n            text: ELocale.texts.DemoClickAnywhere\n            anchors.centerIn: parent\n        }\n    }\n}\n"
             },
             {
                 "name": "ERipple",
                 "title": "PrimeRippleCase3",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nERipple {\n    height: 80\n    width: 280\n    color: \"#67c23a\"\n\n    ERectangle {\n        radius: 8\n        anchors.fill: parent\n        color: EPaletteManager.ThemePalette.surfaceHover(ETheme.dark)\n\n        EText {\n            text: \"Click anywhere\"\n            anchors.centerIn: parent\n        }\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nERipple {\n    height: 80\n    width: 280\n    color: \"#67c23a\"\n\n    ERectangle {\n        radius: 8\n        anchors.fill: parent\n        color: EPaletteManager.ThemePalette.surfaceHover(ETheme.dark)\n\n        EText {\n            text: ELocale.texts.DemoClickAnywhere\n            anchors.centerIn: parent\n        }\n    }\n}\n"
             },
             {
                 "name": "ERipple",
                 "title": "PrimeRippleCase4",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nERipple {\n    height: 48\n    width: 180\n\n    ERectangle {\n        radius: 8\n        anchors.fill: parent\n        color: EPaletteManager.ThemePalette.surfaceHover(ETheme.dark)\n\n        EText {\n            text: \"Click anywhere\"\n            anchors.centerIn: parent\n        }\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nERipple {\n    height: 48\n    width: 180\n\n    ERectangle {\n        radius: 8\n        anchors.fill: parent\n        color: EPaletteManager.ThemePalette.surfaceHover(ETheme.dark)\n\n        EText {\n            text: ELocale.texts.DemoClickAnywhere\n            anchors.centerIn: parent\n        }\n    }\n}\n"
             },
             {
                 "name": "ERipple",
                 "title": "PrimeRippleCase5",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nERipple {\n    height: 80\n    width: 280\n    enabled: false\n\n    ERectangle {\n        radius: 8\n        anchors.fill: parent\n        color: EPaletteManager.ThemePalette.surfaceHover(ETheme.dark)\n\n        EText {\n            text: \"Click anywhere\"\n            anchors.centerIn: parent\n        }\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nERipple {\n    height: 80\n    width: 280\n    enabled: false\n\n    ERectangle {\n        radius: 8\n        anchors.fill: parent\n        color: EPaletteManager.ThemePalette.surfaceHover(ETheme.dark)\n\n        EText {\n            text: ELocale.texts.DemoClickAnywhere\n            anchors.centerIn: parent\n        }\n    }\n}\n"
             }
         ]
     },
@@ -627,22 +627,22 @@ var definitions = {
             {
                 "name": "EFocusTrap",
                 "title": "PrimeFocusTrapCase1",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEFocusTrap {\n    width: 420\n    height: 110\n\n    Column {\n        spacing: 10\n\n        EText {\n            text: \"Tab / Shift+Tab\"\n        }\n        Row {\n            spacing: 10\n\n            EInput {\n                width: 180\n                placeholderText: \"Focus here\"\n            }\n            EButton {\n                text: \"Next\"\n            }\n            EButton {\n                text: \"Last\"\n            }\n        }\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEFocusTrap {\n    width: 420\n    height: 110\n\n    Column {\n        spacing: 10\n\n        EText {\n            text: \"Tab / Shift+Tab\"\n        }\n        Row {\n            spacing: 10\n\n            EInput {\n                width: 180\n                placeholderText: ELocale.texts.DemoFocusHere\n            }\n            EButton {\n                text: ELocale.texts.Next\n            }\n            EButton {\n                text: ELocale.texts.DemoLast\n            }\n        }\n    }\n}\n"
             },
             {
                 "name": "EFocusTrap",
                 "title": "PrimeFocusTrapCase2",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEFocusTrap {\n    width: 420\n    height: 110\n\n    Column {\n        spacing: 10\n\n        EText {\n            text: \"Shift+Tab: move backwards\"\n        }\n        Row {\n            spacing: 10\n\n            EInput {\n                width: 180\n                placeholderText: \"Focus here\"\n            }\n            EButton {\n                text: \"Previous\"\n            }\n            EButton {\n                text: \"Last\"\n            }\n        }\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEFocusTrap {\n    width: 420\n    height: 110\n\n    Column {\n        spacing: 10\n\n        EText {\n            text: \"Shift+Tab: move backwards\"\n        }\n        Row {\n            spacing: 10\n\n            EInput {\n                width: 180\n                placeholderText: ELocale.texts.DemoFocusHere\n            }\n            EButton {\n                text: \"Previous\"\n            }\n            EButton {\n                text: ELocale.texts.DemoLast\n            }\n        }\n    }\n}\n"
             },
             {
                 "name": "EFocusTrap",
                 "title": "PrimeFocusTrapCase3",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEFocusTrap {\n    width: 420\n    height: 110\n    active: false\n\n    Column {\n        spacing: 10\n\n        EText {\n            text: \"Tab / Shift+Tab\"\n        }\n        Row {\n            spacing: 10\n\n            EInput {\n                width: 180\n                placeholderText: \"Focus here\"\n            }\n            EButton {\n                text: \"Next\"\n            }\n            EButton {\n                text: \"Last\"\n            }\n        }\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEFocusTrap {\n    width: 420\n    height: 110\n    active: false\n\n    Column {\n        spacing: 10\n\n        EText {\n            text: \"Tab / Shift+Tab\"\n        }\n        Row {\n            spacing: 10\n\n            EInput {\n                width: 180\n                placeholderText: ELocale.texts.DemoFocusHere\n            }\n            EButton {\n                text: ELocale.texts.Next\n            }\n            EButton {\n                text: ELocale.texts.DemoLast\n            }\n        }\n    }\n}\n"
             },
             {
                 "name": "EFocusTrap",
                 "title": "PrimeFocusTrapCase4",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEFocusTrap {\n    width: 420\n    height: 110\n    enabled: false\n\n    Column {\n        spacing: 10\n\n        EText {\n            text: \"Tab / Shift+Tab\"\n        }\n        Row {\n            spacing: 10\n\n            EInput {\n                width: 180\n                placeholderText: \"Focus here\"\n            }\n            EButton {\n                text: \"Next\"\n            }\n            EButton {\n                text: \"Last\"\n            }\n        }\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEFocusTrap {\n    width: 420\n    height: 110\n    enabled: false\n\n    Column {\n        spacing: 10\n\n        EText {\n            text: \"Tab / Shift+Tab\"\n        }\n        Row {\n            spacing: 10\n\n            EInput {\n                width: 180\n                placeholderText: ELocale.texts.DemoFocusHere\n            }\n            EButton {\n                text: ELocale.texts.Next\n            }\n            EButton {\n                text: ELocale.texts.DemoLast\n            }\n        }\n    }\n}\n"
             },
             {
                 "name": "EFocusTrap",
@@ -657,27 +657,27 @@ var definitions = {
             {
                 "name": "EDialogService",
                 "title": "PrimeDialogServiceCase1",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nItem {\n    height: 50\n    width: 420\n\n    EButton {\n        text: \"Open dialog\"\n\n        onClicked: dialogs.open(content, {\n            \"greeting\": \"Dynamic content\"\n        }, {\n            \"title\": \"Service dialog\",\n            \"onClose\": function(value, accepted) {\n                sampleFeedback.open(accepted ? JSON.stringify(value) : \"Cancelled\")\n            }\n        })\n    }\n    EDialogService {\n        id: dialogs\n    }\n    Component {\n        id: content\n\n        Column {\n            property var dialogRef\n            property string greeting: \"Hello\"\n\n            spacing: 12\n\n            EText {\n                text: parent.greeting\n            }\n            EButton {\n                text: \"Return result\"\n\n                onClicked: parent.dialogRef.resolve({\n                    \"saved\": true\n                })\n            }\n        }\n    }\n    EMessage {\n        id: sampleFeedback\n\n        type: EStyle.Info\n        objectName: \"sampleFeedback\"\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nItem {\n    height: 50\n    width: 420\n\n    EButton {\n        text: ELocale.texts.OpenDialog\n\n        onClicked: dialogs.open(content, {\n            \"greeting\": ELocale.texts.PrimeDialogServiceCase1\n        }, {\n            \"title\": ELocale.texts.DemoServiceDialog,\n            \"onClose\": function(value, accepted) {\n                sampleFeedback.open(accepted ? JSON.stringify(value) : ELocale.texts.DemoCancelled)\n            }\n        })\n    }\n    EDialogService {\n        id: dialogs\n    }\n    Component {\n        id: content\n\n        Column {\n            property var dialogRef\n            property string greeting: ELocale.texts.DemoGreeting\n\n            spacing: 12\n\n            EText {\n                text: parent.greeting\n            }\n            EButton {\n                text: ELocale.texts.DemoReturnResult\n\n                onClicked: parent.dialogRef.resolve({\n                    \"saved\": true\n                })\n            }\n        }\n    }\n    EMessage {\n        id: sampleFeedback\n\n        type: EStyle.Info\n        objectName: \"sampleFeedback\"\n    }\n}\n"
             },
             {
                 "name": "EDialogService",
                 "title": "PrimeDialogServiceCase2",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nItem {\n    height: 50\n    width: 420\n\n    EButton {\n        text: \"Open dialog\"\n\n        onClicked: dialogs.open(content, {\n            \"greeting\": \"Parameters: EUI\"\n        }, {\n            \"title\": \"Service dialog\",\n            \"onClose\": function(value, accepted) {\n                sampleFeedback.open(accepted ? JSON.stringify(value) : \"Cancelled\")\n            }\n        })\n    }\n    EDialogService {\n        id: dialogs\n    }\n    Component {\n        id: content\n\n        Column {\n            property var dialogRef\n            property string greeting: \"Hello\"\n\n            spacing: 12\n\n            EText {\n                text: parent.greeting\n            }\n            EButton {\n                text: \"Return result\"\n\n                onClicked: parent.dialogRef.resolve({\n                    \"saved\": true\n                })\n            }\n        }\n    }\n    EMessage {\n        id: sampleFeedback\n\n        type: EStyle.Info\n        objectName: \"sampleFeedback\"\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nItem {\n    height: 50\n    width: 420\n\n    EButton {\n        text: ELocale.texts.OpenDialog\n\n        onClicked: dialogs.open(content, {\n            \"greeting\": \"Parameters: EUI\"\n        }, {\n            \"title\": ELocale.texts.DemoServiceDialog,\n            \"onClose\": function(value, accepted) {\n                sampleFeedback.open(accepted ? JSON.stringify(value) : ELocale.texts.DemoCancelled)\n            }\n        })\n    }\n    EDialogService {\n        id: dialogs\n    }\n    Component {\n        id: content\n\n        Column {\n            property var dialogRef\n            property string greeting: ELocale.texts.DemoGreeting\n\n            spacing: 12\n\n            EText {\n                text: parent.greeting\n            }\n            EButton {\n                text: ELocale.texts.DemoReturnResult\n\n                onClicked: parent.dialogRef.resolve({\n                    \"saved\": true\n                })\n            }\n        }\n    }\n    EMessage {\n        id: sampleFeedback\n\n        type: EStyle.Info\n        objectName: \"sampleFeedback\"\n    }\n}\n"
             },
             {
                 "name": "EDialogService",
                 "title": "PrimeDialogServiceCase3",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nItem {\n    height: 50\n    width: 420\n\n    EButton {\n        text: \"Open dialog\"\n\n        onClicked: dialogs.open(content, {\n            \"greeting\": \"Dynamic content\"\n        }, {\n            \"title\": \"Service dialog\",\n            \"onClose\": function(value, accepted) {\n                sampleFeedback.open(accepted ? JSON.stringify(value) : \"Cancelled\")\n            }\n        })\n    }\n    EDialogService {\n        id: dialogs\n    }\n    Component {\n        id: content\n\n        Column {\n            property var dialogRef\n            property string greeting: \"Hello\"\n\n            spacing: 12\n\n            EText {\n                text: parent.greeting\n            }\n            EButton {\n                text: \"Return result\"\n\n                onClicked: parent.dialogRef.resolve({\n                    \"saved\": true, \"name\": \"EUI\", \"count\": 3\n                })\n            }\n        }\n    }\n    EMessage {\n        id: sampleFeedback\n\n        type: EStyle.Info\n        objectName: \"sampleFeedback\"\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nItem {\n    height: 50\n    width: 420\n\n    EButton {\n        text: ELocale.texts.OpenDialog\n\n        onClicked: dialogs.open(content, {\n            \"greeting\": ELocale.texts.PrimeDialogServiceCase1\n        }, {\n            \"title\": ELocale.texts.DemoServiceDialog,\n            \"onClose\": function(value, accepted) {\n                sampleFeedback.open(accepted ? JSON.stringify(value) : ELocale.texts.DemoCancelled)\n            }\n        })\n    }\n    EDialogService {\n        id: dialogs\n    }\n    Component {\n        id: content\n\n        Column {\n            property var dialogRef\n            property string greeting: ELocale.texts.DemoGreeting\n\n            spacing: 12\n\n            EText {\n                text: parent.greeting\n            }\n            EButton {\n                text: ELocale.texts.DemoReturnResult\n\n                onClicked: parent.dialogRef.resolve({\n                    \"saved\": true, \"name\": \"EUI\", \"count\": 3\n                })\n            }\n        }\n    }\n    EMessage {\n        id: sampleFeedback\n\n        type: EStyle.Info\n        objectName: \"sampleFeedback\"\n    }\n}\n"
             },
             {
                 "name": "EDialogService",
                 "title": "PrimeDialogServiceCase4",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nItem {\n    height: 50\n    width: 420\n\n    EButton {\n        text: \"Open dialog\"\n\n        onClicked: dialogs.open(content, {\n            \"greeting\": \"Dynamic content\"\n        }, {\n            \"title\": \"Service dialog\",\n            \"onClose\": function(value, accepted) {\n                sampleFeedback.open(accepted ? JSON.stringify(value) : \"Cancelled\")\n            }\n        })\n    }\n    EDialogService {\n        id: dialogs\n    }\n    Component {\n        id: content\n\n        Column {\n            property var dialogRef\n            property string greeting: \"Hello\"\n\n            spacing: 12\n\n            EText {\n                text: parent.greeting\n            }\n            EButton {\n                text: \"Cancel dialog\"\n\n                onClicked: parent.dialogRef.reject()\n            }\n        }\n    }\n    EMessage {\n        id: sampleFeedback\n\n        type: EStyle.Info\n        objectName: \"sampleFeedback\"\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nItem {\n    height: 50\n    width: 420\n\n    EButton {\n        text: ELocale.texts.OpenDialog\n\n        onClicked: dialogs.open(content, {\n            \"greeting\": ELocale.texts.PrimeDialogServiceCase1\n        }, {\n            \"title\": ELocale.texts.DemoServiceDialog,\n            \"onClose\": function(value, accepted) {\n                sampleFeedback.open(accepted ? JSON.stringify(value) : ELocale.texts.DemoCancelled)\n            }\n        })\n    }\n    EDialogService {\n        id: dialogs\n    }\n    Component {\n        id: content\n\n        Column {\n            property var dialogRef\n            property string greeting: ELocale.texts.DemoGreeting\n\n            spacing: 12\n\n            EText {\n                text: parent.greeting\n            }\n            EButton {\n                text: \"Cancel dialog\"\n\n                onClicked: parent.dialogRef.reject()\n            }\n        }\n    }\n    EMessage {\n        id: sampleFeedback\n\n        type: EStyle.Info\n        objectName: \"sampleFeedback\"\n    }\n}\n"
             },
             {
                 "name": "EDialogService",
                 "title": "PrimeDialogServiceCase5",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nItem {\n    height: 50\n    width: 520\n\n    EButton {\n        text: \"Open dialog\"\n\n        onClicked: dialogs.open(content, {\n            \"greeting\": \"Dynamic content\"\n        }, {\n            \"title\": \"Multiple dialogs\", \"width\": 360,\n            \"onClose\": function(value, accepted) {\n                sampleFeedback.open(accepted ? JSON.stringify(value) : \"Cancelled\")\n            }\n        })\n    }\n    EDialogService {\n        id: dialogs\n    }\n    Component {\n        id: content\n\n        Column {\n            property var dialogRef\n            property string greeting: \"Hello\"\n\n            spacing: 12\n\n            EText {\n                text: parent.greeting\n            }\n            EButton {\n                text: \"Return result\"\n\n                onClicked: parent.dialogRef.resolve({\n                    \"saved\": true\n                })\n            }\n        }\n    }\n    EMessage {\n        id: sampleFeedback\n\n        type: EStyle.Info\n        objectName: \"sampleFeedback\"\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nItem {\n    height: 50\n    width: 520\n\n    EButton {\n        text: ELocale.texts.OpenDialog\n\n        onClicked: dialogs.open(content, {\n            \"greeting\": ELocale.texts.PrimeDialogServiceCase1\n        }, {\n            \"title\": \"Multiple dialogs\", \"width\": 360,\n            \"onClose\": function(value, accepted) {\n                sampleFeedback.open(accepted ? JSON.stringify(value) : ELocale.texts.DemoCancelled)\n            }\n        })\n    }\n    EDialogService {\n        id: dialogs\n    }\n    Component {\n        id: content\n\n        Column {\n            property var dialogRef\n            property string greeting: ELocale.texts.DemoGreeting\n\n            spacing: 12\n\n            EText {\n                text: parent.greeting\n            }\n            EButton {\n                text: ELocale.texts.DemoReturnResult\n\n                onClicked: parent.dialogRef.resolve({\n                    \"saved\": true\n                })\n            }\n        }\n    }\n    EMessage {\n        id: sampleFeedback\n\n        type: EStyle.Info\n        objectName: \"sampleFeedback\"\n    }\n}\n"
             }
         ]
     },
@@ -687,27 +687,27 @@ var definitions = {
             {
                 "name": "EDynamicDialog",
                 "title": "PrimeDynamicDialogCase1",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nItem {\n    height: 50\n    width: 420\n\n    EButton {\n        text: \"Open dialog\"\n\n        onClicked: dialog.openComponent(content, {\n            \"greeting\": \"Dynamic content\"\n        })\n    }\n    EDynamicDialog {\n        id: dialog\n\n        title: \"Dynamic dialog\"\n\n        onFinished: function(result, accepted) { sampleFeedback.open(accepted ? JSON.stringify(result) : \"Cancelled\") }\n    }\n    Component {\n        id: content\n\n        Column {\n            property var dialogRef\n            property string greeting: \"Hello\"\n\n            spacing: 12\n\n            EText {\n                text: parent.greeting\n            }\n            EButton {\n                text: \"Return result\"\n\n                onClicked: parent.dialogRef.resolve({\n                    \"saved\": true\n                })\n            }\n        }\n    }\n    EMessage {\n        id: sampleFeedback\n\n        type: EStyle.Info\n        objectName: \"sampleFeedback\"\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nItem {\n    height: 50\n    width: 420\n\n    EButton {\n        text: ELocale.texts.OpenDialog\n\n        onClicked: dialog.openComponent(content, {\n            \"greeting\": ELocale.texts.PrimeDialogServiceCase1\n        })\n    }\n    EDynamicDialog {\n        id: dialog\n\n        title: ELocale.texts.DemoDynamicDialog\n\n        onFinished: function(result, accepted) { sampleFeedback.open(accepted ? JSON.stringify(result) : ELocale.texts.DemoCancelled) }\n    }\n    Component {\n        id: content\n\n        Column {\n            property var dialogRef\n            property string greeting: ELocale.texts.DemoGreeting\n\n            spacing: 12\n\n            EText {\n                text: parent.greeting\n            }\n            EButton {\n                text: ELocale.texts.DemoReturnResult\n\n                onClicked: parent.dialogRef.resolve({\n                    \"saved\": true\n                })\n            }\n        }\n    }\n    EMessage {\n        id: sampleFeedback\n\n        type: EStyle.Info\n        objectName: \"sampleFeedback\"\n    }\n}\n"
             },
             {
                 "name": "EDynamicDialog",
                 "title": "PrimeDynamicDialogCase2",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nItem {\n    height: 50\n    width: 420\n\n    EButton {\n        text: \"Open dialog\"\n\n        onClicked: dialog.openComponent(content, {\n            \"greeting\": \"Parameters: EUI\"\n        })\n    }\n    EDynamicDialog {\n        id: dialog\n\n        title: \"Dynamic dialog\"\n\n        onFinished: function(result, accepted) { sampleFeedback.open(accepted ? JSON.stringify(result) : \"Cancelled\") }\n    }\n    Component {\n        id: content\n\n        Column {\n            property var dialogRef\n            property string greeting: \"Hello\"\n\n            spacing: 12\n\n            EText {\n                text: parent.greeting\n            }\n            EButton {\n                text: \"Return result\"\n\n                onClicked: parent.dialogRef.resolve({\n                    \"saved\": true\n                })\n            }\n        }\n    }\n    EMessage {\n        id: sampleFeedback\n\n        type: EStyle.Info\n        objectName: \"sampleFeedback\"\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nItem {\n    height: 50\n    width: 420\n\n    EButton {\n        text: ELocale.texts.OpenDialog\n\n        onClicked: dialog.openComponent(content, {\n            \"greeting\": \"Parameters: EUI\"\n        })\n    }\n    EDynamicDialog {\n        id: dialog\n\n        title: ELocale.texts.DemoDynamicDialog\n\n        onFinished: function(result, accepted) { sampleFeedback.open(accepted ? JSON.stringify(result) : ELocale.texts.DemoCancelled) }\n    }\n    Component {\n        id: content\n\n        Column {\n            property var dialogRef\n            property string greeting: ELocale.texts.DemoGreeting\n\n            spacing: 12\n\n            EText {\n                text: parent.greeting\n            }\n            EButton {\n                text: ELocale.texts.DemoReturnResult\n\n                onClicked: parent.dialogRef.resolve({\n                    \"saved\": true\n                })\n            }\n        }\n    }\n    EMessage {\n        id: sampleFeedback\n\n        type: EStyle.Info\n        objectName: \"sampleFeedback\"\n    }\n}\n"
             },
             {
                 "name": "EDynamicDialog",
                 "title": "PrimeDynamicDialogCase3",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nItem {\n    height: 50\n    width: 420\n\n    EButton {\n        text: \"Open dialog\"\n\n        onClicked: dialog.openComponent(content, {\n            \"greeting\": \"Dynamic content\"\n        })\n    }\n    EDynamicDialog {\n        id: dialog\n\n        title: \"Dynamic dialog\"\n\n        onFinished: function(result, accepted) { sampleFeedback.open(accepted ? JSON.stringify(result) : \"Cancelled\") }\n    }\n    Component {\n        id: content\n\n        Column {\n            property var dialogRef\n            property string greeting: \"Hello\"\n\n            spacing: 12\n\n            EText {\n                text: parent.greeting\n            }\n            EButton {\n                text: \"Return result\"\n\n                onClicked: parent.dialogRef.resolve({\n                    \"saved\": true, \"name\": \"EUI\", \"count\": 3\n                })\n            }\n        }\n    }\n    EMessage {\n        id: sampleFeedback\n\n        type: EStyle.Info\n        objectName: \"sampleFeedback\"\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nItem {\n    height: 50\n    width: 420\n\n    EButton {\n        text: ELocale.texts.OpenDialog\n\n        onClicked: dialog.openComponent(content, {\n            \"greeting\": ELocale.texts.PrimeDialogServiceCase1\n        })\n    }\n    EDynamicDialog {\n        id: dialog\n\n        title: ELocale.texts.DemoDynamicDialog\n\n        onFinished: function(result, accepted) { sampleFeedback.open(accepted ? JSON.stringify(result) : ELocale.texts.DemoCancelled) }\n    }\n    Component {\n        id: content\n\n        Column {\n            property var dialogRef\n            property string greeting: ELocale.texts.DemoGreeting\n\n            spacing: 12\n\n            EText {\n                text: parent.greeting\n            }\n            EButton {\n                text: ELocale.texts.DemoReturnResult\n\n                onClicked: parent.dialogRef.resolve({\n                    \"saved\": true, \"name\": \"EUI\", \"count\": 3\n                })\n            }\n        }\n    }\n    EMessage {\n        id: sampleFeedback\n\n        type: EStyle.Info\n        objectName: \"sampleFeedback\"\n    }\n}\n"
             },
             {
                 "name": "EDynamicDialog",
                 "title": "PrimeDynamicDialogCase4",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nItem {\n    height: 50\n    width: 420\n\n    EButton {\n        text: \"Open dialog\"\n\n        onClicked: dialog.openComponent(content, {\n            \"greeting\": \"Dynamic content\"\n        })\n    }\n    EDynamicDialog {\n        id: dialog\n\n        title: \"Dynamic dialog\"\n\n        onFinished: function(result, accepted) { sampleFeedback.open(accepted ? JSON.stringify(result) : \"Cancelled\") }\n    }\n    Component {\n        id: content\n\n        Column {\n            property var dialogRef\n            property string greeting: \"Hello\"\n\n            spacing: 12\n\n            EText {\n                text: parent.greeting\n            }\n            EButton {\n                text: \"Cancel dialog\"\n\n                onClicked: parent.dialogRef.reject()\n            }\n        }\n    }\n    EMessage {\n        id: sampleFeedback\n\n        type: EStyle.Info\n        objectName: \"sampleFeedback\"\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nItem {\n    height: 50\n    width: 420\n\n    EButton {\n        text: ELocale.texts.OpenDialog\n\n        onClicked: dialog.openComponent(content, {\n            \"greeting\": ELocale.texts.PrimeDialogServiceCase1\n        })\n    }\n    EDynamicDialog {\n        id: dialog\n\n        title: ELocale.texts.DemoDynamicDialog\n\n        onFinished: function(result, accepted) { sampleFeedback.open(accepted ? JSON.stringify(result) : ELocale.texts.DemoCancelled) }\n    }\n    Component {\n        id: content\n\n        Column {\n            property var dialogRef\n            property string greeting: ELocale.texts.DemoGreeting\n\n            spacing: 12\n\n            EText {\n                text: parent.greeting\n            }\n            EButton {\n                text: \"Cancel dialog\"\n\n                onClicked: parent.dialogRef.reject()\n            }\n        }\n    }\n    EMessage {\n        id: sampleFeedback\n\n        type: EStyle.Info\n        objectName: \"sampleFeedback\"\n    }\n}\n"
             },
             {
                 "name": "EDynamicDialog",
                 "title": "PrimeDynamicDialogCase5",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nItem {\n    height: 50\n    width: 420\n\n    EButton {\n        text: \"Open dialog\"\n\n        onClicked: dialog.openComponent(content, {\n            \"greeting\": \"Dynamic content\"\n        })\n    }\n    EDynamicDialog {\n        id: dialog\n\n        destroyOnClose: false\n        title: \"Dynamic dialog\"\n\n        onFinished: function(result, accepted) { sampleFeedback.open(accepted ? JSON.stringify(result) : \"Cancelled\") }\n    }\n    Component {\n        id: content\n\n        Column {\n            property var dialogRef\n            property string greeting: \"Hello\"\n\n            spacing: 12\n\n            EText {\n                text: parent.greeting\n            }\n            EButton {\n                text: \"Return result\"\n\n                onClicked: parent.dialogRef.resolve({\n                    \"saved\": true\n                })\n            }\n        }\n    }\n    EMessage {\n        id: sampleFeedback\n\n        type: EStyle.Info\n        objectName: \"sampleFeedback\"\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nItem {\n    height: 50\n    width: 420\n\n    EButton {\n        text: ELocale.texts.OpenDialog\n\n        onClicked: dialog.openComponent(content, {\n            \"greeting\": ELocale.texts.PrimeDialogServiceCase1\n        })\n    }\n    EDynamicDialog {\n        id: dialog\n\n        destroyOnClose: false\n        title: ELocale.texts.DemoDynamicDialog\n\n        onFinished: function(result, accepted) { sampleFeedback.open(accepted ? JSON.stringify(result) : ELocale.texts.DemoCancelled) }\n    }\n    Component {\n        id: content\n\n        Column {\n            property var dialogRef\n            property string greeting: ELocale.texts.DemoGreeting\n\n            spacing: 12\n\n            EText {\n                text: parent.greeting\n            }\n            EButton {\n                text: ELocale.texts.DemoReturnResult\n\n                onClicked: parent.dialogRef.resolve({\n                    \"saved\": true\n                })\n            }\n        }\n    }\n    EMessage {\n        id: sampleFeedback\n\n        type: EStyle.Info\n        objectName: \"sampleFeedback\"\n    }\n}\n"
             }
         ]
     },
@@ -717,27 +717,27 @@ var definitions = {
             {
                 "name": "EScheduler",
                 "title": "PrimeSchedulerCase1",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEScheduler {\n    height: 500\n    date: new Date(2026, 9, 15)\n    width: Math.min(860, parent.width)\n    events: [{\n        \"key\": \"design\",\n        \"title\": \"Design review\",\n        \"start\": new Date(2026, 9, 15, 9),\n        \"end\": new Date(2026, 9, 15, 10)\n    }, {\n        \"key\": \"release\",\n        \"title\": \"Release\",\n        \"start\": new Date(2026, 9, 16),\n        \"end\": new Date(2026, 9, 18),\n        \"allDay\": true,\n        \"color\": \"#67c23a\"\n    }]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEScheduler {\n    height: 500\n    date: new Date(2026, 9, 15)\n    width: Math.min(860, parent.width)\n    events: [{\n        \"key\": \"design\",\n        \"title\": ELocale.texts.DemoDesignReview,\n        \"start\": new Date(2026, 9, 15, 9),\n        \"end\": new Date(2026, 9, 15, 10)\n    }, {\n        \"key\": \"release\",\n        \"title\": ELocale.texts.DemoRelease,\n        \"start\": new Date(2026, 9, 16),\n        \"end\": new Date(2026, 9, 18),\n        \"allDay\": true,\n        \"color\": \"#67c23a\"\n    }]\n}\n"
             },
             {
                 "name": "EScheduler",
                 "title": "PrimeSchedulerCase2",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEScheduler {\n    height: 500\n    view: \"week\"\n    date: new Date(2026, 9, 15)\n    width: Math.min(860, parent.width)\n    events: [{\n        \"key\": \"design\",\n        \"title\": \"Design review\",\n        \"start\": new Date(2026, 9, 15, 9),\n        \"end\": new Date(2026, 9, 15, 10)\n    }, {\n        \"key\": \"release\",\n        \"title\": \"Release\",\n        \"start\": new Date(2026, 9, 16),\n        \"end\": new Date(2026, 9, 18),\n        \"allDay\": true,\n        \"color\": \"#67c23a\"\n    }]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEScheduler {\n    height: 500\n    view: \"week\"\n    date: new Date(2026, 9, 15)\n    width: Math.min(860, parent.width)\n    events: [{\n        \"key\": \"design\",\n        \"title\": ELocale.texts.DemoDesignReview,\n        \"start\": new Date(2026, 9, 15, 9),\n        \"end\": new Date(2026, 9, 15, 10)\n    }, {\n        \"key\": \"release\",\n        \"title\": ELocale.texts.DemoRelease,\n        \"start\": new Date(2026, 9, 16),\n        \"end\": new Date(2026, 9, 18),\n        \"allDay\": true,\n        \"color\": \"#67c23a\"\n    }]\n}\n"
             },
             {
                 "name": "EScheduler",
                 "title": "PrimeSchedulerCase3",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEScheduler {\n    height: 500\n    view: \"day\"\n    date: new Date(2026, 9, 15)\n    width: Math.min(860, parent.width)\n    events: [{\n        \"key\": \"design\",\n        \"title\": \"Design review\",\n        \"start\": new Date(2026, 9, 15, 9),\n        \"end\": new Date(2026, 9, 15, 10)\n    }, {\n        \"key\": \"release\",\n        \"title\": \"Release\",\n        \"start\": new Date(2026, 9, 16),\n        \"end\": new Date(2026, 9, 18),\n        \"allDay\": true,\n        \"color\": \"#67c23a\"\n    }]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEScheduler {\n    height: 500\n    view: \"day\"\n    date: new Date(2026, 9, 15)\n    width: Math.min(860, parent.width)\n    events: [{\n        \"key\": \"design\",\n        \"title\": ELocale.texts.DemoDesignReview,\n        \"start\": new Date(2026, 9, 15, 9),\n        \"end\": new Date(2026, 9, 15, 10)\n    }, {\n        \"key\": \"release\",\n        \"title\": ELocale.texts.DemoRelease,\n        \"start\": new Date(2026, 9, 16),\n        \"end\": new Date(2026, 9, 18),\n        \"allDay\": true,\n        \"color\": \"#67c23a\"\n    }]\n}\n"
             },
             {
                 "name": "EScheduler",
                 "title": "PrimeSchedulerCase4",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEScheduler {\n    height: 500\n    date: new Date(2026, 9, 15)\n    width: Math.min(860, parent.width)\n    events: [{\n        \"key\": \"design\",\n        \"title\": \"Design review\",\n        \"start\": new Date(2026, 9, 15, 9),\n        \"end\": new Date(2026, 9, 15, 10)\n    }, {\n        \"key\": \"release\",\n        \"title\": \"Release\",\n        \"start\": new Date(2026, 9, 16),\n        \"end\": new Date(2026, 9, 18),\n        \"allDay\": true,\n        \"color\": \"#67c23a\"\n    }]\n\n    onEventClicked: function(event) { sampleFeedback.open(event.title) }\n    onSlotClicked: function(date) { sampleFeedback.open(Qt.formatDate(date, \"yyyy-MM-dd\")) }\n\n    EMessage {\n        id: sampleFeedback\n\n        type: EStyle.Info\n        objectName: \"sampleFeedback\"\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEScheduler {\n    height: 500\n    date: new Date(2026, 9, 15)\n    width: Math.min(860, parent.width)\n    events: [{\n        \"key\": \"design\",\n        \"title\": ELocale.texts.DemoDesignReview,\n        \"start\": new Date(2026, 9, 15, 9),\n        \"end\": new Date(2026, 9, 15, 10)\n    }, {\n        \"key\": \"release\",\n        \"title\": ELocale.texts.DemoRelease,\n        \"start\": new Date(2026, 9, 16),\n        \"end\": new Date(2026, 9, 18),\n        \"allDay\": true,\n        \"color\": \"#67c23a\"\n    }]\n\n    onEventClicked: function(event) { sampleFeedback.open(event.title) }\n    onSlotClicked: function(date) { sampleFeedback.open(Qt.formatDate(date, \"yyyy-MM-dd\")) }\n\n    EMessage {\n        id: sampleFeedback\n\n        type: EStyle.Info\n        objectName: \"sampleFeedback\"\n    }\n}\n"
             },
             {
                 "name": "EScheduler",
                 "title": "PrimeSchedulerCase5",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEScheduler {\n    height: 500\n    readOnly: true\n    date: new Date(2026, 9, 15)\n    width: Math.min(860, parent.width)\n    events: [{\n        \"key\": \"design\",\n        \"title\": \"Design review\",\n        \"start\": new Date(2026, 9, 15, 9),\n        \"end\": new Date(2026, 9, 15, 10)\n    }, {\n        \"key\": \"release\",\n        \"title\": \"Release\",\n        \"start\": new Date(2026, 9, 16),\n        \"end\": new Date(2026, 9, 18),\n        \"allDay\": true,\n        \"color\": \"#67c23a\"\n    }]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEScheduler {\n    height: 500\n    readOnly: true\n    date: new Date(2026, 9, 15)\n    width: Math.min(860, parent.width)\n    events: [{\n        \"key\": \"design\",\n        \"title\": ELocale.texts.DemoDesignReview,\n        \"start\": new Date(2026, 9, 15, 9),\n        \"end\": new Date(2026, 9, 15, 10)\n    }, {\n        \"key\": \"release\",\n        \"title\": ELocale.texts.DemoRelease,\n        \"start\": new Date(2026, 9, 16),\n        \"end\": new Date(2026, 9, 18),\n        \"allDay\": true,\n        \"color\": \"#67c23a\"\n    }]\n}\n"
             }
         ]
     },
@@ -747,27 +747,27 @@ var definitions = {
             {
                 "name": "ETaskBoard",
                 "title": "PrimeTaskBoardCase1",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nETaskBoard {\n    height: 310\n    width: Math.min(860, parent.width)\n    tasks: [{\n        \"key\": 1,\n        \"title\": \"Design components\",\n        \"status\": \"todo\"\n    }, {\n        \"key\": 2,\n        \"title\": \"Implement interactions\",\n        \"status\": \"doing\"\n    }, {\n        \"key\": 3,\n        \"title\": \"Write tests\",\n        \"status\": \"todo\"\n    }, {\n        \"key\": 4,\n        \"title\": \"Document API\",\n        \"status\": \"done\"\n    }]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nETaskBoard {\n    height: 310\n    width: Math.min(860, parent.width)\n    tasks: [{\n        \"key\": 1,\n        \"title\": ELocale.texts.TaskDesignComponents,\n        \"status\": \"todo\"\n    }, {\n        \"key\": 2,\n        \"title\": ELocale.texts.TaskImplementInteractions,\n        \"status\": \"doing\"\n    }, {\n        \"key\": 3,\n        \"title\": ELocale.texts.TaskWriteTests,\n        \"status\": \"todo\"\n    }, {\n        \"key\": 4,\n        \"title\": ELocale.texts.TaskDocumentApi,\n        \"status\": \"done\"\n    }]\n}\n"
             },
             {
                 "name": "ETaskBoard",
                 "title": "PrimeTaskBoardCase2",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nETaskBoard {\n    height: 310\n    filterable: true\n    width: Math.min(860, parent.width)\n    tasks: [{\n        \"key\": 1,\n        \"title\": \"Design components\",\n        \"status\": \"todo\"\n    }, {\n        \"key\": 2,\n        \"title\": \"Implement interactions\",\n        \"status\": \"doing\"\n    }, {\n        \"key\": 3,\n        \"title\": \"Write tests\",\n        \"status\": \"todo\"\n    }, {\n        \"key\": 4,\n        \"title\": \"Document API\",\n        \"status\": \"done\"\n    }]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nETaskBoard {\n    height: 310\n    filterable: true\n    width: Math.min(860, parent.width)\n    tasks: [{\n        \"key\": 1,\n        \"title\": ELocale.texts.TaskDesignComponents,\n        \"status\": \"todo\"\n    }, {\n        \"key\": 2,\n        \"title\": ELocale.texts.TaskImplementInteractions,\n        \"status\": \"doing\"\n    }, {\n        \"key\": 3,\n        \"title\": ELocale.texts.TaskWriteTests,\n        \"status\": \"todo\"\n    }, {\n        \"key\": 4,\n        \"title\": ELocale.texts.TaskDocumentApi,\n        \"status\": \"done\"\n    }]\n}\n"
             },
             {
                 "name": "ETaskBoard",
                 "title": "PrimeTaskBoardCase3",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nETaskBoard {\n    height: 310\n    width: Math.min(860, parent.width)\n    columns: [{\n        \"key\": \"todo\",\n        \"title\": \"To do\"\n    }, {\n        \"key\": \"doing\",\n        \"title\": \"Doing\",\n        \"limit\": 1\n    }, {\n        \"key\": \"done\",\n        \"title\": \"Done\"\n    }]\n    tasks: [{\n        \"key\": 1,\n        \"title\": \"Design components\",\n        \"status\": \"todo\"\n    }, {\n        \"key\": 2,\n        \"title\": \"Implement interactions\",\n        \"status\": \"doing\"\n    }, {\n        \"key\": 3,\n        \"title\": \"Write tests\",\n        \"status\": \"todo\"\n    }, {\n        \"key\": 4,\n        \"title\": \"Document API\",\n        \"status\": \"done\"\n    }]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nETaskBoard {\n    height: 310\n    width: Math.min(860, parent.width)\n    columns: [{\n        \"key\": \"todo\",\n        \"title\": ELocale.texts.TaskTodo\n    }, {\n        \"key\": \"doing\",\n        \"title\": ELocale.texts.TaskDoing,\n        \"limit\": 1\n    }, {\n        \"key\": \"done\",\n        \"title\": ELocale.texts.TaskDone\n    }]\n    tasks: [{\n        \"key\": 1,\n        \"title\": ELocale.texts.TaskDesignComponents,\n        \"status\": \"todo\"\n    }, {\n        \"key\": 2,\n        \"title\": ELocale.texts.TaskImplementInteractions,\n        \"status\": \"doing\"\n    }, {\n        \"key\": 3,\n        \"title\": ELocale.texts.TaskWriteTests,\n        \"status\": \"todo\"\n    }, {\n        \"key\": 4,\n        \"title\": ELocale.texts.TaskDocumentApi,\n        \"status\": \"done\"\n    }]\n}\n"
             },
             {
                 "name": "ETaskBoard",
                 "title": "PrimeTaskBoardCase4",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nETaskBoard {\n    height: 310\n    width: Math.min(860, parent.width)\n    cardDelegate: EText {\n        wrapMode: Text.Wrap\n        text: \"#\" + parent.taskData.key + \"  \" + parent.taskData.title\n    }\n    tasks: [{\n        \"key\": 1,\n        \"title\": \"Design components\",\n        \"status\": \"todo\"\n    }, {\n        \"key\": 2,\n        \"title\": \"Implement interactions\",\n        \"status\": \"doing\"\n    }, {\n        \"key\": 3,\n        \"title\": \"Write tests\",\n        \"status\": \"todo\"\n    }, {\n        \"key\": 4,\n        \"title\": \"Document API\",\n        \"status\": \"done\"\n    }]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nETaskBoard {\n    height: 310\n    width: Math.min(860, parent.width)\n    cardDelegate: EText {\n        wrapMode: Text.Wrap\n        text: \"#\" + parent.taskData.key + \"  \" + parent.taskData.title\n    }\n    tasks: [{\n        \"key\": 1,\n        \"title\": ELocale.texts.TaskDesignComponents,\n        \"status\": \"todo\"\n    }, {\n        \"key\": 2,\n        \"title\": ELocale.texts.TaskImplementInteractions,\n        \"status\": \"doing\"\n    }, {\n        \"key\": 3,\n        \"title\": ELocale.texts.TaskWriteTests,\n        \"status\": \"todo\"\n    }, {\n        \"key\": 4,\n        \"title\": ELocale.texts.TaskDocumentApi,\n        \"status\": \"done\"\n    }]\n}\n"
             },
             {
                 "name": "ETaskBoard",
                 "title": "PrimeTaskBoardCase5",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nETaskBoard {\n    height: 310\n    readOnly: true\n    width: Math.min(860, parent.width)\n    tasks: [{\n        \"key\": 1,\n        \"title\": \"Design components\",\n        \"status\": \"todo\"\n    }, {\n        \"key\": 2,\n        \"title\": \"Implement interactions\",\n        \"status\": \"doing\"\n    }, {\n        \"key\": 3,\n        \"title\": \"Write tests\",\n        \"status\": \"todo\"\n    }, {\n        \"key\": 4,\n        \"title\": \"Document API\",\n        \"status\": \"done\"\n    }]\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nETaskBoard {\n    height: 310\n    readOnly: true\n    width: Math.min(860, parent.width)\n    tasks: [{\n        \"key\": 1,\n        \"title\": ELocale.texts.TaskDesignComponents,\n        \"status\": \"todo\"\n    }, {\n        \"key\": 2,\n        \"title\": ELocale.texts.TaskImplementInteractions,\n        \"status\": \"doing\"\n    }, {\n        \"key\": 3,\n        \"title\": ELocale.texts.TaskWriteTests,\n        \"status\": \"todo\"\n    }, {\n        \"key\": 4,\n        \"title\": ELocale.texts.TaskDocumentApi,\n        \"status\": \"done\"\n    }]\n}\n"
             }
         ]
     },
@@ -777,22 +777,22 @@ var definitions = {
             {
                 "name": "ETextEditor",
                 "title": "PrimeTextEditorCase1",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nETextEditor {\n    height: 260\n    width: Math.min(650, parent.width)\n    text: \"<h3>EUI editor</h3><p>Select text and apply <b>formatting</b>.</p>\"\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nETextEditor {\n    height: 260\n    width: Math.min(650, parent.width)\n    text: ELocale.texts.DemoEditorDocument\n}\n"
             },
             {
                 "name": "ETextEditor",
                 "title": "PrimeTextEditorCase2",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nETextEditor {\n    height: 260\n    readOnly: true\n    width: Math.min(650, parent.width)\n    text: \"<h3>EUI editor</h3><p>Select text and apply <b>formatting</b>.</p>\"\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nETextEditor {\n    height: 260\n    readOnly: true\n    width: Math.min(650, parent.width)\n    text: ELocale.texts.DemoEditorDocument\n}\n"
             },
             {
                 "name": "ETextEditor",
                 "title": "PrimeTextEditorCase3",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nETextEditor {\n    height: 260\n    showToolbar: false\n    width: Math.min(650, parent.width)\n    text: \"<h3>EUI editor</h3><p>Select text and apply <b>formatting</b>.</p>\"\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nETextEditor {\n    height: 260\n    showToolbar: false\n    width: Math.min(650, parent.width)\n    text: ELocale.texts.DemoEditorDocument\n}\n"
             },
             {
                 "name": "ETextEditor",
                 "title": "PrimeTextEditorCase4",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nETextEditor {\n    height: 260\n    width: Math.min(650, parent.width)\n    text: \"<h3>EUI editor</h3><p>Select text and apply <b>formatting</b>.</p>\"\n\n    Component.onCompleted: {\n        editor.select(0, 3)\n        applyFormat(\"color\", \"#409eff\")\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nETextEditor {\n    height: 260\n    width: Math.min(650, parent.width)\n    text: ELocale.texts.DemoEditorDocument\n\n    Component.onCompleted: {\n        editor.select(0, 3)\n        applyFormat(\"color\", \"#409eff\")\n    }\n}\n"
             },
             {
                 "name": "ETextEditor",
