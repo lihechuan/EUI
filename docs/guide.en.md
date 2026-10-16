@@ -2,6 +2,8 @@
 
 [简体中文](guide.zh-CN.md) | English · [Back to the project](../README.md)
 
+This guide covers the current source version, **EUI 1.3.1**. See the [1.3.1 screenshot index](screenshots/README.md) for current previews. Software and QML module versions are maintained separately; keep using `import EUI 1.0` in your application.
+
 The default commands use **Windows, the Qt 5.15.2 MSVC 2019 64-bit Kit, C++17, and Ninja**. With only Qt 6 installed, build using [section 2.3](#23-build-with-only-qt-6-installed), then continue with application integration. Choose one path when starting:
 
 | Goal | Follow in order | Success looks like |
@@ -609,7 +611,7 @@ Animations control visual appearance; application logic manages `visible`, `enab
 
 ### 4.8 Desktop components introduced in 1.2.0
 
-Keep using `import EUI 1.0`; the desktop components below were introduced in software version `1.2.0`, which is maintained separately from the QML module version. Gallery navigation shows a green **New** badge, component details show the introduction version, and the overview lists new components together. The catalog compares each component's `introducedIn` value with the build version, so old components lose the current-version badge after an upgrade.
+The desktop components below were introduced in software version `1.2.0`. When a catalog entry's `introducedIn` matches the current build version, Gallery navigation shows a green **New** badge and the overview lists those components together; component details retain the introduction version. The current `1.3.1` is a fix release, so components introduced in `1.2.0` and `1.3.0` do not show current-version badges.
 
 | Component | Purpose | Main API |
 | --- | --- | --- |
@@ -632,14 +634,22 @@ Each new component has five runnable examples in the Gallery.
 
 ### 4.9 Comparison, navigation, work components and interaction extensions in 1.3.0
 
-The library adds 26 public types, including ECompare, EScheduler, ETaskBoard and ETextEditor, plus password rules, transfer drag/reordering, dynamic dialogs, pointer-positioned context menus, image thumbnails/flip/save and tag avatars. Gallery includes 149 additional runnable scenarios and localized property documentation. See the [component and interaction reference](primevue-completion.md) for models, methods and scope.
+Version `1.3.0` introduced 26 public types, including ECompare, EScheduler, ETaskBoard and ETextEditor, plus password rules, transfer drag/reordering, dynamic dialogs, pointer-positioned context menus, image thumbnails/flip/save and tag avatars. That version added 149 runnable Gallery scenarios and localized property documentation. See the [component and interaction reference](primevue-completion.md) for models, methods and scope.
+
+### 4.10 Bundled image examples in 1.3.1
+
+Avatar, carousel, image preview, upload, image comparison, and visual effect examples use local images bundled with the Gallery, without downloading remote sample images. Preview thumbnails load only when the preview is open and thumbnails are enabled; the error example runs only when requested.
+
+URLs under `qrc:/example/images/gallery/...` belong to Gallery resources. When copying an example into your application, replace them with your own local or qrc URLs and declare those images in your application's resource file. Image components do not require copying all Gallery images. See the [image asset notes](../assets/images/gallery/README.md) for sources and licensing.
+
+![EUI 1.3.1 image examples using bundled local assets](screenshots/1.3.1/image-en.png)
 
 
 ## 5. Learn components with the Gallery
 
 The Gallery offers category navigation and name search on the left; `Ctrl+K` focuses search. The upper-right controls change language and theme. Component pages contain interactive examples, source actions, and API documentation below the examples.
 
-![Button source panel showing interactive controls, expanded QML, and a copy-source action](screenshots/source-en.png)
+![Button source panel showing interactive controls, expanded QML, and a copy-source action](screenshots/1.3.1/source-en.png)
 
 Recommended workflow:
 

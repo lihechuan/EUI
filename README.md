@@ -2,11 +2,11 @@
 
 English | [简体中文](docs/README.zh-CN.md)
 
-EUI is a Qt Quick / QML component library for desktop applications, with forms, data tables, navigation, charts, and shared light and dark themes. The Gallery provides interactive examples, copyable QML source, and API references.
+EUI is a Qt Quick / QML component library for desktop applications, with forms, data tables, navigation, charts, image comparison, a scheduler, a task board, a rich text editor, and shared light and dark themes. The Gallery provides interactive examples, copyable QML source, and API references.
 
 ## Preview
 
-![Complete Gallery home page with the top dock, featured components, and all categories](docs/screenshots/home-en.png)
+![EUI 1.3.1 Gallery home page with the top bar, featured components, and all categories](docs/screenshots/1.3.1/home-en.png)
 
 ## Try the Gallery
 
@@ -41,21 +41,25 @@ The [application integration guide](docs/guide.en.md#3-integrate-a-qt-quick-appl
 
 ## More components
 
-![Apache ECharts with a combined bar and line chart and dual axes](docs/screenshots/echarts-mixed-en.png)
+![Task board with task columns, filtering, and draggable cards](docs/screenshots/1.3.1/task-board-en.png)
 
-![Apache ECharts Sankey diagram in the dark theme](docs/screenshots/echarts-sankey-dark-en.png)
+![Image comparison with bundled local photos](docs/screenshots/1.3.1/compare-en.png)
 
-![Apache ECharts sunburst chart for hierarchical data](docs/screenshots/echarts-sunburst-en.png)
+![Apache ECharts with a combined bar and line chart and dual axes](docs/screenshots/1.3.1/echarts-mixed-en.png)
 
-![Business table with avatars, cell editing, sorting, and pagination](docs/screenshots/table-en.png)
+![Apache ECharts Sankey diagram in the dark theme](docs/screenshots/1.3.1/echarts-sankey-dark-en.png)
 
-![Littlest Tokyo rendered with Qt Quick 3D, shown as a visual demo](docs/screenshots/quick3d-en.png)
+![Apache ECharts sunburst chart for hierarchical data](docs/screenshots/1.3.1/echarts-sunburst-en.png)
+
+![Business table with avatars, cell editing, sorting, and pagination](docs/screenshots/1.3.1/table-en.png)
+
+![Littlest Tokyo rendered with Qt Quick 3D, shown as a visual demo](docs/screenshots/1.3.1/quick3d-en.png)
 
 The 3D scene is a visual demo with orbit, zoom, and playback controls. It is not an EUI component.
 
-![Command search and selection](docs/screenshots/command-palette-en.png)
+![Command search and selection](docs/screenshots/1.3.1/command-palette-en.png)
 
-![Step-by-step setup](docs/screenshots/wizard-en.png)
+![Step-by-step setup](docs/screenshots/1.3.1/wizard-en.png)
 
 See [all screenshots](docs/screenshots/README.md) for more chart types, forms, source previews, and other components.
 

@@ -2,11 +2,11 @@
 
 [English](../README.md) | 简体中文
 
-EUI 是面向 Qt Quick / QML 桌面应用的组件库，提供表单、数据表格、导航、图表和统一的明暗主题。Gallery 包含交互示例、可复制的 QML 源码和 API 参考。
+EUI 是面向 Qt Quick / QML 桌面应用的组件库，提供表单、数据表格、导航、图表、图片对比、事件排程、任务看板、富文本编辑和统一的明暗主题。Gallery 包含交互示例、可复制的 QML 源码和 API 参考。
 
 ## 界面预览
 
-![包含顶部 dock、精选组件和全部分类的完整 Gallery 首页](screenshots/home-zh.png)
+![EUI 1.3.1 Gallery 完整首页，包含顶部操作栏、精选组件和全部分类](screenshots/1.3.1/home-zh.png)
 
 ## 体验 Gallery
 
@@ -41,21 +41,25 @@ cmake --build build/local --target example --parallel
 
 ## 更多组件
 
-![Apache ECharts 柱线双轴组合图](screenshots/echarts-mixed-zh.png)
+![支持任务分列、筛选和卡片拖动的任务看板](screenshots/1.3.1/task-board-zh.png)
 
-![暗色主题下的 Apache ECharts 桑基图](screenshots/echarts-sankey-dark-zh.png)
+![使用本地图片资源的图片对比](screenshots/1.3.1/compare-zh.png)
 
-![Apache ECharts 旭日图展示层级数据](screenshots/echarts-sunburst-zh.png)
+![Apache ECharts 柱线双轴组合图](screenshots/1.3.1/echarts-mixed-zh.png)
 
-![包含头像、单元格编辑、排序和分页的业务表格](screenshots/table-zh.png)
+![暗色主题下的 Apache ECharts 桑基图](screenshots/1.3.1/echarts-sankey-dark-zh.png)
 
-![Qt Quick 3D 渲染的 Littlest Tokyo 三维展示场景](screenshots/quick3d-zh.png)
+![Apache ECharts 旭日图展示层级数据](screenshots/1.3.1/echarts-sunburst-zh.png)
+
+![包含头像、单元格编辑、排序和分页的业务表格](screenshots/1.3.1/table-zh.png)
+
+![Qt Quick 3D 渲染的 Littlest Tokyo 三维展示场景](screenshots/1.3.1/quick3d-zh.png)
 
 三维场景是视觉演示，支持旋转、缩放与播放控制，并非 EUI 组件。
 
-![命令搜索与选择](screenshots/command-palette-zh.png)
+![命令搜索与选择](screenshots/1.3.1/command-palette-zh.png)
 
-![步骤向导](screenshots/wizard-zh.png)
+![步骤向导](screenshots/1.3.1/wizard-zh.png)
 
 更多图表类型、表单、源码预览及其他组件见[全部截图](screenshots/README.md)。
 
