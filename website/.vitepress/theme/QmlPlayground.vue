@@ -21,6 +21,9 @@ const busy = ref(false)
 const error = ref('')
 const logs = ref([])
 const revision = ref(0)
+const loadPhase = ref('')
+const downloaded = ref(0)
+const downloadTotal = ref(0)
 const initialDark = ref(isDark.value)
 const initialLanguage = ref(chinese.value ? 'zh' : 'en')
 let observer
@@ -28,23 +31,32 @@ let copyTimeout
 let timeout
 let highlightCode
 let highlightRevision = 0
-const frameUrl = computed(() => withBase('/playground/runtime.html') + `?lang=${initialLanguage.value}&dark=${initialDark.value ? 1 : 0}&v=${revision.value}`)
+const frameUrl = computed(() => withBase('/playground/runtime.html') + `?lang=${initialLanguage.value}&dark=${initialDark.value ? 1 : 0}&v=2-${revision.value}`)
 const labels = computed(() => chinese.value ? {
   run: '运行', running: '正在运行…',
   copy: '复制代码', copied: '已复制', desktop: '在 Gallery 中体验',
   reset: '恢复示例', restart: '重启预览', code: 'QML 代码', preview: '效果', console: '输出',
   idle: '运行代码，体验组件交互', hint: '可修改文字、属性和事件，再点击运行。',
   loading: '首次运行需要加载组件运行器…', rendered: '已运行', failed: '运行失败',
-  loadError: '运行器加载超时，请检查网络后重启预览。',
+  loadError: '运行器加载已长时间没有进展，请检查网络后重试。',
 } : {
   run: 'Run', running: 'Running…',
   copy: 'Copy code', copied: 'Copied', desktop: 'Try in the Gallery',
   reset: 'Reset example', restart: 'Restart preview', code: 'QML source', preview: 'Preview', console: 'Output',
   idle: 'Run the code to try the component', hint: 'Edit text, properties, or events, then select Run.',
   loading: 'Loading the component runtime for the first run…', rendered: 'Running', failed: 'Run failed',
-  loadError: 'Runtime loading timed out. Check your connection and restart the preview.',
+  loadError: 'Runtime loading has stalled. Check your connection and try again.',
 })
-const status = computed(() => busy.value ? labels.value.loading : error.value ? labels.value.failed : ready.value ? labels.value.rendered : '')
+const loadingStatus = computed(() => {
+  if (loadPhase.value === 'compile') return chinese.value ? '下载完成，正在启动运行器…' : 'Download complete. Starting the runtime…'
+  if (loadPhase.value !== 'download') return labels.value.loading
+  const size = (downloaded.value / 1000000).toFixed(1)
+  const detail = downloadTotal.value > 0
+    ? `${Math.min(100, Math.floor(downloaded.value / downloadTotal.value * 100))}% (${size} / ${(downloadTotal.value / 1000000).toFixed(1)} MB)`
+    : `${size} MB`
+  return (chinese.value ? '正在下载运行器：' : 'Downloading the runtime: ') + detail
+})
+const status = computed(() => busy.value ? loadingStatus.value : error.value ? labels.value.failed : ready.value ? labels.value.rendered : '')
 
 function example(name) {
   const zh = chinese.value
@@ -110,8 +122,18 @@ function send(type = 'run') {
   frame.value?.contentWindow?.postMessage({channel: 'eui-qml', type, code: source.value, dark: isDark.value, language: chinese.value ? 'zh' : 'en'}, location.origin)
 }
 
+function waitForRuntime() {
+  clearTimeout(timeout)
+  timeout = setTimeout(() => {
+    busy.value = false
+    ready.value = false
+    started.value = false
+    error.value = labels.value.loadError
+  }, 60000)
+}
+
 function run() {
-  if (currentExample.value?.reason) return
+  if (busy.value || currentExample.value?.reason) return
   error.value = ''
   logs.value = []
   if (!source.value.trim()) {
@@ -126,10 +148,13 @@ function run() {
   else {
     initialDark.value = isDark.value
     initialLanguage.value = chinese.value ? 'zh' : 'en'
+    loadPhase.value = ''
+    downloaded.value = 0
+    downloadTotal.value = 0
+    revision.value += 1
     started.value = true
     busy.value = true
-    clearTimeout(timeout)
-    timeout = setTimeout(() => { busy.value = false; error.value = labels.value.loadError }, 60000)
+    waitForRuntime()
   }
 }
 
@@ -156,9 +181,18 @@ function restart() {
 function receive(event) {
   if (event.source !== frame.value?.contentWindow || event.origin !== location.origin || event.data?.channel !== 'eui-qml') return
   const data = event.data
-  if (data.type === 'ready') {
+  if (data.type === 'progress') {
+    if (ready.value || !busy.value || !['download', 'compile'].includes(data.phase)) return
+    if (!Number.isFinite(data.loaded) || !Number.isFinite(data.total) || data.loaded < downloaded.value || data.total < 0) return
+    if (data.total > 0 && data.loaded > data.total) return
+    if (data.loaded > downloaded.value || data.phase !== loadPhase.value) waitForRuntime()
+    loadPhase.value = data.phase
+    downloaded.value = data.loaded
+    downloadTotal.value = data.total
+  } else if (data.type === 'ready') {
     clearTimeout(timeout)
     ready.value = true
+    error.value = ''
     send()
   } else if (data.type === 'result') {
     busy.value = false

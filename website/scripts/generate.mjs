@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict'
 import { copyFileSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
+import { gzipSync } from 'node:zlib'
+import { createHash } from 'node:crypto'
 import { fileURLToPath } from 'node:url'
 import { prepareExamples } from '../playground/examples.mjs'
 import { describeInterface } from './interface-descriptions.mjs'
@@ -294,7 +296,18 @@ for (const file of ['eui-playground.js', 'eui-playground.wasm', 'qtloader.js']) 
   mkdirSync(path.dirname(target), { recursive: true })
   copyFileSync(path.join(runtimeDirectory, file), target)
 }
-copyFileSync(path.join(root, 'website/playground/runtime.html'), path.join(output, 'public/playground/runtime.html'))
+const loaderPath = path.join(output, 'public/playground/qtloader.js')
+const loaderSource = readFileSync(loaderPath, 'utf8')
+const fetchCall = 'return fetch(fullPath).then('
+assert(loaderSource.includes(fetchCall), 'Qt loader fetch hook has changed')
+const loader = loaderSource.replace(fetchCall, 'return (config.fetch || fetch)(fullPath).then(')
+writeFileSync(loaderPath, loader)
+const loaderVersion = createHash('sha256').update(loader).digest('hex').slice(0, 12)
+writeFileSync(path.join(output, 'public/playground/runtime.html'),
+  readFileSync(path.join(root, 'website/playground/runtime.html'), 'utf8').replace('src="qtloader.js"', `src="qtloader.js?v=${loaderVersion}"`))
+// Avoid .gz: static servers may decode that suffix before the progress reader sees the bytes.
+writeFileSync(path.join(output, 'public/playground/eui-playground.wasm.gzip'),
+  gzipSync(readFileSync(path.join(runtimeDirectory, 'eui-playground.wasm')), { level: 9 }))
 copyFileSync(path.join(root, 'website/playground/NOTICE.txt'), path.join(output, 'public/playground/NOTICE.txt'))
 mkdirSync(path.join(output, 'public/playground/licenses'), { recursive: true })
 for (const [file, name] of [

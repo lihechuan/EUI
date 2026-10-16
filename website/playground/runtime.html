@@ -5,31 +5,86 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src 'self'; style-src 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; base-uri 'none'; form-action 'none'">
   <title>EUI QML</title>
-  <style>html,body{margin:0;height:100%;overflow:hidden}canvas{display:block;width:100%;height:100%;border:0;outline:0;caret-color:transparent}#ime{position:fixed;width:1px;height:1px;padding:0;border:0;opacity:0;pointer-events:none;font-size:16px}#status{position:absolute;inset:0;display:grid;place-items:center;font:14px system-ui;color:#667085;background:#fff}html.dark #status{color:#acb6c7;background:#171c24}</style>
+  <style>html,body{margin:0;height:100%;overflow:hidden}canvas{display:block;width:100%;height:100%;border:0;outline:0;caret-color:transparent}#ime{position:fixed;width:1px;height:1px;padding:0;border:0;opacity:0;pointer-events:none;font-size:16px}#status{position:absolute;inset:0;display:grid;place-items:center;font:14px system-ui;color:#667085;background:#fff}#status>div{max-width:90%;text-align:center}#status p{margin:0 0 14px}progress{width:240px;max-width:100%;accent-color:#409eff}html.dark #status{color:#acb6c7;background:#171c24}</style>
 </head>
 <body>
   <canvas id="canvas" contenteditable="true" aria-label="QML preview"></canvas>
   <textarea id="ime" aria-label="QML input" tabindex="-1" autocomplete="off" autocapitalize="off" spellcheck="false"></textarea>
-  <div id="status" role="status"></div>
+  <div id="status" role="status"><div><p id="status-text"></p><progress id="progress"></progress></div></div>
   <script src="qtloader.js"></script>
   <script>
     const parameters = new URLSearchParams(location.search)
     const chinese = parameters.get('lang') !== 'en'
     document.documentElement.classList.toggle('dark', parameters.get('dark') === '1')
     const status = document.getElementById('status')
+    const statusText = document.getElementById('status-text')
+    const progress = document.getElementById('progress')
     const send = (type, data = {}) => parent.postMessage({channel: 'eui-qml', type, ...data}, location.origin)
     const fail = message => {
       status.style.display = 'grid'
-      status.textContent = message
-      send('failed', {message})
+      statusText.textContent = String(message)
+      progress.hidden = true
+      send('failed', {message: String(message)})
     }
+    const report = (phase, loaded = 0, total = 0) => {
+      if (phase === 'download') {
+        const size = (loaded / 1000000).toFixed(1)
+        const detail = total > 0
+          ? `${Math.min(100, Math.floor(loaded / total * 100))}% (${size} / ${(total / 1000000).toFixed(1)} MB)`
+          : `${size} MB`
+        statusText.textContent = (chinese ? '正在下载运行器：' : 'Downloading the runtime: ') + detail
+        if (total > 0) { progress.max = total; progress.value = loaded }
+        else progress.removeAttribute('value')
+      } else {
+        statusText.textContent = chinese ? '下载完成，正在启动运行器…' : 'Download complete. Starting the runtime…'
+        progress.removeAttribute('value')
+      }
+      send('progress', {phase, loaded, total})
+    }
+    const fetchRuntime = async path => {
+      if (!path.endsWith('.wasm')) return fetch(path)
+      let compressed = typeof DecompressionStream === 'function'
+      let response = await fetch(path + (compressed ? '.gzip' : ''))
+      if (compressed && response.status === 404) {
+        compressed = false
+        response = await fetch(path)
+      }
+      if (!response.ok || !response.body) return response
+      const total = Number(response.headers.get('Content-Length')) || 0
+      const reader = response.body.getReader()
+      let loaded = 0
+      report('download', loaded, total)
+      const body = new ReadableStream({
+        async pull(controller) {
+          try {
+            const {value, done} = await reader.read()
+            if (done) {
+              report('compile', loaded, total)
+              controller.close()
+              return
+            }
+            loaded += value.byteLength
+            report('download', loaded, total)
+            controller.enqueue(value)
+          } catch (error) {
+            controller.error(error)
+          }
+        },
+        cancel(reason) { return reader.cancel(reason) }
+      })
+      return new Response(compressed ? body.pipeThrough(new DecompressionStream('gzip')) : body,
+        {headers: {'Content-Type': 'application/wasm'}})
+    }
+    window.addEventListener('error', event => fail(event.message))
+    window.addEventListener('unhandledrejection', event => fail(event.reason))
     Module.print = message => send('log', {message: String(message)})
     Module.printErr = message => send('log', {message: String(message)})
     Module.postRun = [() => send('ready')]
     const loader = QtLoader({
+      fetch: fetchRuntime,
       canvasElements: [document.getElementById('canvas')],
       environment: {QT_QUICK_CONTROLS_STYLE: 'Default'},
-      showLoader: () => { status.textContent = chinese ? '正在加载 QML 运行器…' : 'Loading the QML runtime…' },
+      showLoader: () => { if (!statusText.textContent) statusText.textContent = chinese ? '正在连接运行器…' : 'Connecting to the runtime…' },
       showError: fail,
       showExit: () => fail(chinese ? '预览已停止，请重启预览。' : 'Preview stopped. Restart the preview.'),
       showCanvas: () => { status.style.display = 'none' }
