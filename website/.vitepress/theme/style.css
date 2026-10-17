@@ -173,8 +173,7 @@ html[lang='en'] { --vp-code-copy-copied-text-content: 'Copied'; }
 
 .docs-home { overflow: clip; }
 .intro { position: relative; isolation: isolate; display: flex; flex-direction: column; overflow: hidden; min-height: 660px; padding: 0 max(40px, calc((100% - 1168px) / 2)); background: #164ac6; color: #fff; }
-.intro-topline { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-top: 28px; color: #d5e4ff; font-size: 13px; }
-.intro-topline > span { font-weight: 500; }
+.intro-topline { position: relative; z-index: 1; display: flex; align-items: center; justify-content: flex-end; gap: 24px; padding-top: 28px; color: #d5e4ff; font-size: 13px; }
 .intro-topline a { display: flex; align-items: center; gap: 12px; }
 .intro-topline a:hover { color: #fff; }
 .intro-copy { position: relative; z-index: 1; flex: 1; width: 100%; max-width: 740px; margin: 0 auto; padding: 60px 20px 64px; text-align: center; }
@@ -182,6 +181,7 @@ html[lang='en'] { --vp-code-copy-copied-text-content: 'Copied'; }
 .intro-copy h1 span { font-size: 54px; font-weight: 400; letter-spacing: -.03em; }
 .intro-subtitle { margin-top: 24px; font-size: 32px; font-weight: 500; line-height: 1.5; letter-spacing: -.025em; }
 .intro-description { max-width: 34em; margin: 18px auto 0; color: #d5e4ff; font-size: 15px; line-height: 1.9; }
+.intro-note { max-width: 40em; margin: 20px auto 0; color: #d5e4ff; font-size: 14px; line-height: 1.8; }
 .intro-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 32px; }
 .intro-actions a { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; border: 1px solid transparent; border-radius: 6px; padding: 0 26px; font-size: 14px; font-weight: 500; white-space: nowrap; transition: background-color .15s, border-color .15s; }
 .intro .primary-action { background: #fff; color: #164ac6; }
@@ -380,6 +380,7 @@ html[lang='en'] { --vp-code-copy-copied-text-content: 'Copied'; }
   .intro-subtitle { font-size: 22px; }
   .intro-actions { gap: 10px; }
   .intro-actions a { padding: 0 20px; }
+  .intro .primary-action { width: 100%; }
   .intro-foot { gap: 12px 24px; }
   .intro-foot > a { gap: 8px; }
   .intro-foot span { font-size: 12px; }

@@ -32,7 +32,6 @@ const url = path => {
   <main class="docs-home">
     <section class="intro" aria-labelledby="intro-title">
       <div class="intro-topline">
-        <span>Qt Quick / QML</span>
         <a :href="url('/changelog')">v{{ site.version }}<span>{{ chinese ? '更新记录' : 'Changelog' }}</span><span aria-hidden="true">↗</span></a>
       </div>
       <div class="intro-copy">
@@ -40,9 +39,11 @@ const url = path => {
         <p class="intro-subtitle">{{ chinese ? '为桌面应用，构建好界面。' : 'Build better desktop interfaces.' }}</p>
         <p class="intro-description">{{ chinese ? '为 Qt Quick 应用准备的组件库。从一个按钮，到完整的工作台，使用统一的组件、主题与交互。' : 'A component library for Qt Quick. From a single button to a complete workspace, with consistent components, themes, and interactions.' }}</p>
         <div class="intro-actions">
-          <a class="primary-action" :href="url('/guide/getting-started')">{{ chinese ? '开始使用' : 'Get started' }}</a>
+          <a class="primary-action" href="https://github.com/lihechuan/EUI/releases">{{ chinese ? '下载桌面示例程序' : 'Download desktop Gallery' }}</a>
+          <a class="secondary-action" :href="url('/guide/getting-started')">{{ chinese ? '开始使用' : 'Get started' }}</a>
           <a class="secondary-action" :href="url('/components/')">{{ chinese ? '浏览组件' : 'Explore components' }}</a>
         </div>
+        <p class="intro-note">{{ chinese ? '网页示例的显示效果和部分交互可能与桌面程序不一致。建议下载桌面示例程序，并以桌面程序的实际效果为准。' : 'Browser examples may differ from the desktop app in appearance and interaction. Download the desktop Gallery and use it as the reference for the full component experience.' }}</p>
       </div>
       <div class="intro-art" aria-hidden="true">
         <svg class="brand-structure" viewBox="0 0 1440 660" fill="none" preserveAspectRatio="xMidYMid slice">

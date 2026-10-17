@@ -15,6 +15,10 @@ TestCase {
         return ["month", "week", "day"].map(function(view) { return {tag: view, view: view} })
     }
 
+    function test_inplaceClick_data() {
+        return ["default", "passive", "tag", "button", "sample"].map(function(name) { return {tag: name, display: name} })
+    }
+
     function luminance(color) {
         function linear(value) {
             return value <= 0.04045 ? value / 12.92 : Math.pow((value + 0.055) / 1.055, 2.4)
@@ -184,6 +188,42 @@ TestCase {
         wait(0)
         item.destroy()
         wait(0)
+    }
+
+    function test_inplaceClick(data) {
+        const displays = {
+            default: "",
+            passive: "displayComponent: Rectangle { implicitWidth: 160; implicitHeight: 32 }",
+            tag: "displayComponent: ETag { text: 'Edit account' }",
+            button: "displayComponent: EButton { text: 'Edit account' }"
+        }
+        const code = data.display === "sample" ? Samples.definitions.EInplace.cases[3].code
+            : "import EUI 1.0\nimport QtQuick 2.15\nEInplace { width: 320; text: 'Edit'; "
+                + displays[data.display] + " EInput { text: 'Value' } }"
+        const item = createTemporaryQmlObject(code, testCase)
+        verify(item !== null)
+        verify(waitForItemPolished(item))
+        item.enabled = false
+        mouseClick(item, 60, 16)
+        compare(item.active, false)
+        item.enabled = true
+        let opened = 0
+        item.opened.connect(function() { ++opened })
+        mouseClick(item, 60, 16)
+        tryCompare(item, "active", true)
+        compare(opened, 1)
+        tryVerify(function() { return item.item !== null && item.item.activeFocus })
+        item.item.selectAll()
+        keyClick(Qt.Key_X)
+        compare(item.item.text, "x")
+        mouseClick(item, item.width - 16, 16)
+        tryCompare(item, "active", false)
+        mouseClick(item, 60, 16)
+        tryCompare(item, "active", true)
+        tryVerify(function() { return item.item !== null && item.item.activeFocus })
+        keyClick(Qt.Key_Escape)
+        tryCompare(item, "active", false)
+        compare(opened, 2)
     }
 
     width: 800

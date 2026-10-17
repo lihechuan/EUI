@@ -60,7 +60,14 @@ Item {
         active: !control.active
         sourceComponent: control.displayComponent
 
-        TapHandler { onTapped: control.open() }
+        MouseArea {
+            z: 1
+            anchors.fill: parent
+            cursorShape: Qt.PointingHandCursor
+            visible: displayLoader.item !== null
+
+            onClicked: control.open()
+        }
     }
     Loader {
         id: editorLoader

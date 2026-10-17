@@ -372,7 +372,7 @@ var definitions = {
             {
                 "name": "EInplace",
                 "title": "PrimeInplaceCase4",
-                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEInplace {\n    width: 320\n    text: ELocale.texts.PrimeInplaceCase1\n    displayComponent: ETag {\n        text: \"Edit account\"\n        iconSource: EIcons.PENCIL\n    }\n\n    EInput {\n        text: ELocale.texts.DemoEditableValue\n    }\n}\n"
+                "code": "import EUI 1.0\nimport QtQuick 2.15\nimport QtQuick.Layouts 1.15\nimport QtQuick.Controls 2.15\n\nEInplace {\n    id: inplace\n\n    width: 320\n    text: ELocale.texts.PrimeInplaceCase1\n    displayComponent: ETag {\n        text: \"Edit account\"\n        iconSource: EIcons.PENCIL\n\n        onClicked: inplace.open()\n    }\n\n    EInput {\n        text: ELocale.texts.DemoEditableValue\n    }\n}\n"
             },
             {
                 "name": "EInplace",
