@@ -208,6 +208,8 @@ function receive(event) {
 }
 
 function indent(event) {
+  if (event.shiftKey || event.ctrlKey || event.metaKey || event.altKey) return
+  event.preventDefault()
   const textarea = event.target
   const start = textarea.selectionStart
   const end = textarea.selectionEnd
@@ -267,7 +269,7 @@ onBeforeUnmount(() => { clearTimeout(timeout); clearTimeout(copyTimeout); observ
     </div>
     <div v-if="currentExample?.reason" class="qml-native-note"><p>{{ currentExample.reason }}</p><a :href="withBase(chinese ? '/guide/gallery' : '/en/guide/gallery')">{{ labels.desktop }} ↗</a></div>
     <div class="qml-workspace-scroll"><div class="qml-workspace">
-      <div class="qml-editor"><div class="qml-pane-heading">{{ labels.code }}<span>QML</span></div><div class="qml-editor-body" :class="{ highlighted }"><div ref="codeLayer" class="qml-highlight" aria-hidden="true" v-html="highlighted" /><textarea v-model="source" :aria-label="labels.code" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" @scroll="scrollCode" @keydown.tab.prevent="indent" @keydown.ctrl.enter.prevent="run" @keydown.meta.enter.prevent="run" /></div></div>
+      <div class="qml-editor"><div class="qml-pane-heading">{{ labels.code }}<span>QML</span></div><div class="qml-editor-body" :class="{ highlighted }"><div ref="codeLayer" class="qml-highlight" aria-hidden="true" inert v-html="highlighted" /><textarea v-model="source" :aria-label="labels.code" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" @scroll="scrollCode" @keydown.tab="indent" @keydown.ctrl.enter.prevent="run" @keydown.meta.enter.prevent="run" /></div></div>
       <div v-if="!currentExample?.reason" class="qml-preview"><div class="qml-pane-heading">{{ labels.preview }}<button v-if="started" type="button" @click="restart">{{ labels.restart }}</button></div><iframe v-if="started" :key="revision" ref="frame" :src="frameUrl" :title="labels.preview" sandbox="allow-scripts allow-same-origin" /><div v-else class="qml-empty"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="m12 8 12 8-12 8z" /></svg><strong>{{ labels.idle }}</strong><p>{{ labels.hint }}</p><button type="button" @click="run">{{ labels.run }}</button></div></div>
     </div></div>
     <div v-if="!currentExample?.reason" class="qml-status" role="status" aria-live="polite"><span :class="{ 'qml-error-label': error }">{{ status }}</span><span>{{ chinese ? '代码在当前浏览器中运行' : 'Code runs in this browser' }} <a :href="withBase('/playground/NOTICE.txt')" target="_blank" rel="noreferrer">{{ chinese ? '许可' : 'Licenses' }}</a></span></div>
@@ -291,9 +293,10 @@ button { cursor: pointer; font: inherit; }
 .qml-pane-heading span { font-size: 11px; }
 .qml-pane-heading button { font-size: 12px; color: var(--vp-c-text-2); }
 .qml-editor { min-width: 0; border-right: 1px solid var(--vp-c-divider); background: var(--vp-code-block-bg); }
+.qml-editor:focus-within .qml-pane-heading { color: var(--vp-c-brand-1); border-bottom: 2px solid var(--vp-c-brand-1); }
 .qml-editor-body { position: relative; height: 380px; }
 .qml-editor textarea, .qml-highlight :deep(pre) { font: 12px/1.85 var(--vp-font-family-mono); font-variant-ligatures: none; tab-size: 4; }
-.qml-editor textarea { position: absolute; inset: 0; display: block; width: 100%; height: 100%; resize: none; padding: 20px; color: var(--vp-c-text-1); background: transparent; border: 0; outline-offset: -2px; white-space: pre; overflow-wrap: normal; }
+.qml-editor textarea { position: absolute; inset: 0; display: block; width: 100%; height: 100%; resize: none; padding: 20px; color: var(--vp-c-text-1); background: transparent; border: 0; outline: none; white-space: pre; overflow-wrap: normal; }
 .qml-editor-body.highlighted textarea { color: transparent; -webkit-text-fill-color: transparent; caret-color: var(--vp-c-text-1); }
 .qml-editor-body textarea::selection { background: var(--vp-c-brand-soft); }
 .qml-highlight { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
@@ -312,7 +315,7 @@ button { cursor: pointer; font: inherit; }
 .qml-error { color: var(--vp-c-danger-1); background: var(--vp-c-danger-soft); }
 .qml-console { border-top: 1px solid var(--vp-c-divider); }
 .qml-console summary { padding: 8px 16px; font-size: 12px; cursor: pointer; color: var(--vp-c-text-2); }
-button:focus-visible, textarea:focus-visible { outline: 2px solid var(--vp-c-brand-1); outline-offset: 2px; }
+button:focus-visible { outline: 2px solid var(--vp-c-brand-1); outline-offset: 2px; }
 .qml-desktop-only .qml-workspace { min-width: 0; grid-template-columns: minmax(0, 1fr); }
 .qml-desktop-only .qml-editor { border-right: 0; }
 .qml-native-note { padding: 16px 20px; font-size: 13px; color: var(--vp-c-text-2); }

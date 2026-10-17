@@ -22,8 +22,9 @@ function editor() {
     location: { origin: 'http://localhost' }, TextEncoder, child,
     setTimeout(callback, delay) { timers.set(++id, { callback, due: now + delay }); return id },
     clearTimeout(key) { timers.delete(key) },
+    requestAnimationFrame(callback) { callback() },
   }
-  runInNewContext(component + '\nframe.value = {contentWindow: child}; run(); globalThis.state = {error, busy, ready, started, status, run, restart, receive};', context)
+  runInNewContext(component + '\nframe.value = {contentWindow: child}; run(); globalThis.state = {error, busy, ready, started, status, source, run, indent, restart, receive};', context)
   return {
     ...context.state,
     progress(loaded, total = 100, phase = 'download', origin = 'http://localhost', sender = child) {
@@ -38,6 +39,22 @@ function editor() {
     },
   }
 }
+
+const keyboard = editor()
+const originalSource = keyboard.source.value
+for (const modifier of ['shiftKey', 'ctrlKey', 'metaKey', 'altKey']) {
+  let prevented = false
+  keyboard.indent({ [modifier]: true, target: { selectionStart: 0, selectionEnd: 0 }, preventDefault() { prevented = true } })
+  assert.equal(keyboard.source.value, originalSource, `${modifier}+Tab must not modify the source`)
+  assert.equal(prevented, false, `${modifier}+Tab must preserve native keyboard navigation`)
+}
+let tabPrevented = false
+const caret = { selectionStart: 0, selectionEnd: 0 }
+keyboard.indent({ target: caret, preventDefault() { tabPrevented = true } })
+assert.equal(tabPrevented, true, 'Plain Tab should indent instead of leaving the editor')
+assert.equal(keyboard.source.value, '    ' + originalSource)
+assert.equal(caret.selectionStart, 4)
+assert.equal(caret.selectionEnd, 4)
 
 const slow = editor()
 for (let loaded = 1; loaded <= 9; loaded += 1) {
@@ -161,4 +178,4 @@ compressedLoader.config.showError('HTTP 503')
 assert.equal(compressedLoader.messages.at(-1).message, 'HTTP 503')
 assert.equal(compressedLoader.elements.get('progress').hidden, true)
 
-console.log(`PASS: slow downloads, inactivity timeout, retries, message validation, streamed gzip, legacy fallback and failures; runtime ${wasm.length} -> ${compressed.length} bytes.`)
+console.log(`PASS: keyboard navigation, indentation, slow downloads, inactivity timeout, retries, message validation, streamed gzip, legacy fallback and failures; runtime ${wasm.length} -> ${compressed.length} bytes.`)

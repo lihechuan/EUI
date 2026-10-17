@@ -570,8 +570,8 @@ ExamplePage {
                 width: parent.width
 
                 ELink {
-                    href: "https://element-plus.org"
-                    text: ELocale.texts.ElementPlusDocumentation
+                    href: "https://easy-ui.cn/"
+                    text: "EUI " + ELocale.texts.Home
                 }
                 ELink {
                     enabled: false

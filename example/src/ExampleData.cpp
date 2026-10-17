@@ -629,12 +629,12 @@ ESwitch {
 })qml"},
     {"LayoutExamplesSample4",
      R"qml(ELink {
-    text: qsTr("Element Plus 文档")
-    href: "https://element-plus.org"
+    text: qsTr("EUI 首页")
+    href: "https://easy-ui.cn/"
 })qml",
      R"qml(ELink {
-    href: "https://element-plus.org"
-    text: qsTr("Element Plus documentation")
+    text: qsTr("EUI Home")
+    href: "https://easy-ui.cn/"
 })qml"},
     {"ExtendedNavigationExamplesSample2",
      R"qml(EAnchor {
