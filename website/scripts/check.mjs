@@ -33,6 +33,10 @@ for (const prefix of ['', '/en']) {
 }
 for (const page of new Set(pages.values())) {
   assert(!/本机验证环境限制|本轮验证结果|保留原有工作区修改|未提交或推送|构建产物保留 14 天|Build artifacts are retained for 14 days/.test(page.text), `Internal maintenance notes in ${page.relative}`)
+  for (const [, target] of page.html.matchAll(/<img\b[^>]*\bsrc="([^"]*\/screenshots\/[^"/]+\/[^"/]+-(?:zh|en)\.png)"/g)) {
+    if (/-dark-(zh|en)\.png$/.test(target)) continue
+    assert(page.html.includes(target.replace(/-(zh|en)\.png$/, '-dark-$1.png')), `Missing dark screenshot in ${page.relative}: ${target}`)
+  }
 }
 const errors = []
 let links = 0

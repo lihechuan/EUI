@@ -99,6 +99,17 @@ function changelogPage(language) {
   return introduction + '\n\n' + entries.join('\n\n')
 }
 
+function screenshotMarkup(target, title, original = '') {
+  const images = /-dark-(zh|en)\.png$/.test(target)
+    ? [target] : [target, target.replace(/-(zh|en)\.png$/, '-dark-$1.png')]
+  return images.map((image, index) => {
+    assert(existsSync(path.join(output, 'public', image)), `Missing themed screenshot: ${image}`)
+    const theme = images.length > 1 ? ` data-preview-theme="${index ? 'dark' : 'light'}"` : ''
+    const markup = `<img${original ? '' : theme} src="${image}" alt="${escape(title)}" loading="lazy">`
+    return original ? `<a${theme} href="${original}${image}" target="_blank" rel="noreferrer">${markup}</a>` : markup
+  }).join('')
+}
+
 function rewriteLinks(text, source, language) {
   const prefix = language === 'en' ? '/en' : ''
   let fence = false
@@ -127,6 +138,7 @@ function rewriteLinks(text, source, language) {
         route = `${prefix}/guide/screenshots${hash}`
       } else if (/^docs\/screenshots\/[^/]+\/[^/]+\.png$/.test(resolved)) {
         route = '/' + resolved.replace(/^docs\//, '')
+        if (label.startsWith('!')) return screenshotMarkup(route, label.slice(2, -1))
       } else {
         assert(existsSync(path.join(root, resolved)), `Missing document target: ${source} -> ${target}`)
         route = `${repository}/blob/master/${resolved}${hash}`
@@ -256,10 +268,8 @@ function screenshotPage(language) {
     const image = cells[2]?.match(/\]\(([^)]+)-(?:zh|en)\.png\)/)?.[1]
     if (!image) continue
     const target = `/screenshots/${image}-${language}.png`
-    const original = `${chinese ? '..' : '../..'}${target}`
-    assert(existsSync(path.join(output, 'public', target)), `Missing localized screenshot: ${target}`)
-    const title = escape(local(cells[1]))
-    text += `<figure><a href="${original}" target="_blank" rel="noreferrer"><img src="${target}" alt="${title}" loading="lazy"></a><figcaption><strong>${title}</strong><span>${escape(local(cells[3]))}</span></figcaption></figure>\n`
+    const title = local(cells[1])
+    text += `<figure>${screenshotMarkup(target, title, chinese ? '..' : '../..')}<figcaption><strong>${escape(title)}</strong><span>${escape(local(cells[3]))}</span></figcaption></figure>\n`
   }
   return text + '</div>\n'
 }
