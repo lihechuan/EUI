@@ -4,6 +4,15 @@
 
 Features, fixes, and compatibility changes for each version.
 
+## 1.3.2 - 2026-10-20
+
+1. 修复表单异步校验在重新校验、修改输入、清除、重置或销毁后仍等待旧结果的问题，避免过期回调覆盖当前校验状态。
+2. 修复表单设置包含点号的字段名时误改嵌套数据的问题，优先匹配已存在的完整字段名。
+3. 修复应用窗口动态替换或移除操作栏后宽度绑定未正确恢复的问题。
+4. 改善 Gallery 左侧导航菜单文字的渲染清晰度，修复离屏图层导致的文字边缘锯齿。
+
+English: Fixes asynchronous form validation remaining pending or applying stale results after revalidation, input changes, clearing, resetting, or destruction. Makes form setters prefer existing literal field names containing dots over nested paths. Restores width bindings when application window bars are replaced or removed. Improves Gallery sidebar text clarity by removing the offscreen layer that caused jagged text edges.
+
 ## 1.3.1 - 2026-10-15
 
 1. 为头像、轮播、图片预览、上传、对比及视觉效果示例接入本地图片资源。

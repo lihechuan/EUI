@@ -608,7 +608,7 @@ Animations control visual appearance; application logic manages `visible`, `enab
 
 ### 4.8 Desktop components introduced in 1.2.0
 
-The desktop components below were introduced in software version `1.2.0`. When a catalog entry's `introducedIn` matches the current build version, Gallery navigation shows a green **New** badge and the overview lists those components together; component details retain the introduction version. The current `1.3.1` is a fix release, so components introduced in `1.2.0` and `1.3.0` do not show current-version badges.
+The desktop components below were introduced in software version `1.2.0`. When a catalog entry's `introducedIn` matches the current build version, Gallery navigation shows a green **New** badge and the overview lists those components together; component details retain the introduction version. The current `1.3.2` is a fix release, so components introduced in `1.2.0` and `1.3.0` do not show current-version badges.
 
 | Component | Purpose | Main API |
 | --- | --- | --- |
@@ -639,14 +639,14 @@ Avatar, carousel, image preview, upload, image comparison, and visual effect exa
 
 URLs under `qrc:/example/images/gallery/...` belong to Gallery resources. When copying an example into your application, replace them with your own local or qrc URLs and declare those images in your application's resource file. Image components do not require copying all Gallery images. See the [image asset notes](../assets/images/gallery/README.md) for sources and licensing.
 
-![EUI 1.3.1 image examples using bundled local assets](screenshots/1.3.1/image-en.png)
+![EUI 1.3.2 image examples using bundled local assets](screenshots/1.3.2/image-en.png)
 
 
 ## 5. Learn components with the Gallery
 
 The Gallery offers category navigation and name search on the left; `Ctrl+K` focuses search. The upper-right controls change language and theme. Component pages contain interactive examples, source actions, and API documentation below the examples.
 
-![Button source panel showing interactive controls, expanded QML, and a copy-source action](screenshots/1.3.1/source-en.png)
+![Button source panel showing interactive controls, expanded QML, and a copy-source action](screenshots/1.3.2/source-en.png)
 
 Recommended workflow:
 

@@ -134,6 +134,8 @@ Item {
     }
 
     function resetFields(props) {
+        if (!internal.cancelValidation())
+            return
         ++internal.validationRevision
         const items = selectedItems(props)
         for (let index = 0; index < items.length; ++index)
@@ -149,6 +151,8 @@ Item {
     }
 
     function clearValidate(props) {
+        if (!internal.cancelValidation())
+            return
         ++internal.validationRevision
         const items = selectedItems(props)
         for (let index = 0; index < items.length; ++index)
@@ -169,6 +173,8 @@ Item {
         if (object[path] !== undefined)
             return object[path]
         const segments = EDataUtils.isArray(path) ? path : String(path).split(".")
+        if (segments.length === 0)
+            return undefined
         let value = object
         for (let index = 0; index < segments.length; ++index) {
             if (value === undefined || value === null)
@@ -176,21 +182,6 @@ Item {
             value = value[segments[index]]
         }
         return value
-    }
-
-    function setValueAtPath(object, path, value) {
-        if (!object || path === undefined || path === null || path === "")
-            return false
-        const segments = EDataUtils.isArray(path) ? path : String(path).split(".")
-        let target = object
-        for (let index = 0; index < segments.length - 1; ++index) {
-            const key = segments[index]
-            if (target[key] === undefined || target[key] === null)
-                target[key] = /^\d+$/.test(segments[index + 1]) ? [] : ({})
-            target = target[key]
-        }
-        target[segments[segments.length - 1]] = value
-        return true
     }
 
     function scrollToField(prop) {
@@ -213,6 +204,29 @@ Item {
             ancestor = ancestor.parent
         }
         return item.focusField()
+    }
+
+    function setValueAtPath(object, path, value) {
+        if (!object || path === undefined || path === null || path === "")
+            return false
+        if (object[path] !== undefined) {
+            object[path] = value
+            return true
+        }
+        const segments = EDataUtils.isArray(path) ? path : String(path).split(".")
+        if (segments.length === 0)
+            return false
+        let target = object
+        for (let index = 0; index < segments.length - 1; ++index) {
+            const key = segments[index]
+            if (target[key] === undefined || target[key] === null)
+                target[key] = /^\d+$/.test(segments[index + 1]) ? [] : ({})
+            target = target[key]
+            if (typeof target !== "object" && typeof target !== "function")
+                return false
+        }
+        target[segments[segments.length - 1]] = value
+        return true
     }
 
     function syncItems(forceModel) {
@@ -239,6 +253,11 @@ Item {
     }
 
     function runValidation(items, trigger, callback, updateFormState) {
+        if (!internal.cancelValidation()) {
+            if (typeof callback === "function")
+                callback(false, {}, null)
+            return false
+        }
         const revision = ++internal.validationRevision
         let remaining = items.length
         let allValid = true
@@ -247,14 +266,21 @@ Item {
         let completed = false
         let allSynchronous = true
         const errors = ({})
+        const observedItems = []
 
         internal.validating = items.length > 0
 
         function finishIfReady() {
-            if (launching || remaining > 0 || revision !== internal.validationRevision)
+            if (completed || launching || remaining > 0 || !internal
+                    || revision !== internal.validationRevision)
                 return
             completed = true
+            internal.pendingValidationCancel = null
             internal.validating = false
+            for (let index = 0; index < observedItems.length; ++index) {
+                if (observedItems[index] && observedItems[index].fieldValueChanged)
+                    observedItems[index].fieldValueChanged.disconnect(cancel)
+            }
             if (updateFormState) {
                 internal.valid = allValid
                 internal.firstInvalidItem = firstInvalid
@@ -266,6 +292,21 @@ Item {
                 callback(allValid, errors, firstInvalid)
         }
 
+        function cancel() {
+            allValid = false
+            remaining = 0
+            launching = false
+            firstInvalid = null
+            finishIfReady()
+        }
+        internal.pendingValidationCancel = cancel
+        for (let index = 0; index < items.length; ++index) {
+            if (items[index].fieldValueChanged) {
+                items[index].fieldValueChanged.connect(cancel)
+                observedItems.push(items[index])
+            }
+        }
+
         if (items.length === 0) {
             launching = false
             finishIfReady()
@@ -275,9 +316,13 @@ Item {
         for (let index = 0; index < items.length; ++index) {
             const item = items[index]
             let itemCompleted = false
-            const returned = item.validate(trigger, function(itemValid, message) {
-                if (itemCompleted || revision !== internal.validationRevision)
+            const returned = item.validate(trigger, function(itemValid, message, field, cancelled) {
+                if (itemCompleted || completed || !internal || revision !== internal.validationRevision)
                     return
+                if (cancelled) {
+                    cancel()
+                    return
+                }
                 itemCompleted = true
                 if (!itemValid) {
                     allValid = false
@@ -291,6 +336,8 @@ Item {
             })
             if (returned === undefined)
                 allSynchronous = false
+            if (completed)
+                break
         }
         launching = false
         finishIfReady()
@@ -327,6 +374,14 @@ Item {
         property bool validating: false
         property int validationRevision: 0
         property var firstInvalidItem: null
+        property var pendingValidationCancel: null
+
+        function cancelValidation() {
+            const revision = validationRevision
+            if (typeof pendingValidationCancel === "function")
+                pendingValidationCancel()
+            return revision === validationRevision
+        }
     }
     Grid {
         id: formGrid
@@ -336,6 +391,10 @@ Item {
         columnSpacing: control.columnSpacing
         columns: control.inline ? internal.itemCount : 1
 
-        onChildrenChanged: Qt.callLater(control.syncItems)
+        onChildrenChanged: {
+            if (internal && internal.validating)
+                internal.cancelValidation()
+            Qt.callLater(control.syncItems)
+        }
     }
 }

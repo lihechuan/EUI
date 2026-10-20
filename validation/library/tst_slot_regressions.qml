@@ -63,22 +63,6 @@ TestCase {
         tryVerify(function() { return view.contentY > 0 })
     }
 
-    function test_sampleContrast_data() {
-        const rows = []
-        for (const name of ["EDeferred", "EAnimateOnScroll", "ERipple", "EDropdown"]) {
-            for (let index = 0; index < Samples.definitions[name].cases.length; ++index) {
-                const code = Samples.definitions[name].cases[index].code
-                if (code.indexOf("Scroll down") < 0 && code.indexOf("Click anywhere") < 0
-                    && code.indexOf("Right-click anywhere") < 0)
-                    continue
-                for (const dark of [false, true])
-                    rows.push({tag: name + index + "-" + dark, code: code, dark: dark})
-            }
-        }
-        compare(rows.length, 32)
-        return rows
-    }
-
     function test_iftaLabelExternalTargetRestores() {
         const input = createTemporaryQmlObject("import EUI 1.0\nEInput { height: 36; topPadding: 6 }", testCase)
         const label = createTemporaryQmlObject("import EUI 1.0\nEIftaLabel { height: 60 }", testCase)
@@ -116,30 +100,6 @@ TestCase {
         wait(0)
     }
 
-    function test_sampleContrast(data) {
-        ETheme.setDark(data.dark)
-        const item = createTemporaryQmlObject(data.code, testCase)
-        verify(item !== null)
-        verify(waitForItemPolished(item))
-        const pending = [item]
-        let checked = 0
-        while (pending.length) {
-            const child = pending.pop()
-            if (["Scroll down ↓", "Click anywhere", "Right-click anywhere"].indexOf(child.text) >= 0) {
-                const text = luminance(child.color)
-                const surface = luminance(child.parent.color)
-                verify((Math.max(text, surface) + 0.05) / (Math.min(text, surface) + 0.05) >= 4.5)
-                ++checked
-            }
-            const children = child.children || []
-            for (let index = 0; index < children.length; ++index)
-                pending.push(children[index])
-        }
-        compare(checked, 1)
-        item.destroy()
-        wait(0)
-    }
-
     function test_tagOptionalAvatar() {
         const item = createTemporaryQmlObject("import EUI 1.0\nETag { text: 'EUI' }", testCase)
         const loader = findChild(item, "tagAvatarLoader")
@@ -156,6 +116,60 @@ TestCase {
         compare(loader.item, null)
         item.destroy()
         wait(0)
+    }
+
+    function test_sampleContrast(data) {
+        ETheme.setDark(data.dark)
+        ELocale.language = data.language
+        const label = data.labelKey ? ELocale.texts[data.labelKey] : data.text
+        verify(label.length > 0)
+        const item = createTemporaryQmlObject(data.code, testCase)
+        verify(item !== null)
+        verify(waitForItemPolished(item))
+        const pending = [item]
+        let checked = 0
+        while (pending.length) {
+            const child = pending.pop()
+            if (child.text === label) {
+                compare(child.parent.color.a, 1)
+                const text = luminance(child.color)
+                const surface = luminance(child.parent.color)
+                verify((Math.max(text, surface) + 0.05) / (Math.min(text, surface) + 0.05) >= 4.5)
+                ++checked
+            }
+            const children = child.children || []
+            for (let index = 0; index < children.length; ++index)
+                pending.push(children[index])
+        }
+        compare(checked, 1)
+        item.destroy()
+        wait(0)
+    }
+
+    function test_sampleContrast_data() {
+        const rows = []
+        const scenes = [
+            {name: "EDeferred", cases: 5, prefix: "PrimeDeferredCase", labelKey: "DemoScrollDown"},
+            {name: "EAnimateOnScroll", cases: 5, prefix: "PrimeAnimateOnScrollCase", text: "Scroll down ↓"},
+            {name: "ERipple", cases: 5, prefix: "PrimeRippleCase", labelKey: "DemoClickAnywhere"},
+            {name: "EDropdown", cases: 1, prefix: "PrimeDropdownCase", text: "Right-click anywhere"}
+        ]
+        for (const scene of scenes) {
+            for (let index = 1; index <= scene.cases; ++index) {
+                const title = scene.prefix + index
+                const matches = Samples.definitions[scene.name].cases.filter(function(entry) {
+                    return entry.title === title
+                })
+                compare(matches.length, 1, title)
+                for (const dark of [false, true]) {
+                    for (const language of ["zh", "en"])
+                        rows.push({tag: title + "-" + dark + "-" + language, code: matches[0].code,
+                            dark: dark, language: language, labelKey: scene.labelKey || "", text: scene.text || ""})
+                }
+            }
+        }
+        compare(rows.length, 64)
+        return rows
     }
 
     function test_intrinsicSlots(data) {

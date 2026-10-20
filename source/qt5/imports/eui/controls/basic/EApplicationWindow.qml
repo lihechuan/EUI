@@ -1,6 +1,7 @@
 import EUI 1.0
 import EUI.Private 1.0
 import QtQuick 2.15
+import QtQml 2.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 
@@ -60,6 +61,13 @@ ApplicationWindow {
 
         anchors.fill: parent
 
+        Binding {
+            property: "width"
+            target: control.appBar
+            value: appBarContainer.width
+            when: control.appBar !== null
+            restoreMode: Binding.RestoreBindingOrValue
+        }
         Item {
             id: appBarContainer
 
@@ -73,13 +81,6 @@ ApplicationWindow {
                 if (!control.showAppBar || !control.appBar || control.fitsAppBarWindows)
                     return 0
                 return control.appBar.height
-            }
-
-            Component.onCompleted: {
-                if (control.appBar)
-                    control.appBar.width = Qt.binding(function() {
-                        return appBarContainer.width
-                    })
             }
         }
         Item {

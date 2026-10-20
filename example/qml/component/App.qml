@@ -277,7 +277,6 @@ EApplicationWindow {
                     clip: true
                     pixelAligned: true
                     contentWidth: width
-                    layer.enabled: true
                     width: parent.width
                     objectName: "galleryNavigation"
                     ScrollBar.vertical: ScrollHandle { }

@@ -6,7 +6,7 @@ EUI is a Qt Quick / QML component library for desktop applications, with forms, 
 
 ## Preview
 
-![EUI 1.3.1 Gallery home page with the top bar, featured components, and all categories](docs/screenshots/1.3.1/home-en.png)
+![EUI 1.3.2 Gallery home page with the top bar, featured components, and all categories](docs/screenshots/1.3.2/home-en.png)
 
 ## Try the Gallery
 
@@ -41,25 +41,25 @@ The [application integration guide](docs/guide.en.md#3-integrate-a-qt-quick-appl
 
 ## More components
 
-![Task board with task columns, filtering, and draggable cards](docs/screenshots/1.3.1/task-board-en.png)
+![Task board with task columns, filtering, and draggable cards](docs/screenshots/1.3.2/task-board-en.png)
 
-![Image comparison with bundled local photos](docs/screenshots/1.3.1/compare-en.png)
+![Image comparison with bundled local photos](docs/screenshots/1.3.2/compare-en.png)
 
-![Apache ECharts with a combined bar and line chart and dual axes](docs/screenshots/1.3.1/echarts-mixed-en.png)
+![Apache ECharts with a combined bar and line chart and dual axes](docs/screenshots/1.3.2/echarts-mixed-en.png)
 
-![Apache ECharts Sankey diagram in the dark theme](docs/screenshots/1.3.1/echarts-sankey-dark-en.png)
+![Apache ECharts Sankey diagram in the dark theme](docs/screenshots/1.3.2/echarts-sankey-dark-en.png)
 
-![Apache ECharts sunburst chart for hierarchical data](docs/screenshots/1.3.1/echarts-sunburst-en.png)
+![Apache ECharts sunburst chart for hierarchical data](docs/screenshots/1.3.2/echarts-sunburst-en.png)
 
-![Business table with avatars, cell editing, sorting, and pagination](docs/screenshots/1.3.1/table-en.png)
+![Business table with avatars, cell editing, sorting, and pagination](docs/screenshots/1.3.2/table-en.png)
 
-![Littlest Tokyo rendered with Qt Quick 3D, shown as a visual demo](docs/screenshots/1.3.1/quick3d-en.png)
+![Littlest Tokyo rendered with Qt Quick 3D, shown as a visual demo](docs/screenshots/1.3.2/quick3d-en.png)
 
 The 3D scene is a visual demo with orbit, zoom, and playback controls. It is not an EUI component.
 
-![Command search and selection](docs/screenshots/1.3.1/command-palette-en.png)
+![Command search and selection](docs/screenshots/1.3.2/command-palette-en.png)
 
-![Step-by-step setup](docs/screenshots/1.3.1/wizard-en.png)
+![Step-by-step setup](docs/screenshots/1.3.2/wizard-en.png)
 
 See [all screenshots](docs/screenshots/README.md) for more chart types, forms, source previews, and other components.
 

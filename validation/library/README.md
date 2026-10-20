@@ -24,7 +24,9 @@ python validation/library/run.py `
   --output build/library-validation/qt6
 ```
 
-Qt 5.15.2 Win64 增加 `--qt5-interpreter`，避开该 SDK 已知的 JIT 问题。省略 `--gallery-runner` 时仍执行全部公开类型、边界条件、功能扩展与插槽回归；Gallery 页面矩阵需要带 `exampleCatalog` 等上下文的 `eui_gallery_tests`。SDK 和输出路径可按本机配置修改。
+Qt 5.15.2 Win64 增加 `--qt5-interpreter`，避开该 SDK 已知的 JIT 问题。省略 `--gallery-runner` 时执行公开类型、边界条件、表单、窗口、交互与插槽回归；依赖 Gallery 图片资源的 PrimeVue 组件测试、桌面目录测试、导航像素测试和 Gallery 页面矩阵需要带资源及 `exampleCatalog` 上下文的 `eui_gallery_tests`。SDK 和输出路径可按本机配置修改。
+
+Windows 导航像素测试和页面矩阵使用本目录的 `run_isolated_qml.py` 创建独立桌面，以支持原生悬停和文字像素检查；不会切换用户桌面或显示前台窗口。其他套件使用 `offscreen`。运行器自动创建截图目录。独立桌面的默认超时为 300 秒，`EUI_QML_TIMEOUT` 可按调用方的测试时限设置；全库页面矩阵使用 890 秒。
 
 使用 `run_full.py` 运行 CTest 清单：
 
@@ -35,12 +37,18 @@ python validation/library/run_full.py `
   --output build/library-validation/full-qt6
 ```
 
-`--only` 筛选测试名，`--jobs` 设置并发数。
+`--only` 筛选测试名，`--jobs` 设置并发数（默认 1）。运行器遵循 CTest 的工作目录、超时、`FAIL_REGULAR_EXPRESSION` 和 `RUN_SERIAL`；需要 Windows 原生平台的 QML 测试自动转到独立桌面。Qt 5、Qt 6 的完整回归应分别串行执行，避免系统剪贴板和共享缓存竞争。
+
+新检出即使没有本地 `tests/` 目录，也会构建本目录的 Gallery 执行器并登记 `EUI.LibraryRegression`，可按上述命令在本地运行。
 
 ## 覆盖范围
 
 - `tst_public_components.qml`：全部公开可创建类型的浅色/深色、中英文、320/640 宽度组合；0、1、320、1280 宽度切换；禁用、显示隐藏和销毁；声明了模型属性的组件检查 `null`、空数组与恢复原模型；`EAnimation` 全部 83 个效果及无效效果、空目标、停止恢复。
-- `tst_slot_regressions.qml`：选择器、复选框组、标签输入和数字输入的自定义插槽尺寸；固定标签绑定恢复及销毁；列表点击转发、加载遮罩滚轮拦截；标签头像按需加载与清空；排程日/周/月切换语言；16 个示例在亮暗主题下的 32 项文字对比度检查。
+- `tst_slot_regressions.qml`：选择器、复选框组、标签输入和数字输入的自定义插槽尺寸；固定标签绑定恢复及销毁；列表点击转发、加载遮罩滚轮拦截；标签头像按需加载与清空；排程日/周/月切换语言；16 个示例在亮暗主题、中英文下的 64 项文字对比度检查。
+- `tst_form_regressions.qml`：直接键和嵌套模型路径；异步校验正常完成、编辑和增删字段、重新校验、清空、重置、销毁及取消回调中的重入。取消的校验回调以 `false` 结束，过期结果不影响新校验。
+- `tst_window_regressions.qml`：初始、动态添加、替换和移除标题栏时的宽度同步，以及旧宽度值或绑定恢复。
+- `tst_desktop_gallery.qml`：按当前版本检查新组件标记和徽标，同时保留 1.3.0 的 26 个组件及全部示例验证。
+- `tst_gallery_navigation.qml`：浅色/深色、中英文下比较导航区域实际像素与直接绘制到窗口的参考像素，防止离屏图层改变文字边缘渲染。
 - `tst_gallery_matrix.qml`：全部非演示目录项在浅色/深色、1040/640 页面宽度下加载全部示例，检查尺寸、预览边界、渲染输出；代表页面另外检查连续缩放至 1920/2560；侧栏检查中英文、亮暗主题字体一致性，以及徽章/输入组合页面与菜单之间反复悬停后的文字像素。截图输出到 `build/library-validation/gallery-images/`。
 - 复用 `validation/primevue` 中的功能与交互回归，包含选择/排序/拖动、禁用与只读、空值和越界、键盘焦点、滚动加载、弹窗确认/取消、富文本格式/撤销、排程/看板、图片操作等。
 

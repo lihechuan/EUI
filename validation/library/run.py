@@ -1,4 +1,4 @@
-"""Run public-component regressions offscreen and reject QML runtime errors."""
+"""Run component regressions in the background and reject QML runtime errors."""
 
 import argparse
 import csv
@@ -43,10 +43,15 @@ def run(args):
     if args.qt5_interpreter:
         environment["QV4_FORCE_INTERPRETER"] = "1"
     suites = [HERE / "tst_public_components.qml", HERE / "tst_slot_regressions.qml",
-        HERE.parent / "primevue/tst_primevue_components.qml", HERE.parent / "primevue/tst_gallery_interactions.qml"]
+        HERE / "tst_form_regressions.qml", HERE / "tst_window_regressions.qml",
+        HERE.parent / "primevue/tst_gallery_interactions.qml"]
     if args.gallery_runner:
-        suites.append(HERE / "tst_gallery_matrix.qml")
+        suites.extend([HERE.parent / "primevue/tst_primevue_components.qml",
+            HERE / "tst_desktop_gallery.qml", HERE / "tst_gallery_navigation.qml", HERE / "tst_gallery_matrix.qml"])
+        (ROOT / "build/primevue-completion").mkdir(parents=True, exist_ok=True)
         (ROOT / "build/library-validation/gallery-images").mkdir(parents=True, exist_ok=True)
+    else:
+        print("Gallery resource and page suites require --gallery-runner; running the standalone suites", flush=True)
     results = []
     for suite in suites:
         source = suite
@@ -54,17 +59,27 @@ def run(args):
             source = output / suite.name
             source.write_text(suite.read_text(encoding="utf-8"), encoding="utf-8")
         log = output / (suite.stem + ".txt")
-        runner = args.gallery_runner if suite.name == "tst_gallery_matrix.qml" else args.runner
-        command = [str(runner.resolve()), "-input", str(source), "-import", str(args.imports.resolve()),
-            "-platform", "offscreen", "-o", str(log) + ",txt"]
+        log.unlink(missing_ok=True)
+        runner = args.gallery_runner if suite.name in ("tst_primevue_components.qml",
+            "tst_desktop_gallery.qml", "tst_gallery_navigation.qml", "tst_gallery_matrix.qml") else args.runner
+        isolated = os.name == "nt" and suite.name in ("tst_gallery_navigation.qml", "tst_gallery_matrix.qml")
+        if isolated:
+            command = [sys.executable, str(HERE / "run_isolated_qml.py"), str(runner.resolve()),
+                str(source), str(args.imports.resolve())]
+        else:
+            command = [str(runner.resolve()), "-input", str(source), "-import", str(args.imports.resolve()),
+                "-platform", "offscreen", "-o", str(log) + ",txt"]
+        environment["EUI_QML_TIMEOUT"] = "890"
         try:
-            completed = subprocess.run(command, env=environment, capture_output=True, timeout=900,
+            completed = subprocess.run(command, cwd=ROOT, env=environment, capture_output=True, timeout=900,
                 creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0)
-            text = log.read_text(encoding="utf-8", errors="replace") if log.exists() else ""
             console = (completed.stdout + completed.stderr).decode("utf-8", errors="replace")
+            if isolated:
+                log.write_text(console, encoding="utf-8")
+            text = log.read_text(encoding="utf-8", errors="replace") if log.exists() else ""
             (output / (suite.stem + "-console.txt")).write_text(console, encoding="utf-8")
             totals = re.search(r"Totals: (\d+) passed, (\d+) failed, (\d+) skipped", text)
-            errors = [line for line in (text + console).splitlines() if RUNTIME_ERRORS.search(line)]
+            errors = [line for line in (text if isolated else text + console).splitlines() if RUNTIME_ERRORS.search(line)]
             result = {"suite": suite.name, "exit_code": completed.returncode,
                 "totals": list(map(int, totals.groups())) if totals else None, "errors": errors,
                 "passed": completed.returncode == 0 and totals is not None and not errors}
@@ -92,7 +107,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--runner", type=Path, required=True)
     parser.add_argument("--imports", type=Path, required=True, help="Parent of the built EUI module")
-    parser.add_argument("--gallery-runner", type=Path, help="Optional eui_gallery_tests executable with Gallery context")
+    parser.add_argument("--gallery-runner", type=Path, help="eui_gallery_tests executable required for Gallery resources and pages")
     parser.add_argument("--qt-bin", type=Path, required=True)
     parser.add_argument("--output", type=Path, default=ROOT / "build/library-validation/public")
     parser.add_argument("--qt5-interpreter", action="store_true", help="Qt 5.15.2 Win64 QTBUG-89513 workaround")

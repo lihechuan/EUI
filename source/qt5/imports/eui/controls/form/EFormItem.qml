@@ -79,6 +79,13 @@ Item {
         return validate(trigger, callback)
     }
 
+    function clearValidate() {
+        if (!internal.cancelValidation())
+            return
+        validationState = EValidationState.None
+        validationMessage = ""
+    }
+
     function focusField() {
         if (field && typeof field.forceActiveFocus === "function") {
             field.forceActiveFocus()
@@ -91,13 +98,6 @@ Item {
         if (value === undefined || value === null)
             return []
         return EDataUtils.isArray(value) ? value.slice(0) : [value]
-    }
-
-    function clearValidate() {
-        ++internal.validationRevision
-        internal.validating = false
-        validationState = EValidationState.None
-        validationMessage = ""
     }
 
     function syncToModel() {
@@ -163,14 +163,6 @@ Item {
         return ""
     }
 
-    function scheduleValidation(trigger) {
-        const scheduleRevision = ++internal.validationRevision
-        Qt.callLater(function() {
-            if (internal && scheduleRevision === internal.validationRevision
-                    && effectiveValidateEvent && !internal.resetting) control.validate(trigger)
-        })
-    }
-
     function triggerMatches(rule, trigger) {
         if (!trigger || trigger === "submit")
             return true
@@ -178,6 +170,16 @@ Item {
             return true
         const triggers = EDataUtils.isArray(rule.trigger) ? rule.trigger : [rule.trigger]
         return triggers.indexOf(trigger) >= 0
+    }
+
+    function scheduleValidation(trigger) {
+        if (!internal.cancelValidation())
+            return
+        const scheduleRevision = internal.validationRevision
+        Qt.callLater(function() {
+            if (internal && scheduleRevision === internal.validationRevision
+                    && effectiveValidateEvent && !internal.resetting) control.validate(trigger)
+        })
     }
 
     function captureInitialValue(value) {
@@ -192,8 +194,8 @@ Item {
     }
 
     function resetField() {
-        ++internal.validationRevision
-        internal.validating = false
+        if (!internal.cancelValidation())
+            return false
         if (!resettable || !field || !internal.initialValueCaptured
                 || internal.initialValueProperty.length === 0) {
             clearValidate()
@@ -268,6 +270,7 @@ Item {
     function completeValidation(revision, valid, result, callback) {
         if (!internal || revision !== internal.validationRevision)
             return
+        internal.pendingCallback = null
         internal.validating = false
         if (valid) {
             validationState = result && result.state !== EValidationState.None
@@ -294,7 +297,13 @@ Item {
             trigger = ""
         }
         trigger = trigger || ""
-        const revision = ++internal.validationRevision
+        if (!internal.cancelValidation()) {
+            if (typeof callback === "function")
+                callback(false, "", control, true)
+            return false
+        }
+        const revision = internal.validationRevision
+        internal.pendingCallback = callback
         let value = fieldValue
         const list = effectiveRules().filter(function(rule) {
             return rule && triggerMatches(rule, trigger)
@@ -311,8 +320,12 @@ Item {
         if (list.length === 0) {
             if (!trigger || trigger === "submit")
                 completeValidation(revision, true, null, callback)
-            else if (typeof callback === "function")
-                callback(true, "", control)
+            else {
+                internal.pendingCallback = null
+                internal.validating = false
+                if (typeof callback === "function")
+                    callback(true, "", control)
+            }
             return true
         }
         internal.validating = true
@@ -468,6 +481,7 @@ Item {
     implicitWidth: Math.max(labelRow.implicitWidth, fieldContainer.implicitWidth,
         messageText.implicitWidth)
 
+    Component.onDestruction: internal.cancelValidation()
     onRulesChanged: {
         if (internal.completed && form && form.validateOnRuleChange)
             scheduleValidation("")
@@ -516,11 +530,22 @@ Item {
         property bool resetting: false
         property bool validating: false
         property bool syncingModel: false
+        property var pendingCallback: null
         property int validationRevision: 0
         property bool modelInitialized: false
         property bool previousFieldFocus: false
         property string initialValueProperty: ""
         property bool initialValueCaptured: false
+
+        function cancelValidation() {
+            const revision = ++validationRevision
+            const callback = pendingCallback
+            pendingCallback = null
+            validating = false
+            if (typeof callback === "function")
+                callback(false, "", control, true)
+            return revision === validationRevision
+        }
     }
     Grid {
         id: contentColumn
@@ -543,9 +568,9 @@ Item {
                 : Math.max(implicitHeight, fieldContainer.height)
 
             EText {
-                anchors.verticalCenter: parent.verticalCenter
                 visible: control.isRequired && !control.hideRequiredAsterisk
                 font.pixelSize: EDefaultConfig.controlFontPixelSize(control.size)
+                anchors.verticalCenter: parent ? parent.verticalCenter : undefined
                 text: EControlConfig.textFor(control, "RequiredIndicator", ELocale.texts)
                 color: EPaletteManager.StatePalette.validationColor(EValidationState.Error)
             }
@@ -553,8 +578,8 @@ Item {
                 target: control.field
                 visible: control.labelComponent === null
                 text: control.label + control.labelSuffix
-                anchors.verticalCenter: parent.verticalCenter
                 font.pixelSize: EDefaultConfig.controlFontPixelSize(control.size)
+                anchors.verticalCenter: parent ? parent.verticalCenter : undefined
                 horizontalAlignment: control.labelPosition === "right"
                     ? Text.AlignRight : Text.AlignLeft
                 width: control.labelWidth > 0
@@ -572,7 +597,7 @@ Item {
                 height: contentHeight
                 active: control.labelComponent !== null
                 sourceComponent: control.labelComponent
-                anchors.verticalCenter: parent.verticalCenter
+                anchors.verticalCenter: parent ? parent.verticalCenter : undefined
             }
         }
         Column {

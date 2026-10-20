@@ -1,5 +1,4 @@
-1. Add bundled sample images to avatar, carousel, image preview, upload, comparison, and visual effect examples.
-2. Fix CMake and Ninja discovery when preparing the Qt 6 runtime from macOS GUI applications.
-3. Show an animated progress bar during Qt 6 preparation and measured percentages during installation.
-4. Fix indeterminate progress so segments wrap continuously from the right edge to the left.
-5. Load image preview thumbnails only when needed and trigger the image error example on demand.
+1. Fix asynchronous form validation remaining pending or applying stale results after revalidation, input changes, clearing, resetting, or destruction.
+2. Fix form setters changing nested data when an existing field name contains dots.
+3. Restore application window bar width bindings when bars are replaced or removed.
+4. Improve Gallery sidebar text clarity by removing the offscreen layer that caused jagged text edges.

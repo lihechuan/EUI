@@ -13,6 +13,7 @@ spec.loader.exec_module(runtime)
 
 
 class RuntimeToolTests(unittest.TestCase):
+    @unittest.skipIf(os.name == 'nt', 'Requires POSIX executable permissions')
     def test_gui_path_finds_qt_tools(self):
         with tempfile.TemporaryDirectory() as directory:
             home = Path(directory)
@@ -26,6 +27,7 @@ class RuntimeToolTests(unittest.TestCase):
                     tool.chmod(0o644)
                     self.assertNotEqual(runtime.build_tool(name), str(tool))
 
+    @unittest.skipIf(os.name == 'nt', 'Requires POSIX executable permissions')
     def test_path_takes_priority(self):
         with tempfile.TemporaryDirectory() as directory:
             tool = Path(directory) / 'cmake'
