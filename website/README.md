@@ -27,6 +27,7 @@ npm run preview
 | --- | --- |
 | 首页布局与样式 | `.vitepress/theme/` |
 | 快速开始与内容转换 | `scripts/generate.mjs` |
+| 版本对比、下载地址与 Python 发行版本号 | `scripts/generate.mjs`；Python 发布后同步更新 `pythonVersion` |
 | 构建、接入、功能、Gallery 及常见问题 | `../docs/guide.zh-CN.md`、`../docs/guide.en.md` |
 | 组件分类、名称、示例入口与引入版本 | `../example/src/ExampleCatalog.cpp` |
 | 属性类型、默认值与中英文说明 | `../example/data/component-api.json` |

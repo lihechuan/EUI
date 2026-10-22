@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs'
 import { defineConfig } from 'vitepress'
 
-const { groups, version } = JSON.parse(readFileSync(new URL('../.generated/site.json', import.meta.url)))
+const { groups } = JSON.parse(readFileSync(new URL('../.generated/site.json', import.meta.url)))
 const base = process.env.EUI_DOCS_BASE || '/EUI/'
 if (!base.startsWith('/') || !base.endsWith('/')) throw new Error('EUI_DOCS_BASE must start and end with /')
 
@@ -17,13 +17,14 @@ function navigation(language) {
         { text: chinese ? '指南' : 'Guide', link: `${prefix}/guide/getting-started` },
         { text: chinese ? '组件' : 'Components', link: `${prefix}/components/` },
         { text: chinese ? '更新记录' : 'Changelog', link: `${prefix}/changelog` },
-        { text: `v${version}`, link: 'https://github.com/lihechuan/EUI/releases' }
+        { text: chinese ? '版本下载' : 'Versions', link: `${prefix}/versions` }
       ],
       sidebar: {
         [`${prefix}/guide/`]: [
           {
             text: chinese ? '开始使用' : 'Get started',
             items: [
+              { text: chinese ? '选择版本' : 'Choose a version', link: `${prefix}/versions` },
               { text: chinese ? '快速开始' : 'Quick start', link: `${prefix}/guide/getting-started` },
               { text: chinese ? '环境准备' : 'Prerequisites', link: `${prefix}/guide/prerequisites` },
               { text: chinese ? '构建 EUI' : 'Build EUI', link: `${prefix}/guide/build` },

@@ -31,6 +31,18 @@ for (const prefix of ['', '/en']) {
   assert(!pages.has(`${prefix}/guide/deployment.html`), 'Deployment instructions must not be published in the user guide')
   assert.match(pages.get(`${prefix}/guide/troubleshooting.html`).text, /^# 6\. /m, 'Troubleshooting must follow the Gallery chapter')
 }
+for (const [url, heading, language] of [['/versions.html', '选择版本', 'zh-CN'], ['/en/versions.html', 'Choose a version', 'en']]) {
+  const page = pages.get(url)
+  assert(page, `Missing version selector: ${url}`)
+  assert.match(page.text, new RegExp(`^# ${heading}$`, 'm'))
+  assert(page.text.includes('EUI-PySide6') && page.text.includes('C++ / Qt Quick'))
+  assert(page.text.includes('https://github.com/lihechuan/EUI/releases'))
+  assert(page.text.includes('https://github.com/lihechuan/EUI-PySide6/releases'))
+  assert(page.text.includes('Windows x64') && page.text.includes('macOS Intel') && page.text.includes('Apple Silicon'))
+  assert(page.text.includes(`EUI-PySide6/blob/master/docs/guide.${language}.md`), 'Version selector must use the matching guide language')
+}
+assert(pages.get('/guide/getting-started.html').text.includes('/versions'), 'Chinese quick start must link to version selection')
+assert(pages.get('/en/guide/getting-started.html').text.includes('/en/versions'), 'English quick start must link to English version selection')
 for (const page of new Set(pages.values())) {
   assert(!/本机验证环境限制|本轮验证结果|保留原有工作区修改|未提交或推送|构建产物保留 14 天|Build artifacts are retained for 14 days/.test(page.text), `Internal maintenance notes in ${page.relative}`)
   for (const [, target] of page.html.matchAll(/<img\b[^>]*\bsrc="([^"]*\/screenshots\/[^"/]+\/[^"/]+-(?:zh|en)\.png)"/g)) {

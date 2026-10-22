@@ -32,14 +32,14 @@ const url = path => {
   <main class="docs-home">
     <section class="intro" aria-labelledby="intro-title">
       <div class="intro-topline">
-        <a :href="url('/changelog')">v{{ site.version }}<span>{{ chinese ? '更新记录' : 'Changelog' }}</span><span aria-hidden="true">↗</span></a>
+        <a :href="url('/changelog')">C++ v{{ site.version }}<span>{{ chinese ? '更新记录' : 'Changelog' }}</span><span aria-hidden="true">↗</span></a>
       </div>
       <div class="intro-copy">
         <h1 id="intro-title">EUI <span>{{ chinese ? '文档' : 'documentation' }}</span></h1>
         <p class="intro-subtitle">{{ chinese ? '为桌面应用，构建好界面。' : 'Build better desktop interfaces.' }}</p>
         <p class="intro-description">{{ chinese ? '为 Qt Quick 应用准备的组件库。从一个按钮，到完整的工作台，使用统一的组件、主题与交互。' : 'A component library for Qt Quick. From a single button to a complete workspace, with consistent components, themes, and interactions.' }}</p>
         <div class="intro-actions">
-          <a class="primary-action" href="https://github.com/lihechuan/EUI/releases">{{ chinese ? '下载桌面示例程序' : 'Download desktop Gallery' }}</a>
+          <a class="primary-action" :href="url('/versions')">{{ chinese ? '选择实现版本' : 'Choose an edition' }}</a>
           <a class="secondary-action" :href="url('/guide/getting-started')">{{ chinese ? '开始使用' : 'Get started' }}</a>
           <a class="secondary-action" :href="url('/components/')">{{ chinese ? '浏览组件' : 'Explore components' }}</a>
         </div>
@@ -86,6 +86,22 @@ const url = path => {
     </section>
 
     <div class="home-content">
+      <section class="version-selection" aria-labelledby="version-selection-title">
+        <div class="section-heading"><div><h2 id="version-selection-title">{{ chinese ? '选择实现版本' : 'Choose an implementation' }}</h2><p>{{ chinese ? '两版共享 QML 组件和接口说明，开发语言、应用接入方式与发行包各自对应。' : 'Both editions share the QML components and API references, with separate host languages, integration guides, and releases.' }}</p></div><a :href="url('/versions')">{{ chinese ? '版本对比' : 'Compare editions' }}<span aria-hidden="true">↗</span></a></div>
+        <div class="version-cards">
+          <article class="version-card">
+            <div class="version-card-heading"><h3>EUI</h3><span>C++ · Qt Quick</span><small>v{{ site.version }}</small></div>
+            <p>{{ chinese ? '适用于 C++ 桌面应用，使用 Qt Quick / QML 与 CMake 构建和接入。' : 'For C++ desktop applications, built and integrated with Qt Quick / QML and CMake.' }}</p>
+            <div class="version-card-actions"><a class="version-card-primary" href="https://github.com/lihechuan/EUI/releases">{{ chinese ? '下载 C++ Gallery' : 'Download C++ Gallery' }}</a><a :href="url('/guide/getting-started')">{{ chinese ? 'C++ 使用指南' : 'C++ guide' }}<span aria-hidden="true">↗</span></a></div>
+          </article>
+          <article class="version-card">
+            <div class="version-card-heading"><h3>EUI-PySide6</h3><span>Python · PySide6</span><small>v{{ site.pythonVersion }}</small></div>
+            <p>{{ chinese ? '适用于 Python 桌面应用。提供 Windows x64、macOS Intel 和 Apple Silicon 安装包、免安装包及 Python wheel。' : 'For Python desktop applications. Installer, portable, and Python wheel packages are available for Windows x64, macOS Intel, and Apple Silicon.' }}</p>
+            <div class="version-card-actions"><a class="version-card-primary" href="https://github.com/lihechuan/EUI-PySide6/releases">{{ chinese ? '下载 Python 版' : 'Download Python edition' }}</a><a :href="chinese ? 'https://github.com/lihechuan/EUI-PySide6/blob/master/docs/guide.zh-CN.md' : 'https://github.com/lihechuan/EUI-PySide6/blob/master/docs/guide.en.md'">{{ chinese ? '使用指南' : 'Python guide' }}<span aria-hidden="true">↗</span></a></div>
+          </article>
+        </div>
+      </section>
+
       <section class="component-directory" aria-labelledby="directory-title">
         <div class="section-heading">
           <div><h2 id="directory-title">{{ chinese ? '组件索引' : 'Component index' }}</h2><p>{{ chinese ? '选择分类，查找组件的用法与接口。' : 'Choose a category to find usage examples and API references.' }}</p></div>
@@ -112,7 +128,7 @@ const url = path => {
       </section>
 
       <section class="getting-started" aria-labelledby="start-title">
-        <div class="section-heading"><div><h2 id="start-title">{{ chinese ? '接入项目' : 'Project setup' }}</h2><p>{{ chinese ? '从环境准备到 QML 导入，按步骤完成配置。' : 'Set up your environment, build EUI, and import the QML module.' }}</p></div><a :href="url('/guide/getting-started')">{{ chinese ? '快速开始' : 'Quick start' }}<span aria-hidden="true">↗</span></a></div>
+        <div class="section-heading"><div><h2 id="start-title">{{ chinese ? 'C++ 项目接入' : 'C++ project setup' }}</h2><p>{{ chinese ? '从环境准备到 QML 导入，按步骤完成配置。' : 'Set up your environment, build EUI, and import the QML module.' }}</p></div><a :href="url('/guide/getting-started')">{{ chinese ? '快速开始' : 'Quick start' }}<span aria-hidden="true">↗</span></a></div>
         <nav class="integration-path" :aria-label="chinese ? '接入流程' : 'Integration steps'">
           <a :href="url('/guide/prerequisites')"><span class="step-number" aria-hidden="true">1</span><strong>{{ chinese ? '环境准备' : 'Prerequisites' }}</strong><small>{{ chinese ? '选择 Qt Kit 与编译工具' : 'Choose a Qt Kit and compiler' }}</small></a>
           <a :href="url('/guide/build')"><span class="step-number" aria-hidden="true">2</span><strong>{{ chinese ? '构建 EUI' : 'Build EUI' }}</strong><small>{{ chinese ? '配置、编译与安装组件库' : 'Configure, build, and install EUI' }}</small></a>
@@ -126,7 +142,7 @@ const url = path => {
           <h2 id="showcase-title">{{ chinese ? 'Gallery 示例程序' : 'Gallery application' }}</h2>
           <p>{{ chinese ? '在桌面端体验组件交互、切换主题，查看和复制 QML 源码。' : 'Try native interactions and themes, and view or copy the QML source.' }}</p>
           <div class="gallery-links">
-            <a class="gallery-download" href="https://github.com/lihechuan/EUI/releases">{{ chinese ? '下载 Gallery' : 'Download Gallery' }}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5" /></svg></a>
+            <a class="gallery-download" :href="url('/versions')">{{ chinese ? '选择 Gallery 版本' : 'Choose a Gallery edition' }}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M5 16v5h14v-5" /></svg></a>
             <a class="gallery-guide" :href="url('/guide/gallery')">{{ chinese ? '使用指南' : 'User guide' }}</a>
           </div>
         </div>
