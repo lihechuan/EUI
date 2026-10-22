@@ -6,6 +6,8 @@
 
 Explore the Gallery interface, themes, and component examples.
 
+15 秒交互演示 / 15-second interaction demo：[中文](1.3.2/gallery-demo-zh.gif) · [English](1.3.2/gallery-demo-en.gif)。展示真实 Gallery 中的表格编辑、明暗主题切换及源码展开 / Table editing, theme switching, and QML source in the Gallery.
+
 | 组件 / Component | 截图 / Screenshots | 展示功能 / Feature |
 | --- | --- | --- |
 | 完整首页 / Complete home page | [中文](1.3.2/home-zh.png) · [English](1.3.2/home-en.png) | 当前组件目录、精选组件和全部分类 / Current catalog, featured components, and all categories |
