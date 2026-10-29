@@ -28,10 +28,11 @@ with sync_playwright() as playwright:
     page.on("response", lambda response: failures.append(f"{response.status}: {response.url}") if response.status >= 400 else None)
     for language in ["", "en/"]:
         visit(page, language)
-        expect(page.locator(".intro-topline a")).to_have_count(1)
-        expect(page.locator(".intro-topline a")).to_have_text("Changelog" if language else "更新记录")
+        expect(page.locator('.docs-home a[href$="/changelog.html"]')).to_have_count(0)
+        changelog = page.locator(".VPNavBar").get_by_role("link", name="Changelog" if language else "更新记录", exact=True)
+        expect(changelog).to_have_count(1)
         page.screenshot(path=str(artifacts / ("editions-home-en.png" if language else "editions-home-zh.png")))
-        page.locator(".intro-topline a").click()
+        changelog.click()
         page.wait_for_url(base_url + language + "changelog.html")
         expect(page.locator('.edition-switch a[aria-current="page"]')).to_have_text("C++ / Qt Quick")
         for index, edition in enumerate(["", "pyside6/"]):

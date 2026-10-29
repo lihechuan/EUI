@@ -173,9 +173,6 @@ html[lang='en'] { --vp-code-copy-copied-text-content: 'Copied'; }
 
 .docs-home { overflow: clip; }
 .intro { position: relative; isolation: isolate; display: flex; flex-direction: column; overflow: hidden; min-height: 660px; padding: 0 max(40px, calc((100% - 1168px) / 2)); background: #164ac6; color: #fff; }
-.intro-topline { position: relative; z-index: 1; display: flex; align-items: center; justify-content: flex-end; gap: 24px; padding-top: 28px; color: #d5e4ff; font-size: 13px; }
-.intro-topline a { display: flex; align-items: center; gap: 12px; }
-.intro-topline a:hover { color: #fff; }
 .intro-copy { position: relative; z-index: 1; flex: 1; width: 100%; max-width: 740px; margin: 0 auto; padding: 60px 20px 64px; text-align: center; }
 .intro-copy h1 { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: 0 24px; font-size: 112px; font-weight: 600; line-height: 1.15; letter-spacing: -.055em; }
 .intro-copy h1 span { font-size: 54px; font-weight: 400; letter-spacing: -.03em; }
@@ -337,16 +334,12 @@ html[lang='en'] { --vp-code-copy-copied-text-content: 'Copied'; }
   .intro-copy { padding-top: 64px; padding-bottom: 60px; }
   .intro-copy h1 { font-size: 88px; }
   .intro-copy h1 span { font-size: 42px; }
-  .intro-topline { padding-top: 24px; }
   .intro-foot { gap: 32px; }
   .brand-plane, .brand-base, .brand-emblem { opacity: .4; }
 }
 
 @media (max-width: 767px) {
   .intro { min-height: 0; padding: 0 24px; }
-  .intro-topline { gap: 12px; font-size: 12px; }
-  .intro-topline a { gap: 8px; }
-  .intro-topline a span:first-child { display: none; }
   .intro-copy { padding: 64px 0 56px; }
   .intro-copy h1 { gap: 0 16px; font-size: 80px; }
   .intro-copy h1 span { font-size: 38px; }

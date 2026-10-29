@@ -44,7 +44,7 @@ for (const [url, heading, language] of [['/versions.html', '选择版本', 'zh-C
 }
 const home = readFileSync(path.join(repository, 'website/.vitepress/theme/DocsHome.vue'), 'utf8')
 assert(home.includes("url('/pyside6/guide/getting-started')"), 'The Python home card must open the on-site Python guide')
-assert(!home.includes("url('/pyside6/changelog')"), 'The home page must use one changelog entry that defaults to Qt Quick')
+assert(!home.includes("url('/changelog')") && !home.includes("url('/pyside6/changelog')"), 'The home content must not duplicate the navigation changelog entry')
 assert(!home.includes('EUI-PySide6/blob/master/docs/guide.'), 'Home guide links must not leave the documentation site')
 for (const prefix of ['', '/en']) {
   for (const route of ['/guide/getting-started', '/guide/prerequisites', '/guide/build', '/guide/integration', '/guide/features', '/guide/gallery', '/guide/troubleshooting', '/changelog']) {

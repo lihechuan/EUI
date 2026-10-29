@@ -31,9 +31,6 @@ const url = path => {
 <template>
   <main class="docs-home">
     <section class="intro" aria-labelledby="intro-title">
-      <div class="intro-topline">
-        <a :href="url('/changelog')">{{ chinese ? '更新记录' : 'Changelog' }}</a>
-      </div>
       <div class="intro-copy">
         <h1 id="intro-title">EUI <span>{{ chinese ? '文档' : 'documentation' }}</span></h1>
         <p class="intro-subtitle">{{ chinese ? '为桌面应用，构建好界面。' : 'Build better desktop interfaces.' }}</p>
