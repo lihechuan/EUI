@@ -235,6 +235,10 @@ html[lang='en'] { --vp-code-copy-copied-text-content: 'Copied'; }
 .version-card-actions a:hover { text-decoration: underline; text-underline-offset: 4px; }
 .version-card-actions .version-card-primary { border-radius: 5px; padding: 9px 13px; background: var(--vp-c-brand-3); color: #fff; text-decoration: none; }
 .version-card-actions .version-card-primary:hover { background: #194bbf; }
+.vp-doc .edition-switch { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.vp-doc .edition-switch a { border: 1px solid var(--vp-c-divider); border-radius: 6px; padding: 8px 14px; color: var(--vp-c-text-2); font-size: 14px; text-decoration: none; }
+.vp-doc .edition-switch a:hover { border-color: var(--vp-c-brand-1); color: var(--vp-c-brand-1); }
+.vp-doc .edition-switch a[aria-current="page"] { border-color: var(--vp-c-brand-1); background: var(--vp-c-brand-soft); color: var(--vp-c-brand-1); font-weight: 600; }
 .vp-doc .version-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin: 24px 0 36px; }
 .vp-doc .version-option { min-width: 0; border: 1px solid var(--vp-c-divider); border-radius: 8px; padding: 24px; }
 .vp-doc .version-option h2 { margin: 0; border: 0; padding: 0; font-size: 20px; }

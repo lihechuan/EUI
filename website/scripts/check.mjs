@@ -39,7 +39,37 @@ for (const [url, heading, language] of [['/versions.html', '选择版本', 'zh-C
   assert(page.text.includes('https://github.com/lihechuan/EUI/releases'))
   assert(page.text.includes('https://github.com/lihechuan/EUI-PySide6/releases'))
   assert(page.text.includes('Windows x64') && page.text.includes('macOS Intel') && page.text.includes('Apple Silicon'))
-  assert(page.text.includes(`EUI-PySide6/blob/master/docs/guide.${language}.md`), 'Version selector must use the matching guide language')
+  const prefix = language === 'en' ? '/en' : ''
+  assert(page.text.includes(`${prefix}/pyside6/guide/getting-started`), 'Python guide must stay on the documentation site in the matching language')
+}
+const home = readFileSync(path.join(repository, 'website/.vitepress/theme/DocsHome.vue'), 'utf8')
+assert(home.includes("url('/pyside6/guide/getting-started')"), 'The Python home card must open the on-site Python guide')
+assert(!home.includes("url('/pyside6/changelog')"), 'The home page must use one changelog entry that defaults to Qt Quick')
+assert(!home.includes('EUI-PySide6/blob/master/docs/guide.'), 'Home guide links must not leave the documentation site')
+for (const prefix of ['', '/en']) {
+  for (const route of ['/guide/getting-started', '/guide/prerequisites', '/guide/build', '/guide/integration', '/guide/features', '/guide/gallery', '/guide/troubleshooting', '/changelog']) {
+    for (const edition of ['', '/pyside6']) {
+      const page = pages.get(`${prefix}${edition}${route}.html`)
+      assert(page, `Missing edition page: ${prefix}${edition}${route}`)
+      assert.match(page.html, /<nav class="edition-switch"/, 'Guides and changelogs must identify the selected edition')
+      const navigation = page.html.match(/<nav class="edition-switch"[^>]*>(.*?)<\/nav>/)[1]
+      const links = [...navigation.matchAll(/href="([^"]+)"/g)].map(([, target]) => target)
+      assert.equal(links.length, 2)
+      for (const base of ['/', '/EUI/', '/preview/docs/']) {
+        const current = `https://eui.invalid${base}${page.relative.replace(/\.md$/, '.html')}`
+        for (const [index, target] of ['', '/pyside6'].entries()) assert.equal(new URL(links[index], current).pathname, `${base.slice(0, -1)}${prefix}${target}${route}.html`, `Edition switching must preserve chapter, language and deployment directory: ${page.relative}`)
+      }
+      assert(page.html.includes(`aria-current="page">${edition ? 'Python / PySide6' : 'C++ / Qt Quick'}</a>`), `Wrong active edition: ${page.relative}`)
+    }
+  }
+  const pythonStart = pages.get(`${prefix}/pyside6/guide/getting-started.html`).text
+  const pythonIntegration = pages.get(`${prefix}/pyside6/guide/integration.html`).text
+  const pythonLog = pages.get(`${prefix}/pyside6/changelog.html`).text
+  assert(pythonStart.includes('EUI-PySide6') && pythonStart.includes('Python'))
+  assert(pythonIntegration.includes('from eui import initialize') && pythonIntegration.includes('initialize(engine,'))
+  assert(!pythonIntegration.includes('CMakeLists.txt'), 'Python integration must not show the C++ setup')
+  assert(pythonLog.includes('1.3.2') && pythonLog.includes('Python/PySide6'))
+  assert(!pythonLog.includes('2026-10-20') && !pythonLog.includes('asynchronous form validation'), 'Python changelog must not reuse C++ release notes or dates')
 }
 assert(pages.get('/guide/getting-started.html').text.includes('/versions'), 'Chinese quick start must link to version selection')
 assert(pages.get('/en/guide/getting-started.html').text.includes('/en/versions'), 'English quick start must link to English version selection')

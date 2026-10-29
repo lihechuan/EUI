@@ -20,26 +20,26 @@ function navigation(language) {
         { text: chinese ? '版本下载' : 'Versions', link: `${prefix}/versions` }
       ],
       sidebar: {
-        [`${prefix}/guide/`]: [
+        ...Object.fromEntries(['', '/pyside6'].map(edition => [`${prefix}${edition}/guide/`, [
           {
-            text: chinese ? '开始使用' : 'Get started',
+            text: edition ? 'Python / PySide6' : 'C++ / Qt Quick',
             items: [
               { text: chinese ? '选择版本' : 'Choose a version', link: `${prefix}/versions` },
-              { text: chinese ? '快速开始' : 'Quick start', link: `${prefix}/guide/getting-started` },
-              { text: chinese ? '环境准备' : 'Prerequisites', link: `${prefix}/guide/prerequisites` },
-              { text: chinese ? '构建 EUI' : 'Build EUI', link: `${prefix}/guide/build` },
-              { text: chinese ? '接入应用' : 'Application integration', link: `${prefix}/guide/integration` }
+              { text: chinese ? '快速开始' : 'Quick start', link: `${prefix}${edition}/guide/getting-started` },
+              { text: chinese ? '环境准备' : 'Prerequisites', link: `${prefix}${edition}/guide/prerequisites` },
+              { text: edition ? (chinese ? '安装与运行' : 'Install and run') : (chinese ? '构建 EUI' : 'Build EUI'), link: `${prefix}${edition}/guide/build` },
+              { text: chinese ? '接入应用' : 'Application integration', link: `${prefix}${edition}/guide/integration` }
             ]
           },
           {
             text: chinese ? '开发指南' : 'Development',
             items: [
-              { text: chinese ? '主题、表单与常用功能' : 'Themes, forms, and common features', link: `${prefix}/guide/features` },
-              { text: chinese ? '使用 Gallery' : 'Use the Gallery', link: `${prefix}/guide/gallery` },
-              { text: chinese ? '常见问题' : 'Troubleshooting', link: `${prefix}/guide/troubleshooting` }
+              { text: chinese ? '主题、表单与常用功能' : 'Themes, forms, and common features', link: `${prefix}${edition}/guide/features` },
+              { text: chinese ? '使用 Gallery' : 'Use the Gallery', link: `${prefix}${edition}/guide/gallery` },
+              { text: chinese ? '常见问题' : 'Troubleshooting', link: `${prefix}${edition}/guide/troubleshooting` }
             ]
           }
-        ],
+        ]])),
         [`${prefix}/components/`]: [
           { text: chinese ? '全部组件' : 'All components', link: `${prefix}/components/` },
           ...groups.map(group => ({
@@ -62,7 +62,7 @@ function navigation(language) {
       returnToTopLabel: chinese ? '返回顶部' : 'Return to top',
       editLink: {
         text: chinese ? '查看文档来源' : 'View documentation source',
-        pattern: ({ frontmatter }) => `https://github.com/lihechuan/EUI/blob/master/${frontmatter.source || 'website/README.md'}`
+        pattern: ({ frontmatter }) => frontmatter.sourceUrl || `https://github.com/lihechuan/EUI/blob/master/${frontmatter.source || 'website/README.md'}`
       },
       footer: {
         message: chinese ? '基于 MIT 许可发布 · 第三方资源遵循其各自许可' : 'Released under the MIT License. Third-party assets retain their own licenses.',

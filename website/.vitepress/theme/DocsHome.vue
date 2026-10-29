@@ -32,7 +32,7 @@ const url = path => {
   <main class="docs-home">
     <section class="intro" aria-labelledby="intro-title">
       <div class="intro-topline">
-        <a :href="url('/changelog')">C++ v{{ site.version }}<span>{{ chinese ? '更新记录' : 'Changelog' }}</span><span aria-hidden="true">↗</span></a>
+        <a :href="url('/changelog')">{{ chinese ? '更新记录' : 'Changelog' }}</a>
       </div>
       <div class="intro-copy">
         <h1 id="intro-title">EUI <span>{{ chinese ? '文档' : 'documentation' }}</span></h1>
@@ -97,7 +97,7 @@ const url = path => {
           <article class="version-card">
             <div class="version-card-heading"><h3>EUI-PySide6</h3><span>Python · PySide6</span><small>v{{ site.pythonVersion }}</small></div>
             <p>{{ chinese ? '适用于 Python 桌面应用。提供 Windows x64、macOS Intel 和 Apple Silicon 安装包、免安装包及 Python wheel。' : 'For Python desktop applications. Installer, portable, and Python wheel packages are available for Windows x64, macOS Intel, and Apple Silicon.' }}</p>
-            <div class="version-card-actions"><a class="version-card-primary" href="https://github.com/lihechuan/EUI-PySide6/releases">{{ chinese ? '下载 Python 版' : 'Download Python edition' }}</a><a :href="chinese ? 'https://github.com/lihechuan/EUI-PySide6/blob/master/docs/guide.zh-CN.md' : 'https://github.com/lihechuan/EUI-PySide6/blob/master/docs/guide.en.md'">{{ chinese ? '使用指南' : 'Python guide' }}<span aria-hidden="true">↗</span></a></div>
+            <div class="version-card-actions"><a class="version-card-primary" href="https://github.com/lihechuan/EUI-PySide6/releases">{{ chinese ? '下载 Python 版' : 'Download Python edition' }}</a><a :href="url('/pyside6/guide/getting-started')">{{ chinese ? 'Python 使用指南' : 'Python guide' }}<span aria-hidden="true">↗</span></a></div>
           </article>
         </div>
       </section>
