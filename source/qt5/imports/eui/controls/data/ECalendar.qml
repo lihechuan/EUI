@@ -31,8 +31,11 @@ EDatePickerPanel {
     }
 
     function dateAllowed(date) {
-        return EValueUtils.dateAllowed(date, minDate, maxDate, disabledDate)
-            && (validatedRange.length !== 2 || date >= validatedRange[0] && date <= validatedRange[1])
+        if (!EValueUtils.dateAllowed(date, minDate, maxDate, disabledDate))
+            return false
+        const key = EValueUtils.formatDate(date)
+        return validatedRange.length !== 2 || key >= EValueUtils.formatDate(validatedRange[0])
+            && key <= EValueUtils.formatDate(validatedRange[1])
     }
 
     function selectDate(input) {
@@ -234,7 +237,9 @@ EDatePickerPanel {
                         }
                     }
 
-                    onClicked: control.selectDate(date)
+                    onClicked: function(date) {
+                        control.selectDate(date)
+                    }
                 }
             }
         }

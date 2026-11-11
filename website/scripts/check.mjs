@@ -46,6 +46,10 @@ const home = readFileSync(path.join(repository, 'website/.vitepress/theme/DocsHo
 assert(home.includes("url('/pyside6/guide/getting-started')"), 'The Python home card must open the on-site Python guide')
 assert(!home.includes("url('/changelog')") && !home.includes("url('/pyside6/changelog')"), 'The home content must not duplicate the navigation changelog entry')
 assert(!home.includes('EUI-PySide6/blob/master/docs/guide.'), 'Home guide links must not leave the documentation site')
+assert(home.includes('site.screenshotVersion'), 'Home images must use the screenshot index version')
+for (const theme of ['home', 'overview-dark']) {
+  for (const language of ['zh', 'en']) assert(existsSync(path.join(source, `public/screenshots/${site.screenshotVersion}/${theme}-${language}.png`)))
+}
 for (const prefix of ['', '/en']) {
   for (const route of ['/guide/getting-started', '/guide/prerequisites', '/guide/build', '/guide/integration', '/guide/features', '/guide/gallery', '/guide/troubleshooting', '/changelog']) {
     for (const edition of ['', '/pyside6']) {
@@ -68,7 +72,7 @@ for (const prefix of ['', '/en']) {
   assert(pythonStart.includes('EUI-PySide6') && pythonStart.includes('Python'))
   assert(pythonIntegration.includes('from eui import initialize') && pythonIntegration.includes('initialize(engine,'))
   assert(!pythonIntegration.includes('CMakeLists.txt'), 'Python integration must not show the C++ setup')
-  assert(pythonLog.includes('1.3.2') && pythonLog.includes('Python/PySide6'))
+  assert(pythonLog.includes(site.pythonVersion) && pythonLog.includes('Python/PySide6'))
   assert(!pythonLog.includes('2026-10-20') && !pythonLog.includes('asynchronous form validation'), 'Python changelog must not reuse C++ release notes or dates')
 }
 assert(pages.get('/guide/getting-started.html').text.includes('/versions'), 'Chinese quick start must link to version selection')

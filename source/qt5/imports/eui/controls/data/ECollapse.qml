@@ -144,9 +144,9 @@ Control {
                         property var entry: panel.entry
 
                         anchors.fill: parent
-                        active: sourceComponent !== null
                         anchors.leftMargin: control.expandIconPosition === "left" ? 40 : 16
                         sourceComponent: panel.entry.titleDelegate || control.titleDelegate
+                        active: (panel.entry.titleDelegate || control.titleDelegate) !== null
                         anchors.rightMargin: control.expandIconPosition === "right" ? 40 : 16
                     }
                     EIcon {
@@ -167,9 +167,9 @@ Control {
 
                         width: 16
                         height: 16
-                        active: sourceComponent !== null
                         anchors.verticalCenter: parent.verticalCenter
                         sourceComponent: panel.entry.iconDelegate || control.iconDelegate
+                        active: (panel.entry.iconDelegate || control.iconDelegate) !== null
                         x: control.expandIconPosition === "left" ? 16 : parent.width - width - 16
                     }
                 }
@@ -188,9 +188,9 @@ Control {
                     property var entry: panel.entry
 
                     width: parent.width
-                    visible: panel.expanded
-                    active: sourceComponent !== null
+                    visible: panel.expanded && active
                     sourceComponent: panel.entry.contentDelegate || control.contentDelegate
+                    active: (panel.entry.contentDelegate || control.contentDelegate) !== null
                 }
             }
         }

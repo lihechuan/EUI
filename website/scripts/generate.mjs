@@ -19,6 +19,8 @@ const pythonRepository = pythonSource.repository
 const escape = text => String(text ?? '').replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;')
 const version = read('CMakeLists.txt').match(/project\(EUI VERSION ([\d.]+)\)/)?.[1]
 assert(version, 'Cannot read the EUI version from CMakeLists.txt')
+const screenshotVersion = read('docs/screenshots/README.md').match(/\((\d+\.\d+\.\d+)\/home-(?:zh|en)\.png\)/)?.[1]
+assert(screenshotVersion, 'Cannot read the screenshot version from docs/screenshots/README.md')
 
 const api = JSON.parse(read('example/data/component-api.json'))
 const locales = Object.fromEntries(['zh', 'en'].map(language => [language, JSON.parse(read(`${moduleRoot}/i18n/${language}.json`))]))
@@ -351,11 +353,11 @@ for (const [file, name] of [
   ['website/.vitepress/theme/fonts/NotoSansSC-OFL.txt', 'NotoSansSC-OFL.txt']
 ]) copyFileSync(path.join(root, file), path.join(output, 'public/playground/licenses', name))
 copyFileSync(path.join(root, 'assets/eui-mark.svg'), path.join(output, 'public/eui-mark.svg'))
-const screenshotDirectory = path.join(root, `docs/screenshots/${version}`)
-assert(existsSync(screenshotDirectory), `No screenshots for EUI ${version}; refresh them before building the site`)
+const screenshotDirectory = path.join(root, `docs/screenshots/${screenshotVersion}`)
+assert(existsSync(screenshotDirectory), `No screenshots for EUI ${screenshotVersion}; refresh them before building the site`)
 for (const file of readdirSync(screenshotDirectory)) {
   if (!file.endsWith('.png')) continue
-  const target = path.join(output, `public/screenshots/${version}`, file)
+  const target = path.join(output, `public/screenshots/${screenshotVersion}`, file)
   mkdirSync(path.dirname(target), { recursive: true })
   copyFileSync(path.join(screenshotDirectory, file), target)
 }
@@ -409,6 +411,6 @@ for (const language of ['zh', 'en']) {
   }
 }
 
-write('site.json', JSON.stringify({ version, pythonVersion, groups, componentCount: components.length, exampleCount, missingExamples }, null, 2))
+write('site.json', JSON.stringify({ version, pythonVersion, screenshotVersion, groups, componentCount: components.length, exampleCount, missingExamples }, null, 2))
 console.log(`Generated EUI ${version}: ${components.length} component pages per language, ${exampleCount} examples, ${guideNames.length} shared guide chapters.`)
 if (missingExamples.length) console.log(`Source links provided for components without standalone snippets: ${missingExamples.join(', ')}`)

@@ -43,6 +43,9 @@ def run(args):
     if args.qt5_interpreter:
         environment["QV4_FORCE_INTERPRETER"] = "1"
     suites = [HERE / "tst_public_components.qml", HERE / "tst_slot_regressions.qml",
+        HERE / "tst_control_regressions.qml", HERE / "tst_calendar_regressions.qml", HERE / "tst_backdrop_regressions.qml", HERE / "tst_ripple_regressions.qml",
+        HERE / "tst_border_beam_regressions.qml",
+        HERE / "tst_deferred_regressions.qml",
         HERE / "tst_form_regressions.qml", HERE / "tst_window_regressions.qml",
         HERE.parent / "primevue/tst_gallery_interactions.qml"]
     if args.gallery_runner:
@@ -70,8 +73,11 @@ def run(args):
             command = [str(runner.resolve()), "-input", str(source), "-import", str(args.imports.resolve()),
                 "-platform", "offscreen", "-o", str(log) + ",txt"]
         environment["EUI_QML_TIMEOUT"] = "890"
+        suite_environment = environment.copy()
+        if suite.name == "tst_backdrop_regressions.qml":
+            suite_environment["QT_SCALE_FACTOR"] = "2"
         try:
-            completed = subprocess.run(command, cwd=ROOT, env=environment, capture_output=True, timeout=900,
+            completed = subprocess.run(command, cwd=ROOT, env=suite_environment, capture_output=True, timeout=900,
                 creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0)
             console = (completed.stdout + completed.stderr).decode("utf-8", errors="replace")
             if isolated:

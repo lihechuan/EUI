@@ -47,6 +47,12 @@ python validation/library/run_full.py `
 - `tst_slot_regressions.qml`：选择器、复选框组、标签输入和数字输入的自定义插槽尺寸；固定标签绑定恢复及销毁；列表点击转发、加载遮罩滚轮拦截；标签头像按需加载与清空；排程日/周/月切换语言；16 个示例在亮暗主题、中英文下的 64 项文字对比度检查。
 - `tst_form_regressions.qml`：直接键和嵌套模型路径；异步校验正常完成、编辑和增删字段、重新校验、清空、重置、销毁及取消回调中的重入。取消的校验回调以 `false` 结束，过期结果不影响新校验。
 - `tst_window_regressions.qml`：初始、动态添加、替换和移除标题栏时的宽度同步，以及旧宽度值或绑定恢复。
+- `tst_calendar_regressions.qml`：日期范围按日包含完整首日与末日，范围端点带时分秒时保持相同边界，并拒绝范围外日期。
+- `tst_ripple_regressions.qml`：零缩放和透明动画帧不绘制波纹，正常缩放保持可见；拒绝非有限坐标和禁用时的 pulse。
+- `tst_border_beam_regressions.qml`：小数 outset 产生非整数画布尺寸时，同一动画帧反复绘制的像素保持不变，避免未完整清除的边缘叠色。
+- `tst_deferred_regressions.qml`：显式 viewport 下，初始在视口外的 Deferred 与 AnimateOnScroll 随祖先移入、移出及再次进入时更新可见状态；同级 viewport 自身及其祖先移动时同步更新。
+- `tst_backdrop_regressions.qml`：在 200% 缩放下检查 BackdropRenderer 的完整区域、偏移裁剪及超过采样上限的源图，避免把截图物理像素当作逻辑像素；Qt 5 离屏 QtTest 不支持截图时明确跳过像素断言。
+- `tst_control_regressions.qml`：步骤条绑定与 Wizard 导航/重置、Anchor 清空目标、Card/Statistic/Collapse/Timeline 插槽移除/恢复、InfiniteScroll 加载边界与追加后的滚动位置、命令面板连续筛选与缩放、Image 错误占位、Terminal 异步完成单次通知和同步/异步输出转换失败后的恢复，以及 DynamicDialog 零/非零退出时长下的完成结果、快速重开、单次通知及保留内容时切换组件和参数。
 - `tst_desktop_gallery.qml`：按当前版本检查新组件标记和徽标，同时保留 1.3.0 的 26 个组件及全部示例验证。
 - `tst_gallery_navigation.qml`：浅色/深色、中英文下比较导航区域实际像素与直接绘制到窗口的参考像素，防止离屏图层改变文字边缘渲染。
 - `tst_gallery_matrix.qml`：全部非演示目录项在浅色/深色、1040/640 页面宽度下加载全部示例，检查尺寸、预览边界、渲染输出；代表页面另外检查连续缩放至 1920/2560；侧栏检查中英文、亮暗主题字体一致性，以及徽章/输入组合页面与菜单之间反复悬停后的文字像素。截图输出到 `build/library-validation/gallery-images/`。

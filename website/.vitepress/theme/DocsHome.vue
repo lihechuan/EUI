@@ -21,7 +21,7 @@ const language = computed(() => chinese.value ? 'zh' : 'en')
 const prefix = computed(() => chinese.value ? '' : '/en')
 const selectedGroup = computed(() => site.groups.find(group => group.id === selectedGroupId.value))
 const selectedComponents = computed(() => selectedGroup.value.items.filter(item => !item.demo))
-const screenshot = theme => withBase('/screenshots/' + site.version + '/' + (theme === 'dark' ? 'overview-dark' : 'home') + '-' + language.value + '.png')
+const screenshot = theme => withBase('/screenshots/' + site.screenshotVersion + '/' + (theme === 'dark' ? 'overview-dark' : 'home') + '-' + language.value + '.png')
 const url = path => {
   const [page, anchor] = path.split('#')
   return withBase(prefix.value + (page.endsWith('/') ? page : page + '.html') + (anchor ? '#' + anchor : ''))

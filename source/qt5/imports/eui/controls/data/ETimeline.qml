@@ -78,8 +78,8 @@ Control {
 
                     y: entry.dotY
                     x: entry.lineX - width / 2
-                    active: sourceComponent !== null
                     sourceComponent: entry.event.dotDelegate || control.dotDelegate
+                    active: (entry.event.dotDelegate || control.dotDelegate) !== null
                 }
                 Column {
                     id: eventColumn
@@ -110,9 +110,10 @@ Control {
 
                         property var event: entry.event
 
+                        visible: active
                         width: parent.width
-                        active: sourceComponent !== null
                         sourceComponent: entry.event.contentDelegate || control.contentDelegate
+                        active: (entry.event.contentDelegate || control.contentDelegate) !== null
                     }
                     EText {
                         font.pixelSize: 12

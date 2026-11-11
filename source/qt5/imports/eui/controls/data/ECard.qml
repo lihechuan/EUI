@@ -47,8 +47,9 @@ Control {
         Loader {
             id: headerSlot
 
+            visible: active
             width: parent.width
-            active: sourceComponent !== null
+            active: control.headerDelegate !== null
             sourceComponent: control.headerDelegate
         }
         ERectangle {
@@ -82,8 +83,9 @@ Control {
         Loader {
             id: footerSlot
 
+            visible: active
             width: parent.width
-            active: sourceComponent !== null
+            active: control.footerDelegate !== null
             sourceComponent: control.footerDelegate
         }
     }

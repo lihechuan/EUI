@@ -608,7 +608,7 @@ Animations control visual appearance; application logic manages `visible`, `enab
 
 ### 4.8 Desktop components introduced in 1.2.0
 
-The desktop components below were introduced in software version `1.2.0`. When a catalog entry's `introducedIn` matches the current build version, Gallery navigation shows a green **New** badge and the overview lists those components together; component details retain the introduction version. The current `1.3.2` is a fix release, so components introduced in `1.2.0` and `1.3.0` do not show current-version badges.
+The desktop components below were introduced in software version `1.2.0`. When a catalog entry's `introducedIn` matches the current build version, Gallery navigation shows a green **New** badge and the overview lists those components together; component details retain the introduction version. The current `1.3.3` is a fix release, so components introduced in `1.2.0` and `1.3.0` do not show current-version badges.
 
 | Component | Purpose | Main API |
 | --- | --- | --- |

@@ -1,6 +1,7 @@
 """Verify edition guides and changelogs against a running production preview."""
 
 import os
+import re
 import sys
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -57,7 +58,9 @@ with sync_playwright() as playwright:
                 assert links and all("/pyside6/guide/" in link for link in links), links
             else:
                 assert "Python/PySide6" in python_content and "2026-10-20" not in python_content
-                assert page.locator(".vp-doc li").count() == 5
+                changelog_source = Path(__file__).resolve().parents[1] / ".generated" / language / "pyside6/changelog.md"
+                expected_items = len(re.findall(r"^\d+\. ", changelog_source.read_text(encoding="utf-8"), re.M))
+                assert page.locator(".vp-doc li").count() == expected_items
                 page.screenshot(path=str(artifacts / ("editions-python-log-en.png" if language else "editions-python-log-zh.png")))
             page.locator(".edition-switch").get_by_role("link", name="C++ / Qt Quick", exact=True).click()
             page.wait_for_url(base_url + language + route)

@@ -4,6 +4,26 @@
 
 Features, fixes, and compatibility changes for each version.
 
+## 1.3.3 - 2026-11-11
+
+1. 保留 `ESteps.active` 的有效绑定，使 Wizard 在前进、后退、完成、重置和替换模型后同步步骤条。
+2. 修复 Anchor 清空滚动目标后保留旧选中项及访问空对象的问题。
+3. 修复 Card 和 Statistic 移除内容槽后保留旧尺寸，以及重新启用插槽时的 Loader 绑定循环。
+4. 修复 DynamicDialog 零时长退出时先回传拒绝结果的问题，并保护延迟完成回调中的对象生命周期。
+5. 修复 CommandPalette 连续筛选后立即缩放时使用旧列表高度的问题。
+6. 修复 Image 切换错误占位内容时的 Loader 绑定循环，并显式声明预览键盘和滚轮事件参数，消除 Qt 6 参数注入警告。
+7. 修复 Collapse 和 Timeline 移除内容插槽后残留旧高度及恢复时的 Loader 绑定循环。
+8. 修复 InfiniteScroll 到达加载距离边界时未触发加载的问题。
+9. 修复 Terminal 异步处理器重复回调时覆盖首次结果并重复发送完成通知，以及输出转换失败后一直处于忙碌状态的问题。
+10. 修复高 DPI 软件渲染下背景采样与圆角裁剪使用错误区域，导致内容被放大或偏移的问题。
+11. 修复 Calendar 范围比较包含时分秒时排除首日或末日的问题，统一按日判断范围边界。
+12. 修复 Ripple 在零缩放首帧仍绘制孤立像素的问题。
+13. 修复 BorderBeam 在小数尺寸或高 DPI 下反复绘制时边缘颜色残留、逐渐加深的问题。
+14. 修复 Deferred 和 AnimateOnScroll 初始位于显式视口外时，随祖先移动进入视口后仍不更新，以及同级视口或其祖先移动后可见状态未更新的问题。
+15. 修复 DynamicDialog 保留内容后切换组件时使用新参数重复创建旧组件的问题。
+
+English: Keeps DynamicDialog component and parameter updates together so switching retained content does not recreate the old component with new parameters. Makes Deferred and AnimateOnScroll track movement of their ancestors, explicit viewports, and viewport ancestors. Prevents BorderBeam edge pixels from accumulating on repeated paints with fractional canvas sizes or high DPI. Hides the Ripple wave at zero scale to avoid a stray pixel on its initial frame. Keeps Calendar range boundaries inclusive for the entire first and last calendar days. Fixes backdrop sampling and rounded clipping using the wrong source region on high-DPI software rendering. Keeps Terminal asynchronous completion results and notifications single-shot, and completes commands with an error when their output cannot be converted to text. Fixes missed InfiniteScroll loads at the distance boundary, stale Collapse and Timeline content heights after delegate removal, and Loader binding loops when restoring these delegates. Preserves valid step bindings so Wizard navigation, completion, reset, and model changes keep the step indicator synchronized. Clears Anchor selection safely when its target is removed. Removes stale Card and Statistic slot sizes and reactivation binding loops. Keeps DynamicDialog completion results correct with zero-duration exits and guards deferred callbacks. Updates CommandPalette height after batched filtering and resizing. Removes Image error-delegate Loader binding loops and Qt 6 preview event-parameter warnings.
+
 ## 1.3.2 - 2026-10-20
 
 1. 修复表单异步校验在重新校验、修改输入、清除、重置或销毁后仍等待旧结果的问题，避免过期回调覆盖当前校验状态。

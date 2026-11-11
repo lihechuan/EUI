@@ -14,16 +14,16 @@ EUI 是面向 Qt Quick / QML 桌面应用的组件库，提供表单、数据表
 
 从 [GitHub Releases](https://github.com/lihechuan/EUI/releases) 下载匹配系统和架构的安装包或免安装包。安装后启动 Gallery；免安装包需完整解压，保留其中的运行库和子目录。运行打包后的应用不需要安装 Qt SDK。
 
-[v1.3.2](https://github.com/lihechuan/EUI/releases/tag/v1.3.2) 直接下载：
+[v1.3.3](https://github.com/lihechuan/EUI/releases/tag/v1.3.3) 直接下载：
 
 | 系统 | 架构 | 安装包 | 免安装包 |
 | --- | --- | --- | --- |
-| Windows | x64 | [EXE](https://github.com/lihechuan/EUI/releases/download/v1.3.2/EUI-Gallery-1.3.2-windows-x64-setup.exe) | [ZIP](https://github.com/lihechuan/EUI/releases/download/v1.3.2/EUI-Gallery-1.3.2-windows-x64-portable.zip) |
-| Windows | x86（32 位） | [EXE](https://github.com/lihechuan/EUI/releases/download/v1.3.2/EUI-Gallery-1.3.2-windows-x86-setup.exe) | [ZIP](https://github.com/lihechuan/EUI/releases/download/v1.3.2/EUI-Gallery-1.3.2-windows-x86-portable.zip) |
-| macOS | Apple Silicon（arm64） | [DMG](https://github.com/lihechuan/EUI/releases/download/v1.3.2/EUI-Gallery-1.3.2-macos-arm64.dmg) | [ZIP](https://github.com/lihechuan/EUI/releases/download/v1.3.2/EUI-Gallery-1.3.2-macos-arm64-portable.zip) |
-| macOS | Intel（x64） | [DMG](https://github.com/lihechuan/EUI/releases/download/v1.3.2/EUI-Gallery-1.3.2-macos-x64.dmg) | [ZIP](https://github.com/lihechuan/EUI/releases/download/v1.3.2/EUI-Gallery-1.3.2-macos-x64-portable.zip) |
+| Windows | x64 | [EXE](https://github.com/lihechuan/EUI/releases/download/v1.3.3/EUI-Gallery-1.3.3-windows-x64-setup.exe) | [ZIP](https://github.com/lihechuan/EUI/releases/download/v1.3.3/EUI-Gallery-1.3.3-windows-x64-portable.zip) |
+| Windows | x86（32 位） | [EXE](https://github.com/lihechuan/EUI/releases/download/v1.3.3/EUI-Gallery-1.3.3-windows-x86-setup.exe) | [ZIP](https://github.com/lihechuan/EUI/releases/download/v1.3.3/EUI-Gallery-1.3.3-windows-x86-portable.zip) |
+| macOS | Apple Silicon（arm64） | [DMG](https://github.com/lihechuan/EUI/releases/download/v1.3.3/EUI-Gallery-1.3.3-macos-arm64.dmg) | [ZIP](https://github.com/lihechuan/EUI/releases/download/v1.3.3/EUI-Gallery-1.3.3-macos-arm64-portable.zip) |
+| macOS | Intel（x64） | [DMG](https://github.com/lihechuan/EUI/releases/download/v1.3.3/EUI-Gallery-1.3.3-macos-x64.dmg) | [ZIP](https://github.com/lihechuan/EUI/releases/download/v1.3.3/EUI-Gallery-1.3.3-macos-x64-portable.zip) |
 
-下载后可对照 [SHA256SUMS.txt](https://github.com/lihechuan/EUI/releases/download/v1.3.2/SHA256SUMS.txt) 校验文件。本版本未提供 Linux 安装包。
+下载后可对照 [SHA256SUMS.txt](https://github.com/lihechuan/EUI/releases/download/v1.3.3/SHA256SUMS.txt) 校验文件。本版本未提供 Linux 安装包。
 
 搜索组件并操作示例，点击“显示源代码”或“复制源码”。示例下方的 API 说明组件的属性、方法和信号，可通过语言和主题控件切换显示效果。
 

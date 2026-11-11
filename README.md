@@ -14,16 +14,16 @@ Edit a table, switch between light and dark themes, and open the example's QML s
 
 Download a package for your system and architecture from [GitHub Releases](https://github.com/lihechuan/EUI/releases). Use the installer, or extract the complete portable package and launch the Gallery. Keep its libraries and subdirectories together; packaged applications do not require a Qt SDK.
 
-Direct downloads for [v1.3.2](https://github.com/lihechuan/EUI/releases/tag/v1.3.2):
+Direct downloads for [v1.3.3](https://github.com/lihechuan/EUI/releases/tag/v1.3.3):
 
 | System | Architecture | Installer | Portable |
 | --- | --- | --- | --- |
-| Windows | x64 | [EXE](https://github.com/lihechuan/EUI/releases/download/v1.3.2/EUI-Gallery-1.3.2-windows-x64-setup.exe) | [ZIP](https://github.com/lihechuan/EUI/releases/download/v1.3.2/EUI-Gallery-1.3.2-windows-x64-portable.zip) |
-| Windows | x86 (32-bit) | [EXE](https://github.com/lihechuan/EUI/releases/download/v1.3.2/EUI-Gallery-1.3.2-windows-x86-setup.exe) | [ZIP](https://github.com/lihechuan/EUI/releases/download/v1.3.2/EUI-Gallery-1.3.2-windows-x86-portable.zip) |
-| macOS | Apple Silicon (arm64) | [DMG](https://github.com/lihechuan/EUI/releases/download/v1.3.2/EUI-Gallery-1.3.2-macos-arm64.dmg) | [ZIP](https://github.com/lihechuan/EUI/releases/download/v1.3.2/EUI-Gallery-1.3.2-macos-arm64-portable.zip) |
-| macOS | Intel (x64) | [DMG](https://github.com/lihechuan/EUI/releases/download/v1.3.2/EUI-Gallery-1.3.2-macos-x64.dmg) | [ZIP](https://github.com/lihechuan/EUI/releases/download/v1.3.2/EUI-Gallery-1.3.2-macos-x64-portable.zip) |
+| Windows | x64 | [EXE](https://github.com/lihechuan/EUI/releases/download/v1.3.3/EUI-Gallery-1.3.3-windows-x64-setup.exe) | [ZIP](https://github.com/lihechuan/EUI/releases/download/v1.3.3/EUI-Gallery-1.3.3-windows-x64-portable.zip) |
+| Windows | x86 (32-bit) | [EXE](https://github.com/lihechuan/EUI/releases/download/v1.3.3/EUI-Gallery-1.3.3-windows-x86-setup.exe) | [ZIP](https://github.com/lihechuan/EUI/releases/download/v1.3.3/EUI-Gallery-1.3.3-windows-x86-portable.zip) |
+| macOS | Apple Silicon (arm64) | [DMG](https://github.com/lihechuan/EUI/releases/download/v1.3.3/EUI-Gallery-1.3.3-macos-arm64.dmg) | [ZIP](https://github.com/lihechuan/EUI/releases/download/v1.3.3/EUI-Gallery-1.3.3-macos-arm64-portable.zip) |
+| macOS | Intel (x64) | [DMG](https://github.com/lihechuan/EUI/releases/download/v1.3.3/EUI-Gallery-1.3.3-macos-x64.dmg) | [ZIP](https://github.com/lihechuan/EUI/releases/download/v1.3.3/EUI-Gallery-1.3.3-macos-x64-portable.zip) |
 
-Verify downloads against [SHA256SUMS.txt](https://github.com/lihechuan/EUI/releases/download/v1.3.2/SHA256SUMS.txt). This release does not include a Linux package.
+Verify downloads against [SHA256SUMS.txt](https://github.com/lihechuan/EUI/releases/download/v1.3.3/SHA256SUMS.txt). This release does not include a Linux package.
 
 Search for a component, try its examples, and select **Show source** or **Copy source**. The API below each example explains its properties, methods, and signals. Use the language and theme controls to switch appearance.
 

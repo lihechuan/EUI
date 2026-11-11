@@ -292,7 +292,7 @@ void EBackdropRenderer::capture()
     connect(grab_.data(),
             &QQuickItemGrabResult::ready,
             this,
-            [this, region, scale, radius, revision]()
+            [this, region, sourceSize, scale, radius, revision]()
             {
                 const auto grab = grab_;
                 disconnect(grab.data(), nullptr, this, nullptr);
@@ -309,9 +309,10 @@ void EBackdropRenderer::capture()
                              QImage::Format_ARGB32_Premultiplied);
                 image.fill(Qt::transparent);
                 QPainter painter(&image);
-                const QRectF crop(
-                    region.x() * scale, region.y() * scale, region.width() * scale, region.height() * scale);
-                painter.drawImage(QRectF(image.rect()), grab->image(), crop);
+                const auto captured = grab->image();
+                const qreal sx = captured.width() / sourceSize.width(), sy = captured.height() / sourceSize.height();
+                const QRectF crop(region.x() * sx, region.y() * sy, region.width() * sx, region.height() * sy);
+                painter.drawImage(QRectF(image.rect()), captured, crop);
                 painter.end();
                 if (radius == 0)
                 {
